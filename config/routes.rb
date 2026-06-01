@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   get "activity_sessions/:id/summary", to: "activity_sessions#summary"
   post "activity_sessions/:id/rate", to: "activity_sessions#rate"
 
-  patch "user_interests", to: "user_interests#patch"
+  resources :users
+  resource :user_interests, only: [:show, :update]
 end

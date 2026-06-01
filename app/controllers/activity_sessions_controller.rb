@@ -2,7 +2,7 @@ class ActivitySessionsController < ApplicationController
   def new
   end
 
-  def offer(id)
+  def offer
   end
 
   def choose
