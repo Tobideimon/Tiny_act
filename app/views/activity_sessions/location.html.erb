@@ -1,0 +1,17 @@
+<div class="session-location">
+
+  <h1>Où es-tu ?</h1>
+
+  <%= form_with url: activity_session_duration_path, method: :get do %>
+    <%= hidden_field_tag :mood_id, @mood.id %>
+
+    <% @locations.each do |location| %>
+      <div>
+        <%= radio_button_tag :location_id, location.id, false, required: true %>
+        <%= label_tag "location_id_#{location.id}", location.name %>
+      </div>
+    <% end %>
+
+    <%= submit_tag "Continuer" %>
+  <% end %>
+</div>

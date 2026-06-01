@@ -1,0 +1,17 @@
+<div class="session-duration">
+  <h1>Combien de temps as-tu ?</h1>
+
+  <%= form_with url: offer_activity_sessions_path, method: :get do %>
+    <%= hidden_field_tag :mood_id, @mood.id %>
+    <%= hidden_field_tag :location_id, @location.id %>
+
+    <% @durations.each do |duration| %>
+      <div>
+        <%= radio_button_tag :duration_id, duration.id, false, required: true %>
+        <%= label_tag "duration_id_#{duration.id}", "#{duration.value} minutes" %>
+      </div>
+    <% end %>
+
+    <%= submit_tag "Voir mes activités" %>
+  <% end %>
+</div>

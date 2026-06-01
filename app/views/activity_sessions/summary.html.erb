@@ -1,0 +1,25 @@
+<div class="session-summary">
+
+  <h1>Compte rendu</h1>
+
+  <p>Activité : <%= @activity_session.activity.name %></p>
+
+  <% if @activity_session.finished? %>
+    <p>Session terminée.</p>
+  <% end %>
+
+  <h2>Évalue ta session</h2>
+
+  <%= form_with model: @activity_session,
+                url: rate_activity_session_path(@activity_session),
+                method: :post do |f| %>
+    <%= f.select :rating, [1, 2, 3, 4, 5], prompt: "Choisis une note" %>
+    <%= f.submit "Valider" %>
+  <% end %>
+
+  <% if @activity_session.rating.present? %>
+    <p>Note : <%= @activity_session.rating %>/5</p>
+  <% end %>
+
+  <%= link_to "Recommencer", root_path %>
+</div>
