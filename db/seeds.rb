@@ -69,7 +69,7 @@ jumping_jacks = Activity.create!(
 walk = Activity.create!(
   name: "Marche rapide",
   content: "Pars marcher d'un bon pas pendant 15 minutes. Observe ton environnement et essaie de maintenir un rythme soutenu pendant toute la durée.",
-  mood: mitige,
+  mood: en_forme,
   location: home,
   duration: five_minutes,
   interest: sport

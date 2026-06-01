@@ -1,0 +1,15 @@
+<div class="session-new">
+
+  <h1>Comment tu te sens ?</h1>
+
+  <%= form_with url: activity_session_location_path, method: :get do %>
+    <% @moods.each do |mood| %>
+      <div>
+        <%= radio_button_tag :mood_id, mood.id, false, required: true %>
+        <%= label_tag "mood_id_#{mood.id}", mood.name %>
+      </div>
+    <% end %>
+
+    <%= submit_tag "Continuer" %>
+  <% end %>
+</div>

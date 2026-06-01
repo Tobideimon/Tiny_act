@@ -1,0 +1,33 @@
+<div class="session-offer">
+
+  <h1>Choisis une activité</h1>
+
+  <p>
+    Mood : <%= @mood.name %> |
+    Lieu : <%= @location.name %> |
+    Temps : <%= @duration.value %> min
+  </p>
+
+  <% if @activities.any? %>
+    <% @activities.each do |activity| %>
+      <div class="activity-card">
+        <h2><%= activity.name %></h2>
+        <p><%= activity.content %></p>
+
+        <p>
+          <%= activity.duration.value %> min —
+          <%= activity.location.name %> —
+          <%= activity.interest.name %>
+        </p>
+
+        <%= button_to "Choisir cette activité",
+                      choose_activity_session_path(activity),
+                      method: :post %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>Aucune activité trouvée.</p>
+  <% end %>
+
+  <%= link_to "Recommencer", root_path %>
+</div>

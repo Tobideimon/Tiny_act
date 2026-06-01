@@ -1,0 +1,13 @@
+<h1><%= @user.first_name %> <%= @user.last_name %></h1>
+
+<p>Email : <%= @user.email %></p>
+
+<h2>Centres d'intérêt</h2>
+
+<ul>
+  <% @user.interests.each do |interest| %>
+    <li><%= interest.name %></li>
+  <% end %>
+</ul>
+
+<%= link_to "Modifier mes centres d'intérêt", user_interests_path %>
