@@ -1,0 +1,20 @@
+<div class="session-show">
+
+  <h1><%= @activity_session.activity.name %></h1>
+
+  <p><%= @activity_session.activity.content %></p>
+
+  <p>
+    Durée :
+    <%= @activity_session.activity.duration.value %> minutes
+  </p>
+
+  <p>
+    Lieu :
+    <%= @activity_session.activity.location.name %>
+  </p>
+
+  <%= button_to "J’ai terminé",
+                done_activity_session_path(@activity_session),
+                method: :post %>
+</div>
