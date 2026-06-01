@@ -10,9 +10,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_01_123345) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_01_130345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.bigint "duration_id", null: false
+    t.bigint "interest_id", null: false
+    t.bigint "location_id", null: false
+    t.bigint "mood_id", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.index ["duration_id"], name: "index_activities_on_duration_id"
+    t.index ["interest_id"], name: "index_activities_on_interest_id"
+    t.index ["location_id"], name: "index_activities_on_location_id"
+    t.index ["mood_id"], name: "index_activities_on_mood_id"
+  end
+
+  create_table "activity_sessions", force: :cascade do |t|
+    t.bigint "activity_id", null: false
+    t.datetime "created_at", null: false
+    t.date "date"
+    t.boolean "finished", default: false, null: false
+    t.integer "rating"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["activity_id"], name: "index_activity_sessions_on_activity_id"
+    t.index ["user_id"], name: "index_activity_sessions_on_user_id"
+  end
+
+  create_table "durations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "value"
+  end
+
+  create_table "interests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "moods", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+  end
 
   create_table "solid_cable_messages", force: :cascade do |t|
     t.binary "channel", null: false
@@ -156,10 +208,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_01_123345) do
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
+  create_table "user_interests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "interest_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["interest_id"], name: "index_user_interests_on_interest_id"
+    t.index ["user_id", "interest_id"], name: "index_user_interests_on_user_id_and_interest_id", unique: true
+    t.index ["user_id"], name: "index_user_interests_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
+    t.string "first_name"
+    t.string "last_name"
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
@@ -168,10 +232,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_01_123345) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "activities", "durations"
+  add_foreign_key "activities", "interests"
+  add_foreign_key "activities", "locations"
+  add_foreign_key "activities", "moods"
+  add_foreign_key "activity_sessions", "activities"
+  add_foreign_key "activity_sessions", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
+  add_foreign_key "user_interests", "interests"
+  add_foreign_key "user_interests", "users"
 end
