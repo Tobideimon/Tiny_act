@@ -1,12 +1,18 @@
-<h1>Mes centres d'intérêt</h1>
+<div class="interests-page">
+  <h1 class="interests-title">Tes centres d'intérêt</h1>
 
-<%= form_with url: user_interests_path, method: :patch, local: true do %>
-  <% @interests.each do |interest| %>
-    <div>
-      <%= check_box_tag "interest_ids[]", interest.id, @selected_interest_ids.include?(interest.id) %>
-      <%= label_tag "interest_ids_#{interest.id}", interest.name %>
+  <%= form_with url: user_interests_path, method: :patch do %>
+    <div class="interests-grid">
+      <% @interests.each do |interest| %>
+        <%# On enveloppe la case dans le label → tout le bloc devient cliquable %>
+        <label class="interest-option">
+          <%= check_box_tag "interest_ids[]", interest.id,
+                @selected_interest_ids.include?(interest.id) %>
+          <span><%= interest.name %></span>
+        </label>
+      <% end %>
     </div>
-  <% end %>
 
-  <%= submit_tag "Enregistrer" %>
-<% end %>
+    <%= submit_tag "Enregistrer", class: "interests-submit" %>
+  <% end %>
+</div>

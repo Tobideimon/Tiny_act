@@ -1,14 +1,29 @@
+<div class="profile-page">
+  <div class="profile-header">
+    <%# Avatar décoratif, comme sur l'inscription %>
+    <div class="profile-avatar">
+      <i class="fa-solid fa-sun"></i>
+    </div>
+    <h1 class="profile-name"><%= @user.first_name %> <%= @user.last_name %></h1>
+    <p class="profile-email">
+      <i class="fa-solid fa-envelope"></i> <%= @user.email %>
+    </p>
+  </div>
 
-<h1><%= @user.first_name %> <%= @user.last_name %></h1>
+  <div class="profile-card">
+    <h2 class="profile-section-title">Tes centres d'intérêt</h2>
 
-<p>Email : <%= @user.email %></p>
+    <%# Si l'user a des intérêts, on les affiche en "tags". Sinon, message d'invite. %>
+    <% if @user.interests.any? %>
+      <div class="interest-tags">
+        <% @user.interests.each do |interest| %>
+          <span class="interest-tag"><%= interest.name %></span>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="profile-empty">Tu n'as pas encore choisi de centres d'intérêt.</p>
+    <% end %>
 
-<h2>Centres d'intérêt</h2>
-
-<ul>
-  <% @user.interests.each do |interest| %>
-    <li><%= interest.name %></li>
-  <% end %>
-</ul>
-
-<%= link_to "Modifier mes centres d'intérêt", user_interests_path %>
+    <%= link_to "Modifier mes centres d'intérêt", user_interests_path, class: "profile-btn" %>
+  </div>
+</div>
