@@ -1,20 +1,37 @@
-<div class="session-show">
+<div class="recommendations-page">
 
-  <h1><%= @activity_session.activity.name %></h1>
+  <div class="recommendations-header">
+    <h1>Activités recommandées</h1>
+    <p>Voici quelques idées pour toi aujourd’hui</p>
+  </div>
 
-  <p><%= @activity_session.activity.content %></p>
+  <% if @activities.any? %>
 
-  <p>
-    Durée :
-    <%= @activity_session.activity.duration.value %> minutes
-  </p>
+    <div class="activities-list">
+      <% @activities.each do |activity| %>
 
-  <p>
-    Lieu :
-    <%= @activity_session.activity.location.name %>
-  </p>
+        <div class="activity-card">
 
-  <%= button_to "J’ai terminé",
-                done_activity_session_path(@activity_session),
-                method: :post %>
+          <div class="activity-top">
+            <h2><%= activity.name %></h2>
+
+          </div>
+
+          <p class="activity-content">
+            <%= activity.content %>
+          </p>
+
+        </div>
+
+      <% end %>
+    </div>
+
+  <% else %>
+
+    <div class="empty-state">
+      <p>Aucune activité trouvée 😢</p>
+    </div>
+
+  <% end %>
+
 </div>

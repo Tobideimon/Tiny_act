@@ -1,17 +1,89 @@
-<div class="session-location">
+<div class="phone-page mood-page">
 
-  <h1>Où es-tu ?</h1>
-
-  <%= form_with url: activity_session_duration_path, method: :get do %>
-    <%= hidden_field_tag :mood_id, @mood.id %>
-
-    <% @locations.each do |location| %>
-      <div>
-        <%= radio_button_tag :location_id, location.id, false, required: true %>
-        <%= label_tag "location_id_#{location.id}", location.name %>
-      </div>
-    <% end %>
-
-    <%= submit_tag "Continuer" %>
+  <%= link_to new_activity_session_path,
+      class: "back-button" do %>
+    ←
   <% end %>
+
+  <div class="mood-header">
+    <div class="tiny-mascot">📍</div>
+
+    <h1>
+      Où veux-tu<br>
+      faire ton activité ?
+    </h1>
+  </div>
+
+  <%= form_with url: duration_activity_sessions_path,
+                method: :get,
+                class: "mood-form" do %>
+
+    <%= hidden_field_tag :mood_id, @mood_id %>
+
+    <div class="mood-list">
+
+      <% @locations.each_with_index do |location, index| %>
+
+        <label class="mood-card
+          <%= ["mood-green", "mood-yellow", "mood-blue"][index % 3] %>">
+
+          <%= radio_button_tag :location_id,
+                                location.id,
+                                false,
+                                required: true,
+                                class: "mood-radio" %>
+
+          <div class="mood-icon">
+
+            <% case index % 3
+               when 0 %>
+              🏡
+
+            <% when 1 %>
+              🌳
+
+            <% else %>
+              ☕
+            <% end %>
+
+          </div>
+
+          <div class="mood-text">
+
+            <strong>
+              <%= location.name %>
+            </strong>
+
+            <span>
+
+              <% case index % 3
+                 when 0 %>
+                Un endroit confortable
+
+              <% when 1 %>
+                Prendre l’air un peu
+
+              <% else %>
+                Changer d’ambiance
+              <% end %>
+
+            </span>
+
+          </div>
+
+          <div class="mood-arrow">
+            ›
+          </div>
+
+        </label>
+
+      <% end %>
+
+    </div>
+
+    <%= submit_tag "Continuer",
+                    class: "primary-button" %>
+
+  <% end %>
+
 </div>
