@@ -7,25 +7,34 @@
     </div>
 
     <% if @activities.any? %>
-
       <div class="activities-list">
         <% @activities.each do |activity| %>
+          <%= link_to activity_path(activity, activity_session_id: @activity_session.id),
+                      class: "activity-card-link" do %>
 
-          <div class="activity-card">
-            <div class="activity-top">
-              <h2><%= activity.name %></h2>
+            <div class="activity-card">
+              <div class="activity-top">
+                <h2>
+                  <%= activity.name %>
+
+                  <% if activity.language_activity? && @language_label.present? %>
+                    en <%= @language_label %>
+                  <% end %>
+                </h2>
+              </div>
+
+              <p class="activity-content">
+                <%= activity.content %>
+              </p>
             </div>
-          </div>
 
+          <% end %>
         <% end %>
       </div>
-
     <% else %>
-
       <div class="empty-state">
         <p>Aucune activité trouvée 😢</p>
       </div>
-
     <% end %>
 
   </div>

@@ -16,6 +16,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_02_113727) do
 
   create_table "activities", force: :cascade do |t|
     t.boolean "active", default: true, null: false
+    t.string "activity_type", default: "standard", null: false
     t.text "content"
     t.datetime "created_at", null: false
     t.bigint "duration_id", null: false
@@ -35,6 +36,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_02_113727) do
     t.datetime "created_at", null: false
     t.date "date"
     t.boolean "finished", default: false, null: false
+    t.string "language"
     t.integer "rating"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
@@ -51,6 +53,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_02_113727) do
   create_table "interests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "language_items", force: :cascade do |t|
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.string "item_type"
+    t.string "language"
+    t.text "prompt"
+    t.text "translation"
     t.datetime "updated_at", null: false
   end
 

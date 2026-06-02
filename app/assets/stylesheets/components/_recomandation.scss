@@ -72,3 +72,36 @@
   text-align: center;
   margin-top: 48px;
 }
+
+.activity-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.language-activity {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.language-card h2 {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.language-answer {
+  font-size: 22px;
+  font-weight: 700;
+  color: #4f46e5;
+}
+
+.is-correct {
+  color: #15803d;
+  font-weight: 700;
+}
+
+.is-wrong {
+  color: #dc2626;
+  font-weight: 700;
+}
