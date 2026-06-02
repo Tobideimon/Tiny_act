@@ -1,15 +1,68 @@
-<div class="session-new">
+<div class="phone-page mood-page">
 
-  <h1>Comment tu te sens ?</h1>
+  <div class="mood-header">
+    <div class="tiny-mascot">✨</div>
 
-  <%= form_with url: activity_session_location_path, method: :get do %>
-    <% @moods.each do |mood| %>
-      <div>
-        <%= radio_button_tag :mood_id, mood.id, false, required: true %>
-        <%= label_tag "mood_id_#{mood.id}", mood.name %>
-      </div>
-    <% end %>
+    <h1>
+      Comment te sens-tu<br>
+      aujourd’hui ?
+    </h1>
+  </div>
 
-    <%= submit_tag "Continuer" %>
+  <%= form_with url: location_activity_sessions_path,
+                method: :get,
+                class: "mood-form" do %>
+
+    <div class="mood-list">
+
+      <% @moods.each_with_index do |mood, index| %>
+
+        <label class="mood-card
+          <%= ["mood-green", "mood-yellow", "mood-blue"][index] %>">
+
+          <%= radio_button_tag :mood_id,
+                                mood.id,
+                                false,
+                                required: true,
+                                class: "mood-radio" %>
+
+          <div class="mood-icon">
+            <% if index == 0 %>
+              ⚡
+            <% elsif index == 1 %>
+              🌤️
+            <% else %>
+              🌧️
+            <% end %>
+          </div>
+
+          <div class="mood-text">
+            <strong><%= mood.name %></strong>
+
+            <span>
+              <% if index == 0 %>
+                J’ai plein d’énergie
+              <% elsif index == 1 %>
+                Ça dépend un peu
+              <% else %>
+                J’ai besoin de douceur
+              <% end %>
+            </span>
+          </div>
+
+          <div class="mood-arrow">
+            ›
+          </div>
+
+        </label>
+
+      <% end %>
+
+    </div>
+
+    <%= submit_tag "Continuer",
+                    class: "primary-button" %>
+
   <% end %>
+
 </div>

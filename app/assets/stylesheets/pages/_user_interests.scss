@@ -1,0 +1,34 @@
+.interests-page {
+  background: $ta-cream; min-height: 100vh;
+  max-width: 480px; margin: 0 auto; padding: 32px 20px 40px;
+}
+.interests-title {
+  color: $ta-navy; font-weight: 700; font-size: 24px;
+  text-align: center; margin-bottom: 24px;
+}
+
+.interests-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+
+.interest-option { display: block; cursor: pointer; }
+.interest-option input { display: none; }   // on cache la vraie case
+
+// L'étiquette stylée comme une carte
+.interest-option span {
+  display: block; background: #fff; border-radius: 16px;
+  padding: 16px 18px; color: $ta-navy; font-weight: 600;
+  border: 2px solid transparent;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: all 0.15s ease;
+}
+// Quand la case est cochée, on met en valeur la carte juste après
+.interest-option input:checked + span {
+  background: rgba($ta-yellow-soft, 0.3);
+  border-color: $ta-yellow;
+}
+
+.interests-submit {
+  width: 100%; border: none; cursor: pointer;
+  background: $ta-yellow; color: #fff; font-weight: 700; font-size: 17px;
+  padding: 16px; border-radius: 30px;
+  box-shadow: 0 6px 16px rgba($ta-yellow, 0.4);
+}
