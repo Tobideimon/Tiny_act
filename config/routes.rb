@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resources :activities, only: [:show]
 
-  resource :users, only: [:show, :edit, :update]
+  resource :user, only: [:show, :edit, :update]
 
   resource :user_interests, only: [:show, :update, :create, :destroy]
 end

@@ -1,37 +1,32 @@
-<div class="recommendations-page">
+<div class="phone-page">
+  <div class="recommendations-page">
 
-  <div class="recommendations-header">
-    <h1>Activités recommandées</h1>
-    <p>Voici quelques idées pour toi aujourd’hui</p>
-  </div>
+    <div class="recommendations-header">
+      <h1>Activités recommandées</h1>
+      <p>Voici quelques idées pour toi aujourd’hui</p>
+    </div>
 
-  <% if @activities.any? %>
+    <% if @activities.any? %>
 
-    <div class="activities-list">
-      <% @activities.each do |activity| %>
+      <div class="activities-list">
+        <% @activities.each do |activity| %>
 
-        <div class="activity-card">
-
-          <div class="activity-top">
-            <h2><%= activity.name %></h2>
-
+          <div class="activity-card">
+            <div class="activity-top">
+              <h2><%= activity.name %></h2>
+            </div>
           </div>
 
-          <p class="activity-content">
-            <%= activity.content %>
-          </p>
+        <% end %>
+      </div>
 
-        </div>
+    <% else %>
 
-      <% end %>
-    </div>
+      <div class="empty-state">
+        <p>Aucune activité trouvée 😢</p>
+      </div>
 
-  <% else %>
+    <% end %>
 
-    <div class="empty-state">
-      <p>Aucune activité trouvée 😢</p>
-    </div>
-
-  <% end %>
-
+  </div>
 </div>
