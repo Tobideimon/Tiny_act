@@ -16,5 +16,5 @@ Rails.application.routes.draw do
 
   resource :user, only: [:show, :edit, :update]
 
-  resource :user_interests, only: [:show, :update, :create, :destroy]
+  resource :user_interests, only: [ :show, :update ]
 end

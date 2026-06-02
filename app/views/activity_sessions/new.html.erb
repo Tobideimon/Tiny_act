@@ -26,13 +26,13 @@
                                 required: true,
                                 class: "mood-radio" %>
 
-          <div class="mood-icon">
+         <div class="mood-icon">
             <% if index == 0 %>
-              ⚡
+              <%= image_tag "eclaire.png", alt: "Éclair", class: "mood-image" %>
             <% elsif index == 1 %>
-              🌤️
+              <%= image_tag "soleil.png", alt: "Soleil", class: "mood-image" %>
             <% else %>
-              🌧️
+              <%= image_tag "pluie.png", alt: "Pluie", class: "mood-image" %>
             <% end %>
           </div>
 
@@ -48,10 +48,6 @@
                 J’ai besoin de douceur
               <% end %>
             </span>
-          </div>
-
-          <div class="mood-arrow">
-            ›
           </div>
 
         </label>

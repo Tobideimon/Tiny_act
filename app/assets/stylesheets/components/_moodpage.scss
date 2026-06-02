@@ -5,7 +5,7 @@
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
-  background: #f7f4ff;
+  background: #ffffff;
   color: #2b2d42;
 }
 
@@ -23,7 +23,7 @@ button {
 
 .phone-page {
   min-height: 100vh;
-  max-width: 430px;
+  max-width: 100vh;
   margin: 0 auto;
   padding: 42px 18px 32px;
   box-sizing: border-box;
@@ -87,7 +87,7 @@ button {
 .mood-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
 }
 
 /* =========================
@@ -99,12 +99,11 @@ button {
 
   display: flex;
   align-items: center;
-  gap: 16px;
 
   width: 100%;
   min-height: 88px;
 
-  padding: 18px 18px;
+  padding: 18px;
 
   border-radius: 24px;
   border: 2px solid transparent;
@@ -151,10 +150,11 @@ button {
 ========================= */
 
 .mood-icon {
+  position: absolute;
+  left: 18px;
+
   width: 54px;
   height: 54px;
-
-  flex-shrink: 0;
 
   display: grid;
   place-items: center;
@@ -169,7 +169,11 @@ button {
 ========================= */
 
 .mood-text {
-  flex: 1;
+  width: 100%;
+
+  text-align: center;
+
+  padding: 0 54px;
 }
 
 .mood-text strong {
@@ -192,18 +196,6 @@ button {
   color: #5f6785;
 }
 
-/* =========================
-   ARROW
-========================= */
-
-.mood-arrow {
-  font-size: 30px;
-  font-weight: 300;
-
-  color: #0f1b4c;
-
-  opacity: 0.55;
-}
 
 /* =========================
    BUTTON
@@ -250,35 +242,17 @@ button {
    MOOD COLORS
 ========================= */
 
-/* GREEN */
-
 .mood-green {
   background: #dcf7d7;
 }
-
-// .mood-green .mood-icon {
-//   background: #92e28f;
-// }
-
-/* YELLOW */
 
 .mood-yellow {
   background: #fff0ba;
 }
 
-// .mood-yellow .mood-icon {
-//   background: #ffd86d;
-// }
-
-/* BLUE */
-
 .mood-blue {
   background: #dce8ff;
 }
-
-// .mood-blue .mood-icon {
-//   background: #82b4ff;
-// }
 
 /* DEFAULT */
 
@@ -330,4 +304,10 @@ button {
   box-shadow:
     0 18px 34px rgba(43, 45, 66, 0.16),
     0 6px 12px rgba(43, 45, 66, 0.08);
+}
+
+.mood-image {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
 }

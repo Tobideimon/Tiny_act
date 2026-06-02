@@ -1,0 +1,62 @@
+.avatar-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.avatar-option {
+  cursor: pointer;
+}
+
+.avatar-radio {
+  display: none;
+}
+
+.avatar-image-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 28px;
+  border: 3px solid transparent;
+
+  background: rgba(255, 255, 255, 0.85);
+
+  box-shadow:
+    0 12px 28px rgba(43, 45, 66, 0.08),
+    0 4px 10px rgba(43, 45, 66, 0.04);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.avatar-choice-image {
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+}
+
+.avatar-option:hover .avatar-image-wrapper {
+  transform: translateY(-2px);
+}
+
+.avatar-radio:checked + .avatar-image-wrapper {
+  border-color: #6c63ff;
+
+  box-shadow:
+    0 16px 32px rgba(108, 99, 255, 0.18),
+    0 6px 14px rgba(108, 99, 255, 0.1);
+
+  transform: scale(1.03);
+}

@@ -1,13 +1,30 @@
 <div class="profile-page">
   <div class="profile-header">
-    <%# Avatar décoratif, comme sur l'inscription %>
-    <div class="profile-avatar">
-      <i class="fa-solid fa-sun"></i>
+
+    <div class="editable-avatar">
+
+      <div class="profile-avatar">
+        <%= image_tag "avatars/#{current_user.avatar || 'blueberry'}.png" %>
+      </div>
+
+      <%= link_to edit_user_path,
+          class: "edit-avatar-button" do %>
+
+        <i class="fa-solid fa-paintbrush"></i>
+
+      <% end %>
+
     </div>
-    <h1 class="profile-name"><%= @user.first_name %> <%= @user.last_name %></h1>
+
+    <h1 class="profile-name">
+      <%= @user.first_name %> <%= @user.last_name %>
+    </h1>
+
     <p class="profile-email">
-      <i class="fa-solid fa-envelope"></i> <%= @user.email %>
+      <i class="fa-solid fa-envelope"></i>
+      <%= @user.email %>
     </p>
+
   </div>
 
   <div class="profile-card">
@@ -23,7 +40,21 @@
     <% else %>
       <p class="profile-empty">Tu n'as pas encore choisi de centres d'intérêt.</p>
     <% end %>
+      <div class="profile-actions">
 
-    <%= link_to "Modifier mes centres d'intérêt", user_interests_path, class: "profile-btn" %>
+        <%= link_to "Modifier mes centres d'intérêt",
+            user_interests_path,
+            class: "profile-btn" %>
+
+        <%= link_to "Retour",
+            root_path,
+            class: "profile-btn secondary" %>
+
+        <%= link_to "Se déconnecter",
+            destroy_user_session_path,
+            data: { turbo_method: :delete },
+            class: "profile-btn logout-btn" %>
+
+      </div>
   </div>
 </div>
