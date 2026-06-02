@@ -15,7 +15,7 @@
   height: 90px;
 
   display: block;
-  border: 4px solid #9291ff;
+  border: 4px solid $ta-yellow;
   border-radius: 50px;
   overflow: hidden;
 
@@ -30,10 +30,9 @@
     box-shadow 0.2s ease;
 }
 
-
 .profile-avatar img {
-  width: 100%;
-  height: 100%;
-
+  width: 125%;
+  height: 125%;
+  padding-bottom: 0px;
   object-fit: cover;
 }

@@ -1,0 +1,47 @@
+<div class="phone-page avatar-edit-page">
+
+  <%= link_to user_path, class: "back-button" do %>
+    ←
+  <% end %>
+
+  <div class="mood-header">
+    <div class="tiny-mascot">🎨</div>
+
+    <h1>
+      Choisis ton<br>
+      nouvel avatar
+    </h1>
+  </div>
+
+  <%= form_with model: @user,
+                url: user_path,
+                method: :patch,
+                class: "avatar-form" do |f| %>
+
+    <div class="avatar-grid">
+
+      <% @avatars.each do |avatar| %>
+
+        <label class="avatar-option">
+
+          <%= f.radio_button :avatar,
+                             avatar,
+                             class: "avatar-radio" %>
+
+          <div class="avatar-image-wrapper">
+            <%= image_tag "avatars/#{avatar}.png",
+                class: "avatar-choice-image" %>
+          </div>
+
+        </label>
+
+      <% end %>
+
+    </div>
+
+    <%= f.submit "Enregistrer mon avatar",
+        class: "primary-button" %>
+
+  <% end %>
+
+</div>

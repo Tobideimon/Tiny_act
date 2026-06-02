@@ -28,12 +28,20 @@
 
   <body>
     </div>
-      <% unless controller_name == "users" %>
+      <% if user_signed_in? &&
+            !["users", "user_interests"].include?(controller_name) %>
+
         <div class="top-profile-button">
-          <%= link_to user_path, class: "profile-avatar" do %>
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier" %>
+
+          <%= link_to user_path,
+              class: "profile-avatar" do %>
+
+            <%= image_tag "avatars/#{current_user.avatar || 'blueberry'}.png" %>
+
           <% end %>
+
         </div>
+
       <% end %>
     </div>
     <%= render "shared/flashes" %>
