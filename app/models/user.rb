@@ -3,6 +3,7 @@ class User < ApplicationRecord
     blueberry
     cloud
     frog
+    clove
   ]
 
   validates :avatar, inclusion: { in: AVATARS }, allow_blank: true
