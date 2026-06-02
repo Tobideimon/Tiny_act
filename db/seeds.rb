@@ -38,7 +38,7 @@ puts "📍 Creating locations..."
 
 home     = Location.create!(name: "Maison")
 outside  = Location.create!(name: "Extérieur")
-office   = Location.create!(name: "Bureau")
+transport   = Location.create!(name: "Transport")
 
 puts "🎯 Creating interests..."
 
@@ -88,7 +88,7 @@ breathing = Activity.create!(
   name: "Respiration guidée",
   content: "Prends 5 minutes pour respirer profondément et te recentrer.",
   mood: a_plat,
-  location: office,
+  location: transport,
   duration: five_minutes,
   interest: wellbeing
 )
@@ -133,6 +133,7 @@ UserInterest.create!(
   interest: wellbeing
 )
 
+load Rails.root.join("db/seeds/sport_seed.rb")
 
 puts "✅ Seed completed!"
 
