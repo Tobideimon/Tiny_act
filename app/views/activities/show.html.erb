@@ -14,40 +14,113 @@
 
   <% if @activity.activity_type == "word_learning" %>
 
-    <div class="activities-list">
-      <% @language_items.each do |item| %>
-        <div class="activity-card">
-          <div class="activity-top">
-            <h2><%= item.prompt %></h2>
-          </div>
+    <div
+      data-controller="language-activity"
+      data-language-activity-items-value="<%= @language_items.map { |item|
+        {
+          prompt: item.prompt,
+          answer: item.answer
+        }
+      }.to_json %>"
+      data-language-activity-duration-value="<%= @duration_seconds %>"
+      data-language-activity-mode-value="word_learning"
+      class="language-activity"
+    >
 
-          <p class="activity-content">
-            <%= item.answer %>
-          </p>
+      <div class="activity-card">
+        <p class="activity-content">
+          Temps restant :
+          <strong data-language-activity-target="timer"></strong>
+        </p>
+
+        <p class="activity-content">
+          Progression :
+          <span data-language-activity-target="progress"></span>
+        </p>
+      </div>
+
+      <div class="activity-card language-card">
+        <div class="activity-top">
+          <h2 data-language-activity-target="wordPrompt">
+            Chargement du mot...
+          </h2>
         </div>
-      <% end %>
+
+        <p
+          class="activity-content language-answer"
+          data-language-activity-target="wordAnswer"
+        ></p>
+      </div>
+
+      <button
+        type="button"
+        class="primary-button"
+        data-language-activity-target="nextButton"
+        data-action="click->language-activity#nextWord"
+      >
+        Mot suivant
+      </button>
     </div>
 
   <% elsif @activity.activity_type == "sentence_completion" %>
 
-    <div class="activities-list">
-      <% @language_items.each do |item| %>
-        <div class="activity-card">
-          <div class="activity-top">
-            <h2><%= item.prompt %></h2>
-          </div>
+    <div
+      data-controller="language-activity"
+      data-language-activity-items-value="<%= @language_items.map { |item|
+        {
+          prompt: item.prompt,
+          answer: item.answer,
+          translation: item.translation
+        }
+      }.to_json %>"
+      data-language-activity-duration-value="<%= @duration_seconds %>"
+      data-language-activity-mode-value="sentence_completion"
+      class="language-activity"
+    >
 
-          <p class="activity-content">
-            Réponse attendue : <strong><%= item.answer %></strong>
-          </p>
+      <div class="activity-card">
+        <p class="activity-content">
+          Temps restant :
+          <strong data-language-activity-target="timer"></strong>
+        </p>
 
-          <% if item.translation.present? %>
-            <p class="activity-content">
-              Traduction : <%= item.translation %>
-            </p>
-          <% end %>
+        <p class="activity-content">
+          Progression :
+          <span data-language-activity-target="progress"></span>
+        </p>
+      </div>
+
+      <div class="activity-card language-card">
+        <div class="activity-top">
+          <h2 data-language-activity-target="sentencePrompt">
+            Chargement de la phrase...
+          </h2>
         </div>
-      <% end %>
+
+        <%= form_with url: "#",
+                      method: :get,
+                      data: {
+                        language_activity_target: "sentenceForm",
+                        action: "submit->language-activity#checkSentence"
+                      } do %>
+
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Mot manquant"
+            data-language-activity-target="sentenceInput"
+          >
+
+          <button type="submit" class="primary-button">
+            Valider
+          </button>
+        <% end %>
+
+        <p
+          class="activity-content"
+          data-language-activity-target="sentenceFeedback"
+        ></p>
+      </div>
     </div>
 
   <% elsif @activity.activity_type == "llm_chat" %>

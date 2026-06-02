@@ -12,6 +12,8 @@ class ActivitiesController < ApplicationController
 
     @activity_session.update!(activity: @activity)
 
+    @duration_seconds = @activity.duration.value * 60
+
     return unless @activity.language_activity?
 
     assign_language_if_needed
@@ -43,7 +45,7 @@ class ActivitiesController < ApplicationController
     @language_items = LanguageItem
                       .where(item_type: item_type, language: @activity_session.language)
                       .order(Arel.sql("RANDOM()"))
-                      .limit(5)
+                      .limit(100)
   end
 
   def language_item_type_for(activity)

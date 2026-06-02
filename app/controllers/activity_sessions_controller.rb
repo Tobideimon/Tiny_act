@@ -46,11 +46,12 @@ class ActivitySessionsController < ApplicationController
     reference_activity = @activity_session.activity
 
     @activities = Activity.where(
+      active: true,
       mood: reference_activity.mood,
-      location: reference_activity.location,
       duration: reference_activity.duration,
-      interest_id: current_user.interests.ids
-    ).order("RANDOM()").limit(3)
+      interest_id: current_user.interests.ids,
+      location_id: allowed_location_ids(reference_activity.location_id)
+    ).order(Arel.sql("RANDOM()")).limit(3)
 
     assign_language_if_needed
     @language_label = readable_language(@activity_session.language)
@@ -60,6 +61,7 @@ class ActivitySessionsController < ApplicationController
 
   def matching_activities
     Activity.where(
+      active: true,
       mood_id: params[:mood_id],
       duration_id: params[:duration_id],
       interest_id: current_user.interest_ids,
