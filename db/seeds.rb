@@ -164,7 +164,8 @@ Activity.create!(
   location: anywhere,
   duration: five_minutes,
   interest: languages,
-  activity_type: "llm_chat"
+  activity_type: "llm_chat",
+  active: false
 )
 
 Activity.create!(
@@ -172,9 +173,10 @@ Activity.create!(
   content: "Pratique une conversation simple avec un assistant dans une langue choisie au hasard.",
   mood: en_forme,
   location: anywhere,
-  duration: fifteen_minutes,
+  duration: five_minutes,
   interest: languages,
-  activity_type: "llm_chat"
+  activity_type: "llm_chat",
+  active: false
 )
 
 Activity.create!(
@@ -182,86 +184,13 @@ Activity.create!(
   content: "Lance une conversation plus longue pour pratiquer une langue avec un assistant.",
   mood: en_forme,
   location: anywhere,
-  duration: thirty_minutes,
+  duration: five_minutes,
   interest: languages,
-  activity_type: "llm_chat"
+  activity_type: "llm_chat",
+  active: false
 )
 
-puts "🌍 Creating language items..."
-
-LanguageItem.create!(
-  item_type: "word",
-  prompt: "house",
-  answer: "maison",
-  language: "english"
-)
-
-LanguageItem.create!(
-  item_type: "word",
-  prompt: "window",
-  answer: "fenêtre",
-  language: "english"
-)
-
-LanguageItem.create!(
-  item_type: "word",
-  prompt: "water",
-  answer: "eau",
-  language: "english"
-)
-
-LanguageItem.create!(
-  item_type: "sentence",
-  prompt: "I ___ tired.",
-  answer: "am",
-  translation: "Je suis fatigué.",
-  language: "english"
-)
-
-LanguageItem.create!(
-  item_type: "sentence",
-  prompt: "She ___ a book.",
-  answer: "has",
-  translation: "Elle a un livre.",
-  language: "english"
-)
-
-LanguageItem.create!(
-  item_type: "word",
-  prompt: "casa",
-  answer: "maison",
-  language: "spanish"
-)
-
-LanguageItem.create!(
-  item_type: "word",
-  prompt: "agua",
-  answer: "eau",
-  language: "spanish"
-)
-
-LanguageItem.create!(
-  item_type: "word",
-  prompt: "ventana",
-  answer: "fenêtre",
-  language: "spanish"
-)
-
-LanguageItem.create!(
-  item_type: "sentence",
-  prompt: "Estoy ___ casa.",
-  answer: "en",
-  translation: "Je suis à la maison.",
-  language: "spanish"
-)
-
-LanguageItem.create!(
-  item_type: "sentence",
-  prompt: "Tengo ___ libro.",
-  answer: "un",
-  translation: "J’ai un livre.",
-  language: "spanish"
-)
+puts "🌍 Language items are imported from db/data/language_items.csv"
 
 puts "👤 Creating users..."
 
