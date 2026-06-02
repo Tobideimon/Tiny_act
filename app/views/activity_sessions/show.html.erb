@@ -11,11 +11,30 @@
       <div class="activities-list">
         <% @activities.each do |activity| %>
 
-          <div class="activity-card">
-            <div class="activity-top">
-              <h2><%= activity.name %></h2>
+          <div class="activities-list">
+              <% @activities.each do |activity| %>
+
+                <%= link_to activity_path(activity, activity_session_id: @activity_session.id),
+                            class: "activity-card-link" do %>
+
+                  <div class="activity-card">
+
+                    <div class="activity-top">
+                      <h2>
+                        <%= activity.name %>
+                      </h2>
+                    </div>
+
+                    <p class="activity-content">
+                      <%= activity.content %>
+                    </p>
+
+                  </div>
+
+                <% end %>
+
+              <% end %>
             </div>
-          </div>
 
         <% end %>
       </div>

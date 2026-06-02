@@ -1,0 +1,72 @@
+<div class="recommendations-page">
+
+  <div class="recommendations-header">
+    <h1>
+      <%= @activity.name %>
+
+      <% if @activity.language_activity? && @language_label.present? %>
+        en <%= @language_label %>
+      <% end %>
+    </h1>
+
+    <p><%= @activity.content %></p>
+  </div>
+
+  <% if @activity.activity_type == "word_learning" %>
+
+    <div class="activities-list">
+      <% @language_items.each do |item| %>
+        <div class="activity-card">
+          <div class="activity-top">
+            <h2><%= item.prompt %></h2>
+          </div>
+
+          <p class="activity-content">
+            <%= item.answer %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+
+  <% elsif @activity.activity_type == "sentence_completion" %>
+
+    <div class="activities-list">
+      <% @language_items.each do |item| %>
+        <div class="activity-card">
+          <div class="activity-top">
+            <h2><%= item.prompt %></h2>
+          </div>
+
+          <p class="activity-content">
+            Réponse attendue : <strong><%= item.answer %></strong>
+          </p>
+
+          <% if item.translation.present? %>
+            <p class="activity-content">
+              Traduction : <%= item.translation %>
+            </p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+  <% elsif @activity.activity_type == "llm_chat" %>
+
+    <div class="activity-card">
+      <p class="activity-content">
+        Le chat avec IA sera branché plus tard.
+      </p>
+    </div>
+
+  <% else %>
+
+    <div class="activity-card">
+      <p class="activity-content">
+        <%= @activity.content %>
+      </p>
+    </div>
+
+  <% end %>
+
+  <%= link_to "Recommencer", root_path, class: "primary-button" %>
+</div>
