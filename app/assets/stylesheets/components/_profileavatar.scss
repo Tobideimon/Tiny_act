@@ -1,0 +1,46 @@
+/* =========================
+   TOP PROFILE AVATAR
+========================= */
+
+.top-profile-button {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+
+  z-index: 1000;
+}
+
+.profile-avatar {
+  width: 90px;
+  height: 90px;
+
+  display: block;
+  border: 4px solid #9291ff;
+  border-radius: 50px;
+  overflow: hidden;
+
+  background: white;
+
+  box-shadow:
+    0 14px 28px rgba(43, 45, 66, 0.12),
+    0 4px 10px rgba(43, 45, 66, 0.06);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.profile-avatar:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 18px 34px rgba(43, 45, 66, 0.16),
+    0 6px 12px rgba(43, 45, 66, 0.08);
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}

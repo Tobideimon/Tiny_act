@@ -1,0 +1,74 @@
+.recommendations-page {
+  padding: 24px;
+}
+
+.recommendations-header {
+  margin-bottom: 24px;
+
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: #777;
+  }
+}
+
+.activities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.activity-card {
+  background: white;
+  border-radius: 24px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.activity-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+
+  h2 {
+    font-size: 20px;
+    margin: 0;
+  }
+}
+
+.activity-badge {
+  background: #f1f3f5;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.activity-content {
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.activity-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+
+  span {
+    background: #eef2ff;
+    color: #4f46e5;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  margin-top: 48px;
+}
