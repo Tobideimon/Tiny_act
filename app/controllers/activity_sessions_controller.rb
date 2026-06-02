@@ -21,7 +21,11 @@ class ActivitySessionsController < ApplicationController
     @location = Location.find(params[:location_id])
     @duration = Duration.find(params[:duration_id])
 
-    @activities = find_three_activities
+    @activities = find_matching_activities
+
+    return unless @activities.size < 3
+
+    flash.now[:alert] = "Il n’y a pas encore assez d’activités correspondant exactement à ce choix."
   end
 
   def choose
@@ -41,7 +45,6 @@ class ActivitySessionsController < ApplicationController
 
   def done
     @activity_session.update!(finished: true)
-
     redirect_to summary_activity_session_path(@activity_session)
   end
 
@@ -70,48 +73,54 @@ class ActivitySessionsController < ApplicationController
     @activity_session = current_user.activity_sessions.find(params[:id])
   end
 
-  def find_three_activities
+  def find_matching_activities
+    exact_scope = Activity
+                  .includes(:interest, :mood, :location, :duration)
+                  .where(
+                    active: true,
+                    mood: @mood,
+                    location: @location,
+                    duration: @duration
+                  )
+
     selected_activities = []
 
-    selected_activities += exact_matching_activities.to_a
+    if current_user.interests.any?
+      preferred_scope = exact_scope.where(interest_id: current_user.interest_ids)
+      selected_activities += pick_activities_with_different_interests(preferred_scope, limit: 3)
+    end
 
-    selected_activities += interest_matching_activities.to_a if selected_activities.size < 3
+    if selected_activities.size < 3
+      remaining_scope = exact_scope.where.not(id: selected_activities.map(&:id))
+      selected_activities += pick_activities_with_different_interests(
+        remaining_scope,
+        limit: 3 - selected_activities.size,
+        already_used_interest_ids: selected_activities.map(&:interest_id)
+      )
+    end
 
-    selected_activities += mood_matching_activities.to_a if selected_activities.size < 3
+    if selected_activities.size < 3
+      remaining_scope = exact_scope.where.not(id: selected_activities.map(&:id))
+      selected_activities += remaining_scope.order(Arel.sql("RANDOM()")).limit(3 - selected_activities.size).to_a
+    end
 
-    selected_activities += fallback_activities.to_a if selected_activities.size < 3
-
-    selected_activities.uniq(&:id).first(3)
+    selected_activities.first(3)
   end
 
-  def exact_matching_activities
-    activities = Activity.where(
-      active: true,
-      mood: @mood,
-      location: @location,
-      duration: @duration
-    )
+  def pick_activities_with_different_interests(scope, limit:, already_used_interest_ids: [])
+    selected = []
+    used_interest_ids = already_used_interest_ids.compact.dup
 
-    activities = activities.where(interest_id: current_user.interest_ids) if current_user.interests.any?
+    scope.order(Arel.sql("RANDOM()")).each do |activity|
+      next if used_interest_ids.include?(activity.interest_id)
 
-    activities.order(Arel.sql("RANDOM()"))
-  end
+      selected << activity
+      used_interest_ids << activity.interest_id
 
-  def interest_matching_activities
-    return Activity.none unless current_user.interests.any?
+      break if selected.size == limit
+    end
 
-    Activity.where(active: true, interest_id: current_user.interest_ids)
-            .order(Arel.sql("RANDOM()"))
-  end
-
-  def mood_matching_activities
-    Activity.where(active: true, mood: @mood)
-            .order(Arel.sql("RANDOM()"))
-  end
-
-  def fallback_activities
-    Activity.where(active: true)
-            .order(Arel.sql("RANDOM()"))
+    selected
   end
 
   def activity_session_params
