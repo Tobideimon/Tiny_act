@@ -28,6 +28,14 @@
 
   <body>
     </div>
+      <% unless controller_name == "users" %>
+        <div class="top-profile-button">
+          <%= link_to user_path, class: "profile-avatar" do %>
+            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
     <%= render "shared/flashes" %>
 
     <%= yield %>
