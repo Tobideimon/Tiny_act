@@ -1,17 +1,88 @@
-<div class="session-duration">
-  <h1>Combien de temps as-tu ?</h1>
+<div class="phone-page mood-page">
 
-  <%= form_with url: offer_activity_sessions_path, method: :get do %>
-    <%= hidden_field_tag :mood_id, @mood.id %>
-    <%= hidden_field_tag :location_id, @location.id %>
-
-    <% @durations.each do |duration| %>
-      <div>
-        <%= radio_button_tag :duration_id, duration.id, false, required: true %>
-        <%= label_tag "duration_id_#{duration.id}", "#{duration.value} minutes" %>
-      </div>
-    <% end %>
-
-    <%= submit_tag "Voir mes activités" %>
+  <%= link_to location_activity_sessions_path(mood_id: @mood_id),
+      class: "back-button" do %>
+    ←
   <% end %>
+
+  <div class="mood-header">
+    <div class="tiny-mascot">⏳</div>
+
+    <h1>
+      Combien de temps<br>
+      as-tu devant toi ?
+    </h1>
+  </div>
+
+  <%= form_with url: activity_sessions_path,
+                method: :post,
+                class: "mood-form" do %>
+
+    <%= hidden_field_tag :mood_id, @mood_id %>
+    <%= hidden_field_tag :location_id, @location_id %>
+
+    <div class="mood-list">
+
+      <% @durations.each_with_index do |duration, index| %>
+
+        <label class="mood-card
+          <%= ["mood-green", "mood-yellow", "mood-blue"][index % 3] %>">
+
+          <%= radio_button_tag :duration_id,
+                                duration.id,
+                                false,
+                                required: true,
+                                class: "mood-radio" %>
+
+          <div class="mood-icon">
+
+            <% if duration.value <= 15 %>
+              ⚡
+
+            <% elsif duration.value <= 45 %>
+              ☕
+
+            <% else %>
+              🌈
+            <% end %>
+
+          </div>
+
+          <div class="mood-text">
+
+            <strong>
+              <%= duration.value %> minutes
+            </strong>
+
+            <span>
+
+              <% if duration.value <= 15 %>
+                Une petite pause rapide
+
+              <% elsif duration.value <= 45 %>
+                Un vrai moment pour toi
+
+              <% else %>
+                Prendre complètement son temps
+              <% end %>
+
+            </span>
+
+          </div>
+
+          <div class="mood-arrow">
+            ›
+          </div>
+
+        </label>
+
+      <% end %>
+
+    </div>
+
+    <%= submit_tag "Trouver mes activités",
+                    class: "primary-button" %>
+
+  <% end %>
+
 </div>
