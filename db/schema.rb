@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_03_102718) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_03_143847) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,11 +19,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_03_102718) do
     t.string "activity_type", default: "standard", null: false
     t.text "content"
     t.datetime "created_at", null: false
+    t.text "description"
     t.bigint "duration_id", null: false
     t.bigint "interest_id", null: false
     t.bigint "location_id", null: false
     t.bigint "mood_id", null: false
     t.string "name"
+    t.text "steps"
     t.datetime "updated_at", null: false
     t.index ["duration_id"], name: "index_activities_on_duration_id"
     t.index ["interest_id"], name: "index_activities_on_interest_id"

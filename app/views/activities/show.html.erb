@@ -10,7 +10,7 @@
     </h1>
 
     <p>
-      <%= @activity.content %>
+      <%= @activity.sport_activity? ? @activity.display_description : @activity.content %>
     </p>
   </div>
 
