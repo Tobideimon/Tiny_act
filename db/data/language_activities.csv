@@ -1,0 +1,1121 @@
+item_type,prompt,answer,translation,language
+word,house,maison,,english
+word,door,porte,,english
+word,window,fenêtre,,english
+word,room,pièce,,english
+word,kitchen,cuisine,,english
+word,garden,jardin,,english
+word,street,rue,,english
+word,city,ville,,english
+word,village,village,,english
+word,car,voiture,,english
+word,train,train,,english
+word,bus,bus,,english
+word,bike,vélo,,english
+word,boat,bateau,,english
+word,plane,avion,,english
+word,school,école,,english
+word,teacher,professeur,,english
+word,student,étudiant,,english
+word,book,livre,,english
+word,page,page,,english
+word,pen,stylo,,english
+word,table,table,,english
+word,chair,chaise,,english
+word,bed,lit,,english
+word,phone,téléphone,,english
+word,computer,ordinateur,,english
+word,screen,écran,,english
+word,key,clé,,english
+word,bag,sac,,english
+word,wallet,portefeuille,,english
+word,money,argent,,english
+word,shop,magasin,,english
+word,market,marché,,english
+word,bread,pain,,english
+word,water,eau,,english
+word,milk,lait,,english
+word,coffee,café,,english
+word,tea,thé,,english
+word,fruit,fruit,,english
+word,apple,pomme,,english
+word,banana,banane,,english
+word,orange,orange,,english
+word,lemon,citron,,english
+word,rice,riz,,english
+word,pasta,pâtes,,english
+word,meat,viande,,english
+word,fish,poisson,,english
+word,egg,œuf,,english
+word,salt,sel,,english
+word,sugar,sucre,,english
+word,oil,huile,,english
+word,soup,soupe,,english
+word,plate,assiette,,english
+word,glass,verre,,english
+word,spoon,cuillère,,english
+word,fork,fourchette,,english
+word,knife,couteau,,english
+word,day,jour,,english
+word,night,nuit,,english
+word,morning,matin,,english
+word,evening,soir,,english
+word,week,semaine,,english
+word,month,mois,,english
+word,year,année,,english
+word,time,temps,,english
+word,hour,heure,,english
+word,minute,minute,,english
+word,weather,météo,,english
+word,sun,soleil,,english
+word,rain,pluie,,english
+word,wind,vent,,english
+word,snow,neige,,english
+word,fire,feu,,english
+word,earth,terre,,english
+word,sea,mer,,english
+word,river,rivière,,english
+word,mountain,montagne,,english
+word,forest,forêt,,english
+word,tree,arbre,,english
+word,flower,fleur,,english
+word,animal,animal,,english
+word,dog,chien,,english
+word,cat,chat,,english
+word,bird,oiseau,,english
+word,horse,cheval,,english
+word,body,corps,,english
+word,head,tête,,english
+word,face,visage,,english
+word,eye,œil,,english
+word,ear,oreille,,english
+word,nose,nez,,english
+word,mouth,bouche,,english
+word,hand,main,,english
+word,arm,bras,,english
+word,leg,jambe,,english
+word,foot,pied,,english
+word,back,dos,,english
+word,heart,cœur,,english
+word,friend,ami,,english
+word,family,famille,,english
+word,child,enfant,,english
+word,woman,femme,,english
+word,man,homme,,english
+word,parent,parent,,english
+word,brother,frère,,english
+word,sister,sœur,,english
+word,neighbor,voisin,,english
+word,work,travail,,english
+word,job,emploi,,english
+word,office,bureau,,english
+word,meeting,réunion,,english
+word,email,courriel,,english
+word,message,message,,english
+word,question,question,,english
+word,answer,réponse,,english
+word,problem,problème,,english
+word,idea,idée,,english
+word,choice,choix,,english
+word,reason,raison,,english
+word,truth,vérité,,english
+word,story,histoire,,english
+word,music,musique,,english
+word,film,film,,english
+word,photo,photo,,english
+word,picture,image,,english
+word,color,couleur,,english
+word,light,lumière,,english
+word,shadow,ombre,,english
+word,voice,voix,,english
+word,word,mot,,english
+word,language,langue,,english
+word,country,pays,,english
+word,world,monde,,english
+word,travel,voyage,,english
+word,path,chemin,,english
+word,map,carte,,english
+word,big,grand,,english
+word,small,petit,,english
+word,long,long,,english
+word,short,court,,english
+word,old,vieux,,english
+word,young,jeune,,english
+word,new,nouveau,,english
+word,good,bon,,english
+word,bad,mauvais,,english
+word,warm,tiède,,english
+word,cold,froid,,english
+word,hot,chaud,,english
+word,cool,frais,,english
+word,slow,lent,,english
+word,fast,rapide,,english
+word,easy,facile,,english
+word,hard,difficile,,english
+word,clean,propre,,english
+word,dirty,sale,,english
+word,quiet,calme,,english
+word,loud,bruyant,,english
+word,happy,heureux,,english
+word,sad,triste,,english
+word,tired,fatigué,,english
+word,calm,serein,,english
+word,strong,fort,,english
+word,weak,faible,,english
+word,full,plein,,english
+word,empty,vide,,english
+word,open,ouvert,,english
+word,closed,fermé,,english
+word,near,proche,,english
+word,far,loin,,english
+word,free,libre,,english
+word,busy,occupé,,english
+word,useful,utile,,english
+word,simple,simple,,english
+word,careful,prudent,,english
+word,ready,prêt,,english
+word,late,tard,,english
+word,early,tôt,,english
+word,right,correct,,english
+word,wrong,incorrect,,english
+word,safe,sûr,,english
+word,dangerous,dangereux,,english
+word,clear,clair,,english
+word,dark,sombre,,english
+word,bright,brillant,,english
+word,soft,doux,,english
+word,dry,sec,,english
+word,wet,mouillé,,english
+word,deep,profond,,english
+word,inside,dedans,,english
+word,outside,dehors,,english
+word,always,toujours,,english
+word,often,souvent,,english
+word,sometimes,parfois,,english
+word,never,jamais,,english
+word,to eat,manger,,english
+word,to drink,boire,,english
+word,to sleep,dormir,,english
+word,to walk,marcher,,english
+word,to run,courir,,english
+word,to read,lire,,english
+word,casa,maison,,spanish
+word,puerta,porte,,spanish
+word,ventana,fenêtre,,spanish
+word,habitación,pièce,,spanish
+word,cocina,cuisine,,spanish
+word,jardín,jardin,,spanish
+word,calle,rue,,spanish
+word,ciudad,ville,,spanish
+word,pueblo,village,,spanish
+word,coche,voiture,,spanish
+word,tren,train,,spanish
+word,autobús,bus,,spanish
+word,bicicleta,vélo,,spanish
+word,barco,bateau,,spanish
+word,avión,avion,,spanish
+word,escuela,école,,spanish
+word,profesor,professeur,,spanish
+word,estudiante,étudiant,,spanish
+word,libro,livre,,spanish
+word,página,page,,spanish
+word,bolígrafo,stylo,,spanish
+word,mesa,table,,spanish
+word,silla,chaise,,spanish
+word,cama,lit,,spanish
+word,teléfono,téléphone,,spanish
+word,ordenador,ordinateur,,spanish
+word,pantalla,écran,,spanish
+word,llave,clé,,spanish
+word,bolsa,sac,,spanish
+word,cartera,portefeuille,,spanish
+word,dinero,argent,,spanish
+word,tienda,magasin,,spanish
+word,mercado,marché,,spanish
+word,pan,pain,,spanish
+word,agua,eau,,spanish
+word,leche,lait,,spanish
+word,café,café,,spanish
+word,té,thé,,spanish
+word,fruta,fruit,,spanish
+word,manzana,pomme,,spanish
+word,plátano,banane,,spanish
+word,naranja,orange,,spanish
+word,limón,citron,,spanish
+word,arroz,riz,,spanish
+word,pasta,pâtes,,spanish
+word,carne,viande,,spanish
+word,pescado,poisson,,spanish
+word,huevo,œuf,,spanish
+word,sal,sel,,spanish
+word,azúcar,sucre,,spanish
+word,aceite,huile,,spanish
+word,sopa,soupe,,spanish
+word,plato,assiette,,spanish
+word,vaso,verre,,spanish
+word,cuchara,cuillère,,spanish
+word,tenedor,fourchette,,spanish
+word,cuchillo,couteau,,spanish
+word,día,jour,,spanish
+word,noche,nuit,,spanish
+word,mañana,matin,,spanish
+word,tarde,soir,,spanish
+word,semana,semaine,,spanish
+word,mes,mois,,spanish
+word,año,année,,spanish
+word,tiempo,temps,,spanish
+word,hora,heure,,spanish
+word,minuto,minute,,spanish
+word,clima,météo,,spanish
+word,sol,soleil,,spanish
+word,lluvia,pluie,,spanish
+word,viento,vent,,spanish
+word,nieve,neige,,spanish
+word,fuego,feu,,spanish
+word,tierra,terre,,spanish
+word,mar,mer,,spanish
+word,río,rivière,,spanish
+word,montaña,montagne,,spanish
+word,bosque,forêt,,spanish
+word,árbol,arbre,,spanish
+word,flor,fleur,,spanish
+word,animal,animal,,spanish
+word,perro,chien,,spanish
+word,gato,chat,,spanish
+word,pájaro,oiseau,,spanish
+word,caballo,cheval,,spanish
+word,cuerpo,corps,,spanish
+word,cabeza,tête,,spanish
+word,cara,visage,,spanish
+word,ojo,œil,,spanish
+word,oreja,oreille,,spanish
+word,nariz,nez,,spanish
+word,boca,bouche,,spanish
+word,mano,main,,spanish
+word,brazo,bras,,spanish
+word,pierna,jambe,,spanish
+word,pie,pied,,spanish
+word,espalda,dos,,spanish
+word,corazón,cœur,,spanish
+word,amigo,ami,,spanish
+word,familia,famille,,spanish
+word,niño,enfant,,spanish
+word,mujer,femme,,spanish
+word,hombre,homme,,spanish
+word,padre,père,,spanish
+word,madre,mère,,spanish
+word,hermano,frère,,spanish
+word,hermana,sœur,,spanish
+word,vecino,voisin,,spanish
+word,trabajo,travail,,spanish
+word,empleo,emploi,,spanish
+word,oficina,bureau,,spanish
+word,reunión,réunion,,spanish
+word,correo,courriel,,spanish
+word,mensaje,message,,spanish
+word,pregunta,question,,spanish
+word,respuesta,réponse,,spanish
+word,problema,problème,,spanish
+word,idea,idée,,spanish
+word,opción,choix,,spanish
+word,razón,raison,,spanish
+word,verdad,vérité,,spanish
+word,historia,histoire,,spanish
+word,música,musique,,spanish
+word,película,film,,spanish
+word,foto,photo,,spanish
+word,imagen,image,,spanish
+word,color,couleur,,spanish
+word,luz,lumière,,spanish
+word,sombra,ombre,,spanish
+word,voz,voix,,spanish
+word,palabra,mot,,spanish
+word,idioma,langue,,spanish
+word,país,pays,,spanish
+word,mundo,monde,,spanish
+word,viaje,voyage,,spanish
+word,camino,chemin,,spanish
+word,mapa,carte,,spanish
+word,grande,grand,,spanish
+word,pequeño,petit,,spanish
+word,largo,long,,spanish
+word,corto,court,,spanish
+word,viejo,vieux,,spanish
+word,joven,jeune,,spanish
+word,nuevo,nouveau,,spanish
+word,bueno,bon,,spanish
+word,malo,mauvais,,spanish
+word,templado,tiède,,spanish
+word,frío,froid,,spanish
+word,caliente,chaud,,spanish
+word,fresco,frais,,spanish
+word,lento,lent,,spanish
+word,rápido,rapide,,spanish
+word,fácil,facile,,spanish
+word,difícil,difficile,,spanish
+word,limpio,propre,,spanish
+word,sucio,sale,,spanish
+word,tranquilo,calme,,spanish
+word,ruidoso,bruyant,,spanish
+word,feliz,heureux,,spanish
+word,triste,triste,,spanish
+word,cansado,fatigué,,spanish
+word,sereno,serein,,spanish
+word,fuerte,fort,,spanish
+word,débil,faible,,spanish
+word,lleno,plein,,spanish
+word,vacío,vide,,spanish
+word,abierto,ouvert,,spanish
+word,cerrado,fermé,,spanish
+word,cerca,proche,,spanish
+word,lejos,loin,,spanish
+word,libre,libre,,spanish
+word,ocupado,occupé,,spanish
+word,útil,utile,,spanish
+word,simple,simple,,spanish
+word,prudente,prudent,,spanish
+word,listo,prêt,,spanish
+word,temprano,tôt,,spanish
+word,correcto,correct,,spanish
+word,incorrecto,incorrect,,spanish
+word,seguro,sûr,,spanish
+word,peligroso,dangereux,,spanish
+word,claro,clair,,spanish
+word,oscuro,sombre,,spanish
+word,brillante,brillant,,spanish
+word,suave,doux,,spanish
+word,seco,sec,,spanish
+word,mojado,mouillé,,spanish
+word,profundo,profond,,spanish
+word,dentro,dedans,,spanish
+word,fuera,dehors,,spanish
+word,siempre,toujours,,spanish
+word,a,à,,spanish
+word,en,dans,,spanish
+word,con,avec,,spanish
+word,sin,sans,,spanish
+word,por,par,,spanish
+word,para,pour,,spanish
+word,comer,manger,,spanish
+word,beber,boire,,spanish
+word,dormir,dormir,,spanish
+sentence,I ___ water every morning.,drink,Je bois de l’eau chaque matin.,english
+sentence,She ___ a book before bed.,reads,Elle lit un livre avant de dormir.,english
+sentence,We ___ dinner at seven.,eat,Nous mangeons à sept heures.,english
+sentence,They ___ to school by bus.,go,Ils vont à l’école en bus.,english
+sentence,He ___ his friend on Sunday.,calls,Il appelle son ami dimanche.,english
+sentence,The child ___ in the garden.,plays,L’enfant joue dans le jardin.,english
+sentence,My sister ___ very tired today.,is,Ma sœur est très fatiguée aujourd’hui.,english
+sentence,The door ___ open.,is,La porte est ouverte.,english
+sentence,I ___ my keys on the table.,put,Je mets mes clés sur la table.,english
+sentence,We ___ a film tonight.,watch,Nous regardons un film ce soir.,english
+sentence,The dog ___ near the door.,sleeps,Le chien dort près de la porte.,english
+sentence,She ___ French at school.,learns,Elle apprend le français à l’école.,english
+sentence,I ___ your question.,understand,Je comprends ta question.,english
+sentence,He ___ coffee without sugar.,drinks,Il boit du café sans sucre.,english
+sentence,The train ___ at noon.,arrives,Le train arrive à midi.,english
+sentence,We ___ in a small village.,live,Nous vivons dans un petit village.,english
+sentence,They ___ the window at night.,close,Ils ferment la fenêtre le soir.,english
+sentence,I ___ a message to my brother.,send,J’envoie un message à mon frère.,english
+sentence,She ___ a photo of the sea.,takes,Elle prend une photo de la mer.,english
+sentence,The weather ___ cold today.,feels,La météo semble froide aujourd’hui.,english
+sentence,He ___ the answer quickly.,finds,Il trouve la réponse rapidement.,english
+sentence,We ___ our hands before lunch.,wash,Nous lavons nos mains avant le déjeuner.,english
+sentence,The baby ___ when he hears music.,smiles,Le bébé sourit quand il entend de la musique.,english
+sentence,I ___ early on Monday.,wake,Je me réveille tôt lundi.,english
+sentence,She ___ the soup carefully.,cooks,Elle cuisine la soupe avec attention.,english
+sentence,They ___ in the park after work.,walk,Ils marchent dans le parc après le travail.,english
+sentence,He ___ his bag under the chair.,leaves,Il laisse son sac sous la chaise.,english
+sentence,I ___ a new word every day.,learn,J’apprends un nouveau mot chaque jour.,english
+sentence,The light ___ bright in this room.,is,La lumière est forte dans cette pièce.,english
+sentence,We ___ the map before traveling.,check,Nous vérifions la carte avant de voyager.,english
+sentence,She ___ with a calm voice.,speaks,Elle parle d’une voix calme.,english
+sentence,The cat ___ on the bed.,jumps,Le chat saute sur le lit.,english
+sentence,I ___ my phone in my bag.,keep,Je garde mon téléphone dans mon sac.,english
+sentence,They ___ a simple choice.,make,Ils font un choix simple.,english
+sentence,He ___ the street slowly.,crosses,Il traverse la rue lentement.,english
+sentence,We ___ at the market on Saturday.,shop,Nous faisons les courses au marché samedi.,english
+sentence,The water ___ very cold.,is,L’eau est très froide.,english
+sentence,She ___ her work before lunch.,finishes,Elle termine son travail avant le déjeuner.,english
+sentence,I ___ the music from outside.,hear,J’entends la musique dehors.,english
+sentence,He ___ a clean shirt.,wears,Il porte une chemise propre.,english
+sentence,We ___ because the bus is late.,wait,Nous attendons parce que le bus est en retard.,english
+sentence,The teacher ___ the lesson clearly.,explains,Le professeur explique la leçon clairement.,english
+sentence,She ___ her friend with homework.,helps,Elle aide son amie avec les devoirs.,english
+sentence,I ___ the truth.,know,Je connais la vérité.,english
+sentence,They ___ a boat on the river.,see,Ils voient un bateau sur la rivière.,english
+sentence,He ___ rice for dinner.,buys,Il achète du riz pour le dîner.,english
+sentence,The room ___ quiet.,stays,La pièce reste calme.,english
+sentence,We ___ the office at six.,leave,Nous quittons le bureau à six heures.,english
+sentence,She ___ the color blue.,likes,Elle aime la couleur bleue.,english
+sentence,I ___ a letter with a pen.,write,J’écris une lettre avec un stylo.,english
+sentence,The child ___ his mother.,follows,L’enfant suit sa mère.,english
+sentence,He ___ the problem step by step.,solves,Il résout le problème étape par étape.,english
+sentence,We ___ a short break.,take,Nous prenons une courte pause.,english
+sentence,She ___ her glass with water.,fills,Elle remplit son verre d’eau.,english
+sentence,The sun ___ behind the mountain.,sets,Le soleil se couche derrière la montagne.,english
+sentence,I ___ the page slowly.,read,Je lis la page lentement.,english
+sentence,They ___ a new idea.,share,Ils partagent une nouvelle idée.,english
+sentence,He ___ near the window.,sits,Il s’assoit près de la fenêtre.,english
+sentence,We ___ the kitchen after dinner.,clean,Nous nettoyons la cuisine après le dîner.,english
+sentence,She ___ the door with a key.,opens,Elle ouvre la porte avec une clé.,english
+sentence,The bird ___ over the tree.,flies,L’oiseau vole au-dessus de l’arbre.,english
+sentence,I ___ my wallet at home.,forgot,J’ai oublié mon portefeuille à la maison.,english
+sentence,They ___ the answer together.,discuss,Ils discutent de la réponse ensemble.,english
+sentence,He ___ the horse in the field.,watches,Il regarde le cheval dans le champ.,english
+sentence,We ___ pasta for lunch.,cook,Nous cuisinons des pâtes pour le déjeuner.,english
+sentence,She ___ the truth without fear.,tells,Elle dit la vérité sans peur.,english
+sentence,The meeting ___ at ten.,starts,La réunion commence à dix heures.,english
+sentence,I ___ your voice clearly.,hear,J’entends clairement ta voix.,english
+sentence,They ___ the fire before leaving.,stop,Ils arrêtent le feu avant de partir.,english
+sentence,He ___ his answer with care.,chooses,Il choisit sa réponse avec soin.,english
+sentence,We ___ a picture on the wall.,hang,Nous accrochons une image au mur.,english
+sentence,She ___ the old chair.,moves,Elle déplace la vieille chaise.,english
+sentence,The city ___ busy in the morning.,is,La ville est animée le matin.,english
+sentence,I ___ my neighbor in the street.,meet,Je rencontre mon voisin dans la rue.,english
+sentence,They ___ slowly because it rains.,drive,Ils conduisent lentement parce qu’il pleut.,english
+sentence,He ___ his computer every day.,uses,Il utilise son ordinateur chaque jour.,english
+sentence,We ___ a quiet place.,choose,Nous choisissons un endroit calme.,english
+sentence,She ___ the bread with a knife.,cuts,Elle coupe le pain avec un couteau.,english
+sentence,The flower ___ in spring.,grows,La fleur pousse au printemps.,english
+sentence,I ___ outside when the weather is good.,walk,Je marche dehors quand il fait beau.,english
+sentence,Yo ___ agua cada mañana.,bebo,Je bois de l’eau chaque matin.,spanish
+sentence,Ella ___ un libro antes de dormir.,lee,Elle lit un livre avant de dormir.,spanish
+sentence,Nosotros ___ a las siete.,comemos,Nous mangeons à sept heures.,spanish
+sentence,Ellos ___ a la escuela en autobús.,van,Ils vont à l’école en bus.,spanish
+sentence,Él ___ a su amigo el domingo.,llama,Il appelle son ami dimanche.,spanish
+sentence,El niño ___ en el jardín.,juega,L’enfant joue dans le jardin.,spanish
+sentence,Mi hermana ___ muy cansada hoy.,está,Ma sœur est très fatiguée aujourd’hui.,spanish
+sentence,La puerta ___ abierta.,está,La porte est ouverte.,spanish
+sentence,Yo ___ las llaves en la mesa.,pongo,Je mets les clés sur la table.,spanish
+sentence,Nosotros ___ una película esta noche.,vemos,Nous regardons un film ce soir.,spanish
+sentence,El perro ___ cerca de la puerta.,duerme,Le chien dort près de la porte.,spanish
+sentence,Ella ___ francés en la escuela.,aprende,Elle apprend le français à l’école.,spanish
+sentence,Yo ___ tu pregunta.,entiendo,Je comprends ta question.,spanish
+sentence,Él ___ café sin azúcar.,bebe,Il boit du café sans sucre.,spanish
+sentence,El tren ___ al mediodía.,llega,Le train arrive à midi.,spanish
+sentence,Nosotros ___ en un pueblo pequeño.,vivimos,Nous vivons dans un petit village.,spanish
+sentence,Ellos ___ la ventana por la noche.,cierran,Ils ferment la fenêtre le soir.,spanish
+sentence,Yo ___ un mensaje a mi hermano.,envío,J’envoie un message à mon frère.,spanish
+sentence,Ella ___ una foto del mar.,toma,Elle prend une photo de la mer.,spanish
+sentence,El clima ___ frío hoy.,está,La météo est froide aujourd’hui.,spanish
+sentence,Él ___ la respuesta rápido.,encuentra,Il trouve la réponse rapidement.,spanish
+sentence,Nosotros ___ las manos antes de comer.,lavamos,Nous lavons nos mains avant de manger.,spanish
+sentence,El bebé ___ cuando oye música.,sonríe,Le bébé sourit quand il entend de la musique.,spanish
+sentence,Yo ___ temprano el lunes.,despierto,Je me réveille tôt lundi.,spanish
+sentence,Ella ___ la sopa con cuidado.,cocina,Elle cuisine la soupe avec attention.,spanish
+sentence,Ellos ___ en el parque después del trabajo.,caminan,Ils marchent dans le parc après le travail.,spanish
+sentence,Él ___ su bolsa debajo de la silla.,deja,Il laisse son sac sous la chaise.,spanish
+sentence,Yo ___ una palabra nueva cada día.,aprendo,J’apprends un nouveau mot chaque jour.,spanish
+sentence,La luz ___ fuerte en esta habitación.,es,La lumière est forte dans cette pièce.,spanish
+sentence,Nosotros ___ el mapa antes de viajar.,miramos,Nous regardons la carte avant de voyager.,spanish
+sentence,Ella ___ con una voz tranquila.,habla,Elle parle d’une voix calme.,spanish
+sentence,El gato ___ sobre la cama.,salta,Le chat saute sur le lit.,spanish
+sentence,Yo ___ mi teléfono en mi bolsa.,guardo,Je garde mon téléphone dans mon sac.,spanish
+sentence,Ellos ___ una opción simple.,toman,Ils prennent une décision simple.,spanish
+sentence,Él ___ la calle lentamente.,cruza,Il traverse la rue lentement.,spanish
+sentence,Nosotros ___ en el mercado el sábado.,compramos,Nous faisons les courses au marché samedi.,spanish
+sentence,El agua ___ muy fría.,está,L’eau est très froide.,spanish
+sentence,Ella ___ su trabajo antes de comer.,termina,Elle termine son travail avant de manger.,spanish
+sentence,Yo ___ la música desde fuera.,oigo,J’entends la musique dehors.,spanish
+sentence,Él ___ una camisa limpia.,lleva,Il porte une chemise propre.,spanish
+sentence,Nosotros ___ porque el autobús llega tarde.,esperamos,Nous attendons parce que le bus est en retard.,spanish
+sentence,El profesor ___ la lección claramente.,explica,Le professeur explique la leçon clairement.,spanish
+sentence,Ella ___ a su amiga con la tarea.,ayuda,Elle aide son amie avec les devoirs.,spanish
+sentence,Yo ___ la verdad.,sé,Je connais la vérité.,spanish
+sentence,Ellos ___ un barco en el río.,ven,Ils voient un bateau sur la rivière.,spanish
+sentence,Él ___ arroz para la cena.,compra,Il achète du riz pour le dîner.,spanish
+sentence,La habitación ___ tranquila.,queda,La pièce reste calme.,spanish
+sentence,Nosotros ___ la oficina a las seis.,salimos,Nous quittons le bureau à six heures.,spanish
+sentence,Ella ___ el color azul.,prefiere,Elle préfère la couleur bleue.,spanish
+sentence,Yo ___ una carta con un bolígrafo.,escribo,J’écris une lettre avec un stylo.,spanish
+sentence,El niño ___ a su madre.,sigue,L’enfant suit sa mère.,spanish
+sentence,Él ___ el problema paso a paso.,resuelve,Il résout le problème étape par étape.,spanish
+sentence,Nosotros ___ una pausa corta.,hacemos,Nous faisons une courte pause.,spanish
+sentence,Ella ___ su vaso con agua.,llena,Elle remplit son verre d’eau.,spanish
+sentence,El sol ___ detrás de la montaña.,baja,Le soleil descend derrière la montagne.,spanish
+sentence,Yo ___ la página lentamente.,leo,Je lis la page lentement.,spanish
+sentence,Ellos ___ una idea nueva.,comparten,Ils partagent une nouvelle idée.,spanish
+sentence,Él ___ cerca de la ventana.,está,Il est près de la fenêtre.,spanish
+sentence,Nosotros ___ la cocina después de cenar.,limpiamos,Nous nettoyons la cuisine après le dîner.,spanish
+sentence,Ella ___ la puerta con una llave.,abre,Elle ouvre la porte avec une clé.,spanish
+sentence,El pájaro ___ sobre el árbol.,vuela,L’oiseau vole au-dessus de l’arbre.,spanish
+sentence,Yo ___ mi cartera en casa.,olvido,J’oublie mon portefeuille à la maison.,spanish
+sentence,Ellos ___ la respuesta juntos.,discuten,Ils discutent de la réponse ensemble.,spanish
+sentence,Él ___ el caballo en el campo.,mira,Il regarde le cheval dans le champ.,spanish
+sentence,Nosotros ___ pasta para comer.,cocinamos,Nous cuisinons des pâtes pour le repas.,spanish
+sentence,Ella ___ la verdad sin miedo.,dice,Elle dit la vérité sans peur.,spanish
+sentence,La reunión ___ a las diez.,empieza,La réunion commence à dix heures.,spanish
+sentence,Yo ___ tu voz claramente.,oigo,J’entends clairement ta voix.,spanish
+sentence,Ellos ___ el fuego antes de salir.,apagan,Ils éteignent le feu avant de partir.,spanish
+sentence,Él ___ su respuesta con cuidado.,elige,Il choisit sa réponse avec soin.,spanish
+sentence,Nosotros ___ una imagen en la pared.,ponemos,Nous mettons une image au mur.,spanish
+sentence,Ella ___ la silla vieja.,mueve,Elle déplace la vieille chaise.,spanish
+sentence,La ciudad ___ ocupada por la mañana.,está,La ville est animée le matin.,spanish
+sentence,Yo ___ a mi vecino en la calle.,encuentro,Je rencontre mon voisin dans la rue.,spanish
+sentence,Ellos ___ despacio porque llueve.,conducen,Ils conduisent lentement parce qu’il pleut.,spanish
+sentence,Él ___ su ordenador cada día.,usa,Il utilise son ordinateur chaque jour.,spanish
+sentence,Nosotros ___ un lugar tranquilo.,elegimos,Nous choisissons un endroit calme.,spanish
+sentence,Ella ___ el pan con un cuchillo.,corta,Elle coupe le pain avec un couteau.,spanish
+sentence,La flor ___ en primavera.,crece,La fleur pousse au printemps.,spanish
+sentence,Yo ___ fuera cuando hace buen tiempo.,camino,Je marche dehors quand il fait beau.,spanish
+word,roof,toit,,english
+word,wall,mur,,english
+word,floor,sol,,english
+word,ceiling,plafond,,english
+word,stairs,escaliers,,english
+word,balcony,balcon,,english
+word,garage,garage,,english
+word,corner,coin,,english
+word,mirror,miroir,,english
+word,shelf,étagère,,english
+word,drawer,tiroir,,english
+word,lamp,lampe,,english
+word,blanket,couverture,,english
+word,towel,serviette,,english
+word,soap,savon,,english
+word,toothbrush,brosse à dents,,english
+word,shower,douche,,english
+word,toilet,toilettes,,english
+word,sink,évier,,english
+word,fridge,réfrigérateur,,english
+word,oven,four,,english
+word,carpet,tapis,,english
+word,curtain,rideau,,english
+word,pillow,oreiller,,english
+word,cheese,fromage,,english
+word,butter,beurre,,english
+word,yogurt,yaourt,,english
+word,chicken,poulet,,english
+word,beef,bœuf,,english
+word,pork,porc,,english
+word,onion,oignon,,english
+word,garlic,ail,,english
+word,carrot,carotte,,english
+word,potato,pomme de terre,,english
+word,tomato,tomate,,english
+word,salad,salade,,english
+word,lettuce,laitue,,english
+word,cucumber,concombre,,english
+word,pepper,poivron,,english
+word,bean,haricot,,english
+word,pea,petit pois,,english
+word,cake,gâteau,,english
+word,cookie,biscuit,,english
+word,honey,miel,,english
+word,sky,ciel,,english
+word,cloud,nuage,,english
+word,storm,orage,,english
+word,beach,plage,,english
+word,island,île,,english
+word,lake,lac,,english
+word,desert,désert,,english
+word,hill,colline,,english
+word,field,champ,,english
+word,grass,herbe,,english
+word,leaf,feuille,,english
+word,branch,branche,,english
+word,stone,pierre,,english
+word,sand,sable,,english
+word,moon,lune,,english
+word,star,étoile,,english
+word,person,personne,,english
+word,adult,adulte,,english
+word,baby,bébé,,english
+word,aunt,tante,,english
+word,uncle,oncle,,english
+word,cousin,cousin,,english
+word,team,équipe,,english
+word,boss,chef,,english
+word,customer,client,,english
+word,nurse,infirmière,,english
+word,doctor,médecin,,english
+word,driver,conducteur,,english
+word,artist,artiste,,english
+word,singer,chanteur,,english
+word,dancer,danseur,,english
+word,player,joueur,,english
+word,shirt,chemise,,english
+word,coat,manteau,,english
+word,jacket,veste,,english
+word,shoe,chaussure,,english
+word,sock,chaussette,,english
+word,dress,robe,,english
+word,hat,chapeau,,english
+word,pocket,poche,,english
+word,button,bouton,,english
+word,plan,plan,,english
+word,goal,objectif,,english
+word,habit,habitude,,english
+word,skill,compétence,,english
+word,effort,effort,,english
+word,mistake,erreur,,english
+word,memory,mémoire,,english
+word,dream,rêve,,english
+word,fear,peur,,english
+word,hope,espoir,,english
+word,chance,chance,,english
+word,rule,règle,,english
+word,step,étape,,english
+word,list,liste,,english
+word,note,note,,english
+word,signal,signal,,english
+word,sound,son,,english
+word,smell,odeur,,english
+word,taste,goût,,english
+word,touch,toucher,,english
+word,silence,silence,,english
+word,camera,appareil photo,,english
+word,battery,batterie,,english
+word,charger,chargeur,,english
+word,cable,câble,,english
+word,password,mot de passe,,english
+word,website,site web,,english
+word,file,fichier,,english
+word,folder,dossier,,english
+word,printer,imprimante,,english
+word,kind,gentil,,english
+word,serious,sérieux,,english
+word,funny,drôle,,english
+word,strange,étrange,,english
+word,beautiful,beau,,english
+word,ugly,laid,,english
+word,heavy,lourd,,english
+word,expensive,cher,,english
+word,cheap,bon marché,,english
+word,rich,riche,,english
+word,poor,pauvre,,english
+word,healthy,sain,,english
+word,sick,malade,,english
+word,angry,en colère,,english
+word,nervous,nerveux,,english
+word,proud,fier,,english
+word,polite,poli,,english
+word,honest,honnête,,english
+word,fair,juste,,english
+word,fresh,frais,,english
+word,sweet,sucré,,english
+word,bitter,amer,,english
+word,salty,salé,,english
+word,sharp,tranchant,,english
+word,smooth,lisse,,english
+word,narrow,étroit,,english
+word,wide,large,,english
+word,round,rond,,english
+word,square,carré,,english
+word,public,public,,english
+word,private,privé,,english
+word,possible,possible,,english
+word,impossible,impossible,,english
+word,important,important,,english
+word,natural,naturel,,english
+word,personal,personnel,,english
+word,local,local,,english
+word,global,global,,english
+word,exact,exact,,english
+word,final,final,,english
+word,main,principal,,english
+word,today,aujourd’hui,,english
+word,tomorrow,demain,,english
+word,yesterday,hier,,english
+word,soon,bientôt,,english
+word,later,plus tard,,english
+word,again,encore,,english
+word,before,avant,,english
+word,after,après,,english
+word,almost,presque,,english
+word,enough,assez,,english
+word,more,plus,,english
+word,less,moins,,english
+word,together,ensemble,,english
+word,alone,seul,,english
+word,to write,écrire,,english
+word,to listen,écouter,,english
+word,to speak,parler,,english
+word,to learn,apprendre,,english
+word,to see,voir,,english
+word,to hear,entendre,,english
+word,to buy,acheter,,english
+word,to sell,vendre,,english
+word,to pay,payer,,english
+word,to open,ouvrir,,english
+word,to close,fermer,,english
+word,to start,commencer,,english
+word,to finish,finir,,english
+word,to help,aider,,english
+word,to wait,attendre,,english
+word,to ask,demander,,english
+word,to choose,choisir,,english
+word,to bring,apporter,,english
+word,to carry,porter,,english
+word,to hold,tenir,,english
+word,to build,construire,,english
+word,to break,casser,,english
+word,to fix,réparer,,english
+word,to grow,grandir,,english
+word,to cut,couper,,english
+word,to cook,cuisiner,,english
+word,to smile,sourire,,english
+word,to cry,pleurer,,english
+word,to laugh,rire,,english
+word,to think,penser,,english
+sentence,The roof ___ red after the rain.,looks,Le toit paraît rouge après la pluie.,english
+sentence,I ___ my jacket before going out.,take,Je prends ma veste avant de sortir.,english
+sentence,She ___ the lamp near the bed.,places,Elle place la lampe près du lit.,english
+sentence,We ___ cheese with fresh bread.,eat,Nous mangeons du fromage avec du pain frais.,english
+sentence,He ___ the camera in his bag.,carries,Il porte l’appareil photo dans son sac.,english
+sentence,The baby ___ on the soft blanket.,rests,Le bébé se repose sur la couverture douce.,english
+sentence,They ___ the bridge at sunrise.,cross,Ils traversent le pont au lever du soleil.,english
+sentence,I ___ the storm from my window.,watch,Je regarde l’orage depuis ma fenêtre.,english
+sentence,She ___ a quiet corner to read.,chooses,Elle choisit un coin calme pour lire.,english
+sentence,We ___ the salad with olive oil.,serve,Nous servons la salade avec de l’huile d’olive.,english
+sentence,He ___ honest when he answers.,stays,Il reste honnête quand il répond.,english
+sentence,The nurse ___ the patient with care.,helps,L’infirmière aide le patient avec attention.,english
+sentence,I ___ the password in my notebook.,write,J’écris le mot de passe dans mon carnet.,english
+sentence,They ___ the printer before the meeting.,fix,Ils réparent l’imprimante avant la réunion.,english
+sentence,The sky ___ clear this evening.,becomes,Le ciel devient clair ce soir.,english
+sentence,She ___ the towel after the shower.,uses,Elle utilise la serviette après la douche.,english
+sentence,We ___ enough time for breakfast.,have,Nous avons assez de temps pour le petit-déjeuner.,english
+sentence,He ___ nervous before the test.,feels,Il se sent nerveux avant le test.,english
+sentence,I ___ the file on my computer.,save,J’enregistre le fichier sur mon ordinateur.,english
+sentence,They ___ the museum on Sunday.,visit,Ils visitent le musée dimanche.,english
+sentence,The soup ___ salty today.,tastes,La soupe a un goût salé aujourd’hui.,english
+sentence,She ___ her cousin at the station.,meets,Elle retrouve son cousin à la gare.,english
+sentence,We ___ the floor after dinner.,sweep,Nous balayons le sol après le dîner.,english
+sentence,He ___ the button on his coat.,loses,Il perd le bouton de son manteau.,english
+sentence,I ___ proud of my progress.,feel,Je suis fier de mes progrès.,english
+sentence,They ___ the basket with fruit.,fill,Ils remplissent le panier de fruits.,english
+sentence,The moon ___ above the lake.,shines,La lune brille au-dessus du lac.,english
+sentence,She ___ a serious question.,asks,Elle pose une question sérieuse.,english
+sentence,We ___ the recipe before cooking.,read,Nous lisons la recette avant de cuisiner.,english
+sentence,He ___ the heavy box alone.,moves,Il déplace la boîte lourde seul.,english
+sentence,I ___ the smell of fresh coffee.,like,J’aime l’odeur du café frais.,english
+sentence,They ___ respect during the debate.,show,Ils montrent du respect pendant le débat.,english
+sentence,The doctor ___ the result calmly.,explains,Le médecin explique le résultat calmement.,english
+sentence,She ___ the curtain in the morning.,opens,Elle ouvre le rideau le matin.,english
+sentence,We ___ our tickets at the airport.,check,Nous vérifions nos billets à l’aéroport.,english
+sentence,He ___ the grass after the storm.,cuts,Il coupe l’herbe après l’orage.,english
+sentence,I ___ a simple note for you.,leave,Je laisse une note simple pour toi.,english
+sentence,They ___ patience with the child.,show,Ils font preuve de patience avec l’enfant.,english
+sentence,The island ___ far from the coast.,seems,L’île semble loin de la côte.,english
+sentence,She ___ the pillow on the chair.,puts,Elle met l’oreiller sur la chaise.,english
+sentence,We ___ the website every week.,update,Nous mettons à jour le site web chaque semaine.,english
+sentence,He ___ bitter chocolate.,prefers,Il préfère le chocolat amer.,english
+sentence,I ___ my passport before traveling.,prepare,Je prépare mon passeport avant de voyager.,english
+sentence,They ___ together after the lesson.,practice,Ils s’entraînent ensemble après le cours.,english
+sentence,The library ___ quiet in the afternoon.,stays,La bibliothèque reste calme l’après-midi.,english
+sentence,She ___ the garlic very finely.,cuts,Elle coupe l’ail très finement.,english
+sentence,We ___ fresh water in the bottle.,keep,Nous gardons de l’eau fraîche dans la bouteille.,english
+sentence,He ___ a fair decision.,makes,Il prend une décision juste.,english
+sentence,I ___ the cloud slowly moving.,see,Je vois le nuage bouger lentement.,english
+sentence,They ___ the garage before winter.,clean,Ils nettoient le garage avant l’hiver.,english
+sentence,The singer ___ with a strong voice.,starts,Le chanteur commence d’une voix forte.,english
+sentence,She ___ the medicine after lunch.,takes,Elle prend le médicament après le déjeuner.,english
+sentence,We ___ the details carefully.,study,Nous étudions les détails avec attention.,english
+sentence,He ___ the mirror with a towel.,cleans,Il nettoie le miroir avec une serviette.,english
+sentence,I ___ hope after this good news.,feel,Je ressens de l’espoir après cette bonne nouvelle.,english
+sentence,They ___ the farm in spring.,leave,Ils quittent la ferme au printemps.,english
+sentence,The beach ___ beautiful at night.,looks,La plage est belle la nuit.,english
+sentence,She ___ the price before buying.,checks,Elle vérifie le prix avant d’acheter.,english
+sentence,We ___ a narrow path through the forest.,follow,Nous suivons un chemin étroit dans la forêt.,english
+sentence,He ___ the charger next to the phone.,finds,Il trouve le chargeur à côté du téléphone.,english
+sentence,I ___ the silence after a long day.,enjoy,J’apprécie le silence après une longue journée.,english
+sentence,They ___ a local artist.,invite,Ils invitent un artiste local.,english
+sentence,The fridge ___ full after shopping.,is,Le réfrigérateur est plein après les courses.,english
+sentence,She ___ the sock under the bed.,finds,Elle trouve la chaussette sous le lit.,english
+sentence,We ___ courage before starting.,need,Nous avons besoin de courage avant de commencer.,english
+sentence,He ___ the website without help.,builds,Il construit le site web sans aide.,english
+sentence,I ___ the sweet taste of honey.,remember,Je me souviens du goût sucré du miel.,english
+sentence,They ___ the field after the rain.,enter,Ils entrent dans le champ après la pluie.,english
+sentence,The jacket ___ too expensive.,seems,La veste semble trop chère.,english
+sentence,She ___ the answer with confidence.,gives,Elle donne la réponse avec confiance.,english
+sentence,We ___ the cable behind the screen.,hide,Nous cachons le câble derrière l’écran.,english
+sentence,He ___ an important detail.,notices,Il remarque un détail important.,english
+sentence,I ___ the dancer on stage.,watch,Je regarde le danseur sur scène.,english
+sentence,They ___ a cheap room for one night.,book,Ils réservent une chambre bon marché pour une nuit.,english
+sentence,The soup ___ warm enough.,is,La soupe est assez chaude.,english
+sentence,She ___ the flour into the bowl.,pours,Elle verse la farine dans le bol.,english
+sentence,We ___ the rule before the game.,explain,Nous expliquons la règle avant le jeu.,english
+sentence,He ___ the stone from his shoe.,removes,Il retire la pierre de sa chaussure.,english
+sentence,I ___ the sound of the sea.,hear,J’entends le son de la mer.,english
+sentence,They ___ the final step together.,finish,Ils terminent la dernière étape ensemble.,english
+word,techo,toit,,spanish
+word,pared,mur,,spanish
+word,suelo,sol,,spanish
+word,escalera,escalier,,spanish
+word,balcón,balcon,,spanish
+word,garaje,garage,,spanish
+word,esquina,coin,,spanish
+word,espejo,miroir,,spanish
+word,estante,étagère,,spanish
+word,cajón,tiroir,,spanish
+word,lámpara,lampe,,spanish
+word,manta,couverture,,spanish
+word,toalla,serviette,,spanish
+word,jabón,savon,,spanish
+word,ducha,douche,,spanish
+word,lavabo,lavabo,,spanish
+word,nevera,réfrigérateur,,spanish
+word,horno,four,,spanish
+word,alfombra,tapis,,spanish
+word,cortina,rideau,,spanish
+word,almohada,oreiller,,spanish
+word,queso,fromage,,spanish
+word,mantequilla,beurre,,spanish
+word,yogur,yaourt,,spanish
+word,pollo,poulet,,spanish
+word,ternera,bœuf,,spanish
+word,cerdo,porc,,spanish
+word,cebolla,oignon,,spanish
+word,ajo,ail,,spanish
+word,zanahoria,carotte,,spanish
+word,patata,pomme de terre,,spanish
+word,tomate,tomate,,spanish
+word,ensalada,salade,,spanish
+word,lechuga,laitue,,spanish
+word,pepino,concombre,,spanish
+word,pimiento,poivron,,spanish
+word,judía,haricot,,spanish
+word,guisante,petit pois,,spanish
+word,pastel,gâteau,,spanish
+word,galleta,biscuit,,spanish
+word,miel,miel,,spanish
+word,cielo,ciel,,spanish
+word,nube,nuage,,spanish
+word,tormenta,orage,,spanish
+word,playa,plage,,spanish
+word,isla,île,,spanish
+word,lago,lac,,spanish
+word,desierto,désert,,spanish
+word,colina,colline,,spanish
+word,campo,champ,,spanish
+word,hierba,herbe,,spanish
+word,hoja,feuille,,spanish
+word,rama,branche,,spanish
+word,piedra,pierre,,spanish
+word,arena,sable,,spanish
+word,luna,lune,,spanish
+word,estrella,étoile,,spanish
+word,persona,personne,,spanish
+word,adulto,adulte,,spanish
+word,bebé,bébé,,spanish
+word,tía,tante,,spanish
+word,tío,oncle,,spanish
+word,primo,cousin,,spanish
+word,equipo,équipe,,spanish
+word,jefe,chef,,spanish
+word,cliente,client,,spanish
+word,enfermera,infirmière,,spanish
+word,médico,médecin,,spanish
+word,conductor,conducteur,,spanish
+word,artista,artiste,,spanish
+word,cantante,chanteur,,spanish
+word,bailarín,danseur,,spanish
+word,jugador,joueur,,spanish
+word,camisa,chemise,,spanish
+word,abrigo,manteau,,spanish
+word,chaqueta,veste,,spanish
+word,zapato,chaussure,,spanish
+word,calcetín,chaussette,,spanish
+word,vestido,robe,,spanish
+word,sombrero,chapeau,,spanish
+word,bolsillo,poche,,spanish
+word,botón,bouton,,spanish
+word,plan,plan,,spanish
+word,meta,objectif,,spanish
+word,hábito,habitude,,spanish
+word,habilidad,compétence,,spanish
+word,esfuerzo,effort,,spanish
+word,error,erreur,,spanish
+word,memoria,mémoire,,spanish
+word,sueño,rêve,,spanish
+word,miedo,peur,,spanish
+word,esperanza,espoir,,spanish
+word,oportunidad,occasion,,spanish
+word,regla,règle,,spanish
+word,paso,étape,,spanish
+word,lista,liste,,spanish
+word,nota,note,,spanish
+word,señal,signal,,spanish
+word,sonido,son,,spanish
+word,olor,odeur,,spanish
+word,sabor,goût,,spanish
+word,tacto,toucher,,spanish
+word,silencio,silence,,spanish
+word,cámara,appareil photo,,spanish
+word,batería,batterie,,spanish
+word,cargador,chargeur,,spanish
+word,cable,câble,,spanish
+word,contraseña,mot de passe,,spanish
+word,sitio,site,,spanish
+word,archivo,fichier,,spanish
+word,carpeta,dossier,,spanish
+word,impresora,imprimante,,spanish
+word,amable,gentil,,spanish
+word,serio,sérieux,,spanish
+word,divertido,drôle,,spanish
+word,extraño,étrange,,spanish
+word,hermoso,beau,,spanish
+word,feo,laid,,spanish
+word,pesado,lourd,,spanish
+word,ligero,léger,,spanish
+word,caro,cher,,spanish
+word,barato,bon marché,,spanish
+word,rico,riche,,spanish
+word,pobre,pauvre,,spanish
+word,sano,sain,,spanish
+word,enfermo,malade,,spanish
+word,enfadado,en colère,,spanish
+word,nervioso,nerveux,,spanish
+word,orgulloso,fier,,spanish
+word,educado,poli,,spanish
+word,honesto,honnête,,spanish
+word,justo,juste,,spanish
+word,dulce,sucré,,spanish
+word,amargo,amer,,spanish
+word,salado,salé,,spanish
+word,afilado,tranchant,,spanish
+word,liso,lisse,,spanish
+word,estrecho,étroit,,spanish
+word,ancho,large,,spanish
+word,redondo,rond,,spanish
+word,cuadrado,carré,,spanish
+word,público,public,,spanish
+word,privado,privé,,spanish
+word,posible,possible,,spanish
+word,imposible,impossible,,spanish
+word,importante,important,,spanish
+word,natural,naturel,,spanish
+word,personal,personnel,,spanish
+word,local,local,,spanish
+word,global,global,,spanish
+word,exacto,exact,,spanish
+word,final,final,,spanish
+word,principal,principal,,spanish
+word,hoy,aujourd’hui,,spanish
+word,ayer,hier,,spanish
+word,pronto,bientôt,,spanish
+word,luego,plus tard,,spanish
+word,antes,avant,,spanish
+word,después,après,,spanish
+word,casi,presque,,spanish
+word,bastante,assez,,spanish
+word,más,plus,,spanish
+word,menos,moins,,spanish
+word,juntos,ensemble,,spanish
+word,solo,seul,,spanish
+word,sobre,sur,,spanish
+word,entre,entre,,spanish
+word,desde,depuis,,spanish
+word,hasta,jusqu’à,,spanish
+word,hacia,vers,,spanish
+word,escribir,écrire,,spanish
+word,escuchar,écouter,,spanish
+word,hablar,parler,,spanish
+word,aprender,apprendre,,spanish
+word,leer,lire,,spanish
+word,ver,voir,,spanish
+word,oír,entendre,,spanish
+word,comprar,acheter,,spanish
+word,vender,vendre,,spanish
+word,pagar,payer,,spanish
+word,abrir,ouvrir,,spanish
+word,cerrar,fermer,,spanish
+word,empezar,commencer,,spanish
+word,terminar,terminer,,spanish
+word,ayudar,aider,,spanish
+word,esperar,attendre,,spanish
+word,preguntar,demander,,spanish
+word,responder,répondre,,spanish
+word,elegir,choisir,,spanish
+word,traer,apporter,,spanish
+word,llevar,porter,,spanish
+word,construir,construire,,spanish
+word,romper,casser,,spanish
+word,arreglar,réparer,,spanish
+word,crecer,grandir,,spanish
+word,cortar,couper,,spanish
+word,cocinar,cuisiner,,spanish
+word,sonreír,sourire,,spanish
+word,llorar,pleurer,,spanish
+word,reír,rire,,spanish
+sentence,El techo ___ rojo después de la lluvia.,parece,Le toit paraît rouge après la pluie.,spanish
+sentence,Yo ___ mi chaqueta antes de salir.,tomo,Je prends ma veste avant de sortir.,spanish
+sentence,Ella ___ la lámpara cerca de la cama.,coloca,Elle place la lampe près du lit.,spanish
+sentence,Nosotros ___ queso con pan fresco.,comemos,Nous mangeons du fromage avec du pain frais.,spanish
+sentence,Él ___ la cámara en su bolsa.,lleva,Il porte l’appareil photo dans son sac.,spanish
+sentence,El bebé ___ sobre la manta suave.,descansa,Le bébé se repose sur la couverture douce.,spanish
+sentence,Ellos ___ el puente al amanecer.,cruzan,Ils traversent le pont au lever du soleil.,spanish
+sentence,Yo ___ la tormenta desde mi ventana.,miro,Je regarde l’orage depuis ma fenêtre.,spanish
+sentence,Ella ___ una esquina tranquila para leer.,elige,Elle choisit un coin calme pour lire.,spanish
+sentence,Nosotros ___ la ensalada con aceite.,servimos,Nous servons la salade avec de l’huile.,spanish
+sentence,Él ___ honesto cuando responde.,sigue,Il reste honnête quand il répond.,spanish
+sentence,La enfermera ___ al paciente con cuidado.,ayuda,L’infirmière aide le patient avec attention.,spanish
+sentence,Yo ___ la contraseña en mi cuaderno.,escribo,J’écris le mot de passe dans mon carnet.,spanish
+sentence,Ellos ___ la impresora antes de la reunión.,arreglan,Ils réparent l’imprimante avant la réunion.,spanish
+sentence,El cielo ___ claro esta tarde.,queda,Le ciel reste clair ce soir.,spanish
+sentence,Ella ___ la toalla después de la ducha.,usa,Elle utilise la serviette après la douche.,spanish
+sentence,Nosotros ___ bastante tiempo para desayunar.,tenemos,Nous avons assez de temps pour le petit-déjeuner.,spanish
+sentence,Él ___ nervioso antes de la prueba.,está,Il est nerveux avant le test.,spanish
+sentence,Yo ___ el archivo en mi ordenador.,guardo,J’enregistre le fichier sur mon ordinateur.,spanish
+sentence,Ellos ___ el museo el domingo.,visitan,Ils visitent le musée dimanche.,spanish
+sentence,La sopa ___ salada hoy.,está,La soupe est salée aujourd’hui.,spanish
+sentence,Ella ___ a su primo en la estación.,encuentra,Elle retrouve son cousin à la gare.,spanish
+sentence,Nosotros ___ el suelo después de cenar.,barremos,Nous balayons le sol après le dîner.,spanish
+sentence,Él ___ el botón de su abrigo.,pierde,Il perd le bouton de son manteau.,spanish
+sentence,Yo ___ orgulloso de mi progreso.,estoy,Je suis fier de mes progrès.,spanish
+sentence,Ellos ___ la cesta con fruta.,llenan,Ils remplissent le panier de fruits.,spanish
+sentence,La luna ___ sobre el lago.,brilla,La lune brille au-dessus du lac.,spanish
+sentence,Ella ___ una pregunta seria.,hace,Elle pose une question sérieuse.,spanish
+sentence,Nosotros ___ la receta antes de cocinar.,leemos,Nous lisons la recette avant de cuisiner.,spanish
+sentence,Él ___ la caja pesada solo.,mueve,Il déplace la boîte lourde seul.,spanish
+sentence,Yo ___ el olor del café fresco.,disfruto,J’apprécie l’odeur du café frais.,spanish
+sentence,Ellos ___ respeto durante el debate.,muestran,Ils montrent du respect pendant le débat.,spanish
+sentence,El médico ___ el resultado con calma.,explica,Le médecin explique le résultat calmement.,spanish
+sentence,Ella ___ la cortina por la mañana.,abre,Elle ouvre le rideau le matin.,spanish
+sentence,Nosotros ___ los billetes en el aeropuerto.,revisamos,Nous vérifions les billets à l’aéroport.,spanish
+sentence,Él ___ la hierba después de la tormenta.,corta,Il coupe l’herbe après l’orage.,spanish
+sentence,Yo ___ una nota simple para ti.,dejo,Je laisse une note simple pour toi.,spanish
+sentence,Ellos ___ paciencia con el niño.,tienen,Ils ont de la patience avec l’enfant.,spanish
+sentence,La isla ___ lejos de la costa.,parece,L’île semble loin de la côte.,spanish
+sentence,Ella ___ la almohada sobre la silla.,pone,Elle met l’oreiller sur la chaise.,spanish
+sentence,Nosotros ___ el sitio cada semana.,actualizamos,Nous mettons à jour le site chaque semaine.,spanish
+sentence,Él ___ el chocolate amargo.,prefiere,Il préfère le chocolat amer.,spanish
+sentence,Yo ___ mi pasaporte antes de viajar.,preparo,Je prépare mon passeport avant de voyager.,spanish
+sentence,Ellos ___ juntos después de la clase.,practican,Ils s’entraînent ensemble après le cours.,spanish
+sentence,La biblioteca ___ tranquila por la tarde.,permanece,La bibliothèque reste calme l’après-midi.,spanish
+sentence,Ella ___ el ajo muy fino.,corta,Elle coupe l’ail très finement.,spanish
+sentence,Nosotros ___ agua fresca en la botella.,guardamos,Nous gardons de l’eau fraîche dans la bouteille.,spanish
+sentence,Él ___ una decisión justa.,toma,Il prend une décision juste.,spanish
+sentence,Yo ___ la nube moverse despacio.,veo,Je vois le nuage bouger lentement.,spanish
+sentence,Ellos ___ el garaje antes del invierno.,limpian,Ils nettoient le garage avant l’hiver.,spanish
+sentence,El cantante ___ con una voz fuerte.,empieza,Le chanteur commence avec une voix forte.,spanish
+sentence,Ella ___ la medicina después de comer.,toma,Elle prend le médicament après le repas.,spanish
+sentence,Nosotros ___ los detalles con cuidado.,estudiamos,Nous étudions les détails avec attention.,spanish
+sentence,Él ___ el espejo con una toalla.,limpia,Il nettoie le miroir avec une serviette.,spanish
+sentence,Yo ___ esperanza después de esta noticia.,siento,Je ressens de l’espoir après cette nouvelle.,spanish
+sentence,Ellos ___ la granja en primavera.,dejan,Ils quittent la ferme au printemps.,spanish
+sentence,La playa ___ hermosa por la noche.,parece,La plage semble belle la nuit.,spanish
+sentence,Ella ___ el precio antes de comprar.,mira,Elle vérifie le prix avant d’acheter.,spanish
+sentence,Nosotros ___ un camino estrecho por el bosque.,seguimos,Nous suivons un chemin étroit dans la forêt.,spanish
+sentence,Él ___ el cargador junto al teléfono.,encuentra,Il trouve le chargeur à côté du téléphone.,spanish
+sentence,Yo ___ el silencio después de un día largo.,aprecio,J’apprécie le silence après une longue journée.,spanish
+sentence,Ellos ___ a un artista local.,invitan,Ils invitent un artiste local.,spanish
+sentence,La nevera ___ llena después de comprar.,está,Le réfrigérateur est plein après les courses.,spanish
+sentence,Ella ___ el calcetín debajo de la cama.,encuentra,Elle trouve la chaussette sous le lit.,spanish
+sentence,Nosotros ___ valentía antes de empezar.,necesitamos,Nous avons besoin de courage avant de commencer.,spanish
+sentence,Él ___ el sitio sin ayuda.,construye,Il construit le site sans aide.,spanish
+sentence,Yo ___ el sabor dulce de la miel.,recuerdo,Je me souviens du goût sucré du miel.,spanish
+sentence,Ellos ___ el campo después de la lluvia.,entran,Ils entrent dans le champ après la pluie.,spanish
+sentence,La chaqueta ___ demasiado cara.,parece,La veste semble trop chère.,spanish
+sentence,Ella ___ la respuesta con confianza.,da,Elle donne la réponse avec confiance.,spanish
+sentence,Nosotros ___ el cable detrás de la pantalla.,escondemos,Nous cachons le câble derrière l’écran.,spanish
+sentence,Él ___ un detalle importante.,nota,Il remarque un détail important.,spanish
+sentence,Yo ___ al bailarín en el escenario.,miro,Je regarde le danseur sur scène.,spanish
+sentence,Ellos ___ una habitación barata por una noche.,reservan,Ils réservent une chambre bon marché pour une nuit.,spanish
+sentence,La sopa ___ bastante caliente.,está,La soupe est assez chaude.,spanish
+sentence,Ella ___ la harina en el bol.,vierte,Elle verse la farine dans le bol.,spanish
+sentence,Nosotros ___ la regla antes del juego.,explicamos,Nous expliquons la règle avant le jeu.,spanish
+sentence,Él ___ la piedra de su zapato.,quita,Il retire la pierre de sa chaussure.,spanish
+sentence,Yo ___ el sonido del mar.,oigo,J’entends le son de la mer.,spanish
+sentence,Ellos ___ el paso final juntos.,terminan,Ils terminent la dernière étape ensemble.,spanish
