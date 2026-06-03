@@ -4,25 +4,54 @@
     <% if @activity_session.finished? %>
 
       <div class="session-summary">
+
         <h1>Session terminée 🎉</h1>
 
         <div class="activity-card">
-          <h2><%= @activity_session.activity.name %></h2>
+
+          <h2>
+            <%= @activity_session.activity.name %>
+          </h2>
 
           <p class="activity-content">
             <%= @activity_session.activity.content %>
           </p>
 
           <div class="summary-details">
-            <p><strong>Date :</strong> <%= @activity_session.date %></p>
-            <p><strong>Mood :</strong> <%= @activity_session.activity.mood.name %></p>
-            <p><strong>Durée :</strong> <%= @activity_session.activity.duration.value %> min</p>
-            <p><strong>Lieu :</strong> <%= @activity_session.activity.location.name %></p>
-            <p><strong>Intérêt :</strong> <%= @activity_session.activity.interest.name %></p>
+            <p>
+              <strong>Date :</strong>
+              <%= @activity_session.date %>
+            </p>
+
+            <p>
+              <strong>Mood :</strong>
+              <%= @activity_session.activity.mood.name %>
+            </p>
+
+            <p>
+              <strong>Durée :</strong>
+              <%= @activity_session.activity.duration.value %> min
+            </p>
+
+            <p>
+              <strong>Lieu :</strong>
+              <%= @activity_session.activity.location.name %>
+            </p>
+
+            <p>
+              <strong>Intérêt :</strong>
+              <%= @activity_session.activity.interest.name %>
+            </p>
           </div>
+
         </div>
+
       </div>
-      <%= link_to "Recommencer", root_path, class: "primary-button" %>
+
+      <%= link_to "Recommencer",
+                  root_path,
+                  class: "primary-button" %>
+
     <% else %>
 
       <div class="recommendations-header">
@@ -31,34 +60,122 @@
       </div>
 
       <% if @activities.any? %>
-        <div class="activities-list">
-          <% @activities.each do |activity| %>
-            <%= link_to activity_path(activity, activity_session_id: @activity_session.id),
-                        class: "activity-card-link" do %>
 
-              <div class="activity-card">
+        <div class="activities-list">
+
+          <% @activities.each do |activity| %>
+
+            <% interest_class =
+              case activity.interest.name
+              when "Sport"
+                "activity-sport"
+              when "Langues"
+                "activity-langues"
+              when "Créativité"
+                "activity-creativity"
+              when "Bien-être"
+                "activity-wellbeing"
+              when "Photo"
+                "activity-photo"
+              when "Dessin"
+                "activity-drawing"
+              when "Écriture"
+                "activity-writing"
+              when "Culture"
+                "activity-culture"
+              else
+                ""
+              end
+            %>
+
+            <%= link_to activity_path(
+                  activity,
+                  activity_session_id: @activity_session.id
+                ),
+                class: "activity-card-link" do %>
+
+              <div class="activity-card <%= interest_class %>">
+
+              <div class="activity-interest-header">
+
+                <% if activity.interest.name == "Sport" %>
+
+                  <%= image_tag "sport.png",
+                                class: "activity-interest-icon" %>
+
+                <% elsif activity.interest.name == "Langues" %>
+
+                  <%= image_tag "langue.png",
+                                class: "activity-interest-icon" %>
+
+                <% elsif activity.interest.name == "Créativité" %>
+
+                  <%= image_tag "creativite.png",
+                                class: "activity-interest-icon" %>
+
+                <% elsif activity.interest.name == "Bien-être" %>
+
+                  <%= image_tag "bien_etre.png",
+                                class: "activity-interest-icon" %>
+
+                <% elsif activity.interest.name == "Photo" %>
+
+                  <%= image_tag "photo.png",
+                                class: "activity-interest-icon" %>
+
+                <% elsif activity.interest.name == "Dessin" %>
+
+                  <%= image_tag "dessin.png",
+                                class: "activity-interest-icon" %>
+
+                <% elsif activity.interest.name == "Écriture" %>
+
+                  <%= image_tag "ecriture.png",
+                                class: "activity-interest-icon" %>
+
+                <% elsif activity.interest.name == "Culture" %>
+
+                  <%= image_tag "culture.png",
+                                class: "activity-interest-icon" %>
+
+                <% end %>
+
+                <span class="activity-interest-label badge-interest">
+                  <%= activity.interest.name %>
+                </span>
+
+              </div>
                 <div class="activity-top">
+
                   <h2>
                     <%= activity.name %>
 
-                    <% if activity.language_activity? && @language_label.present? %>
+                    <% if activity.language_activity? &&
+                          @language_label.present? %>
                       en <%= @language_label %>
                     <% end %>
                   </h2>
+
                 </div>
 
                 <p class="activity-content">
                   <%= activity.content %>
                 </p>
+
               </div>
 
             <% end %>
+
           <% end %>
+
         </div>
+
       <% else %>
+
         <div class="empty-state">
           <p>Aucune activité trouvée 😢</p>
         </div>
+
       <% end %>
 
     <% end %>
