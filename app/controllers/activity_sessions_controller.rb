@@ -43,6 +43,9 @@ class ActivitySessionsController < ApplicationController
 
   def show
     @activity_session = current_user.activity_sessions.find(params[:id])
+
+    return if @activity_session.finished?
+
     reference_activity = @activity_session.activity
 
     matching_activities = Activity.where(
@@ -62,6 +65,14 @@ class ActivitySessionsController < ApplicationController
 
     assign_language_if_needed
     @language_label = readable_language(@activity_session.language)
+  end
+
+  def update
+    @activity_session = current_user.activity_sessions.find(params[:id])
+
+    @activity_session.update!(finished: true)
+
+    redirect_to activity_session_path(@activity_session)
   end
 
   private
