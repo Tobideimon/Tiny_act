@@ -1,3 +1,5 @@
+require "csv"
+
 puts "🧹 Cleaning database..."
 
 ActivitySession.destroy_all
@@ -286,8 +288,8 @@ puts "🏃 Importing sport activities from CSV..."
 Rake::Task["sport_activities:import"].invoke
 
 if defined?(CultureQuestion)
-  puts "🧠 Importing culture questions from API..."
-  Rake::Task["culture_questions:import"].invoke
+  puts "🧠 Importing culture questions from CSV..."
+  Rake::Task["culture_questions:import_csv"].invoke
 end
 
 puts "✅ Seed completed!"
