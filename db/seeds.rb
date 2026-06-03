@@ -39,7 +39,7 @@ puts "📍 Creating locations..."
 
 home     = Location.create!(name: "Maison")
 outside  = Location.create!(name: "Extérieur")
-office   = Location.create!(name: "Bureau")
+transport   = Location.create!(name: "Bureau")
 anywhere = Location.create!(name: "N'importe où")
 
 puts "🎯 Creating interests..."
@@ -99,7 +99,7 @@ Activity.create!(
   name: "Respiration guidée",
   content: "Prends 5 minutes pour respirer profondément et te recentrer.",
   mood: a_plat,
-  location: office,
+  location: transport,
   duration: five_minutes,
   interest: wellbeing,
   activity_type: "standard"

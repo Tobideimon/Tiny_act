@@ -1,0 +1,54 @@
+.temp-finish-button {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: calc(100% - 48px);
+  max-width: 420px;
+
+  padding: 16px 24px;
+
+  border: 2px dashed #ff9800;
+  border-radius: 18px;
+
+  background: rgba(255, 152, 0, 0.12);
+  backdrop-filter: blur(6px);
+
+  color: #ff9800;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+
+  transition: all 0.2s ease;
+
+  z-index: 999;
+
+  &::before {
+    content: "TEMP";
+    position: absolute;
+    top: -10px;
+    right: 16px;
+
+    padding: 2px 8px;
+
+    background: #ff9800;
+    color: white;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+
+  &:hover {
+    transform: translateX(-50%) translateY(-2px);
+
+    background: rgba(255, 152, 0, 0.18);
+
+    cursor: pointer;
+  }
+}
