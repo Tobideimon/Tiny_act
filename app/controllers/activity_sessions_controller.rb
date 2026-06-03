@@ -45,13 +45,20 @@ class ActivitySessionsController < ApplicationController
     @activity_session = current_user.activity_sessions.find(params[:id])
     reference_activity = @activity_session.activity
 
-    @activities = Activity.where(
+    matching_activities = Activity.where(
       active: true,
       mood: reference_activity.mood,
       duration: reference_activity.duration,
       interest_id: current_user.interests.ids,
       location_id: allowed_location_ids(reference_activity.location_id)
-    ).order(Arel.sql("RANDOM()")).limit(3)
+    )
+
+    @activities = matching_activities
+                  .includes(:interest)
+                  .group_by(&:interest_id)
+                  .values
+                  .map(&:sample)
+                  .sample(3)
 
     assign_language_if_needed
     @language_label = readable_language(@activity_session.language)
