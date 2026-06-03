@@ -287,6 +287,12 @@ Rake::Task["language_activities:import"].invoke
 puts "🏃 Importing sport activities from CSV..."
 Rake::Task["sport_activities:import"].invoke
 
+puts "🗂  Importing productivité activities from CSV..."
+Rake::Task["productivite_activities:import"].invoke
+
+puts "📸 Importing photo activities from CSV..."
+Rake::Task["photo_activities:import"].invoke
+
 if defined?(CultureQuestion)
   puts "🧠 Importing culture questions from CSV..."
   Rake::Task["culture_questions:import_csv"].invoke
