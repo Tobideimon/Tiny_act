@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_02_113727) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_03_102203) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -50,6 +50,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_02_113727) do
     t.integer "value"
   end
 
+  create_table "furnitures", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "height"
+    t.string "image_url"
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.integer "width"
+  end
+
   create_table "interests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -76,6 +85,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_02_113727) do
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "room_furnitures", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "furniture_id", null: false
+    t.bigint "room_id", null: false
+    t.integer "rotation"
+    t.datetime "updated_at", null: false
+    t.integer "x"
+    t.integer "y"
+    t.integer "z"
+    t.index ["furniture_id"], name: "index_room_furnitures_on_furniture_id"
+    t.index ["room_id"], name: "index_room_furnitures_on_room_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "height"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.integer "width"
+    t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
   create_table "solid_cable_messages", force: :cascade do |t|
@@ -251,6 +282,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_02_113727) do
   add_foreign_key "activities", "moods"
   add_foreign_key "activity_sessions", "activities"
   add_foreign_key "activity_sessions", "users"
+  add_foreign_key "room_furnitures", "furnitures"
+  add_foreign_key "room_furnitures", "rooms"
+  add_foreign_key "rooms", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_failed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

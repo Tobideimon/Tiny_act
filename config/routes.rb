@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "rooms/show"
   get "activities/show"
 
   devise_for :users
@@ -17,4 +18,7 @@ Rails.application.routes.draw do
   resource :user, only: [:show, :edit, :update]
 
   resource :user_interests, only: [ :show, :update ]
+
+  resource :room, only: [:show]
+  resources :room_furnitures, only: [:create, :update, :destroy]
 end

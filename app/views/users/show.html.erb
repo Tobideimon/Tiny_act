@@ -1,19 +1,30 @@
 <div class="profile-page">
-  <div class="profile-header">
 
-    <div class="editable-avatar">
-
-      <div class="profile-avatar">
-        <%= image_tag "avatars/#{current_user.avatar || 'blueberry'}.png" %>
-      </div>
-
-      <%= link_to edit_user_path,
-          class: "edit-avatar-button" do %>
-
-        <i class="fa-solid fa-paintbrush"></i>
-
+  <% if @user == current_user %>
+    <div class="profile-top-actions">
+      <%= link_to root_path, class: "profile-top-button" do %>
+        <i class="fa-solid fa-arrow-left"></i>
       <% end %>
 
+      <%= link_to destroy_user_session_path,
+          data: { turbo_method: :delete },
+          class: "profile-top-button logout" do %>
+        <i class="fa-solid fa-right-from-bracket"></i>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="profile-header">
+    <div class="editable-avatar">
+      <div class="profile-avatar">
+        <%= image_tag "avatars/#{@user.avatar || 'blueberry'}.png" %>
+      </div>
+
+      <% if @user == current_user %>
+        <%= link_to edit_user_path, class: "edit-avatar-button" do %>
+          <i class="fa-solid fa-paintbrush"></i>
+        <% end %>
+      <% end %>
     </div>
 
     <h1 class="profile-name">
@@ -24,13 +35,11 @@
       <i class="fa-solid fa-envelope"></i>
       <%= @user.email %>
     </p>
-
   </div>
 
   <div class="profile-card">
     <h2 class="profile-section-title">Tes centres d'intérêt</h2>
 
-    <%# Si l'user a des intérêts, on les affiche en "tags". Sinon, message d'invite. %>
     <% if @user.interests.any? %>
       <div class="interest-tags">
         <% @user.interests.each do |interest| %>
@@ -40,21 +49,68 @@
     <% else %>
       <p class="profile-empty">Tu n'as pas encore choisi de centres d'intérêt.</p>
     <% end %>
-      <div class="profile-actions">
 
+    <% if @user == current_user %>
+      <div class="profile-actions">
         <%= link_to "Modifier mes centres d'intérêt",
             user_interests_path,
             class: "profile-btn" %>
-
-        <%= link_to "Retour",
-            root_path,
-            class: "profile-btn secondary" %>
-
-        <%= link_to "Se déconnecter",
-            destroy_user_session_path,
-            data: { turbo_method: :delete },
-            class: "profile-btn logout-btn" %>
-
       </div>
+    <% end %>
   </div>
+
+  <div class="profile-card room-card">
+    <div class="room-header">
+      <h2 class="profile-section-title">Ma room</h2>
+
+      <% if @user == current_user %>
+        <div class="inventory-menu" data-controller="inventory">
+          <button
+            class="inventory-toggle"
+            type="button"
+            data-action="click->inventory#toggle"
+          >
+            <i class="fa-solid fa-box-open"></i>
+          </button>
+
+          <div class="inventory-panel" data-inventory-target="panel">
+            <h2 class="profile-section-title">Inventaire</h2>
+
+            <div class="room-inventory">
+              <% @available_furnitures.each do |furniture| %>
+                <div class="inventory-item">
+                  <%= image_tag furniture.image_url,
+                      class: "inventory-item-image" %>
+
+                  <p><%= furniture.name %></p>
+
+                  <%= button_to "Placer",
+                      room_furnitures_path,
+                      method: :post,
+                      data: { action: "click->inventory#close" },
+                      params: {
+                        room_furniture: {
+                          furniture_id: furniture.id,
+                          x: 0,
+                          y: 0,
+                          z: 0,
+                          rotation: 0
+                        }
+                      },
+                      class: "profile-btn" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="room-wrapper">
+      <%= render "users/room",
+          room_data: @room_data,
+          editable: @user == current_user %>
+    </div>
+  </div>
+
 </div>
