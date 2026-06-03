@@ -47,6 +47,7 @@
   text-shadow: 0 1px 2px rgba(0,0,0,0.12);
 
   transition: all 0.2s ease;
+  border: 3px solid transparent;
 }
 
 .interest-icon {
@@ -63,6 +64,7 @@
 
 .interest-option input:checked + .interest-sport {
   background: #67C56B;
+  border-color: #43A047;
 }
 
 /* LANGUES */
@@ -73,6 +75,7 @@
 
 .interest-option input:checked + .interest-langues {
   background: #7D6AF0;
+  border-color: #5B4AE3;
 }
 
 /* BIEN-ÊTRE */
@@ -83,6 +86,7 @@
 
 .interest-option input:checked + .interest-wellbeing {
   background: #6EA9E8;
+  border-color: #4D8DD6;
 }
 
 /* CRÉATIVITÉ */
@@ -93,16 +97,19 @@
 
 .interest-option input:checked + .interest-creativity {
   background: #F1A766;
+  border-color: #E78A3A;
 }
 
 /* PHOTO */
 
 .interest-photo {
   background: #F3C1D8;
+
 }
 
 .interest-option input:checked + .interest-photo {
   background: #EB7FB1;
+  border-color: #DD5F98;
 }
 
 /* DESSIN */
@@ -113,6 +120,7 @@
 
 .interest-option input:checked + .interest-drawing {
   background: #67BDB4;
+  border-color: #469F95;
 }
 
 /* ÉCRITURE */
@@ -123,6 +131,7 @@
 
 .interest-option input:checked + .interest-writing {
   background: #E8C94D;
+  border-color: #D8B62A;
 }
 
 /* CULTURE */
@@ -133,10 +142,16 @@
 
 .interest-option input:checked + .interest-culture {
   background: #E08E7D;
+  border-color: #D36C57;
 }
 
 .interest-option input:checked + span {
   transform: scale(1.02);
+
+  box-shadow:
+  0 8px 18px rgba(0,0,0,0.08);
+
+  transition: all 0.2s ease;
 }
 
 .interests-submit {

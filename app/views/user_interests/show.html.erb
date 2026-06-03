@@ -45,8 +45,26 @@
 
             <% elsif interest.name == "Langues" %>
               <%= image_tag "langue.png", class: "interest-icon" %>
-            <% end %>
 
+            <% elsif interest.name == "Bien-être" %>
+              <%= image_tag "bien_etre.png", class: "interest-icon" %>
+
+            <% elsif interest.name == "Photo" %>
+              <%= image_tag "photo.png", class: "interest-icon" %>
+
+            <% elsif interest.name == "Dessin" %>
+              <%= image_tag "dessin.png", class: "interest-icon" %>
+
+            <% elsif interest.name == "Écriture" %>
+              <%= image_tag "ecriture.png", class: "interest-icon" %>
+
+            <% elsif interest.name == "Créativité" %>
+              <%= image_tag "creativite.png", class: "interest-icon" %>
+
+            <% elsif interest.name == "Culture" %>
+              <%= image_tag "culture.png", class: "interest-icon" %>
+
+            <% end %>
             <%= interest.name %>
 
           </span>
