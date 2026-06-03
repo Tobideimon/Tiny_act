@@ -1,9 +1,9 @@
 require "csv"
 
-namespace :language_items do
-  desc "Import language items from db/data/language_items.csv"
+namespace :language_activities do
+  desc "Import language activities from db/data/language_activities.csv"
   task import: :environment do
-    path = Rails.root.join("db/data/language_items.csv")
+    path = Rails.root.join("db/data/language_activities.csv")
 
     unless File.exist?(path)
       puts "CSV file not found: #{path}"
@@ -13,7 +13,7 @@ namespace :language_items do
     puts "🧹 Cleaning language items..."
     LanguageItem.destroy_all
 
-    puts "🌍 Importing language items..."
+    puts "🌍 Importing language activities..."
 
     imported_count = 0
 
@@ -30,7 +30,7 @@ namespace :language_items do
     end
 
     puts "✅ Import completed!"
-    puts "#{imported_count} language items imported"
+    puts "#{imported_count} language activities imported"
     puts "#{LanguageItem.where(language: 'english', item_type: 'word').count} English words"
     puts "#{LanguageItem.where(language: 'english', item_type: 'sentence').count} English sentences"
     puts "#{LanguageItem.where(language: 'spanish', item_type: 'word').count} Spanish words"
