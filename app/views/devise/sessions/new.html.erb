@@ -1,20 +1,51 @@
-<h2>Log in</h2>
+<div class="auth-page">
+  <%# Bouton retour vers l'accueil %>
+  <%= link_to root_path, class: "auth-back" do %>
+    <i class="fa-solid fa-arrow-left"></i>
+  <% end %>
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
+  <h1 class="auth-title">Content de te revoir !</h1>
+
+  <%# Avatar décoratif, comme sur l'inscription (sans le crayon ici) %>
+  <div class="auth-avatar">
+    <div class="auth-avatar-circle">
+      <i class="fa-solid fa-sun"></i>
+    </div>
+  </div>
+
+  <%= simple_form_for(resource, as: resource_name,
+        url: session_path(resource_name),
+        html: { class: "auth-form" }) do |f| %>
+
     <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
+          label: "Ton mail", placeholder: "Ton mail",
+          required: false, autofocus: true,
+          input_html: { autocomplete: "email", class: "auth-input" },
+          wrapper_html: { class: "auth-field" } %>
+
     <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-  </div>
+          label: "Ton mot de passe", placeholder: "Ton mot de passe",
+          required: false,
+          input_html: { autocomplete: "current-password", class: "auth-input" },
+          wrapper_html: { class: "auth-field" } %>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Log in" %>
-  </div>
-<% end %>
+    <%# Case "se souvenir de moi" (si Devise l'autorise) %>
+    <% if devise_mapping.rememberable? %>
+      <%= f.input :remember_me, as: :boolean,
+            label: "Se souvenir de moi",
+            wrapper_html: { class: "auth-remember" } %>
+    <% end %>
 
-<%= render "devise/shared/links" %>
+    <%= f.button :submit, "Se connecter", class: "auth-submit" %>
+  <% end %>
+
+  <%# J'ai remplacé le render générique par des liens en français, au style Tiny Act %>
+  <div class="auth-login-link">
+    <%= link_to "Pas encore de compte ? Créer ton profil", new_user_registration_path %>
+  </div>
+  <% if devise_mapping.recoverable? %>
+    <div class="auth-forgot">
+      <%= link_to "Mot de passe oublié ?", new_user_password_path %>
+    </div>
+  <% end %>
+</div>
