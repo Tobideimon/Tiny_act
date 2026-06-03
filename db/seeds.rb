@@ -1,7 +1,3 @@
-require "rake"
-
-Rails.application.load_tasks
-
 puts "🧹 Cleaning database..."
 
 ActivitySession.destroy_all
@@ -23,19 +19,15 @@ a_plat   = Mood.create!(name: "À plat")
 
 puts "⏱ Creating durations..."
 
-Duration.create!(value: 5)
-Duration.create!(value: 15)
-Duration.create!(value: 30)
-
-five_minutes    = Duration.find_by!(value: 5)
-fifteen_minutes = Duration.find_by!(value: 15)
-thirty_minutes  = Duration.find_by!(value: 30)
+five_minutes    = Duration.create!(value: 5)
+fifteen_minutes = Duration.create!(value: 15)
+thirty_minutes  = Duration.create!(value: 30)
 
 puts "📍 Creating locations..."
 
 home     = Location.create!(name: "Maison")
 outside  = Location.create!(name: "Extérieur")
-transport   = Location.create!(name: "Bureau")
+office   = Location.create!(name: "Bureau")
 anywhere = Location.create!(name: "N'importe où")
 
 puts "🎯 Creating interests..."
@@ -58,7 +50,8 @@ Activity.create!(
   location: anywhere,
   duration: five_minutes,
   interest: languages,
-  activity_type: "word_learning"
+  activity_type: "word_learning",
+  active: true
 )
 
 Activity.create!(
@@ -68,7 +61,8 @@ Activity.create!(
   location: anywhere,
   duration: fifteen_minutes,
   interest: languages,
-  activity_type: "word_learning"
+  activity_type: "word_learning",
+  active: true
 )
 
 Activity.create!(
@@ -78,7 +72,8 @@ Activity.create!(
   location: anywhere,
   duration: five_minutes,
   interest: languages,
-  activity_type: "word_learning"
+  activity_type: "word_learning",
+  active: true
 )
 
 Activity.create!(
@@ -88,7 +83,8 @@ Activity.create!(
   location: anywhere,
   duration: fifteen_minutes,
   interest: languages,
-  activity_type: "sentence_completion"
+  activity_type: "sentence_completion",
+  active: true
 )
 
 Activity.create!(
@@ -98,7 +94,41 @@ Activity.create!(
   location: anywhere,
   duration: thirty_minutes,
   interest: languages,
-  activity_type: "sentence_completion"
+  activity_type: "sentence_completion",
+  active: true
+)
+
+Activity.create!(
+  name: "Dialogue guidé",
+  content: "Pratique une courte conversation dans une langue choisie au hasard.",
+  mood: en_forme,
+  location: anywhere,
+  duration: five_minutes,
+  interest: languages,
+  activity_type: "llm_chat",
+  active: false
+)
+
+Activity.create!(
+  name: "Dialogue guidé",
+  content: "Pratique une conversation simple avec un assistant dans une langue choisie au hasard.",
+  mood: en_forme,
+  location: anywhere,
+  duration: fifteen_minutes,
+  interest: languages,
+  activity_type: "llm_chat",
+  active: false
+)
+
+Activity.create!(
+  name: "Dialogue guidé",
+  content: "Lance une conversation plus longue pour pratiquer une langue avec un assistant.",
+  mood: en_forme,
+  location: anywhere,
+  duration: thirty_minutes,
+  interest: languages,
+  activity_type: "llm_chat",
+  active: false
 )
 
 puts "🧘 Creating non-sport demo activities..."
@@ -110,7 +140,8 @@ Activity.create!(
   location: outside,
   duration: fifteen_minutes,
   interest: photo_interest,
-  activity_type: "standard"
+  activity_type: "standard",
+  active: true
 )
 
 Activity.create!(
@@ -120,7 +151,8 @@ Activity.create!(
   location: office,
   duration: five_minutes,
   interest: wellbeing,
-  activity_type: "standard"
+  activity_type: "standard",
+  active: true
 )
 
 puts "👤 Creating demo users..."
@@ -175,7 +207,8 @@ puts "#{Duration.count} durations created"
 puts "#{Activity.count} activities created"
 puts "#{LanguageItem.count} language items created"
 
-puts "#{Activity.where(interest: sport).count} sport activities created"
-puts "#{Activity.where(interest: languages).count} language activities created"
-puts "#{Activity.where(activity_type: "word_learning").count} word learning activities created"
-puts "#{Activity.where(activity_type: "sentence_completion").count} sentence completion activities created"
+puts "#{Activity.where(interest: sport, active: true).count} active sport activities created"
+puts "#{Activity.where(interest: languages, active: true).count} active language activities created"
+puts "#{Activity.where(activity_type: "word_learning", active: true).count} word learning activities created"
+puts "#{Activity.where(activity_type: "sentence_completion", active: true).count} sentence completion activities created"
+puts "#{Activity.where(activity_type: "llm_chat", active: false).count} inactive LLM chat activities created"
