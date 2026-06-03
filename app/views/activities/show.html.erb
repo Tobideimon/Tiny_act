@@ -22,9 +22,9 @@
   <% elsif @activity.interest.name == "Langues" %>
 
     <%= render "language",
-      activity: @activity,
-      language_items: @language_items,
-      duration_seconds: @duration_seconds %>
+           activity: @activity,
+           language_items: @language_items,
+           duration_seconds: @duration_seconds %>
 
   <% elsif @activity.culture_activity? %>
 

@@ -1,3 +1,4 @@
+<% language_label = local_assigns.fetch(:language_label, @language_label) %>
 <% if activity.activity_type == "word_learning" %>
 
   <div
@@ -5,7 +6,8 @@
     data-language-activity-items-value="<%= language_items.map { |item|
       {
         prompt: item.prompt,
-        answer: item.answer
+        answer: item.answer,
+        translation: item.translation.presence || item.answer
       }
     }.to_json %>"
     data-language-activity-duration-value="<%= duration_seconds %>"
@@ -26,16 +28,30 @@
     </div>
 
     <div class="activity-card language-card">
-      <div class="activity-top">
-        <h2 data-language-activity-target="wordPrompt">
-          Chargement du mot...
-        </h2>
-      </div>
+      <p class="language-instruction">
+        Mot en <%= language_label %>
+      </p>
+
+      <h2
+        class="language-word"
+        data-language-activity-target="wordPrompt"
+      >
+        Chargement du mot...
+      </h2>
 
       <p
-        class="activity-content language-answer"
+        class="activity-content language-answer is-hidden"
         data-language-activity-target="wordAnswer"
       ></p>
+
+      <button
+        type="button"
+        class="secondary-button language-reveal-button"
+        data-language-activity-target="revealTranslationButton"
+        data-action="click->language-activity#toggleWordTranslation"
+      >
+        Voir la traduction
+      </button>
     </div>
 
     <button
@@ -77,11 +93,20 @@
     </div>
 
     <div class="activity-card language-card">
-      <div class="activity-top">
-        <h2 data-language-activity-target="sentencePrompt">
-          Chargement de la phrase...
-        </h2>
-      </div>
+      <p class="language-instruction">
+        Phrase en français
+      </p>
+
+      <p
+        class="language-translation"
+        data-language-activity-target="sentenceTranslation"
+      >
+        Chargement de la phrase...
+      </p>
+
+      <p class="language-instruction">
+        Complète la phrase en <%= language_label %>
+      </p>
 
       <%= form_with url: "#",
                     method: :get,
@@ -90,21 +115,36 @@
                       action: "submit->language-activity#checkSentence"
                     } do %>
 
-        <input <%# herb:disable html-input-require-autocomplete %>
-          type="text"
-          class="form-control"
-          placeholder="Mot manquant"
-          data-language-activity-target="sentenceInput"
-        >
+        <p class="sentence-line">
+          <span data-language-activity-target="sentenceBefore"></span>
 
-        <button type="submit" class="primary-button">
+          <input <%# herb:disable html-input-require-autocomplete %>
+            type="text"
+            class="sentence-gap-input"
+            placeholder="___"
+            data-language-activity-target="sentenceInput"
+          >
+
+          <span
+            class="sentence-revealed-answer is-hidden"
+            data-language-activity-target="revealedAnswer"
+          ></span>
+
+          <span data-language-activity-target="sentenceAfter"></span>
+        </p>
+
+        <button
+          type="submit"
+          class="primary-button"
+          data-language-activity-target="submitButton"
+        >
           Valider
         </button>
 
       <% end %>
 
       <p
-        class="activity-content"
+        class="activity-content sentence-feedback"
         data-language-activity-target="sentenceFeedback"
       ></p>
 
