@@ -36,9 +36,13 @@
 
   <% end %>
 
+  <%= button_to "Finir l'activité",
+      activity_session_path(@activity_session),
+      method: :patch,
+      class: "temp-finish-button" %>
+      
   <%= link_to "Recommencer",
               root_path,
               class: "primary-button" %>
 
 </div>
-
