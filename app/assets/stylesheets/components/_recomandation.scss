@@ -79,22 +79,6 @@
   display: block;
 }
 
-.language-activity {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.language-card h2 {
-  font-size: 28px;
-  font-weight: 800;
-}
-
-.language-answer {
-  font-size: 22px;
-  font-weight: 700;
-  color: #4f46e5;
-}
 
 .is-correct {
   color: #15803d;
@@ -104,4 +88,11 @@
 .is-wrong {
   color: #dc2626;
   font-weight: 700;
+}
+
+.activity-interest-icon {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 16px;
 }

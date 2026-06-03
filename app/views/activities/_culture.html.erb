@@ -1,0 +1,62 @@
+<div
+  data-controller="culture-quiz"
+  data-culture-quiz-questions-value="<%= culture_questions.map { |question|
+    {
+      question: question.question,
+      correct_answer: question.correct_answer,
+      answers: question.answers
+    }
+  }.to_json %>"
+  class="culture-quiz"
+>
+
+  <div class="activity-card">
+    <div class="activity-top">
+      <h2>Quiz culture générale</h2>
+    </div>
+
+    <p class="activity-content">
+      Les questions sont choisies aléatoirement. Réponds à ton rythme.
+    </p>
+
+    <p class="activity-content">
+      <strong data-culture-quiz-target="progress"></strong>
+    </p>
+  </div>
+
+  <div
+    class="activity-card culture-question-card"
+    data-culture-quiz-target="card"
+  >
+    <div class="activity-top">
+      <h2 data-culture-quiz-target="question">
+        Chargement de la question...
+      </h2>
+    </div>
+
+    <div
+      class="quiz-answers"
+      data-culture-quiz-target="answers"
+    ></div>
+
+    <p
+      class="activity-content quiz-feedback"
+      data-culture-quiz-target="feedback"
+    ></p>
+
+    <p
+      class="activity-content quiz-score"
+      data-culture-quiz-target="score"
+    ></p>
+  </div>
+
+  <button
+    type="button"
+    class="primary-button d-none"
+    data-culture-quiz-target="nextButton"
+    data-action="click->culture-quiz#nextQuestion"
+  >
+    Question suivante
+  </button>
+
+</div>

@@ -1,9 +1,12 @@
+require "csv"
+
 puts "🧹 Cleaning database..."
 
 ActivitySession.destroy_all
 UserInterest.destroy_all
 Activity.destroy_all
 LanguageItem.destroy_all
+CultureQuestion.destroy_all if defined?(CultureQuestion)
 
 User.destroy_all
 Interest.destroy_all
@@ -131,6 +134,67 @@ Activity.create!(
   active: false
 )
 
+puts "🧠 Creating culture quiz activities..."
+
+[
+  {
+    mood: a_plat,
+    duration: five_minutes,
+    content: "Réponds à quelques questions simples pour réveiller doucement ta curiosité."
+  },
+  {
+    mood: a_plat,
+    duration: fifteen_minutes,
+    content: "Installe-toi tranquillement et teste ta culture générale avec des questions accessibles."
+  },
+  {
+    mood: a_plat,
+    duration: thirty_minutes,
+    content: "Prends ton temps pour explorer plusieurs questions de culture générale sans pression."
+  },
+  {
+    mood: mitige,
+    duration: five_minutes,
+    content: "Challenge rapide : quelques questions pour stimuler ton esprit sans te fatiguer."
+  },
+  {
+    mood: mitige,
+    duration: fifteen_minutes,
+    content: "Teste tes connaissances avec un quiz équilibré, ni trop facile ni trop intense."
+  },
+  {
+    mood: mitige,
+    duration: thirty_minutes,
+    content: "Plonge dans un quiz plus complet pour entraîner ta mémoire et ta logique."
+  },
+  {
+    mood: en_forme,
+    duration: five_minutes,
+    content: "Défi express : affronte quelques questions plus exigeantes."
+  },
+  {
+    mood: en_forme,
+    duration: fifteen_minutes,
+    content: "Teste-toi avec un quiz plus relevé et garde le rythme."
+  },
+  {
+    mood: en_forme,
+    duration: thirty_minutes,
+    content: "Lance-toi dans une vraie session de culture générale avec des questions plus ambitieuses."
+  }
+].each do |activity_data|
+  Activity.create!(
+    name: "Quiz culture générale",
+    content: activity_data[:content],
+    mood: activity_data[:mood],
+    location: anywhere,
+    duration: activity_data[:duration],
+    interest: culture,
+    activity_type: "culture_quiz",
+    active: true
+  )
+end
+
 puts "🧘 Creating non-sport demo activities..."
 
 Activity.create!(
@@ -185,18 +249,48 @@ emma = User.create!(
   password: "123456"
 )
 
+nora = User.create!(
+  first_name: "Nora",
+  last_name: "Morel",
+  email: "nora@tinyact.com",
+  password: "123456"
+)
+
+max = User.create!(
+  first_name: "Max",
+  last_name: "Petit",
+  email: "max@tinyact.com",
+  password: "123456"
+)
+
 puts "❤️ Creating demo user interests..."
 
 UserInterest.create!(user: alex, interest: sport)
+
 UserInterest.create!(user: lea, interest: photo_interest)
+UserInterest.create!(user: lea, interest: creative)
+
 UserInterest.create!(user: sam, interest: wellbeing)
+
 UserInterest.create!(user: emma, interest: languages)
+UserInterest.create!(user: emma, interest: culture)
+
+UserInterest.create!(user: nora, interest: culture)
+
+UserInterest.create!(user: max, interest: sport)
+UserInterest.create!(user: max, interest: languages)
+UserInterest.create!(user: max, interest: culture)
 
 puts "🌍 Importing language items from CSV..."
 Rake::Task["language_activities:import"].invoke
 
 puts "🏃 Importing sport activities from CSV..."
 Rake::Task["sport_activities:import"].invoke
+
+if defined?(CultureQuestion)
+  puts "🧠 Importing culture questions from CSV..."
+  Rake::Task["culture_questions:import_csv"].invoke
+end
 
 puts "✅ Seed completed!"
 
@@ -206,9 +300,13 @@ puts "#{Location.count} locations created"
 puts "#{Duration.count} durations created"
 puts "#{Activity.count} activities created"
 puts "#{LanguageItem.count} language items created"
+puts "#{CultureQuestion.count} culture questions created" if defined?(CultureQuestion)
 
 puts "#{Activity.where(interest: sport, active: true).count} active sport activities created"
 puts "#{Activity.where(interest: languages, active: true).count} active language activities created"
+puts "#{Activity.where(interest: culture, active: true).count} active culture activities created"
+
 puts "#{Activity.where(activity_type: "word_learning", active: true).count} word learning activities created"
 puts "#{Activity.where(activity_type: "sentence_completion", active: true).count} sentence completion activities created"
 puts "#{Activity.where(activity_type: "llm_chat", active: false).count} inactive LLM chat activities created"
+puts "#{Activity.where(activity_type: "culture_quiz", active: true).count} culture quiz activities created"

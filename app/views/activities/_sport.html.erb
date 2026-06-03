@@ -1,13 +1,82 @@
-<div class="activity-card">
+<% sport_steps = activity.sport_step_list %>
 
-  <div class="activity-top">
-    <h2>
-      Ton activité sportive
-    </h2>
+<div
+  class="sport-activity"
+  data-controller="sport-activity"
+  data-sport-activity-steps-value="<%= sport_steps.map { |step| { text: step } }.to_json %>"
+>
+  <div class="activity-card sport-main-card">
+    <div class="activity-top">
+      <h2><%= activity.name %></h2>
+    </div>
+
+    <p class="activity-content">
+      <%= activity.display_description %>
+    </p>
+
+    <% if sport_steps.any? %>
+      <div
+        class="sport-steps-preview"
+        data-sport-activity-target="stepsPreview"
+      >
+        <% sport_steps.each_with_index do |step, index| %>
+          <div class="sport-step-card">
+            <span class="sport-step-number"><%= index + 1 %></span>
+            <p><%= step %></p>
+          </div>
+        <% end %>
+      </div>
+
+      <button
+        type="button"
+        class="primary-button sport-launch-button"
+        data-sport-activity-target="launchButton"
+        data-action="click->sport-activity#launch"
+      >
+        Lancer
+      </button>
+    <% else %>
+      <p class="activity-content">
+        Aucune étape détaillée pour cette activité.
+      </p>
+    <% end %>
   </div>
 
-  <p class="activity-content">
-    <%= activity.content %>
-  </p>
+  <div
+    class="activity-card sport-runner-card is-hidden"
+    data-sport-activity-target="runner"
+  >
+    <p class="sport-runner-label">
+      Étape <span data-sport-activity-target="currentStepNumber"></span>
+      /
+      <span data-sport-activity-target="totalSteps"></span>
+    </p>
 
+    <h2 data-sport-activity-target="currentStepText"></h2>
+
+    <div
+      class="sport-timer is-hidden"
+      data-sport-activity-target="timerWrapper"
+    >
+      <span data-sport-activity-target="timer"></span>
+    </div>
+
+    <button
+      type="button"
+      class="secondary-button"
+      data-action="click->sport-activity#nextStep"
+    >
+      Passer cette étape
+    </button>
+  </div>
+
+  <div
+    class="activity-card sport-finished-card is-hidden"
+    data-sport-activity-target="finished"
+  >
+    <h2>Bravo 🎉</h2>
+    <p class="activity-content">
+      Tu as terminé toutes les étapes de cette activité.
+    </p>
+  </div>
 </div>

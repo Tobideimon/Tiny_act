@@ -19,11 +19,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_03_102203) do
     t.string "activity_type", default: "standard", null: false
     t.text "content"
     t.datetime "created_at", null: false
+    t.text "description"
     t.bigint "duration_id", null: false
     t.bigint "interest_id", null: false
     t.bigint "location_id", null: false
     t.bigint "mood_id", null: false
     t.string "name"
+    t.text "steps"
     t.datetime "updated_at", null: false
     t.index ["duration_id"], name: "index_activities_on_duration_id"
     t.index ["interest_id"], name: "index_activities_on_interest_id"
@@ -42,6 +44,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_03_102203) do
     t.bigint "user_id", null: false
     t.index ["activity_id"], name: "index_activity_sessions_on_activity_id"
     t.index ["user_id"], name: "index_activity_sessions_on_user_id"
+  end
+
+  create_table "culture_questions", force: :cascade do |t|
+    t.string "category"
+    t.string "correct_answer"
+    t.datetime "created_at", null: false
+    t.string "difficulty"
+    t.text "question"
+    t.string "source"
+    t.datetime "updated_at", null: false
+    t.string "wrong_answer_1"
+    t.string "wrong_answer_2"
+    t.string "wrong_answer_3"
   end
 
   create_table "durations", force: :cascade do |t|

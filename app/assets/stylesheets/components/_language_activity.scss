@@ -1,0 +1,116 @@
+.language-activity {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.language-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.language-card h2 {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.language-instruction {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0.75;
+}
+
+.language-word {
+  margin: 0;
+}
+
+.language-answer {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #4f46e5;
+}
+
+.language-translation {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.language-reveal-button {
+  width: fit-content;
+}
+
+.sentence-line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.sentence-gap-input {
+  display: inline-block;
+  min-width: 4ch;
+  padding: 2px 4px;
+  border: 2px solid transparent;
+  border-bottom-color: currentColor;
+  border-radius: 6px;
+  background: transparent;
+  font: inherit;
+  text-align: center;
+  outline: none;
+}
+
+.sentence-gap-input::placeholder {
+  opacity: 0.45;
+}
+
+.sentence-gap-input.is-correct {
+  color: #16a34a;
+  border-color: #16a34a;
+}
+
+.sentence-gap-input.is-wrong {
+  color: #dc2626;
+  border-color: #dc2626;
+}
+
+.sentence-revealed-answer {
+  color: #dc2626;
+  font-weight: 900;
+}
+
+.sentence-feedback {
+  min-height: 24px;
+  margin: 0;
+  font-weight: 700;
+}
+
+.sentence-feedback.is-correct {
+  color: #16a34a;
+}
+
+.sentence-feedback.is-wrong {
+  color: #dc2626;
+}
+
+.primary-button.is-correct {
+  border: 2px solid #16a34a;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18);
+}
+
+.primary-button.is-wrong {
+  border: 2px solid #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.18);
+}
+
+.is-hidden {
+  display: none;
+}

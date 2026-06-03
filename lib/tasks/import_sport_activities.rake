@@ -20,6 +20,8 @@ namespace :sport_activities do
     CSV.foreach(path, headers: true, col_sep: ";").with_index(2) do |row, line_number|
       name = row["name"]&.strip
       content = row["content"]&.strip
+      description = row["description"]&.strip
+      steps = row["steps"]&.strip
       mood_name = row["mood"]&.strip
       location_name = row["location"]&.strip
       duration_value = row["duration"].to_i
@@ -42,6 +44,8 @@ namespace :sport_activities do
       )
 
       activity.content = content
+      activity.description = description
+      activity.steps = steps
       activity.mood = mood
       activity.location = location
       activity.duration = duration

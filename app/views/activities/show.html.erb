@@ -1,6 +1,22 @@
 <div class="recommendations-page">
 
   <div class="recommendations-header">
+      <% if @activity.interest.name == "Sport" %>
+
+        <%= image_tag(
+              "sport.png",
+              class: "activity-interest-icon"
+            ) %>
+
+      <% elsif @activity.interest.name == "Langues" %>
+
+        <%= image_tag(
+              "langue.png",
+              class: "activity-interest-icon"
+            ) %>
+
+      <% end %>
+
     <h1>
       <%= @activity.name %>
 
@@ -10,7 +26,7 @@
     </h1>
 
     <p>
-      <%= @activity.content %>
+      <%= @activity.sport_activity? ? @activity.display_description : @activity.content %>
     </p>
   </div>
 
@@ -22,9 +38,15 @@
   <% elsif @activity.interest.name == "Langues" %>
 
     <%= render "language",
+           activity: @activity,
+           language_items: @language_items,
+           duration_seconds: @duration_seconds %>
+
+  <% elsif @activity.culture_activity? %>
+
+    <%= render "culture",
       activity: @activity,
-      language_items: @language_items,
-      duration_seconds: @duration_seconds %>
+      culture_questions: @culture_questions %>
 
   <% else %>
 
@@ -40,7 +62,7 @@
       activity_session_path(@activity_session),
       method: :patch,
       class: "temp-finish-button" %>
-      
+
   <%= link_to "Recommencer",
               root_path,
               class: "primary-button" %>
