@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_02_113727) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_03_102718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,6 +42,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_02_113727) do
     t.bigint "user_id", null: false
     t.index ["activity_id"], name: "index_activity_sessions_on_activity_id"
     t.index ["user_id"], name: "index_activity_sessions_on_user_id"
+  end
+
+  create_table "culture_questions", force: :cascade do |t|
+    t.string "category"
+    t.string "correct_answer"
+    t.datetime "created_at", null: false
+    t.string "difficulty"
+    t.text "question"
+    t.string "source"
+    t.datetime "updated_at", null: false
+    t.string "wrong_answer_1"
+    t.string "wrong_answer_2"
+    t.string "wrong_answer_3"
   end
 
   create_table "durations", force: :cascade do |t|

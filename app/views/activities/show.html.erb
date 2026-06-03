@@ -26,6 +26,12 @@
       language_items: @language_items,
       duration_seconds: @duration_seconds %>
 
+  <% elsif @activity.culture_activity? %>
+
+    <%= render "culture",
+      activity: @activity,
+      culture_questions: @culture_questions %>
+
   <% else %>
 
     <div class="activity-card">
@@ -40,7 +46,7 @@
       activity_session_path(@activity_session),
       method: :patch,
       class: "temp-finish-button" %>
-      
+
   <%= link_to "Recommencer",
               root_path,
               class: "primary-button" %>

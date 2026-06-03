@@ -1,0 +1,59 @@
+.culture-quiz {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.quiz-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.quiz-answer {
+  width: 100%;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  border-radius: 14px;
+  padding: 14px 16px;
+  background: white;
+  text-align: left;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.quiz-answer:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.culture-question-card {
+  border: 2px solid transparent;
+}
+
+.quiz-card-wrong {
+  border-color: #dc2626;
+}
+
+.quiz-card-correct {
+  border-color: #15803d;
+}
+
+.quiz-answer-wrong {
+  border-color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
+}
+
+.quiz-answer-correct {
+  border-color: #15803d;
+  background: rgba(21, 128, 61, 0.08);
+}
+
+.quiz-feedback {
+  margin-top: 14px;
+}
+
+.quiz-score {
+  font-size: 20px;
+  font-weight: 800;
+}
