@@ -1,34 +1,158 @@
 .interests-page {
-  background: $ta-cream; min-height: 100vh;
-  max-width: 480px; margin: 0 auto; padding: 32px 20px 40px;
+  background: $ta-cream;
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 32px 20px 40px;
 }
+
 .interests-title {
-  color: $ta-navy; font-weight: 700; font-size: 24px;
-  text-align: center; margin-bottom: 24px;
+  color: $ta-navy;
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 24px;
 }
 
-.interests-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.interests-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
 
-.interest-option { display: block; cursor: pointer; }
-.interest-option input { display: none; }   // on cache la vraie case
+.interest-option {
+  display: block;
+  cursor: pointer;
+}
 
-// L'étiquette stylée comme une carte
+.interest-option input {
+  display: none;
+}
+
 .interest-option span {
-  display: block; background: #fff; border-radius: 16px;
-  padding: 16px 18px; color: $ta-navy; font-weight: 600;
-  border: 2px solid transparent;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  border-radius: 18px;
+
+  padding: 18px 20px;
+
+  color: white;
+
+  font-weight: 700;
+  font-size: 18px;
+
+  text-shadow: 0 1px 2px rgba(0,0,0,0.12);
+
+  transition: all 0.2s ease;
 }
-// Quand la case est cochée, on met en valeur la carte juste après
+
+.interest-icon {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+/* SPORT */
+
+.interest-sport {
+  background: #A8DDA8;
+}
+
+.interest-option input:checked + .interest-sport {
+  background: #67C56B;
+}
+
+/* LANGUES */
+
+.interest-langues {
+  background: #BFB6F8;
+}
+
+.interest-option input:checked + .interest-langues {
+  background: #7D6AF0;
+}
+
+/* BIEN-ÊTRE */
+
+.interest-wellbeing {
+  background: #B8D4F2;
+}
+
+.interest-option input:checked + .interest-wellbeing {
+  background: #6EA9E8;
+}
+
+/* CRÉATIVITÉ */
+
+.interest-creativity {
+  background: #F5D0AF;
+}
+
+.interest-option input:checked + .interest-creativity {
+  background: #F1A766;
+}
+
+/* PHOTO */
+
+.interest-photo {
+  background: #F3C1D8;
+}
+
+.interest-option input:checked + .interest-photo {
+  background: #EB7FB1;
+}
+
+/* DESSIN */
+
+.interest-drawing {
+  background: #B8DAD7;
+}
+
+.interest-option input:checked + .interest-drawing {
+  background: #67BDB4;
+}
+
+/* ÉCRITURE */
+
+.interest-writing {
+  background: #F5E4A4;
+}
+
+.interest-option input:checked + .interest-writing {
+  background: #E8C94D;
+}
+
+/* CULTURE */
+
+.interest-culture {
+  background: #F0C0B7;
+}
+
+.interest-option input:checked + .interest-culture {
+  background: #E08E7D;
+}
+
 .interest-option input:checked + span {
-  background: rgba($ta-yellow-soft, 0.3);
-  border-color: $ta-yellow;
+  transform: scale(1.02);
 }
 
 .interests-submit {
-  width: 100%; border: none; cursor: pointer;
-  background: $ta-yellow; color: #fff; font-weight: 700; font-size: 17px;
-  padding: 16px; border-radius: 30px;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+
+  background: $ta-yellow;
+  color: white;
+
+  font-weight: 700;
+  font-size: 17px;
+
+  padding: 16px;
+
+  border-radius: 30px;
+
   box-shadow: 0 6px 16px rgba($ta-yellow, 0.4);
 }

@@ -1,6 +1,22 @@
 <div class="recommendations-page">
 
   <div class="recommendations-header">
+      <% if @activity.interest.name == "Sport" %>
+
+        <%= image_tag(
+              "sport.png",
+              class: "activity-interest-icon"
+            ) %>
+
+      <% elsif @activity.interest.name == "Langues" %>
+
+        <%= image_tag(
+              "langue.png",
+              class: "activity-interest-icon"
+            ) %>
+
+      <% end %>
+
     <h1>
       <%= @activity.name %>
 
@@ -40,7 +56,7 @@
       activity_session_path(@activity_session),
       method: :patch,
       class: "temp-finish-button" %>
-      
+
   <%= link_to "Recommencer",
               root_path,
               class: "primary-button" %>
