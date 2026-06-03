@@ -9,127 +9,22 @@
       <% end %>
     </h1>
 
-    <p><%= @activity.content %></p>
+    <p>
+      <%= @activity.content %>
+    </p>
   </div>
 
-  <% if @activity.activity_type == "word_learning" %>
+  <% if @activity.interest.name == "Sport" %>
 
-    <div
-      data-controller="language-activity"
-      data-language-activity-items-value="<%= @language_items.map { |item|
-        {
-          prompt: item.prompt,
-          answer: item.answer
-        }
-      }.to_json %>"
-      data-language-activity-duration-value="<%= @duration_seconds %>"
-      data-language-activity-mode-value="word_learning"
-      class="language-activity"
-    >
+    <%= render "sport",
+      activity: @activity %>
 
-      <div class="activity-card">
-        <p class="activity-content">
-          Temps restant :
-          <strong data-language-activity-target="timer"></strong>
-        </p>
+  <% elsif @activity.interest.name == "Langues" %>
 
-        <p class="activity-content">
-          Progression :
-          <span data-language-activity-target="progress"></span>
-        </p>
-      </div>
-
-      <div class="activity-card language-card">
-        <div class="activity-top">
-          <h2 data-language-activity-target="wordPrompt">
-            Chargement du mot...
-          </h2>
-        </div>
-
-        <p
-          class="activity-content language-answer"
-          data-language-activity-target="wordAnswer"
-        ></p>
-      </div>
-
-      <button
-        type="button"
-        class="primary-button"
-        data-language-activity-target="nextButton"
-        data-action="click->language-activity#nextWord"
-      >
-        Mot suivant
-      </button>
-    </div>
-
-  <% elsif @activity.activity_type == "sentence_completion" %>
-
-    <div
-      data-controller="language-activity"
-      data-language-activity-items-value="<%= @language_items.map { |item|
-        {
-          prompt: item.prompt,
-          answer: item.answer,
-          translation: item.translation
-        }
-      }.to_json %>"
-      data-language-activity-duration-value="<%= @duration_seconds %>"
-      data-language-activity-mode-value="sentence_completion"
-      class="language-activity"
-    >
-
-      <div class="activity-card">
-        <p class="activity-content">
-          Temps restant :
-          <strong data-language-activity-target="timer"></strong>
-        </p>
-
-        <p class="activity-content">
-          Progression :
-          <span data-language-activity-target="progress"></span>
-        </p>
-      </div>
-
-      <div class="activity-card language-card">
-        <div class="activity-top">
-          <h2 data-language-activity-target="sentencePrompt">
-            Chargement de la phrase...
-          </h2>
-        </div>
-
-        <%= form_with url: "#",
-                      method: :get,
-                      data: {
-                        language_activity_target: "sentenceForm",
-                        action: "submit->language-activity#checkSentence"
-                      } do %>
-
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Mot manquant"
-            data-language-activity-target="sentenceInput"
-          >
-
-          <button type="submit" class="primary-button">
-            Valider
-          </button>
-        <% end %>
-
-        <p
-          class="activity-content"
-          data-language-activity-target="sentenceFeedback"
-        ></p>
-      </div>
-    </div>
-
-  <% elsif @activity.activity_type == "llm_chat" %>
-
-    <div class="activity-card">
-      <p class="activity-content">
-        Le chat avec IA sera branché plus tard.
-      </p>
-    </div>
+    <%= render "language",
+      activity: @activity,
+      language_items: @language_items,
+      duration_seconds: @duration_seconds %>
 
   <% else %>
 
@@ -141,5 +36,13 @@
 
   <% end %>
 
-  <%= link_to "Recommencer", root_path, class: "primary-button" %>
+  <%= button_to "Finir l'activité",
+      activity_session_path(@activity_session),
+      method: :patch,
+      class: "temp-finish-button" %>
+      
+  <%= link_to "Recommencer",
+              root_path,
+              class: "primary-button" %>
+
 </div>

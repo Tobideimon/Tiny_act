@@ -1,40 +1,66 @@
 <div class="phone-page">
   <div class="recommendations-page">
 
-    <div class="recommendations-header">
-      <h1>Activités recommandées</h1>
-      <p>Voici quelques idées pour toi aujourd’hui</p>
-    </div>
+    <% if @activity_session.finished? %>
 
-    <% if @activities.any? %>
-      <div class="activities-list">
-        <% @activities.each do |activity| %>
-          <%= link_to activity_path(activity, activity_session_id: @activity_session.id),
-                      class: "activity-card-link" do %>
+      <div class="session-summary">
+        <h1>Session terminée 🎉</h1>
 
-            <div class="activity-card">
-              <div class="activity-top">
-                <h2>
-                  <%= activity.name %>
+        <div class="activity-card">
+          <h2><%= @activity_session.activity.name %></h2>
 
-                  <% if activity.language_activity? && @language_label.present? %>
-                    en <%= @language_label %>
-                  <% end %>
-                </h2>
+          <p class="activity-content">
+            <%= @activity_session.activity.content %>
+          </p>
+
+          <div class="summary-details">
+            <p><strong>Date :</strong> <%= @activity_session.date %></p>
+            <p><strong>Mood :</strong> <%= @activity_session.activity.mood.name %></p>
+            <p><strong>Durée :</strong> <%= @activity_session.activity.duration.value %> min</p>
+            <p><strong>Lieu :</strong> <%= @activity_session.activity.location.name %></p>
+            <p><strong>Intérêt :</strong> <%= @activity_session.activity.interest.name %></p>
+          </div>
+        </div>
+      </div>
+      <%= link_to "Recommencer", root_path, class: "primary-button" %>
+    <% else %>
+
+      <div class="recommendations-header">
+        <h1>Activités recommandées</h1>
+        <p>Voici quelques idées pour toi aujourd’hui</p>
+      </div>
+
+      <% if @activities.any? %>
+        <div class="activities-list">
+          <% @activities.each do |activity| %>
+            <%= link_to activity_path(activity, activity_session_id: @activity_session.id),
+                        class: "activity-card-link" do %>
+
+              <div class="activity-card">
+                <div class="activity-top">
+                  <h2>
+                    <%= activity.name %>
+
+                    <% if activity.language_activity? && @language_label.present? %>
+                      en <%= @language_label %>
+                    <% end %>
+                  </h2>
+                </div>
+
+                <p class="activity-content">
+                  <%= activity.content %>
+                </p>
               </div>
 
-              <p class="activity-content">
-                <%= activity.content %>
-              </p>
-            </div>
-
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-    <% else %>
-      <div class="empty-state">
-        <p>Aucune activité trouvée 😢</p>
-      </div>
+        </div>
+      <% else %>
+        <div class="empty-state">
+          <p>Aucune activité trouvée 😢</p>
+        </div>
+      <% end %>
+
     <% end %>
 
   </div>

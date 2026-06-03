@@ -43,18 +43,36 @@ class ActivitySessionsController < ApplicationController
 
   def show
     @activity_session = current_user.activity_sessions.find(params[:id])
+
+    return if @activity_session.finished?
+
     reference_activity = @activity_session.activity
 
-    @activities = Activity.where(
+    matching_activities = Activity.where(
       active: true,
       mood: reference_activity.mood,
       duration: reference_activity.duration,
       interest_id: current_user.interests.ids,
       location_id: allowed_location_ids(reference_activity.location_id)
-    ).order(Arel.sql("RANDOM()")).limit(3)
+    )
+
+    @activities = matching_activities
+                  .includes(:interest)
+                  .group_by(&:interest_id)
+                  .values
+                  .map(&:sample)
+                  .sample(3)
 
     assign_language_if_needed
     @language_label = readable_language(@activity_session.language)
+  end
+
+  def update
+    @activity_session = current_user.activity_sessions.find(params[:id])
+
+    @activity_session.update!(finished: true)
+
+    redirect_to activity_session_path(@activity_session)
   end
 
   private

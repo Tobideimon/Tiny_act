@@ -35,7 +35,7 @@ puts "📍 Creating locations..."
 
 home     = Location.create!(name: "Maison")
 outside  = Location.create!(name: "Extérieur")
-office   = Location.create!(name: "Bureau")
+transport   = Location.create!(name: "Bureau")
 anywhere = Location.create!(name: "N'importe où")
 
 puts "🎯 Creating interests..."
