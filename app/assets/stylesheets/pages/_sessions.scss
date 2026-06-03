@@ -1,0 +1,9 @@
+.auth-remember {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 20px; color: $ta-navy; font-size: 14px;
+}
+.auth-remember label { margin: 0; font-weight: 500; }
+
+.auth-forgot { text-align: center; margin-top: 12px; }
+.auth-forgot a { color: $ta-grey; font-size: 14px; text-decoration: none; }
+.auth-forgot a:hover { color: $ta-yellow; }
