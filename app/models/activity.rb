@@ -1,5 +1,5 @@
 class Activity < ApplicationRecord
-  ACTIVITY_TYPES = %w[standard word_learning sentence_completion llm_chat]
+  ACTIVITY_TYPES = %w[standard word_learning sentence_completion llm_chat culture_quiz]
   LANGUAGE_ACTIVITY_TYPES = %w[word_learning sentence_completion llm_chat]
 
   belongs_to :duration
@@ -15,5 +15,9 @@ class Activity < ApplicationRecord
 
   def language_activity?
     LANGUAGE_ACTIVITY_TYPES.include?(activity_type)
+  end
+
+  def culture_activity?
+    activity_type == "culture_quiz"
   end
 end

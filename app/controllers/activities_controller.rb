@@ -14,6 +14,11 @@ class ActivitiesController < ApplicationController
 
     @duration_seconds = @activity.duration.value * 60
 
+    if @activity.culture_activity?
+      load_culture_quiz
+      return
+    end
+
     return unless @activity.language_activity?
 
     assign_language_if_needed
@@ -62,5 +67,38 @@ class ActivitiesController < ApplicationController
       "english" => "anglais",
       "spanish" => "espagnol"
     }[language]
+  end
+
+  def load_culture_quiz
+    @culture_questions = CultureQuestion
+                         .where(difficulty: culture_difficulty)
+                         .order(Arel.sql("RANDOM()"))
+                         .limit(culture_question_limit)
+  end
+
+  def culture_difficulty
+    case @activity.mood.name
+    when "À plat"
+      "easy"
+    when "Mitigé"
+      "medium"
+    when "En forme"
+      "hard"
+    else
+      "easy"
+    end
+  end
+
+  def culture_question_limit
+    case @activity.duration.value
+    when 5
+      10
+    when 15
+      24
+    when 30
+      40
+    else
+      10
+    end
   end
 end

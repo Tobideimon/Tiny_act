@@ -70,9 +70,14 @@ class ActivitySessionsController < ApplicationController
   def update
     @activity_session = current_user.activity_sessions.find(params[:id])
 
-    @activity_session.update!(finished: true)
-
-    redirect_to activity_session_path(@activity_session)
+    if params[:activity_session].present?
+      @activity_session.update!(activity_session_params)
+      redirect_back fallback_location: activity_path(@activity_session.activity,
+                                                     activity_session_id: @activity_session.id)
+    else
+      @activity_session.update!(finished: true)
+      redirect_to activity_session_path(@activity_session)
+    end
   end
 
   private
@@ -135,5 +140,9 @@ class ActivitySessionsController < ApplicationController
       "english" => "anglais",
       "spanish" => "espagnol"
     }[language]
+  end
+
+  def activity_session_params
+    params.require(:activity_session).permit(:culture_category)
   end
 end
