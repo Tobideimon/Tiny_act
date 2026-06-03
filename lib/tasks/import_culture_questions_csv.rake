@@ -54,6 +54,11 @@ namespace :culture_questions do
         raise "Import error line #{line_number}: missing data. Row: #{row.to_h}"
       end
 
+      if CultureQuestion.exists?(question: question)
+        puts "⚠️ Duplicate question skipped line #{line_number}: #{question}"
+        next
+      end
+
       CultureQuestion.create!(
         question: question,
         correct_answer: correct_answer,
