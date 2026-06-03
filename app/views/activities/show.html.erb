@@ -1,6 +1,22 @@
 <div class="recommendations-page">
 
   <div class="recommendations-header">
+      <% if @activity.interest.name == "Sport" %>
+
+        <%= image_tag(
+              "sport.png",
+              class: "activity-interest-icon"
+            ) %>
+
+      <% elsif @activity.interest.name == "Langues" %>
+
+        <%= image_tag(
+              "langue.png",
+              class: "activity-interest-icon"
+            ) %>
+
+      <% end %>
+
     <h1>
       <%= @activity.name %>
 

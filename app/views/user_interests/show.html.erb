@@ -2,17 +2,81 @@
   <h1 class="interests-title">Tes centres d'intérêt</h1>
 
   <%= form_with url: user_interests_path, method: :patch do %>
+
     <div class="interests-grid">
+
       <% @interests.each do |interest| %>
-        <%# On enveloppe la case dans le label → tout le bloc devient cliquable %>
+
+        <% css_class =
+          case interest.name
+          when "Sport"
+            "interest-sport"
+          when "Langues"
+            "interest-langues"
+          when "Bien-être"
+            "interest-wellbeing"
+          when "Créativité"
+            "interest-creativity"
+          when "Photo"
+            "interest-photo"
+          when "Dessin"
+            "interest-drawing"
+          when "Écriture"
+            "interest-writing"
+          when "Culture"
+            "interest-culture"
+          else
+            ""
+          end
+        %>
+
         <label class="interest-option">
-          <%= check_box_tag "interest_ids[]", interest.id,
-                @selected_interest_ids.include?(interest.id) %>
-          <span><%= interest.name %></span>
+
+          <%= check_box_tag(
+                "interest_ids[]",
+                interest.id,
+                @selected_interest_ids.include?(interest.id)
+              ) %>
+
+          <span class="<%= css_class %>">
+
+            <% if interest.name == "Sport" %>
+              <%= image_tag "sport.png", class: "interest-icon" %>
+
+            <% elsif interest.name == "Langues" %>
+              <%= image_tag "langue.png", class: "interest-icon" %>
+
+            <% elsif interest.name == "Bien-être" %>
+              <%= image_tag "bien_etre.png", class: "interest-icon" %>
+
+            <% elsif interest.name == "Photo" %>
+              <%= image_tag "photo.png", class: "interest-icon" %>
+
+            <% elsif interest.name == "Dessin" %>
+              <%= image_tag "dessin.png", class: "interest-icon" %>
+
+            <% elsif interest.name == "Écriture" %>
+              <%= image_tag "ecriture.png", class: "interest-icon" %>
+
+            <% elsif interest.name == "Créativité" %>
+              <%= image_tag "creativite.png", class: "interest-icon" %>
+
+            <% elsif interest.name == "Culture" %>
+              <%= image_tag "culture.png", class: "interest-icon" %>
+
+            <% end %>
+            <%= interest.name %>
+
+          </span>
+
         </label>
+
       <% end %>
+
     </div>
 
-    <%= submit_tag "Enregistrer", class: "interests-submit" %>
+    <%= submit_tag "Enregistrer",
+                   class: "interests-submit" %>
+
   <% end %>
 </div>
