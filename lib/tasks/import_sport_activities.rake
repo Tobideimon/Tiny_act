@@ -1,4 +1,5 @@
 require "csv"
+require "json"
 
 namespace :sport_activities do
   desc "Import sport activities from db/data/sport_activities.csv"
@@ -25,6 +26,8 @@ namespace :sport_activities do
       mood_name = row["mood"]&.strip
       location_name = row["location"]&.strip
       duration_value = row["duration"].to_i
+      preparation_seconds = row["preparation_seconds"].presence&.to_i || 30
+      execution_plan = parse_execution_plan(row["execution_plan"], line_number)
 
       if name.blank? || content.blank? || mood_name.blank? || location_name.blank? || duration_value.zero?
         raise "Import error line #{line_number}: missing data. Row: #{row.to_h}"
@@ -50,6 +53,8 @@ namespace :sport_activities do
       activity.location = location
       activity.duration = duration
       activity.activity_type = "standard"
+      activity.preparation_seconds = preparation_seconds
+      activity.execution_plan = execution_plan.presence || {}
       activity.active = true
 
       if activity.new_record?
@@ -65,5 +70,13 @@ namespace :sport_activities do
     puts "#{imported_count} sport activities created."
     puts "#{updated_count} sport activities updated."
     puts "#{Activity.where(interest: sport).count} sport activities in database."
+  end
+
+  def parse_execution_plan(raw_json, line_number)
+    return {} if raw_json.blank?
+
+    JSON.parse(raw_json)
+  rescue JSON::ParserError => e
+    raise "Import error line #{line_number}: invalid execution_plan JSON: #{e.message}"
   end
 end

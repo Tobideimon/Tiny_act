@@ -1,33 +1,38 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = [
+  static targets = [
     "stepsPreview",
     "launchButton",
     "runner",
     "finished",
+    "runnerLabel",
     "currentStepNumber",
     "totalSteps",
     "currentStepText",
     "timerWrapper",
-    "timer"
+    "timer",
+    "nextButton"
   ]
 
   static values = {
-    steps: Array
+    plan: Object
   }
 
   connect() {
     this.currentIndex = 0
     this.timerInterval = null
+    this.startedAt = null
+    this.stage = "idle"
+    this.mainStepCount = this.mainSteps.length
 
     if (this.hasTotalStepsTarget) {
-      this.totalStepsTarget.textContent = this.stepsValue.length
+      this.totalStepsTarget.textContent = this.mainStepCount
     }
   }
 
   launch() {
-    if (this.stepsValue.length === 0) return
+    if (this.mainStepCount === 0) return
 
     this.stepsPreviewTarget.classList.add("is-hidden")
     this.launchButtonTarget.classList.add("is-hidden")
@@ -35,20 +40,51 @@ export default class extends Controller {
     this.finishedTarget.classList.add("is-hidden")
 
     this.currentIndex = 0
+    this.startedAt = null
+    this.showPreparation()
+  }
+
+  showPreparation() {
+    this.clearTimer()
+
+    this.stage = "preparation"
+    this.runnerLabelTarget.textContent = "Début dans :"
+    this.currentStepTextTarget.textContent = "Prépare-toi"
+    this.nextButtonTarget.classList.remove("is-hidden")
+
+    this.startTimer(this.preparationSeconds, () => {
+      this.startMainActivity()
+    })
+  }
+
+  startMainActivity() {
+    this.clearTimer()
+
+    this.stage = "main"
+    this.startedAt = Date.now()
+    this.currentIndex = 0
+
     this.showCurrentStep()
   }
 
   showCurrentStep() {
     this.clearTimer()
 
-    const currentStep = this.stepsValue[this.currentIndex]
-    const duration = this.durationFromText(currentStep.text)
+    const currentStep = this.mainSteps[this.currentIndex]
+    if (!currentStep) {
+      this.finish()
+      return
+    }
 
-    this.currentStepNumberTarget.textContent = this.currentIndex + 1
+    this.runnerLabelTarget.innerHTML = `Étape ${this.currentIndex + 1} / ${this.mainStepCount}`
     this.currentStepTextTarget.textContent = currentStep.text
 
+    const duration = Number(currentStep.duration_seconds || 0)
+
     if (duration > 0) {
-      this.startTimer(duration)
+      this.startTimer(duration, () => {
+        this.nextStep()
+      })
     } else {
       this.timerWrapperTarget.classList.add("is-hidden")
       this.timerTarget.textContent = ""
@@ -58,9 +94,22 @@ export default class extends Controller {
   nextStep() {
     this.clearTimer()
 
+    if (this.stage === "preparation") {
+      this.startMainActivity()
+      return
+    }
+
+    if (this.stage !== "main") return
+
     this.currentIndex += 1
 
-    if (this.currentIndex >= this.stepsValue.length) {
+    if (this.currentIndex >= this.mainStepCount) {
+      if (this.mustLoopAgain()) {
+        this.currentIndex = 0
+        this.showCurrentStep()
+        return
+      }
+
       this.finish()
       return
     }
@@ -70,22 +119,33 @@ export default class extends Controller {
 
   finish() {
     this.clearTimer()
+
+    this.stage = "finished"
     this.runnerTarget.classList.add("is-hidden")
     this.finishedTarget.classList.remove("is-hidden")
   }
 
-  startTimer(seconds) {
-    let remainingSeconds = seconds
+  startTimer(seconds, onComplete = null) {
+    let remainingSeconds = Math.max(0, Number(seconds || 0))
 
     this.timerWrapperTarget.classList.remove("is-hidden")
     this.updateTimerDisplay(remainingSeconds)
+
+    if (remainingSeconds <= 0) {
+      if (typeof onComplete === "function") onComplete()
+      return
+    }
 
     this.timerInterval = setInterval(() => {
       remainingSeconds -= 1
       this.updateTimerDisplay(remainingSeconds)
 
       if (remainingSeconds <= 0) {
-        this.nextStep()
+        this.clearTimer()
+
+        if (typeof onComplete === "function") {
+          onComplete()
+        }
       }
     }, 1000)
   }
@@ -98,26 +158,34 @@ export default class extends Controller {
   }
 
   updateTimerDisplay(seconds) {
-    const minutes = Math.floor(seconds / 60)
-    const remainingSeconds = seconds % 60
+    const safeSeconds = Math.max(0, Number(seconds || 0))
+    const minutes = Math.floor(safeSeconds / 60)
+    const remainingSeconds = safeSeconds % 60
 
     this.timerTarget.textContent = `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`
   }
 
-  durationFromText(text) {
-    const match = text
-      .toLowerCase()
-      .match(/(\d+)\s*(secondes?|sec|s|minutes?|min)/)
+  mustLoopAgain() {
+    if (this.plan.repeat_mode !== "until_duration") return false
+    if (!this.startedAt) return false
 
-    if (!match) return 0
+    const elapsedSeconds = Math.floor((Date.now() - this.startedAt) / 1000)
+    return elapsedSeconds < this.targetDurationSeconds
+  }
 
-    const value = Number.parseInt(match[1], 10)
-    const unit = match[2]
+  get plan() {
+    return this.planValue || {}
+  }
 
-    if (unit.startsWith("min")) {
-      return value * 60
-    }
+  get mainSteps() {
+    return Array.isArray(this.plan.steps) ? this.plan.steps : []
+  }
 
-    return value
+  get preparationSeconds() {
+    return Number(this.plan.preparation_seconds || 30)
+  }
+
+  get targetDurationSeconds() {
+    return Number(this.plan.target_duration_seconds || 0)
   }
 }

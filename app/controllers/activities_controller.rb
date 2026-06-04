@@ -73,7 +73,7 @@ class ActivitiesController < ApplicationController
     @culture_questions = CultureQuestion
                          .where(difficulty: culture_difficulty)
                          .order(Arel.sql("RANDOM()"))
-                         .limit(culture_question_limit)
+                         .limit(300)
   end
 
   def culture_difficulty

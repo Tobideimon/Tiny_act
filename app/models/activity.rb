@@ -29,7 +29,56 @@ class Activity < ApplicationRecord
     description.presence || content
   end
 
+  def sport_activity_plan
+    plan = execution_plan.presence
+    return normalize_sport_plan(plan) if plan.is_a?(Hash) && plan["steps"].present?
+
+    fallback_steps = legacy_sport_step_list.map do |step|
+      {
+        "kind" => "exercise",
+        "text" => step,
+        "duration_seconds" => sport_duration_from_text(step),
+        "auto_advance" => sport_duration_from_text(step).present?,
+        "loop" => true
+      }
+    end
+
+    normalize_sport_plan(
+      "version" => 1,
+      "preparation_seconds" => preparation_seconds.presence || 30,
+      "target_duration_seconds" => duration.value * 60,
+      "repeat_mode" => "sequence",
+      "default_rest_seconds" => sport_default_rest_seconds,
+      "steps" => fallback_steps
+    )
+  end
+
   def sport_step_list
+    sport_activity_plan["steps"].map { |step| step["text"] }.reject(&:blank?)
+  end
+
+  private
+
+  def normalize_sport_plan(plan)
+    plan = plan.deep_stringify_keys
+    plan["version"] ||= 1
+    plan["preparation_seconds"] = plan["preparation_seconds"].presence || preparation_seconds.presence || 30
+    plan["target_duration_seconds"] = plan["target_duration_seconds"].presence || duration.value * 60
+    plan["repeat_mode"] = plan["repeat_mode"].presence || "sequence"
+    plan["default_rest_seconds"] = plan["default_rest_seconds"].presence || sport_default_rest_seconds
+    plan["steps"] = Array(plan["steps"]).map do |step|
+      step = step.deep_stringify_keys
+      step["kind"] ||= "exercise"
+      step["text"] ||= "Étape"
+      step["duration_seconds"] = step["duration_seconds"].presence
+      step["auto_advance"] = ActiveModel::Type::Boolean.new.cast(step.fetch("auto_advance", step["duration_seconds"].present?))
+      step["loop"] = ActiveModel::Type::Boolean.new.cast(step.fetch("loop", !%w[warmup cooldown instruction].include?(step["kind"])))
+      step
+    end
+    plan
+  end
+
+  def legacy_sport_step_list
     return [] if steps.blank?
 
     steps
@@ -37,5 +86,22 @@ class Activity < ApplicationRecord
       .flatten
       .map(&:strip)
       .reject(&:blank?)
+  end
+
+  def sport_duration_from_text(text)
+    match = text.to_s.downcase.match(/(\d+)\s*(secondes?|sec|minutes?|min)/)
+    return nil unless match
+
+    value = match[1].to_i
+    unit = match[2]
+    unit.start_with?("min") ? value * 60 : value
+  end
+
+  def sport_default_rest_seconds
+    case duration.value
+    when 0..5 then 20
+    when 6..15 then 35
+    else 45
+    end
   end
 end
