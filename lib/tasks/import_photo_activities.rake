@@ -41,6 +41,8 @@ namespace :photo_activities do
         duration: duration
       )
       activity.content       = content
+      activity.description   = row["description"]&.strip
+      activity.steps         = row["steps"]&.strip
       activity.activity_type = "standard"
       activity.active        = true
 

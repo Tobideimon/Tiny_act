@@ -29,7 +29,17 @@ class Activity < ApplicationRecord
     description.presence || content
   end
 
-  def sport_activity_plan
+  def step_list
+    return [] if steps.blank?
+
+    steps
+      .scan(/(?:^|\s)\d+\)\s*(.*?)(?=\s+\d+\)|\z)/m)
+      .flatten
+      .map(&:strip)
+      .reject(&:blank?)
+  end
+
+  def sport_activity_plan # rubocop:disable Metrics/MethodLength
     plan = execution_plan.presence
     return normalize_sport_plan(plan) if plan.is_a?(Hash) && plan["steps"].present?
 

@@ -1,0 +1,18 @@
+<div class="guided-activity productivite-activity">
+  <div class="guided-activity-tags">
+    <span class="guided-tag"><i class="fa-regular fa-clock"></i> <%= activity.duration.value %> min</span>
+    <span class="guided-tag"><i class="fa-solid fa-list-check"></i> Productivité</span>
+  </div>
+
+  <% steps = activity.step_list %>
+  <% if steps.any? %>
+    <h2 class="guided-steps-title">Ton mini-programme</h2>
+    <ol class="guided-steps">
+      <% steps.each do |step| %>
+        <li><%= step %></li>
+      <% end %>
+    </ol>
+  <% else %>
+    <p class="guided-note">Lance-toi à ton rythme, puis valide ci-dessous.</p>
+  <% end %>
+</div>

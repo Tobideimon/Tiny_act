@@ -49,6 +49,12 @@
       culture_questions: @culture_questions,
       duration_seconds: @duration_seconds %>
 
+  <% elsif @activity.interest.name == "Photo" %>
+    <%= render "photo", activity: @activity %>
+
+  <% elsif @activity.interest.name == "Productivité" %>
+    <%= render "productivite", activity: @activity %>
+    
   <% else %>
 
     <div class="activity-card">
