@@ -1,39 +1,76 @@
+
+puts "Cleaning furnitures..."
+
+RoomFurniture.destroy_all
+Furniture.destroy_all
+
 puts "Creating furnitures..."
 
-chair = Furniture.find_or_create_by!(name: "Chaise") do |f|
-  f.image_url = "furnitures/chair.png"
-  f.width = 1
-  f.height = 1
-end
+Furniture.create!(
+  name: "Punching Ball",
+  image_url: "furnitures/punching_ball.png",
 
-table = Furniture.find_or_create_by!(name: "Table") do |f|
-  f.image_url = "furnitures/table.png"
-  f.width = 2
-  f.height = 1
-end
+  # Occupation au sol
+  width: 1,
+  height: 1
 
-puts "Adding furnitures to rooms..."
+  # Le PNG sera simplement plus haut visuellement
+)
 
-User.find_each do |user|
-  room = user.room || user.create_room!(width: 8, height: 8)
+Furniture.create!(
+  name: "Sport Mat",
+  image_url: "furnitures/sport_mat.png",
 
-  room.room_furnitures.find_or_create_by!(
-    furniture: chair,
-    x: 2,
-    y: 2
-  ) do |item|
-    item.z = 0
-    item.rotation = 0
-  end
+  # 2 cases de large
+  width: 2,
+  height: 1
+)
 
-  room.room_furnitures.find_or_create_by!(
-    furniture: table,
-    x: 4,
-    y: 3
-  ) do |item|
-    item.z = 0
-    item.rotation = 0
-  end
-end
+Furniture.create!(
+  name: "Books",
+  image_url: "furnitures/books.png",
 
-puts "Done."
+  # 1 cases de large
+  width: 1,
+  height: 1
+)
+
+Furniture.create!(
+  name: "pool",
+  image_url: "furnitures/pool.png",
+
+  # 1 cases de large
+  width: 1,
+  height: 1
+)
+
+Furniture.create!(
+  name: "escalade",
+  image_url: "furnitures/Escalade.png",
+
+  # 1 cases de large
+  width: 2,
+  height: 1
+)
+
+Furniture.create!(
+  name: "orangechair",
+  image_url: "furnitures/chair.png",
+
+  # 1 cases de large
+  width: 1,
+  height: 1
+)
+
+Furniture.create!(
+  name: "Jasky",
+  image_url: "furnitures/jasky.gif",
+
+  # Occupation au sol
+  width: 1,
+  height: 1
+
+  # Le PNG sera simplement plus haut visuellement
+)
+
+puts "#{Furniture.count} furnitures created!"
