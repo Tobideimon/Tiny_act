@@ -1,29 +1,6 @@
 <div class="phone-page mood-page mood-home-page has-step-progress">
 
-  <div class="mood-topbar">
-    <div class="mood-brand">
-      <%= image_tag "mascot/brand-mascot.png",
-                    class: "mood-brand-image",
-                    alt: "Tiny Act" %>
-
-      <span class="mood-brand-name">
-        Tiny Act
-      </span>
-    </div>
-
-    <div class="mood-user-actions">
-      <div class="mood-xp-pill">
-        <strong><%= @home_xp %></strong>
-        <span>XP</span>
-      </div>
-
-      <%= link_to user_path, class: "mood-profile-link" do %>
-        <%= image_tag "avatars/#{current_user.avatar || 'blueberry'}.png",
-                      class: "mood-profile-avatar",
-                      alt: "Profil" %>
-      <% end %>
-    </div>
-  </div>
+  <%= render "activity_sessions/selection_topbar" %>
 
   <%= link_to room_path, class: "room-notification" do %>
     <div class="room-notification-visual">
@@ -49,7 +26,7 @@
     <span class="room-notification-arrow">›</span>
   <% end %>
 
- <div class="mood-hero mood-hero-after-room">
+  <div class="mood-hero mood-hero-after-room">
     <h1>
       Comment tu te sens ?
     </h1>
@@ -60,7 +37,6 @@
                 class: "mood-form" do %>
 
     <div class="mood-list">
-
       <% @moods.each do |mood| %>
 
         <% mood_key =
@@ -82,7 +58,6 @@
           value="<%= mood.id %>"
           class="mood-card mood-choice-card mood-choice-<%= mood_key %>"
         >
-
           <div class="mood-mascot-image-wrapper">
             <%= image_tag "mascot/mood-#{mood_key}.png",
                           class: "mood-mascot-image",
@@ -96,13 +71,12 @@
           </div>
 
           <span class="mood-card-arrow">›</span>
-
         </button>
 
       <% end %>
-
     </div>
 
   <% end %>
+
   <%= render "step_indicator", current_step: 1 %>
 </div>

@@ -1,11 +1,9 @@
 class ActivitySessionsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_selection_topbar, only: %i[new location duration]
 
   def new
     @moods = Mood.all
-
-    @finished_sessions_count = current_user.activity_sessions.where(finished: true).count
-    @home_xp = @finished_sessions_count * 15
 
     actions_needed_for_reward = 3
     current_cycle_progress = @finished_sessions_count % actions_needed_for_reward
@@ -154,5 +152,10 @@ class ActivitySessionsController < ApplicationController
 
   def activity_session_params
     params.require(:activity_session).permit(:culture_category)
+  end
+
+  def set_selection_topbar
+    @finished_sessions_count = current_user.activity_sessions.where(finished: true).count
+    @home_xp = @finished_sessions_count * 15
   end
 end

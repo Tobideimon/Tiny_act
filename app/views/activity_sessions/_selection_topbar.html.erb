@@ -1,0 +1,24 @@
+<div class="mood-topbar">
+  <div class="mood-brand">
+    <span class="mood-brand-name">
+      Tiny Act
+    </span>
+
+    <%= image_tag "mascot/brand-mascot.png",
+                  class: "mood-brand-image",
+                  alt: "Tiny Act" %>
+  </div>
+
+  <div class="mood-user-actions">
+    <div class="mood-xp-pill">
+      <strong><%= @home_xp %></strong>
+      <span>XP</span>
+    </div>
+
+    <%= link_to user_path, class: "mood-profile-link" do %>
+      <%= image_tag "avatars/#{current_user.avatar || 'blueberry'}.png",
+                    class: "mood-profile-avatar",
+                    alt: "Profil" %>
+    <% end %>
+  </div>
+</div>
