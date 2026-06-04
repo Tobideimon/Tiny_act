@@ -1,15 +1,11 @@
 <div class="phone-page setup-page has-bottom-action has-step-progress">
 
-  <div class="setup-topbar">
-    <div class="setup-title-block">
-      <h1>Combien de temps ?</h1>
-    </div>
+  <%= render "activity_sessions/selection_topbar" %>
 
-    <%= link_to user_path, class: "app-profile-link" do %>
-      <%= image_tag "avatars/#{current_user.avatar || 'blueberry'}.png",
-                    class: "app-profile-avatar",
-                    alt: "Profil" %>
-    <% end %>
+  <div class="mood-hero setup-hero">
+    <h1>
+      Combien de temps ?
+    </h1>
   </div>
 
   <p class="setup-helper">

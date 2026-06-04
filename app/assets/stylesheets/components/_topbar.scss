@@ -1,23 +1,64 @@
 .mood-topbar,
 .app-topbar {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .mood-topbar {
   margin-bottom: 20px;
 }
 
-.mood-brand {
-  display: flex;
-  align-items: center;
-  gap: 9px;
+.mood-topbar .mood-brand {
+  position: relative;
+
+  width: 158px;
+  height: 82px;
+
+  flex: 0 0 158px;
+
+  display: block;
 }
 
-.mood-brand-image {
-  width: 100px;
-  height: 100px;
+.mood-topbar .mood-brand-name {
+  position: absolute;
+  left: 0;
+  top: 6px;
+  z-index: 2;
+
+  display: block;
+
+  width: 118px;
+
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+
+  font-family: "Bagel Fat One", "Poppins", "Helvetica", sans-serif;
+  font-size: 31px;
+  font-weight: 400;
+  line-height: 0.78;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+
+  -webkit-text-stroke: 1.6px #111827;
+
+  text-shadow:
+    0 2px 0 #111827,
+    2px 3px 0 rgba(17, 24, 39, 0.18),
+    4px 5px 0 rgba(216, 154, 50, 0.28);
+
+  transform: rotate(-1.5deg);
+}
+
+.mood-topbar .mood-brand-image {
+  position: absolute;
+  left: 55px;
+  top: 4px;
+  z-index: 3;
+
+  width: 54px;
+  height: 54px;
 
   display: block;
   object-fit: contain;
@@ -25,25 +66,20 @@
   filter: drop-shadow(0 8px 14px rgba(43, 45, 66, 0.08));
 }
 
-.mood-brand-name {
-  color: rgba(21, 27, 47, 0.76);
-
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
 .mood-user-actions {
+  flex: 0 0 auto;
+
   display: flex;
   align-items: center;
   gap: 10px;
+
+  padding-top: 0px;
 }
 
 .mood-profile-link,
 .app-profile-link {
-  width: 46px;
-  height: 46px;
+  width: 64px;
+  height: 64px;
 
   display: block;
 
@@ -65,4 +101,33 @@
 
   display: block;
   object-fit: cover;
+}
+
+@media (max-height: 760px) {
+  .mood-topbar .mood-brand {
+    width: 148px;
+    height: 74px;
+
+    flex-basis: 148px;
+  }
+
+  .mood-topbar .mood-brand-name {
+    width: 110px;
+
+    font-size: 28px;
+
+    -webkit-text-stroke-width: 1.45px;
+  }
+
+  .mood-topbar .mood-brand-image {
+    left: 96px;
+    top: 3px;
+
+    width: 50px;
+    height: 50px;
+  }
+
+  .mood-user-actions {
+    padding-top: 8px;
+  }
 }

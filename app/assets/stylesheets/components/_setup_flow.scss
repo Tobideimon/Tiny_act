@@ -161,3 +161,38 @@
     display: none;
   }
 }
+
+.setup-page {
+  padding-top: 30px;
+}
+
+.setup-hero {
+  margin-top: 18px;
+  margin-bottom: 14px;
+}
+
+.setup-hero h1 {
+  max-width: 320px;
+
+  color: $ta-ink;
+
+  font-size: 28px;
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+@media (max-height: 760px) {
+  .setup-page {
+    padding-top: 24px;
+  }
+
+  .setup-hero {
+    margin-top: 14px;
+    margin-bottom: 10px;
+  }
+
+  .setup-hero h1 {
+    font-size: 24px;
+  }
+}
