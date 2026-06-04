@@ -41,9 +41,11 @@ namespace :productivite_activities do
         duration: duration
       )
       activity.content       = content
+      activity.description   = row["description"]&.strip
+      activity.steps         = row["steps"]&.strip
       activity.activity_type = "standard"
       activity.active        = true
-      
+
       activity.new_record? ? (imported_count += 1) : (updated_count += 1)
       activity.save!
     end
