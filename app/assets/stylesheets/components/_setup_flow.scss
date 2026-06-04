@@ -1,0 +1,163 @@
+.setup-page {
+  padding-top: 34px;
+}
+
+.has-step-progress {
+  padding-bottom: calc(162px + env(safe-area-inset-bottom));
+}
+
+.setup-topbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+
+  margin-bottom: 12px;
+}
+
+.setup-title-block {
+  padding-top: 66px;
+}
+
+.setup-step-label {
+  margin: 0 0 7px;
+
+  color: $ta-ink-light;
+
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.setup-topbar h1,
+.mood-hero h1 {
+  margin: 0;
+}
+
+.setup-topbar h1 {
+  max-width: 260px;
+
+  color: rgba(21, 27, 47, 0.78);
+
+  font-size: 28px;
+  line-height: 1.08;
+  font-weight: 760;
+  letter-spacing: -0.035em;
+}
+
+.setup-helper {
+  max-width: 310px;
+  margin: 0 0 24px;
+
+  color: $ta-ink-muted;
+
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 550;
+}
+
+.setup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.setup-choice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.setup-choice-card {
+  min-height: 104px;
+  padding: 16px 54px 16px 18px;
+}
+
+.setup-choice-icon {
+  width: 58px;
+  height: 58px;
+
+  flex: 0 0 58px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 20px;
+
+  background: rgba(255, 253, 249, 0.7);
+  border: 1px solid rgba(90, 74, 54, 0.08);
+
+  color: rgba(21, 27, 47, 0.7);
+
+  font-size: 30px;
+  font-weight: 800;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    0 8px 16px rgba(43, 45, 66, 0.045);
+}
+
+.setup-choice-text {
+  min-width: 0;
+  padding-left: 16px;
+}
+
+.setup-choice-text strong {
+  display: block;
+
+  color: rgba(21, 27, 47, 0.84);
+
+  font-size: 17px;
+  line-height: 1.15;
+  font-weight: 760;
+}
+
+.mood-hero .setup-step-label {
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+@media (max-height: 760px) {
+  .setup-page {
+    padding-top: 26px;
+  }
+
+  .setup-topbar {
+    margin-bottom: 10px;
+  }
+
+  .setup-title-block {
+    padding-top: 66px;
+  }
+
+  .setup-topbar h1 {
+    font-size: 25px;
+  }
+
+  .setup-helper {
+    margin-bottom: 18px;
+    font-size: 13px;
+  }
+
+  .setup-choice-list {
+    gap: 13px;
+  }
+
+  .setup-choice-card {
+    min-height: 92px;
+  }
+
+  .setup-choice-icon {
+    width: 52px;
+    height: 52px;
+    flex-basis: 52px;
+
+    font-size: 27px;
+  }
+}
+
+@media (max-height: 670px) {
+  .setup-helper {
+    display: none;
+  }
+}
