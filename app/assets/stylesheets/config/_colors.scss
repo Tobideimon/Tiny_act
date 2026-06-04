@@ -1,6 +1,8 @@
-// Define variables for your color scheme
+// =========================
+// LE WAGON / BOOTSTRAP COLORS
+// Keep these variables because _bootstrap_variables.scss depends on them
+// =========================
 
-// For example:
 $red: #FD1015;
 $blue: #0D6EFD;
 $yellow: #FFC65A;
@@ -9,9 +11,70 @@ $green: #1EDD88;
 $gray: #0E0000;
 $light-gray: #F4F4F4;
 
-// Palette Tiny Act
-$ta-cream: #fffdf8;
-$ta-navy: #2b2d42;
-$ta-yellow: #ffc23c;
-$ta-yellow-soft: #ffd166;
-$ta-grey: #9a9aa8;
+// =========================
+// TINY ACT BASE PALETTE
+// Existing variables used by older components
+// =========================
+
+$ta-cream: #FFFDF8;
+$ta-navy: #2B2D42;
+$ta-yellow: #FFC23C;
+$ta-yellow-soft: #FFD166;
+$ta-grey: #9A9AA8;
+
+// =========================
+// TINY ACT DESIGN SYSTEM
+// New reusable variables
+// =========================
+
+$ta-ink: #151B2F;
+$ta-ink-soft: rgba(21, 27, 47, 0.78);
+$ta-ink-muted: rgba(21, 27, 47, 0.58);
+$ta-ink-light: rgba(21, 27, 47, 0.34);
+
+$ta-bg: #F4EFE8;
+$ta-bg-start: #F8F2E9;
+$ta-bg-end: #F3EDF8;
+
+$ta-surface: #FFFDF9;
+$ta-surface-soft: rgba(255, 253, 249, 0.9);
+
+$ta-room-start: #F2E5CF;
+$ta-room-end: #FBF2DF;
+$ta-room-border: rgba(95, 75, 45, 0.13);
+
+$ta-border-soft: rgba(90, 74, 54, 0.1);
+$ta-border-medium: rgba(90, 74, 54, 0.16);
+
+// Main accents
+$ta-purple: #7C63F2;
+$ta-purple-soft: rgba(124, 99, 242, 0.22);
+$ta-gold: #D89A32;
+
+// Compatibility aliases for current and future components
+$ta-orange: #E7A63A;
+$ta-green: #92BD73;
+$ta-blue: #8FA8D2;
+$ta-red: #FF745C;
+
+// Mood backgrounds
+$ta-green-bg: #EDF7E5;
+$ta-green-border: rgba(116, 157, 82, 0.3);
+
+$ta-yellow-bg: #F8EFD6;
+$ta-yellow-border: rgba(190, 139, 43, 0.3);
+
+$ta-blue-bg: #EAF1FB;
+$ta-blue-border: rgba(105, 132, 176, 0.3);
+
+// =========================
+// SHADOWS
+// =========================
+
+$ta-shadow-soft:
+  0 10px 22px rgba(43, 45, 66, 0.055),
+  0 3px 8px rgba(43, 45, 66, 0.025);
+
+$ta-shadow-card:
+  0 16px 30px rgba(43, 45, 66, 0.075),
+  0 5px 12px rgba(43, 45, 66, 0.035);

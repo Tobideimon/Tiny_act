@@ -27,25 +27,20 @@
   </head>
 
   <body>
-    </div>
-      <% if user_signed_in? &&
-            !["users", "user_interests"].include?(controller_name) %>
+  <% show_global_profile_button =
+       user_signed_in? &&
+       !["users", "user_interests", "activity_sessions"].include?(controller_name)
+  %>
 
-        <div class="top-profile-button">
-
-          <%= link_to user_path,
-              class: "profile-avatar" do %>
-
-            <%= image_tag "avatars/#{current_user.avatar || 'blueberry'}.png" %>
-
-          <% end %>
-
-        </div>
-
+  <% if show_global_profile_button %>
+    <div class="top-profile-button">
+      <%= link_to user_path, class: "profile-avatar" do %>
+        <%= image_tag "avatars/#{current_user.avatar || 'blueberry'}.png" %>
       <% end %>
     </div>
-    <%= render "shared/flashes" %>
+  <% end %>
 
-    <%= yield %>
-  </body>
-</html>
+  <%= render "shared/flashes" %>
+
+  <%= yield %>
+</body>
