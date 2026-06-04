@@ -18,6 +18,6 @@ class User < ApplicationRecord
   private
 
   def create_default_room
-    create_room!(width: 8, height: 8)
+    create_room!(width: Room::GRID_WIDTH, height: Room::GRID_HEIGHT)
   end
 end

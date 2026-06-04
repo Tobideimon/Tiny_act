@@ -9,15 +9,15 @@ export default class extends Controller {
   connect() {
     this.room = this.roomValue
 
-    this.tileWidth = 65
-    this.tileHeight = 35
+    this.tileWidth = 85
+    this.tileHeight = 45
 
-    this.offsetX = 445
-    this.offsetY = 190
+    this.offsetX = 460
+    this.offsetY = 260
     this.tileHeight += 3
-    this.furnitureScale = 1.2
-    this.furnitureOffsetX = 24
-    this.furnitureOffsetY = 5
+    this.furnitureScale = 1.35
+    this.furnitureOffsetX = 25
+    this.furnitureOffsetY = 115
 
     this.dragMove = this.dragMove.bind(this)
     this.dragEnd = this.dragEnd.bind(this)
@@ -54,29 +54,29 @@ export default class extends Controller {
       element.remove()
     })
 
-    for (let y = 0; y < this.room.height; y++) {
-      for (let x = 0; x < this.room.width; x++) {
-        const pos = this.gridToIso(x, y)
+    // for (let y = 0; y < this.room.height; y++) {
+    //   for (let x = 0; x < this.room.width; x++) {
+    //     const pos = this.gridToIso(x, y)
 
-        const tile = document.createElement("div")
-        tile.className = "tile"
+    //     const tile = document.createElement("div")
+    //     tile.className = "tile"
 
-        tile.style.position = "absolute"
-        tile.style.left = `${pos.x - this.tileWidth / 2}px`
-        tile.style.top = `${pos.y - this.tileHeight / 2}px`
+    //     tile.style.position = "absolute"
+    //     tile.style.left = `${pos.x - this.tileWidth / 2}px`
+    //     tile.style.top = `${pos.y - this.tileHeight / 2}px`
 
-        tile.style.width = `${this.tileWidth}px`
-        tile.style.height = `${this.tileHeight}px`
+    //     tile.style.width = `${this.tileWidth}px`
+    //     tile.style.height = `${this.tileHeight}px`
 
-        tile.style.border = "1px solid rgba(255, 0, 0, 0.4)"
-        tile.style.background = "rgba(255, 0, 0, 0.10)"
+    //     tile.style.border = "1px solid rgba(255, 0, 0, 0.4)"
+    //     tile.style.background = "rgba(255, 0, 0, 0.10)"
 
-        tile.style.clipPath = "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"
-        tile.style.pointerEvents = "none"
+    //     tile.style.clipPath = "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)"
+    //     tile.style.pointerEvents = "none"
 
-        this.element.appendChild(tile)
-      }
-    }
+    //     this.element.appendChild(tile)
+    //   }
+    // }
 
     this.room.furnitures.forEach(item => {
       this.renderFurniture(item)
@@ -86,12 +86,16 @@ export default class extends Controller {
   renderFurniture(item) {
     const pos = this.gridToIso(item.x, item.y)
 
-    const visualWidth = item.width * this.tileWidth
-    const visualHeight = item.height * this.tileHeight * 2
+    const footprintWidth = item.width * this.tileWidth
+    const footprintHeight = item.height * this.tileHeight
+    const visualWidth = this.tileWidth * 2
+    const visualHeight = this.tileHeight * 4
 
     console.log("[room] renderFurniture:start", {
       item,
       pos,
+      footprintWidth,
+      footprintHeight,
       visualWidth,
       visualHeight,
       furnitureScale: this.furnitureScale,
@@ -100,23 +104,23 @@ export default class extends Controller {
     })
 
     // DEBUG : cases réellement occupées par le meuble
-    for (let dy = 0; dy < item.height; dy++) {
-      for (let dx = 0; dx < item.width; dx++) {
-        const footprintPos = this.gridToIso(item.x + dx, item.y + dy)
+    // for (let dy = 0; dy < item.height; dy++) {
+    //   for (let dx = 0; dx < item.width; dx++) {
+    //     const footprintPos = this.gridToIso(item.x + dx, item.y + dy)
 
-        const footprintTile = document.createElement("div")
-        footprintTile.className = "furniture-footprint"
+    //     const footprintTile = document.createElement("div")
+    //     footprintTile.className = "furniture-footprint"
 
-        footprintTile.style.position = "absolute"
-        footprintTile.style.left = `${footprintPos.x - this.tileWidth / 2}px`
-        footprintTile.style.top = `${footprintPos.y - this.tileHeight / 2}px`
-        footprintTile.style.width = `${this.tileWidth}px`
-        footprintTile.style.height = `${this.tileHeight}px`
-        footprintTile.style.zIndex = item.x + item.y - 1
+    //     footprintTile.style.position = "absolute"
+    //     footprintTile.style.left = `${footprintPos.x - this.tileWidth / 2}px`
+    //     footprintTile.style.top = `${footprintPos.y - this.tileHeight / 2}px`
+    //     footprintTile.style.width = `${this.tileWidth}px`
+    //     footprintTile.style.height = `${this.tileHeight}px`
+    //     footprintTile.style.zIndex = item.x + item.y - 1
 
-        this.element.appendChild(footprintTile)
-      }
-    }
+    //     this.element.appendChild(footprintTile)
+    //   }
+    // }
 
     const img = document.createElement("img")
 
@@ -221,8 +225,8 @@ export default class extends Controller {
     this.draggedElement.classList.remove("invalid-placement")
 
     const pos = this.gridToIso(grid.x, grid.y)
-    const visualWidth = this.draggedItem.width * this.tileWidth
-    const visualHeight = this.draggedItem.height * this.tileHeight * 2
+    const visualWidth = this.tileWidth * 2
+    const visualHeight = this.tileHeight * 4
 
     this.draggedItem.x = grid.x
     this.draggedItem.y = grid.y
