@@ -1,58 +1,81 @@
-<div class="phone-page mood-page has-bottom-action">
+<div class="phone-page setup-page has-bottom-action has-step-progress">
 
-  <div class="mood-header">
-    <div class="tiny-mascot">📍</div>
+  <div class="setup-topbar">
+    <div class="setup-title-block">
+      <h1>Où es-tu ?</h1>
+    </div>
 
-    <h1>
-      Où es-tu ?
-    </h1>
+    <%= link_to user_path, class: "app-profile-link" do %>
+      <%= image_tag "avatars/#{current_user.avatar || 'blueberry'}.png",
+                    class: "app-profile-avatar",
+                    alt: "Profil" %>
+    <% end %>
   </div>
+
+  <p class="setup-helper">
+    On adapte les activités à l’endroit où tu peux vraiment agir maintenant.
+  </p>
 
   <%= form_with url: duration_activity_sessions_path,
                 method: :get,
-                class: "mood-form" do %>
+                class: "setup-form" do %>
 
     <%= hidden_field_tag :mood_id, @mood_id %>
 
-    <div class="mood-list">
-
+    <div class="setup-choice-list">
       <% @locations.each_with_index do |location, index| %>
+
+        <% location_label =
+          if location.name.downcase.include?("bureau")
+            "Transport"
+          else
+            location.name
+          end
+        %>
+
+        <% location_key = location_label.downcase %>
+
+        <% icon =
+          if location_key.include?("maison") || location_key.include?("chez")
+            "⌂"
+          elsif location_key.include?("extérieur") || location_key.include?("dehors")
+            "◌"
+          elsif location_key.include?("transport")
+            "↗"
+          else
+            "⌖"
+          end
+        %>
+
+        <% card_color = ["choice-card-green", "choice-card-yellow", "choice-card-blue"][index % 3] %>
 
         <button
           type="submit"
           name="location_id"
           value="<%= location.id %>"
-          class="mood-card <%= ["mood-green", "mood-yellow", "mood-blue"][index % 3] %>"
+          class="choice-card setup-choice-card <%= card_color %>"
         >
-
-          <div class="mood-icon">
-            <% case index % 3
-               when 0 %>
-              🏡
-            <% when 1 %>
-              🌳
-            <% else %>
-              ☕
-            <% end %>
+          <div class="setup-choice-icon">
+            <%= icon %>
           </div>
 
-          <div class="mood-text mood-text-simple">
-            <strong>
-              <%= location.name %>
-            </strong>
+          <div class="setup-choice-text">
+            <strong><%= location_label %></strong>
           </div>
 
+          <span class="choice-card-arrow">›</span>
         </button>
 
       <% end %>
-
     </div>
 
   <% end %>
 
+  <%= render "step_indicator", current_step: 2 %>
+
   <%= link_to new_activity_session_path,
               class: "bottom-back-button" do %>
-    ← Revenir à l’étape précédente
+    ← Retour
   <% end %>
 
 </div>

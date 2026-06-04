@@ -1,0 +1,22 @@
+<% current_step = local_assigns.fetch(:current_step) %>
+<% total_steps = local_assigns.fetch(:total_steps, 3) %>
+
+<div class="step-progress-footer" aria-label="Progression : étape <%= current_step %> sur <%= total_steps %>">
+  <p class="step-progress-label">
+    Étape <%= current_step %> sur <%= total_steps %>
+  </p>
+
+  <div class="step-indicator">
+    <% (1..total_steps).each do |step| %>
+      <span
+        class="step-dot
+          <%= 'is-completed' if step < current_step %>
+          <%= 'is-active' if step == current_step %>"
+      >
+        <span class="visually-hidden">
+          Étape <%= step %>
+        </span>
+      </span>
+    <% end %>
+  </div>
+</div>

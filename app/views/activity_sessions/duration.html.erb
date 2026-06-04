@@ -1,58 +1,70 @@
-<div class="phone-page mood-page has-bottom-action">
+<div class="phone-page setup-page has-bottom-action has-step-progress">
 
-  <div class="mood-header">
-    <div class="tiny-mascot">⏳</div>
+  <div class="setup-topbar">
+    <div class="setup-title-block">
+      <h1>Combien de temps ?</h1>
+    </div>
 
-    <h1>
-      Combien de temps ?
-    </h1>
+    <%= link_to user_path, class: "app-profile-link" do %>
+      <%= image_tag "avatars/#{current_user.avatar || 'blueberry'}.png",
+                    class: "app-profile-avatar",
+                    alt: "Profil" %>
+    <% end %>
   </div>
+
+  <p class="setup-helper">
+    Choisis une durée réaliste. L’objectif est de commencer, pas de te charger.
+  </p>
 
   <%= form_with url: activity_sessions_path,
                 method: :post,
-                class: "mood-form" do %>
+                class: "setup-form" do %>
 
     <%= hidden_field_tag :mood_id, @mood_id %>
     <%= hidden_field_tag :location_id, @location_id %>
 
-    <div class="mood-list">
-
+    <div class="setup-choice-list">
       <% @durations.each_with_index do |duration, index| %>
+
+        <% icon =
+          if duration.value <= 5
+            "↯"
+          elsif duration.value <= 15
+            "◷"
+          else
+            "◎"
+          end
+        %>
+
+        <% card_color = ["choice-card-green", "choice-card-yellow", "choice-card-blue"][index % 3] %>
 
         <button
           type="submit"
           name="duration_id"
           value="<%= duration.id %>"
-          class="mood-card <%= ["mood-green", "mood-yellow", "mood-blue"][index % 3] %>"
+          class="choice-card setup-choice-card <%= card_color %>"
         >
-
-          <div class="mood-icon">
-            <% if duration.value <= 15 %>
-              ⚡
-            <% elsif duration.value <= 45 %>
-              ☕
-            <% else %>
-              🌈
-            <% end %>
+          <div class="setup-choice-icon">
+            <%= icon %>
           </div>
 
-          <div class="mood-text mood-text-simple">
-            <strong>
-              <%= duration.value %> minutes
-            </strong>
+          <div class="setup-choice-text">
+            <strong><%= duration.value %> minutes</strong>
           </div>
 
+          <span class="choice-card-arrow">›</span>
         </button>
 
       <% end %>
-
     </div>
 
   <% end %>
 
+  <%= render "step_indicator", current_step: 3 %>
+
   <%= link_to location_activity_sessions_path(mood_id: @mood_id),
               class: "bottom-back-button" do %>
-    ← Revenir à l’étape précédente
+    ← Retour
   <% end %>
 
 </div>

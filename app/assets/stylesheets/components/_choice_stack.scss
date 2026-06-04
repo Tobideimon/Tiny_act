@@ -1,0 +1,82 @@
+/* =========================
+   FIXED CHOICE STACK
+   Used to align the main choice cards across the flow
+========================= */
+
+/* Location + Duration */
+.flow-choice-stack,
+.setup-choice-list {
+  position: fixed;
+  left: 50%;
+  bottom: calc(240px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+
+  width: calc(100% - 36px);
+  max-width: 394px;
+
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2.1vh, 22px);
+
+  z-index: 10;
+}
+
+/* Mood page only */
+.mood-home-page .mood-list {
+  position: fixed;
+  left: 50%;
+  bottom: calc(178px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+
+  width: calc(100% - 36px);
+  max-width: 394px;
+
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2.1vh, 22px);
+
+  z-index: 10;
+}
+
+/* Card height */
+.mood-home-page .mood-list .mood-card,
+.setup-choice-list .setup-choice-card {
+  min-height: clamp(92px, 12.2vh, 116px);
+}
+
+/* Medium height screens */
+@media (max-height: 760px) {
+  .flow-choice-stack,
+  .setup-choice-list {
+    bottom: calc(210px + env(safe-area-inset-bottom));
+    gap: 13px;
+  }
+
+  .mood-home-page .mood-list {
+    bottom: calc(150px + env(safe-area-inset-bottom));
+    gap: 13px;
+  }
+}
+
+/* Small height screens */
+@media (max-height: 670px) {
+  .flow-choice-stack,
+  .setup-choice-list {
+    bottom: calc(176px + env(safe-area-inset-bottom));
+    gap: 10px;
+  }
+
+  .mood-home-page .mood-list {
+    bottom: calc(128px + env(safe-area-inset-bottom));
+    gap: 10px;
+  }
+
+  .mood-home-page .mood-list .mood-card,
+  .setup-choice-list .setup-choice-card {
+    min-height: 82px;
+  }
+
+  .setup-helper {
+    display: none;
+  }
+}

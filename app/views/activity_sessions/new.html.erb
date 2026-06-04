@@ -1,4 +1,4 @@
-<div class="phone-page mood-page mood-home-page">
+<div class="phone-page mood-page mood-home-page has-step-progress">
 
   <div class="mood-topbar">
     <div class="mood-brand">
@@ -49,7 +49,7 @@
     <span class="room-notification-arrow">›</span>
   <% end %>
 
-  <div class="mood-hero mood-hero-after-room">
+ <div class="mood-hero mood-hero-after-room">
     <h1>
       Comment tu te sens ?
     </h1>
@@ -104,5 +104,5 @@
     </div>
 
   <% end %>
-
+  <%= render "step_indicator", current_step: 1 %>
 </div>
