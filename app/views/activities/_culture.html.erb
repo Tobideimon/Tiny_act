@@ -1,23 +1,64 @@
+<% serialized_questions = culture_questions.map { |question|
+  {
+    question: question.question,
+    category: question.category,
+    correct_answer: question.correct_answer,
+    answers: question.answers
+  }
+} %>
+
+<% categories = culture_questions.map(&:category).uniq.sort %>
+
 <div
   data-controller="culture-quiz"
-  data-culture-quiz-questions-value="<%= culture_questions.map { |question|
-    {
-      question: question.question,
-      correct_answer: question.correct_answer,
-      answers: question.answers
-    }
-  }.to_json %>"
+  data-culture-quiz-questions-value="<%= serialized_questions.to_json %>"
+  data-culture-quiz-duration-seconds-value="<%= duration_seconds %>"
   class="culture-quiz"
 >
-
-  <div class="activity-card">
+  <div
+    class="activity-card culture-start-card"
+    data-culture-quiz-target="startScreen"
+  >
     <div class="activity-top">
-      <h2>Quiz culture générale</h2>
+      <h2>Choisis un thème</h2>
     </div>
 
     <p class="activity-content">
-      Les questions sont choisies aléatoirement. Réponds à ton rythme.
+      Tu as <strong><%= duration_seconds / 60 %> minutes</strong>.
+      Le chrono commence quand tu choisis un thème.
     </p>
+
+    <div class="culture-theme-list">
+      <% categories.each do |category| %>
+        <button
+          type="button"
+          class="culture-theme-button"
+          data-category="<%= category %>"
+          data-action="click->culture-quiz#selectCategory"
+        >
+          <%= category %>
+        </button>
+      <% end %>
+    </div>
+  </div>
+
+  <div
+    class="activity-card d-none"
+    data-culture-quiz-target="quizHeader"
+  >
+    <div class="culture-quiz-header-row">
+      <div>
+        <h2>Quiz culture générale</h2>
+        <p class="activity-content">
+          Thème : <strong data-culture-quiz-target="selectedCategory"></strong>
+        </p>
+      </div>
+
+      <div class="culture-timer">
+        Temps restant :
+        <strong data-culture-quiz-target="timer"></strong>
+      </div>
+    </div>
 
     <p class="activity-content">
       <strong data-culture-quiz-target="progress"></strong>
@@ -25,7 +66,7 @@
   </div>
 
   <div
-    class="activity-card culture-question-card"
+    class="activity-card culture-question-card d-none"
     data-culture-quiz-target="card"
   >
     <div class="activity-top">
@@ -58,5 +99,4 @@
   >
     Question suivante
   </button>
-
 </div>

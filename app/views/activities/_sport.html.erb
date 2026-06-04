@@ -1,9 +1,10 @@
-<% sport_steps = activity.sport_step_list %>
+<% sport_plan = activity.sport_activity_plan %>
+<% sport_steps = sport_plan["steps"] %>
 
 <div
   class="sport-activity"
   data-controller="sport-activity"
-  data-sport-activity-steps-value="<%= sport_steps.map { |step| { text: step } }.to_json %>"
+  data-sport-activity-plan-value="<%= json_escape(sport_plan.to_json) %>"
 >
   <div class="activity-card sport-main-card">
     <div class="activity-top">
@@ -19,10 +20,15 @@
         class="sport-steps-preview"
         data-sport-activity-target="stepsPreview"
       >
+        <div class="sport-step-card sport-step-card-preparation">
+          <span class="sport-step-number">0</span>
+          <p>Préparation : 30 secondes avant le départ.</p>
+        </div>
+
         <% sport_steps.each_with_index do |step, index| %>
           <div class="sport-step-card">
             <span class="sport-step-number"><%= index + 1 %></span>
-            <p><%= step %></p>
+            <p><%= step["text"] %></p>
           </div>
         <% end %>
       </div>
@@ -46,7 +52,7 @@
     class="activity-card sport-runner-card is-hidden"
     data-sport-activity-target="runner"
   >
-    <p class="sport-runner-label">
+    <p class="sport-runner-label" data-sport-activity-target="runnerLabel">
       Étape <span data-sport-activity-target="currentStepNumber"></span>
       /
       <span data-sport-activity-target="totalSteps"></span>
@@ -64,6 +70,7 @@
     <button
       type="button"
       class="secondary-button"
+      data-sport-activity-target="nextButton"
       data-action="click->sport-activity#nextStep"
     >
       Passer cette étape
@@ -76,7 +83,7 @@
   >
     <h2>Bravo 🎉</h2>
     <p class="activity-content">
-      Tu as terminé toutes les étapes de cette activité.
+      Tu as terminé cette activité.
     </p>
   </div>
 </div>
