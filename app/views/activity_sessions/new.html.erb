@@ -1,11 +1,57 @@
-<div class="phone-page mood-page">
+<div class="phone-page mood-page mood-home-page">
 
-  <div class="mood-header">
-    <div class="tiny-mascot">✨</div>
+  <div class="mood-topbar">
+    <div class="mood-brand">
+      <%= image_tag "mascot/brand-mascot.png",
+                    class: "mood-brand-image",
+                    alt: "Tiny Act" %>
 
+      <span class="mood-brand-name">
+        Tiny Act
+      </span>
+    </div>
+
+    <div class="mood-user-actions">
+      <div class="mood-xp-pill">
+        <strong><%= @home_xp %></strong>
+        <span>XP</span>
+      </div>
+
+      <%= link_to user_path, class: "mood-profile-link" do %>
+        <%= image_tag "avatars/#{current_user.avatar || 'blueberry'}.png",
+                      class: "mood-profile-avatar",
+                      alt: "Profil" %>
+      <% end %>
+    </div>
+  </div>
+
+  <%= link_to room_path, class: "room-notification" do %>
+    <div class="room-notification-visual">
+      <%= image_tag "mascot/room-preview.png",
+                    class: "room-notification-image",
+                    alt: "" %>
+    </div>
+
+    <div class="room-notification-content">
+      <strong>Ta room progresse</strong>
+
+      <span>
+        Encore <%= @actions_before_reward %>
+        <%= @actions_before_reward > 1 ? "actions" : "action" %>
+        avant un meuble
+      </span>
+
+      <div class="room-progress">
+        <span style="width: <%= @room_progress_percent %>%;"></span>
+      </div>
+    </div>
+
+    <span class="room-notification-arrow">›</span>
+  <% end %>
+
+  <div class="mood-hero mood-hero-after-room">
     <h1>
-      Comment te sens-tu<br>
-      aujourd’hui ?
+      Comment tu te sens ?
     </h1>
   </div>
 
@@ -15,49 +61,47 @@
 
     <div class="mood-list">
 
-      <% @moods.each_with_index do |mood, index| %>
+      <% @moods.each do |mood| %>
 
-        <label class="mood-card
-          <%= ["mood-green", "mood-yellow", "mood-blue"][index] %>">
+        <% mood_key =
+          case mood.name
+          when "En forme"
+            "energy"
+          when "Mitigé"
+            "bof"
+          else
+            "flat"
+          end
+        %>
 
-          <%= radio_button_tag :mood_id,
-                                mood.id,
-                                false,
-                                required: true,
-                                class: "mood-radio" %>
+        <% mood_label = mood.name == "Mitigé" ? "Bof" : mood.name %>
 
-         <div class="mood-icon">
-            <% if index == 0 %>
-              <%= image_tag "eclaire.png", alt: "Éclair", class: "mood-image" %>
-            <% elsif index == 1 %>
-              <%= image_tag "soleil.png", alt: "Soleil", class: "mood-image" %>
-            <% else %>
-              <%= image_tag "pluie.png", alt: "Pluie", class: "mood-image" %>
-            <% end %>
+        <button
+          type="submit"
+          name="mood_id"
+          value="<%= mood.id %>"
+          class="mood-card mood-choice-card mood-choice-<%= mood_key %>"
+        >
+
+          <div class="mood-mascot-image-wrapper">
+            <%= image_tag "mascot/mood-#{mood_key}.png",
+                          class: "mood-mascot-image",
+                          alt: "" %>
           </div>
 
-          <div class="mood-text">
-            <strong><%= mood.name %></strong>
-
-            <span>
-              <% if index == 0 %>
-                J’ai plein d’énergie
-              <% elsif index == 1 %>
-                Ça dépend un peu
-              <% else %>
-                J’ai besoin de douceur
-              <% end %>
-            </span>
+          <div class="mood-text mood-text-simple">
+            <strong>
+              <%= mood_label %>
+            </strong>
           </div>
 
-        </label>
+          <span class="mood-card-arrow">›</span>
+
+        </button>
 
       <% end %>
 
     </div>
-
-    <%= submit_tag "Continuer",
-                    class: "primary-button" %>
 
   <% end %>
 

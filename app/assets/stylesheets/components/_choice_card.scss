@@ -1,0 +1,84 @@
+.mood-card,
+.choice-card {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-height: clamp(92px, 12.2vh, 116px);
+  padding: 15px 18px;
+
+  border-radius: 26px;
+  border: 1.5px solid $ta-border-medium;
+
+  box-sizing: border-box;
+  cursor: pointer;
+
+  background: $ta-surface-soft;
+
+  box-shadow: $ta-shadow-card;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+button.mood-card,
+button.choice-card {
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  appearance: none;
+}
+
+.mood-card:hover,
+.choice-card:hover {
+  transform: translateY(-2px);
+}
+
+button.mood-card:focus-visible,
+button.choice-card:focus-visible {
+  outline: 3px solid $ta-purple-soft;
+  outline-offset: 3px;
+}
+
+button.mood-card:active,
+button.choice-card:active {
+  transform: scale(0.98);
+}
+
+.mood-choice-energy,
+.choice-card-green {
+  background:
+    linear-gradient(135deg, $ta-surface 0%, $ta-green-bg 100%);
+  border-color: $ta-green-border;
+}
+
+.mood-choice-bof,
+.choice-card-yellow {
+  background:
+    linear-gradient(135deg, $ta-surface 0%, $ta-yellow-bg 100%);
+  border-color: $ta-yellow-border;
+}
+
+.mood-choice-flat,
+.choice-card-blue {
+  background:
+    linear-gradient(135deg, $ta-surface 0%, $ta-blue-bg 100%);
+  border-color: $ta-blue-border;
+}
+
+.mood-card-arrow,
+.choice-card-arrow {
+  position: absolute;
+  right: 22px;
+
+  color: rgba(21, 27, 47, 0.26);
+
+  font-size: 25px;
+  line-height: 1;
+  font-weight: 700;
+}

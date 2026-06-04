@@ -3,6 +3,16 @@ class ActivitySessionsController < ApplicationController
 
   def new
     @moods = Mood.all
+
+    @finished_sessions_count = current_user.activity_sessions.where(finished: true).count
+    @home_xp = @finished_sessions_count * 15
+
+    actions_needed_for_reward = 3
+    current_cycle_progress = @finished_sessions_count % actions_needed_for_reward
+
+    @room_progress_percent = ((current_cycle_progress.to_f / actions_needed_for_reward) * 100).round
+    @actions_before_reward = actions_needed_for_reward - current_cycle_progress
+    @actions_before_reward = actions_needed_for_reward if @actions_before_reward.zero?
   end
 
   def location

@@ -1,0 +1,40 @@
+.bottom-back-button {
+  position: fixed;
+  left: 50%;
+  bottom: calc(18px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+
+  width: calc(100% - 36px);
+  max-width: 394px;
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+  border: 1px solid $ta-border-soft;
+
+  background: rgba(255, 253, 249, 0.88);
+  backdrop-filter: blur(14px);
+
+  color: $ta-ink;
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  box-shadow:
+    0 12px 28px rgba(43, 45, 66, 0.09),
+    0 4px 10px rgba(43, 45, 66, 0.04);
+
+  z-index: 20;
+}
+
+.bottom-back-button:hover {
+  color: $ta-ink;
+}
+
+.bottom-back-button:active {
+  transform: translateX(-50%) scale(0.98);
+}

@@ -1,16 +1,10 @@
-<div class="phone-page mood-page">
-
-  <%= link_to new_activity_session_path,
-      class: "back-button" do %>
-    ←
-  <% end %>
+<div class="phone-page mood-page has-bottom-action">
 
   <div class="mood-header">
     <div class="tiny-mascot">📍</div>
 
     <h1>
-      Où veux-tu<br>
-      faire ton activité ?
+      Où es-tu ?
     </h1>
   </div>
 
@@ -24,62 +18,41 @@
 
       <% @locations.each_with_index do |location, index| %>
 
-        <label class="mood-card
-          <%= ["mood-green", "mood-yellow", "mood-blue"][index % 3] %>">
-
-          <%= radio_button_tag :location_id,
-                                location.id,
-                                false,
-                                required: true,
-                                class: "mood-radio" %>
+        <button
+          type="submit"
+          name="location_id"
+          value="<%= location.id %>"
+          class="mood-card <%= ["mood-green", "mood-yellow", "mood-blue"][index % 3] %>"
+        >
 
           <div class="mood-icon">
-
             <% case index % 3
                when 0 %>
               🏡
-
             <% when 1 %>
               🌳
-
             <% else %>
               ☕
             <% end %>
-
           </div>
 
-          <div class="mood-text">
-
+          <div class="mood-text mood-text-simple">
             <strong>
               <%= location.name %>
             </strong>
-
-            <span>
-
-              <% case index % 3
-                 when 0 %>
-                Un endroit confortable
-
-              <% when 1 %>
-                Prendre l’air un peu
-
-              <% else %>
-                Changer d’ambiance
-              <% end %>
-
-            </span>
-
           </div>
 
-        </label>
+        </button>
 
       <% end %>
 
     </div>
 
-    <%= submit_tag "Continuer",
-                    class: "primary-button" %>
+  <% end %>
 
+  <%= link_to new_activity_session_path,
+              class: "bottom-back-button" do %>
+    ← Revenir à l’étape précédente
   <% end %>
 
 </div>

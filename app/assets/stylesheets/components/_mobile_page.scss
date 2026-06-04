@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  background: $ta-bg;
+  color: $ta-ink;
+}
+
+.phone-page {
+  min-height: 100dvh;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 88px 18px 32px;
+  box-sizing: border-box;
+
+  background:
+    radial-gradient(circle at top left, rgba(231, 166, 58, 0.15) 0, transparent 34%),
+    radial-gradient(circle at top right, rgba(124, 99, 242, 0.11) 0, transparent 38%),
+    linear-gradient(180deg, $ta-bg-start 0%, $ta-bg-end 100%);
+}
+
+.has-bottom-action {
+  padding-bottom: 110px;
+}

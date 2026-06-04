@@ -1,0 +1,37 @@
+.mood-xp-pill,
+.progress-pill {
+  height: 34px;
+  padding: 0 12px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  border-radius: 999px;
+  border: 1px solid rgba(90, 74, 54, 0.09);
+
+  background: rgba(255, 253, 249, 0.78);
+  backdrop-filter: blur(10px);
+
+  box-shadow:
+    0 8px 18px rgba(43, 45, 66, 0.055),
+    0 2px 6px rgba(43, 45, 66, 0.025);
+}
+
+.mood-xp-pill strong,
+.progress-pill strong {
+  color: rgba(21, 27, 47, 0.82);
+
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.mood-xp-pill span,
+.progress-pill span {
+  color: rgba(21, 27, 47, 0.45);
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
