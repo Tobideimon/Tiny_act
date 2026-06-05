@@ -29,7 +29,7 @@
   <body>
   <% show_global_profile_button =
        user_signed_in? &&
-       !["users", "user_interests", "activity_sessions"].include?(controller_name)
+       !["users", "user_interests", "activity_sessions", "rooms"].include?(controller_name)
   %>
 
   <% if show_global_profile_button %>
