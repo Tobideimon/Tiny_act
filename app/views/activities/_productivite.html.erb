@@ -1,18 +1,61 @@
-<div class="guided-activity productivite-activity">
-  <div class="guided-activity-tags">
-    <span class="guided-tag"><i class="fa-regular fa-clock"></i> <%= activity.duration.value %> min</span>
-    <span class="guided-tag"><i class="fa-solid fa-list-check"></i> Productivité</span>
+<% steps = activity.step_list %>
+
+<div class="productivity-activity">
+  <div class="productivity-panel productivity-main-card">
+    <div class="productivity-start-header">
+      <p class="productivity-kicker">
+        Mini-action
+      </p>
+
+      <h2>
+        Avance sans te disperser
+      </h2>
+
+      <p>
+        Suis les étapes dans l’ordre. Le but n’est pas de tout faire, mais de créer un vrai départ.
+      </p>
+    </div>
+
+    <% if steps.any? %>
+      <div class="productivity-steps">
+        <% steps.each_with_index do |step, index| %>
+          <div class="productivity-step-card">
+            <span class="productivity-step-check">
+              <%= index + 1 %>
+            </span>
+
+            <p>
+              <%= step %>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="productivity-step-card">
+        <span class="productivity-step-check">
+          1
+        </span>
+
+        <p>
+          Choisis une micro-tâche, lance-toi maintenant, puis valide l’activité.
+        </p>
+      </div>
+    <% end %>
   </div>
 
-  <% steps = activity.step_list %>
-  <% if steps.any? %>
-    <h2 class="guided-steps-title">Ton mini-programme</h2>
-    <ol class="guided-steps">
-      <% steps.each do |step| %>
-        <li><%= step %></li>
-      <% end %>
-    </ol>
-  <% else %>
-    <p class="guided-note">Lance-toi à ton rythme, puis valide ci-dessous.</p>
-  <% end %>
+  <div class="productivity-panel productivity-focus-card">
+    <div class="productivity-focus-icon">
+      <i class="fa-solid fa-bolt"></i>
+    </div>
+
+    <div>
+      <strong>
+        Mode focus
+      </strong>
+
+      <p>
+        Évite de changer d’application pendant cette action. Reste sur une seule tâche.
+      </p>
+    </div>
+  </div>
 </div>

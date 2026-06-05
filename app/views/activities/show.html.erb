@@ -1,83 +1,144 @@
-<div class="recommendations-page">
+<% interest_name = @activity.interest.name %>
 
-  <div class="recommendations-header">
-      <% if @activity.interest.name == "Sport" %>
+<% interest_class =
+  case interest_name
+  when "Sport"
+    "activity-sport"
+  when "Langues"
+    "activity-langues"
+  when "Créativité"
+    "activity-creativity"
+  when "Bien-être"
+    "activity-wellbeing"
+  when "Photo"
+    "activity-photo"
+  when "Dessin"
+    "activity-drawing"
+  when "Écriture"
+    "activity-writing"
+  when "Culture"
+    "activity-culture"
+  else
+    "activity-default"
+  end
+%>
 
-        <%= image_tag(
-              "sport.png",
-              class: "activity-interest-icon"
-            ) %>
+<% activity_icon =
+  case interest_name
+  when "Sport"
+    "sport.png"
+  when "Langues"
+    "langue.png"
+  when "Créativité"
+    "creativite.png"
+  when "Bien-être"
+    "bien_etre.png"
+  when "Photo"
+    "photo.png"
+  when "Dessin"
+    "dessin.png"
+  when "Écriture"
+    "ecriture.png"
+  when "Culture"
+    "culture.png"
+  else
+    nil
+  end
+%>
 
-      <% elsif @activity.interest.name == "Langues" %>
-
-        <%= image_tag(
-              "langue.png",
-              class: "activity-interest-icon"
-            ) %>
-
-      <% end %>
-
-    <h1>
-      <%= @activity.name %>
-
-      <% if @activity.language_activity? && @language_label.present? %>
-        en <%= @language_label %>
-      <% end %>
-    </h1>
-
-    <p>
-      <%= @activity.sport_activity? ? @activity.display_description : @activity.content %>
-    </p>
+<div class="phone-page activity-show-page">
+  <div class="activity-show-sticky-topbar">
+    <%= render "activity_sessions/selection_topbar" %>
   </div>
 
-  <% if @activity.interest.name == "Sport" %>
+  <main class="activity-show-content">
+    <section class="activity-show-header <%= interest_class %>">
+      <div class="activity-show-header-top">
+        <div class="activity-show-icon">
+          <% if activity_icon.present? %>
+            <%= image_tag activity_icon,
+                          class: "activity-show-icon-image",
+                          alt: "" %>
+          <% else %>
+            <span class="activity-show-fallback-icon">✦</span>
+          <% end %>
+        </div>
 
-    <%= render "sport",
-      activity: @activity %>
+        <div class="activity-show-meta">
+          <span class="activity-show-interest">
+            <%= interest_name %>
+          </span>
 
-  <% elsif @activity.interest.name == "Langues" %>
+          <span class="activity-show-duration">
+            <%= @activity.duration.value %> min
+          </span>
+        </div>
+      </div>
 
-    <%= render "language",
-           activity: @activity,
-           language_items: @language_items,
-           duration_seconds: @duration_seconds %>
+      <h1>
+        <%= @activity.name %>
 
-  <% elsif @activity.culture_activity? %>
+        <% if @activity.language_activity? && @language_label.present? %>
+          en <%= @language_label %>
+        <% end %>
+      </h1>
 
-    <%= render "culture",
-      activity: @activity,
-      culture_questions: @culture_questions,
-      duration_seconds: @duration_seconds %>
-
-  <% elsif @activity.code_quiz? %>
-    <%= render "code_quiz",
-      activity: @activity,
-      code_questions: @code_questions,
-      duration_seconds: @duration_seconds %>
-
-  <% elsif @activity.interest.name == "Photo" %>
-    <%= render "photo", activity: @activity %>
-
-  <% elsif @activity.interest.name == "Productivité" %>
-    <%= render "productivite", activity: @activity %>
-
-  <% else %>
-
-    <div class="activity-card">
-      <p class="activity-content">
-        <%= @activity.content %>
+      <p>
+        <%= @activity.sport_activity? ? @activity.display_description : @activity.content %>
       </p>
-    </div>
+    </section>
 
-  <% end %>
+    <% if @activity.interest.name == "Sport" %>
 
-  <%= button_to "Finir l'activité",
-      activity_session_path(@activity_session),
-      method: :patch,
-      class: "temp-finish-button" %>
+      <%= render "sport",
+                 activity: @activity %>
 
-  <%= link_to "Recommencer",
-              root_path,
-              class: "primary-button" %>
+    <% elsif @activity.interest.name == "Langues" %>
 
+      <%= render "language",
+                 activity: @activity,
+                 language_items: @language_items,
+                 duration_seconds: @duration_seconds %>
+
+    <% elsif @activity.culture_activity? %>
+
+      <%= render "culture",
+                 activity: @activity,
+                 culture_questions: @culture_questions,
+                 duration_seconds: @duration_seconds %>
+
+    <% elsif @activity.code_quiz? %>
+
+      <%= render "code_quiz",
+                 activity: @activity,
+                 code_questions: @code_questions,
+                 duration_seconds: @duration_seconds %>
+
+    <% elsif @activity.interest.name == "Photo" %>
+
+      <%= render "photo",
+                 activity: @activity %>
+
+    <% elsif @activity.interest.name == "Productivité" %>
+
+      <%= render "productivite",
+                 activity: @activity %>
+
+    <% else %>
+
+      <div class="activity-show-panel">
+        <p class="activity-show-description">
+          <%= @activity.content %>
+        </p>
+      </div>
+
+    <% end %>
+  </main>
+
+  <div class="activity-bottom-action">
+    <%= button_to "Finir l'activité",
+                  activity_session_path(@activity_session),
+                  method: :patch,
+                  class: "activity-stop-button" %>
+  </div>
 </div>

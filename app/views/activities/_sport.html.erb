@@ -6,29 +6,28 @@
   data-controller="sport-activity"
   data-sport-activity-plan-value="<%= json_escape(sport_plan.to_json) %>"
 >
-  <div class="activity-card sport-main-card">
-    <div class="activity-top">
-      <h2><%= activity.name %></h2>
-    </div>
-
-    <p class="activity-content">
-      <%= activity.display_description %>
-    </p>
-
+  <div class="sport-panel sport-main-card">
     <% if sport_steps.any? %>
+      <div class="sport-preparation-card">
+        <span class="sport-preparation-number">0</span>
+
+        <div>
+          <strong>Préparation</strong>
+          <p>30 secondes pour te mettre en place avant le départ.</p>
+        </div>
+      </div>
+
       <div
         class="sport-steps-preview"
         data-sport-activity-target="stepsPreview"
       >
-        <div class="sport-step-card sport-step-card-preparation">
-          <span class="sport-step-number">0</span>
-          <p>Préparation : 30 secondes avant le départ.</p>
-        </div>
-
         <% sport_steps.each_with_index do |step, index| %>
           <div class="sport-step-card">
             <span class="sport-step-number"><%= index + 1 %></span>
-            <p><%= step["text"] %></p>
+
+            <p>
+              <%= step["text"] %>
+            </p>
           </div>
         <% end %>
       </div>
@@ -42,14 +41,14 @@
         Lancer
       </button>
     <% else %>
-      <p class="activity-content">
+      <p class="activity-show-description">
         Aucune étape détaillée pour cette activité.
       </p>
     <% end %>
   </div>
 
   <div
-    class="activity-card sport-runner-card is-hidden"
+    class="sport-panel sport-runner-card is-hidden"
     data-sport-activity-target="runner"
   >
     <p class="sport-runner-label" data-sport-activity-target="runnerLabel">
@@ -69,7 +68,7 @@
 
     <button
       type="button"
-      class="secondary-button"
+      class="secondary-button sport-next-button"
       data-sport-activity-target="nextButton"
       data-action="click->sport-activity#nextStep"
     >
@@ -78,11 +77,12 @@
   </div>
 
   <div
-    class="activity-card sport-finished-card is-hidden"
+    class="sport-panel sport-finished-card is-hidden"
     data-sport-activity-target="finished"
   >
-    <h2>Bravo 🎉</h2>
-    <p class="activity-content">
+    <h2>Bravo</h2>
+
+    <p class="activity-show-description">
       Tu as terminé cette activité.
     </p>
   </div>
