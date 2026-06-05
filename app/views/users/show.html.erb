@@ -1,161 +1,190 @@
-<div class="profile-page">
-
-  <% if @user == current_user %>
-    <div class="profile-top-actions">
-      <%= link_to root_path, class: "profile-top-button" do %>
-        <i class="fa-solid fa-arrow-left"></i>
-      <% end %>
-
-      <%= link_to destroy_user_session_path,
-          data: { turbo_method: :delete },
-          class: "profile-top-button logout" do %>
-        <i class="fa-solid fa-right-from-bracket"></i>
-      <% end %>
-    </div>
-  <% end %>
-
-  <div class="profile-header">
-    <div class="editable-avatar">
-      <div class="profile-avatar">
-        <%= image_tag "avatars/#{@user.avatar || 'blueberry'}.png" %>
-      </div>
-
-      <% if @user == current_user %>
-        <%= link_to edit_user_path, class: "edit-avatar-button" do %>
-          <i class="fa-solid fa-paintbrush"></i>
-        <% end %>
-      <% end %>
-    </div>
-
-    <h1 class="profile-name">
-      <%= @user.first_name %> <%= @user.last_name %>
-    </h1>
-
-    <p class="profile-email">
-      <i class="fa-solid fa-envelope"></i>
-      <%= @user.email %>
-    </p>
-  </div>
-
-  <div class="profile-card">
-    <h2 class="profile-section-title">Tes centres d'intérêt</h2>
-
-    <% if @user.interests.any? %>
-      <div class="interest-tags">
-        <% @user.interests.each do |interest| %>
-          <span class="interest-tag"><%= interest.name %></span>
-        <% end %>
-      </div>
-    <% else %>
-      <p class="profile-empty">Tu n'as pas encore choisi de centres d'intérêt.</p>
+<div class="phone-page profile-page">
+  <header class="profile-header-bar">
+    <%= link_to root_path, class: "profile-back-link", aria: { label: "Retour" } do %>
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>Retour</span>
     <% end %>
 
-    <% if @user == current_user %>
-      <div class="profile-actions">
-        <%= link_to "Modifier mes centres d'intérêt",
-            user_interests_path,
-            class: "profile-btn" %>
+    <p>Profil</p>
+  </header>
+
+  <main class="profile-content">
+    <section class="profile-hero-card">
+      <div class="editable-avatar">
+        <div class="profile-avatar">
+          <%= image_tag "avatars/#{@user.avatar || 'blueberry'}.png" %>
+        </div>
+
+        <% if @user == current_user %>
+          <%= link_to edit_user_path, class: "edit-avatar-button", aria: { label: "Changer d'avatar" } do %>
+            <i class="fa-solid fa-paintbrush"></i>
+          <% end %>
+        <% end %>
       </div>
-    <% end %>
-  </div>
 
-  <div class="profile-card unlock-carousel-card">
-    <h2 class="profile-section-title">Prochain meuble à débloquer</h2>
+      <div class="profile-identity">
+        <p class="profile-kicker">Ton espace</p>
 
-    <% unlock_progress_items = @furniture_unlock_progress || [] %>
+        <h1 class="profile-name">
+          <%= @user.first_name %> <%= @user.last_name %>
+        </h1>
 
-    <% if unlock_progress_items.any? %>
-      <div
-        class="unlock-carousel"
-        data-controller="unlock-carousel"
-        data-unlock-carousel-current-index-value="0"
-      >
-        <div class="unlock-carousel-track">
-          <% unlock_progress_items.each_with_index do |progress, index| %>
-            <div
-              class="next-unlock-card <%= "active" if index.zero? %>"
-              data-unlock-carousel-target="slide"
-              <%= "hidden" unless index.zero? %>
-            >
-              <div class="next-unlock-image-frame">
-                <%= image_tag progress[:next_furniture].image_url,
-                    class: "next-unlock-image" %>
-              </div>
+        <p class="profile-email">
+          <i class="fa-solid fa-envelope"></i>
+          <%= @user.email %>
+        </p>
+      </div>
+    </section>
 
-              <div class="next-unlock-content">
-                <p class="next-unlock-category">
-                  <%= progress[:interest].name %>
-                </p>
+    <section class="profile-card profile-interests-card">
+      <div class="profile-card-header">
+        <div>
+          <p class="profile-kicker">Préférences</p>
+          <h2 class="profile-section-title">Centres d’intérêt</h2>
+        </div>
 
-                <h3 class="next-unlock-name">
-                  <%= progress[:next_furniture].name %>
-                </h3>
+        <% if @user == current_user %>
+          <%= link_to user_interests_path, class: "profile-small-action", aria: { label: "Modifier les centres d'intérêt" } do %>
+            <i class="fa-solid fa-pen"></i>
+          <% end %>
+        <% end %>
+      </div>
 
-                <p class="next-unlock-xp">
-                  <strong><%= progress[:current_xp] %></strong> /
-                  <%= progress[:required_xp] %> XP
-                </p>
+      <% if @user.interests.any? %>
+        <div class="interest-tags">
+          <% @user.interests.each do |interest| %>
+            <span class="interest-tag"><%= interest.name %></span>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="profile-empty">
+          Tu n’as pas encore choisi de centres d’intérêt.
+        </p>
+      <% end %>
+    </section>
 
-                <div class="unlock-progress-bar" aria-label="<%= progress[:percentage] %>% complété">
-                  <div
-                    class="unlock-progress-fill"
-                    style="width: <%= progress[:percentage] %>%"
-                  ></div>
+    <section class="profile-card unlock-carousel-card">
+      <div class="profile-card-header">
+        <div>
+          <p class="profile-kicker">Progression</p>
+          <h2 class="profile-section-title">Prochain meuble</h2>
+        </div>
+      </div>
+
+      <% unlock_progress_items = @furniture_unlock_progress || [] %>
+
+      <% if unlock_progress_items.any? %>
+        <div
+          class="unlock-carousel"
+          data-controller="unlock-carousel"
+          data-unlock-carousel-current-index-value="0"
+        >
+          <div class="unlock-carousel-track">
+            <% unlock_progress_items.each_with_index do |progress, index| %>
+              <div
+                class="next-unlock-card <%= "active" if index.zero? %>"
+                data-unlock-carousel-target="slide"
+                <%= "hidden" unless index.zero? %>
+              >
+                <div class="next-unlock-image-frame">
+                  <%= image_tag progress[:next_furniture].image_url,
+                      class: "next-unlock-image" %>
+                </div>
+
+                <div class="next-unlock-content">
+                  <p class="next-unlock-category">
+                    <%= progress[:interest].name %>
+                  </p>
+
+                  <h3 class="next-unlock-name">
+                    <%= progress[:next_furniture].name %>
+                  </h3>
+
+                  <p class="next-unlock-xp">
+                    <strong><%= progress[:current_xp] %></strong>
+                    /
+                    <%= progress[:required_xp] %> XP
+                  </p>
+
+                  <div class="unlock-progress-bar" aria-label="<%= progress[:percentage] %>% complété">
+                    <div
+                      class="unlock-progress-fill"
+                      style="width: <%= progress[:percentage] %>%"
+                    ></div>
+                  </div>
                 </div>
               </div>
+            <% end %>
+          </div>
+
+          <% if unlock_progress_items.size > 1 %>
+            <div class="unlock-carousel-controls">
+              <button
+                type="button"
+                class="unlock-carousel-button"
+                data-action="unlock-carousel#previous"
+                aria-label="Meuble précédent"
+              >
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+
+              <span class="unlock-carousel-count">
+                <span data-unlock-carousel-target="index">1</span>/<%= unlock_progress_items.size %>
+              </span>
+
+              <button
+                type="button"
+                class="unlock-carousel-button"
+                data-action="unlock-carousel#next"
+                aria-label="Meuble suivant"
+              >
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
             </div>
           <% end %>
         </div>
+      <% else %>
+        <p class="profile-empty unlock-empty">
+          Tu as débloqué tous les meubles disponibles pour le moment.
+        </p>
+      <% end %>
+    </section>
 
-        <% if unlock_progress_items.size > 1 %>
-          <div class="unlock-carousel-controls">
-            <button
-              type="button"
-              class="unlock-carousel-button"
-              data-action="unlock-carousel#previous"
-              aria-label="Meuble précédent"
-            >
-              <i class="fa-solid fa-chevron-left"></i>
-            </button>
+    <section class="profile-card room-card">
+      <div class="profile-card-header">
+        <div>
+          <p class="profile-kicker">Espace personnel</p>
+          <h2 class="profile-section-title">Ma room</h2>
+        </div>
 
-            <span class="unlock-carousel-count">
-              <span data-unlock-carousel-target="index">1</span>/<%= unlock_progress_items.size %>
-            </span>
-
-            <button
-              type="button"
-              class="unlock-carousel-button"
-              data-action="unlock-carousel#next"
-              aria-label="Meuble suivant"
-            >
-              <i class="fa-solid fa-chevron-right"></i>
-            </button>
-          </div>
+        <% if @user == current_user %>
+          <%= link_to room_path, class: "profile-small-action", aria: { label: "Modifier la room" } do %>
+            <i class="fa-solid fa-pen"></i>
+          <% end %>
         <% end %>
       </div>
-    <% else %>
-      <p class="profile-empty unlock-empty">
-        Tu as débloqué tous les meubles disponibles pour le moment.
-      </p>
-    <% end %>
-  </div>
 
-  <div class="profile-card room-card">
-    <div class="room-header">
-      <h2 class="profile-section-title">Ma room</h2>
+      <div class="room-wrapper">
+        <%= render "users/room",
+            room_data: @room_data,
+            editable: false %>
+      </div>
+    </section>
 
-      <% if @user == current_user %>
-        <%= link_to room_path, class: "room-edit-button" do %>
-          <i class="fa-solid fa-pen"></i>
+    <% if @user == current_user %>
+      <section class="profile-card profile-account-card">
+        <div>
+          <p class="profile-kicker">Compte</p>
+          <h2 class="profile-section-title">Session</h2>
+        </div>
+
+        <%= link_to destroy_user_session_path,
+            data: { turbo_method: :delete },
+            class: "profile-logout-link" do %>
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Se déconnecter</span>
         <% end %>
-      <% end %>
-    </div>
-
-    <div class="room-wrapper">
-      <%= render "users/room",
-          room_data: @room_data,
-          editable: false %>
-    </div>
-  </div>
-
+      </section>
+    <% end %>
+  </main>
 </div>
