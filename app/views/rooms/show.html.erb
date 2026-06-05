@@ -1,22 +1,52 @@
-<div class="room-editor-page">
+<div class="phone-page room-editor-page">
   <header class="room-editor-header">
-    <%= link_to user_path, class: "room-editor-back" do %>
-      <i class="fa-solid fa-arrow-left"></i>
-    <% end %>
+    <%= render "activity_sessions/selection_topbar" %>
 
-    <div class="room-editor-heading">
-      <h1 class="room-editor-title">Modifier ma room</h1>
+    <div class="room-editor-page-title">
+      <%= link_to user_path, class: "room-editor-back", aria: { label: "Retour au profil" } do %>
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Profil</span>
+      <% end %>
+
+      <div class="room-editor-heading">
+        <p>Édition</p>
+        <h1>Ma room</h1>
+      </div>
     </div>
   </header>
 
-  <main class="room-editor-main">
-    <div class="room-editor-stage">
+  <main class="room-editor-content">
+    <section class="room-editor-intro-card">
+      <div>
+        <p class="room-editor-kicker">
+          Espace personnel
+        </p>
+
+        <h2>
+          Organise ta pièce
+        </h2>
+      </div>
+
+      <button
+        class="room-editor-mini-help"
+        type="button"
+        aria-label="Aide"
+      >
+        <i class="fa-solid fa-hand-pointer"></i>
+      </button>
+    </section>
+
+    <section class="room-editor-room-shell">
       <div class="room-wrapper">
         <%= render "users/room",
             room_data: @room_data,
             editable: true %>
       </div>
-    </div>
+    </section>
+
+    <p class="room-editor-hint">
+      Déplace tes meubles dans la pièce. Glisse un meuble hors de la room pour le retirer.
+    </p>
   </main>
 
   <div class="room-editor-inventory" data-controller="inventory">
@@ -24,42 +54,71 @@
       class="room-editor-inventory-toggle"
       type="button"
       data-action="click->inventory#toggle"
-      aria-label="Inventaire"
+      aria-label="Ouvrir l'inventaire"
     >
-      <i class="fa-solid fa-box-open"></i>
+      <span class="room-editor-inventory-toggle-icon">
+        <i class="fa-solid fa-box-open"></i>
+      </span>
+
+      <span class="room-editor-inventory-toggle-label">
+        Inventaire
+      </span>
+
+      <span class="room-editor-inventory-toggle-chevron">
+        <i class="fa-solid fa-chevron-up"></i>
+      </span>
     </button>
 
     <div class="room-editor-inventory-panel" data-inventory-target="panel">
       <div class="room-editor-panel-handle"></div>
-      <h2 class="room-editor-panel-title">Inventaire</h2>
 
-      <div class="room-editor-inventory-grid">
-        <% @available_furnitures.each do |furniture| %>
-          <div class="room-editor-inventory-item">
-            <%= image_tag furniture.image_url,
-                class: "room-editor-inventory-image" %>
+      <div class="room-editor-panel-header">
+        <div>
+          <p class="room-editor-kicker">
+            Meubles débloqués
+          </p>
 
-            <p class="room-editor-inventory-name">
-              <%= furniture.name %>
-            </p>
-
-            <%= button_to "Placer",
-                room_furnitures_path,
-                method: :post,
-                data: { action: "click->inventory#close" },
-                params: {
-                  room_furniture: {
-                    furniture_id: furniture.id,
-                    x: 0,
-                    y: 0,
-                    z: 0,
-                    rotation: 0
-                  }
-                },
-                class: "room-editor-place-btn" %>
-          </div>
-        <% end %>
+          <h2 class="room-editor-panel-title">
+            Inventaire
+          </h2>
+        </div>
       </div>
+
+      <% if @available_furnitures.any? %>
+        <div class="room-editor-inventory-grid">
+          <% @available_furnitures.each do |furniture| %>
+            <div class="room-editor-inventory-item">
+              <div class="room-editor-inventory-image-frame">
+                <%= image_tag furniture.image_url,
+                    class: "room-editor-inventory-image" %>
+              </div>
+
+              <p class="room-editor-inventory-name">
+                <%= furniture.name %>
+              </p>
+
+              <%= button_to "Placer",
+                  room_furnitures_path,
+                  method: :post,
+                  data: { action: "click->inventory#close" },
+                  params: {
+                    room_furniture: {
+                      furniture_id: furniture.id,
+                      x: 0,
+                      y: 0,
+                      z: 0,
+                      rotation: 0
+                    }
+                  },
+                  class: "room-editor-place-btn" %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="room-editor-empty">
+          Tu n’as pas encore débloqué de meuble.
+        </p>
+      <% end %>
     </div>
   </div>
 </div>
