@@ -66,6 +66,26 @@
   filter: drop-shadow(0 8px 14px rgba(43, 45, 66, 0.08));
 }
 
+.mood-brand-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mood-brand-link:visited,
+.mood-brand-link:hover,
+.mood-brand-link:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mood-brand-link:focus-visible {
+  outline: 3px solid rgba(124, 99, 242, 0.22);
+  outline-offset: 4px;
+  border-radius: 18px;
+}
+
 .mood-user-actions {
   flex: 0 0 auto;
 

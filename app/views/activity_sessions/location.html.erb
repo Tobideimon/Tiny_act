@@ -31,15 +31,15 @@
 
         <% location_key = location_label.downcase %>
 
-        <% icon =
+        <% location_image =
           if location_key.include?("maison") || location_key.include?("chez")
-            "⌂"
+            "location-home.png"
           elsif location_key.include?("extérieur") || location_key.include?("dehors")
-            "◌"
+            "location-outdoor.png"
           elsif location_key.include?("transport")
-            "↗"
+            "location-transport.png"
           else
-            "⌖"
+            "location-outdoor.png"
           end
         %>
 
@@ -51,8 +51,10 @@
           value="<%= location.id %>"
           class="choice-card setup-choice-card <%= card_color %>"
         >
-          <div class="setup-choice-icon">
-            <%= icon %>
+          <div class="setup-choice-visual">
+            <%= image_tag "mascot/#{location_image}",
+                          class: "setup-choice-image",
+                          alt: "" %>
           </div>
 
           <div class="setup-choice-text">
