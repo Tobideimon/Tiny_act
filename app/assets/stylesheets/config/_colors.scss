@@ -79,4 +79,63 @@ $ta-shadow-card:
   0 16px 30px rgba(43, 45, 66, 0.075),
   0 5px 12px rgba(43, 45, 66, 0.035);
 
-  
+ // =========================
+// INTEREST COLORS
+// Used by user interests and recommendation cards
+// =========================
+
+// SPORT
+
+$interest-sport-bg: #edf8e8;
+$interest-sport-selected: #dff3d6;
+$interest-sport-border: rgba(88, 140, 58, 0.34);
+$interest-sport-selected-border: rgba(88, 140, 58, 0.72);
+
+// CRÉATIVITÉ
+
+$interest-creativity-bg: #fff1e5;
+$interest-creativity-selected: #ffe3c8;
+$interest-creativity-border: rgba(217, 131, 44, 0.34);
+$interest-creativity-selected-border: rgba(217, 131, 44, 0.72);
+
+// BIEN-ÊTRE
+
+$interest-wellbeing-bg: #e8f2ff;
+$interest-wellbeing-selected: #d9eaff;
+$interest-wellbeing-border: rgba(89, 119, 170, 0.34);
+$interest-wellbeing-selected-border: rgba(89, 119, 170, 0.72);
+
+// PHOTO
+
+$interest-photo-bg: #ffe9f4;
+$interest-photo-selected: #ffd8eb;
+$interest-photo-border: rgba(216, 91, 159, 0.34);
+$interest-photo-selected-border: rgba(216, 91, 159, 0.72);
+
+// DESSIN
+
+$interest-drawing-bg: #eef9f8;
+$interest-drawing-selected: #dff4f2;
+$interest-drawing-border: rgba(120, 178, 173, 0.34);
+$interest-drawing-selected-border: rgba(120, 178, 173, 0.72);
+
+// ÉCRITURE
+
+$interest-writing-bg: #fff8df;
+$interest-writing-selected: #fff0bd;
+$interest-writing-border: rgba(215, 182, 59, 0.34);
+$interest-writing-selected-border: rgba(215, 182, 59, 0.72);
+
+// LANGUES
+
+$interest-language-bg: #f2edff;
+$interest-language-selected: #e6ddff;
+$interest-language-border: rgba(102, 81, 224, 0.34);
+$interest-language-selected-border: rgba(102, 81, 224, 0.72);
+
+// CULTURE
+
+$interest-culture-bg: #fff0eb;
+$interest-culture-selected: #ffe0d8;
+$interest-culture-border: rgba(215, 116, 97, 0.34);
+$interest-culture-selected-border: rgba(215, 116, 97, 0.72);
