@@ -1,6 +1,6 @@
 class ActivitySessionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_selection_topbar, only: %i[new location duration]
+  before_action :set_selection_topbar, only: %i[new location duration show]
 
   def new
     @moods = Mood.all
