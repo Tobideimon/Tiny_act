@@ -1,6 +1,8 @@
 class ActivitySessionsController < ApplicationController
+  include TopbarData
+
   before_action :authenticate_user!
-  before_action :set_selection_topbar, only: %i[new location duration show]
+  before_action :set_topbar_data, only: %i[new location duration show]
 
   def new
     @moods = Mood.all
@@ -160,11 +162,6 @@ class ActivitySessionsController < ApplicationController
 
   def activity_session_params
     params.require(:activity_session).permit(:culture_category)
-  end
-
-  def set_selection_topbar
-    @finished_sessions_count = current_user.activity_sessions.where(finished: true).count
-    @home_xp = @finished_sessions_count * 15
   end
 
   def add_interest_xp_for(activity_session)

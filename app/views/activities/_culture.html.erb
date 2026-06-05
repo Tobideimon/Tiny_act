@@ -16,17 +16,22 @@
   class="culture-quiz"
 >
   <div
-    class="activity-card culture-start-card"
+    class="culture-panel culture-start-card"
     data-culture-quiz-target="startScreen"
   >
-    <div class="activity-top">
-      <h2>Choisis un thème</h2>
-    </div>
+    <div class="culture-start-header">
+      <p class="culture-kicker">
+        Choix du thème
+      </p>
 
-    <p class="activity-content">
-      Tu as <strong><%= duration_seconds / 60 %> minutes</strong>.
-      Le chrono commence quand tu choisis un thème.
-    </p>
+      <h2>
+        Choisis ton terrain de jeu
+      </h2>
+
+      <p>
+        Tu as <strong><%= duration_seconds / 60 %> minutes</strong>. Le chrono commence quand tu choisis un thème.
+      </p>
+    </div>
 
     <div class="culture-theme-list">
       <% categories.each do |category| %>
@@ -36,44 +41,44 @@
           data-category="<%= category %>"
           data-action="click->culture-quiz#selectCategory"
         >
-          <%= category %>
+          <span><%= category %></span>
+          <strong>›</strong>
         </button>
       <% end %>
     </div>
   </div>
 
   <div
-    class="activity-card d-none"
+    class="culture-status-panel d-none"
     data-culture-quiz-target="quizHeader"
   >
-    <div class="culture-quiz-header-row">
-      <div>
-        <h2>Quiz culture générale</h2>
-        <p class="activity-content">
-          Thème : <strong data-culture-quiz-target="selectedCategory"></strong>
-        </p>
-      </div>
-
-      <div class="culture-timer">
-        Temps restant :
-        <strong data-culture-quiz-target="timer"></strong>
-      </div>
+    <div class="culture-status-card">
+      <span>Thème</span>
+      <strong data-culture-quiz-target="selectedCategory"></strong>
     </div>
 
-    <p class="activity-content">
+    <div class="culture-status-card">
+      <span>Temps</span>
+      <strong data-culture-quiz-target="timer"></strong>
+    </div>
+
+    <div class="culture-status-card culture-status-wide">
+      <span>Progression</span>
       <strong data-culture-quiz-target="progress"></strong>
-    </p>
+    </div>
   </div>
 
   <div
-    class="activity-card culture-question-card d-none"
+    class="culture-panel culture-question-card d-none"
     data-culture-quiz-target="card"
   >
-    <div class="activity-top">
-      <h2 data-culture-quiz-target="question">
-        Chargement de la question...
-      </h2>
-    </div>
+    <p class="culture-kicker">
+      Question
+    </p>
+
+    <h2 data-culture-quiz-target="question">
+      Chargement de la question...
+    </h2>
 
     <div
       class="quiz-answers"
@@ -81,19 +86,19 @@
     ></div>
 
     <p
-      class="activity-content quiz-feedback"
+      class="quiz-feedback"
       data-culture-quiz-target="feedback"
     ></p>
 
     <p
-      class="activity-content quiz-score"
+      class="quiz-score"
       data-culture-quiz-target="score"
     ></p>
   </div>
 
   <button
     type="button"
-    class="primary-button d-none"
+    class="culture-next-button d-none"
     data-culture-quiz-target="nextButton"
     data-action="click->culture-quiz#nextQuestion"
   >

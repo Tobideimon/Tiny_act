@@ -1,4 +1,5 @@
 <% language_label = local_assigns.fetch(:language_label, @language_label) %>
+
 <% if activity.activity_type == "word_learning" %>
 
   <div
@@ -12,23 +13,23 @@
     }.to_json %>"
     data-language-activity-duration-value="<%= duration_seconds %>"
     data-language-activity-mode-value="word_learning"
-    class="language-activity"
+    class="language-activity language-word-activity"
   >
 
-    <div class="activity-card">
-      <p class="activity-content">
-        Temps restant :
+    <div class="language-status-panel">
+      <div class="language-status-item">
+        <span>Temps</span>
         <strong data-language-activity-target="timer"></strong>
-      </p>
+      </div>
 
-      <p class="activity-content">
-        Progression :
-        <span data-language-activity-target="progress"></span>
-      </p>
+      <div class="language-status-item">
+        <span>Progression</span>
+        <strong data-language-activity-target="progress"></strong>
+      </div>
     </div>
 
-    <div class="activity-card language-card">
-      <p class="language-instruction">
+    <div class="language-panel language-main-card">
+      <p class="language-kicker">
         Mot en <%= language_label %>
       </p>
 
@@ -39,14 +40,14 @@
         Chargement du mot...
       </h2>
 
-      <p
-        class="activity-content language-answer is-hidden"
+      <div
+        class="language-answer-box is-hidden"
         data-language-activity-target="wordAnswer"
-      ></p>
+      ></div>
 
       <button
         type="button"
-        class="secondary-button language-reveal-button"
+        class="language-secondary-button"
         data-language-activity-target="revealTranslationButton"
         data-action="click->language-activity#toggleWordTranslation"
       >
@@ -56,7 +57,7 @@
 
     <button
       type="button"
-      class="primary-button"
+      class="language-primary-button"
       data-language-activity-target="nextButton"
       data-action="click->language-activity#nextWord"
     >
@@ -77,23 +78,23 @@
     }.to_json %>"
     data-language-activity-duration-value="<%= duration_seconds %>"
     data-language-activity-mode-value="sentence_completion"
-    class="language-activity"
+    class="language-activity language-sentence-activity"
   >
 
-    <div class="activity-card">
-      <p class="activity-content">
-        Temps restant :
+    <div class="language-status-panel">
+      <div class="language-status-item">
+        <span>Temps</span>
         <strong data-language-activity-target="timer"></strong>
-      </p>
+      </div>
 
-      <p class="activity-content">
-        Progression :
-        <span data-language-activity-target="progress"></span>
-      </p>
+      <div class="language-status-item">
+        <span>Progression</span>
+        <strong data-language-activity-target="progress"></strong>
+      </div>
     </div>
 
-    <div class="activity-card language-card">
-      <p class="language-instruction">
+    <div class="language-panel language-main-card">
+      <p class="language-kicker">
         Phrase en français
       </p>
 
@@ -104,12 +105,13 @@
         Chargement de la phrase...
       </p>
 
-      <p class="language-instruction">
-        Complète la phrase en <%= language_label %>
+      <p class="language-kicker language-kicker-spaced">
+        Complète en <%= language_label %>
       </p>
 
       <%= form_with url: "#",
                     method: :get,
+                    class: "language-sentence-form",
                     data: {
                       language_activity_target: "sentenceForm",
                       action: "submit->language-activity#checkSentence"
@@ -135,7 +137,7 @@
 
         <button
           type="submit"
-          class="primary-button"
+          class="language-primary-button"
           data-language-activity-target="submitButton"
         >
           Valider
@@ -144,17 +146,16 @@
       <% end %>
 
       <p
-        class="activity-content sentence-feedback"
+        class="sentence-feedback"
         data-language-activity-target="sentenceFeedback"
       ></p>
-
     </div>
   </div>
 
 <% elsif activity.activity_type == "llm_chat" %>
 
-  <div class="activity-card">
-    <p class="activity-content">
+  <div class="language-panel">
+    <p class="activity-show-description">
       Le chat avec IA sera branché plus tard.
     </p>
   </div>
