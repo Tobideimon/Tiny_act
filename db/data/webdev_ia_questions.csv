@@ -1,0 +1,151 @@
+question,correct_answer,wrong_answer_1,wrong_answer_2,wrong_answer_3,category,difficulty,source
+Quelle balise HTML permet de créer un lien hypertexte ?,<a>,<link>,<href>,<url>,Développement Web : HTML,easy,Projet formation
+Quelle balise HTML est utilisée pour afficher une image ?,<img>,<image>,<picture-only>,<src>,Développement Web : HTML,easy,Projet formation
+Quelle balise HTML représente le titre principal d'une page ?,<h1>,<title>,<header1>,<main-title>,Développement Web : HTML,easy,Projet formation
+Quel attribut HTML indique l'adresse d'un lien ?,href,src,link,target,Développement Web : HTML,easy,Projet formation
+Quel attribut HTML indique le fichier source d'une image ?,src,href,alt,path,Développement Web : HTML,easy,Projet formation
+Quelle propriété CSS permet de changer la couleur du texte ?,color,background-color,font-color,text-style,Développement Web : CSS,easy,Projet formation
+Quelle propriété CSS permet de changer la couleur de fond ?,background-color,color,background-image,font-background,Développement Web : CSS,easy,Projet formation
+Quelle propriété CSS contrôle la taille du texte ?,font-size,text-width,font-weight,size,Développement Web : CSS,easy,Projet formation
+Quelle valeur CSS rend un élément invisible tout en gardant sa place dans la page ?,visibility: hidden,display: none,opacity: 100,position: hidden,Développement Web : CSS,easy,Projet formation
+Quelle propriété CSS permet d'arrondir les angles d'un élément ?,border-radius,corner-size,round-border,radius-border,Développement Web : CSS,easy,Projet formation
+Quel langage sert principalement à structurer le contenu d'une page web ?,HTML,CSS,Ruby,SQL,Développement Web : Bases,easy,Projet formation
+Quel langage sert principalement à styliser une page web ?,CSS,HTML,SQL,Git,Développement Web : Bases,easy,Projet formation
+Quel langage permet d'ajouter de l'interactivité côté navigateur ?,JavaScript,SQL,HTML,Markdown,Développement Web : JavaScript,easy,Projet formation
+Que signifie CSS ?,Cascading Style Sheets,Creative Style Syntax,Computer Styling System,Code Style Script,Développement Web : CSS,easy,Projet formation
+Que signifie HTML ?,HyperText Markup Language,HighText Machine Language,Hyperlink Text Main Language,Home Tool Markup Language,Développement Web : HTML,easy,Projet formation
+Quel outil permet de suivre l'historique des modifications d'un projet ?,Git,Figma,Chrome,SQLite,Développement Web : Git,easy,Projet formation
+Quelle commande Git enregistre un instantané des modifications ?,git commit,git save,git snapshot,git upload,Développement Web : Git,easy,Projet formation
+Quelle commande Git permet de récupérer un dépôt distant ?,git clone,git copy,git import,git download,Développement Web : Git,easy,Projet formation
+Quelle plateforme est souvent utilisée pour héberger des dépôts Git ?,GitHub,Google Drive,Notion,Slack,Développement Web : Git,easy,Projet formation
+Que signifie API ?,Application Programming Interface,Advanced Program Internet,Application Page Interface,Automated Protocol Input,Développement Web : API,easy,Projet formation
+Quel format est très utilisé pour échanger des données avec une API ?,JSON,JPEG,MP3,PDF,Développement Web : API,easy,Projet formation
+Quel verbe HTTP sert généralement à récupérer des données ?,GET,POST,DELETE,PATCH,Développement Web : API,easy,Projet formation
+Quel verbe HTTP sert généralement à créer une ressource ?,POST,GET,HEAD,TRACE,Développement Web : API,easy,Projet formation
+Quel code HTTP indique généralement que tout s'est bien passé ?,200,404,500,301,Développement Web : API,easy,Projet formation
+Quel code HTTP signifie généralement « non trouvé » ?,404,200,201,302,Développement Web : API,easy,Projet formation
+Quel langage est au cœur de Ruby on Rails ?,Ruby,Python,PHP,Java,Développement Web : Ruby,easy,Projet formation
+Quelle méthode Ruby affiche du texte dans le terminal ?,puts,print_html,echoes,console.log,Développement Web : Ruby,easy,Projet formation
+Quel symbole est souvent utilisé pour définir un bloc en Ruby ?,do ... end,begin ... stop,start ... finish,open ... close,Développement Web : Ruby,easy,Projet formation
+Quel type Ruby représente une liste ordonnée d'éléments ?,Array,Hash,String,Boolean,Développement Web : Ruby,easy,Projet formation
+Quel type Ruby représente une collection clé-valeur ?,Hash,Array,Integer,Symbol,Développement Web : Ruby,easy,Projet formation
+Quelle valeur booléenne existe en Ruby ?,true,yes,on,valid,Développement Web : Ruby,easy,Projet formation
+Quelle commande crée généralement une nouvelle application Rails ?,rails new,rails create,new rails,rails start,Développement Web : Rails,easy,Projet formation
+"Dans Rails, quel dossier contient souvent les contrôleurs ?",app/controllers,app/models,app/views,db/controllers,Développement Web : Rails,easy,Projet formation
+"Dans Rails, quel dossier contient souvent les modèles ?",app/models,app/assets,app/helpers,config/models,Développement Web : Rails,easy,Projet formation
+"Dans Rails, quel dossier contient souvent les vues ?",app/views,app/pages,app/html,views/app,Développement Web : Rails,easy,Projet formation
+Quelle base de données est souvent utilisée en développement Rails au début d'un projet ?,SQLite,Photoshop,Redis uniquement,Excel,Développement Web : Bases de données,easy,Projet formation
+Quel langage permet d'interroger une base de données relationnelle ?,SQL,CSS,HTML,YAML,Développement Web : SQL,easy,Projet formation
+Quel mot-clé SQL permet de sélectionner des colonnes ?,SELECT,SHOW,PICK,FIND,Développement Web : SQL,easy,Projet formation
+Quel mot-clé SQL permet de filtrer les résultats ?,WHERE,ORDER,GROUP,LIMIT,Développement Web : SQL,easy,Projet formation
+Quel mot-clé SQL permet de trier les résultats ?,ORDER BY,SORT WITH,RANK BY,FILTER BY,Développement Web : SQL,easy,Projet formation
+Que signifie IA en français ?,Intelligence artificielle,Interface automatique,Information avancée,Instruction algorithmique,IA,easy,Projet formation
+Que signifie LLM ?,Large Language Model,Local Logic Machine,Linear Learning Method,Language Link Module,IA,easy,Projet formation
+À quoi sert un prompt dans une IA générative ?,À donner une consigne au modèle,À compiler du code,À stocker une base de données,À créer un serveur,IA : Prompt Engineering,easy,Projet formation
+Quel élément améliore souvent la qualité d'un prompt ?,Un contexte clair,Une consigne vague,Des contradictions,Une absence d'objectif,IA : Prompt Engineering,easy,Projet formation
+Quel outil est utilisé pour écrire et tester du code dans un projet web ?,Un éditeur de code,Un lecteur vidéo,Un tableur uniquement,Une messagerie,Développement Web : Outils,easy,Projet formation
+Quel navigateur possède des DevTools utiles au débogage web ?,Chrome,Spotify,Finder,Discord,Développement Web : Outils,easy,Projet formation
+Quelle extension de fichier est souvent utilisée pour une feuille de style ?,.css,.html,.rb,.sql,Développement Web : CSS,easy,Projet formation
+Quelle extension de fichier est souvent utilisée pour un fichier Ruby ?,.rb,.rubyx,.js,.rails,Développement Web : Ruby,easy,Projet formation
+Quelle extension de fichier est souvent utilisée pour un fichier JavaScript ?,.js,.java,.script,.jsx-only,Développement Web : JavaScript,easy,Projet formation
+Quel mot désigne l'expérience ressentie par l'utilisateur d'une interface ?,UX,SQL,DNS,CPU,Développement Web : UX,easy,Projet formation
+"Que retourne Ruby avec [1, 2, 3].map { |n| n * 2 } ?","[2, 4, 6]","[1, 2, 3]",6,Une erreur,Développement Web : Ruby,medium,Projet formation
+"Que retourne Ruby avec [1, 2, 3].select { |n| n > 1 } ?","[2, 3]",[1],true,"[1, 2, 3]",Développement Web : Ruby,medium,Projet formation
+Quelle méthode Ruby permet de trouver le premier élément correspondant à une condition ?,find,map,each,join,Développement Web : Ruby,medium,Projet formation
+Quelle méthode Ruby transforme un tableau en chaîne de caractères avec un séparateur ?,join,split,merge,push,Développement Web : Ruby,medium,Projet formation
+Que retourne 'hello'.upcase en Ruby ?,HELLO,hello,Hello,Une erreur,Développement Web : Ruby,medium,Projet formation
+Que retourne 'hello'.capitalize en Ruby ?,Hello,HELLO,hello,hELLO,Développement Web : Ruby,medium,Projet formation
+"En Ruby, quelle méthode ajoute un élément à la fin d'un tableau ?",push,pop,shift,delete,Développement Web : Ruby,medium,Projet formation
+"En Ruby, quelle méthode retire le dernier élément d'un tableau ?",pop,push,first,map,Développement Web : Ruby,medium,Projet formation
+Quel opérateur Ruby teste l'égalité de deux valeurs ?,==,=,===,!=,Développement Web : Ruby,medium,Projet formation
+Quel mot-clé Ruby permet de définir une méthode ?,def,function,method,define,Développement Web : Ruby,medium,Projet formation
+"Dans Rails, quel composant reçoit la requête et prépare la réponse ?",Le contrôleur,Le modèle,La migration,Le Gemfile,Développement Web : Rails,medium,Projet formation
+"Dans Rails, quel composant représente généralement les données métier ?",Le modèle,La vue,Le contrôleur,Le routeur CSS,Développement Web : Rails,medium,Projet formation
+"Dans Rails, quel fichier définit les routes principales de l'application ?",config/routes.rb,app/routes.rb,db/routes.rb,config/router.html,Développement Web : Rails,medium,Projet formation
+Quelle commande Rails lance le serveur local ?,rails server,rails run,rails start-app,ruby server,Développement Web : Rails,medium,Projet formation
+Quelle commande Rails exécute les migrations en attente ?,rails db:migrate,rails migrate now,rails db:run,ruby migrate,Développement Web : Rails,medium,Projet formation
+À quoi sert une migration Rails ?,À modifier la structure de la base de données,À styliser une page,À lancer un serveur distant,À générer une image,Développement Web : Rails,medium,Projet formation
+Quelle association Rails indique qu'un article appartient à un utilisateur ?,belongs_to :user,has_many :users,owns :user,linked_to :user,Développement Web : Rails,medium,Projet formation
+Quelle association Rails indique qu'un utilisateur possède plusieurs articles ?,has_many :articles,belongs_to :articles,has_one :articles,contains_many :articles,Développement Web : Rails,medium,Projet formation
+Quelle méthode ActiveRecord permet de filtrer plusieurs enregistrements ?,where,find,first,new,Développement Web : Rails,medium,Projet formation
+Quelle méthode ActiveRecord récupère un enregistrement par son identifiant et lève une erreur si absent ?,find,where,select,build,Développement Web : Rails,medium,Projet formation
+"En SQL, quelle clause limite le nombre de résultats retournés ?",LIMIT,MAX,COUNT,STOP,Développement Web : SQL,medium,Projet formation
+"En SQL, quelle fonction compte le nombre de lignes ?",COUNT,SUM,TOTAL,NUMBER,Développement Web : SQL,medium,Projet formation
+"En SQL, quelle clause regroupe des lignes selon une colonne ?",GROUP BY,ORDER BY,WHERE,JOIN BY,Développement Web : SQL,medium,Projet formation
+"En SQL, quelle opération permet de combiner des données de deux tables liées ?",JOIN,MERGE TEXT,CONNECT,UNION ONLY,Développement Web : SQL,medium,Projet formation
+Qu'est-ce qu'une clé étrangère dans une base relationnelle ?,Une colonne qui référence une autre table,Une clé de chiffrement,Une colonne toujours vide,Un identifiant CSS,Développement Web : Bases de données,medium,Projet formation
+Qu'est-ce qu'une clé primaire ?,Un identifiant unique pour une ligne,Le premier mot d'une requête SQL,Un mot de passe administrateur,Un fichier de configuration,Développement Web : Bases de données,medium,Projet formation
+Quel sélecteur CSS cible un élément avec l'id 'menu' ?,#menu,.menu,menu,@menu,Développement Web : CSS,medium,Projet formation
+Quel sélecteur CSS cible les éléments avec la classe 'card' ?,.card,#card,card,*card,Développement Web : CSS,medium,Projet formation
+Quelle propriété CSS permet de créer une mise en page flexible en ligne ou colonne ?,display: flex,position: center,layout: row,grid-flex: true,Développement Web : CSS,medium,Projet formation
+Quelle propriété CSS définit l'espace intérieur d'un élément ?,padding,margin,border,gap,Développement Web : CSS,medium,Projet formation
+Quelle propriété CSS définit l'espace extérieur autour d'un élément ?,margin,padding,border-radius,line-height,Développement Web : CSS,medium,Projet formation
+"En JavaScript, quel mot-clé déclare une variable réassignable moderne ?",let,def,variety,set,Développement Web : JavaScript,medium,Projet formation
+"En JavaScript, quel mot-clé déclare une constante ?",const,constant,final,freeze,Développement Web : JavaScript,medium,Projet formation
+Quelle méthode JavaScript ajoute un écouteur d'événement ?,addEventListener,listenEvent,onClickOnly,eventAdd,Développement Web : JavaScript,medium,Projet formation
+Quelle méthode JavaScript sélectionne le premier élément correspondant à un sélecteur CSS ?,querySelector,getFirst,selectOne,findCSS,Développement Web : JavaScript,medium,Projet formation
+Que retourne généralement JSON.parse en JavaScript ?,Un objet ou une valeur JavaScript,Une image,Une feuille CSS,Une requête HTTP,Développement Web : JavaScript,medium,Projet formation
+Quelle commande Git permet d'envoyer ses commits vers un dépôt distant ?,git push,git send,git upload,git commit -u,Développement Web : Git,medium,Projet formation
+Quelle commande Git permet de récupérer les nouveautés d'un dépôt distant et les fusionner ?,git pull,git get,git refresh,git update-only,Développement Web : Git,medium,Projet formation
+Quelle commande Git affiche l'état des fichiers modifiés ?,git status,git state,git check,git files,Développement Web : Git,medium,Projet formation
+Quelle commande Git crée une nouvelle branche et s'y déplace avec l'option moderne ?,git switch -c,git branch move,git new branch,git checkout main,Développement Web : Git,medium,Projet formation
+Quel code HTTP indique généralement une erreur serveur ?,500,200,301,204,Développement Web : API,medium,Projet formation
+Quel code HTTP indique généralement une ressource créée avec succès ?,201,404,500,302,Développement Web : API,medium,Projet formation
+Quel verbe HTTP sert souvent à supprimer une ressource ?,DELETE,REMOVE,DROP,DESTROY_HTTP,Développement Web : API,medium,Projet formation
+Quel verbe HTTP sert souvent à modifier partiellement une ressource ?,PATCH,GET,HEAD,OPTIONS,Développement Web : API,medium,Projet formation
+"Dans une API REST, que représente généralement une ressource ?",Une entité accessible par une URL,Une couleur CSS,Une police de caractère,Un fichier audio uniquement,Développement Web : API,medium,Projet formation
+Quel élément d'un prompt indique précisément ce que l'IA doit produire ?,L'objectif,Le hasard,Le bruit,Le nombre de tokens seulement,IA : Prompt Engineering,medium,Projet formation
+Pourquoi donner un format de sortie dans un prompt ?,Pour obtenir une réponse plus structurée,Pour empêcher le modèle de répondre,Pour réduire la taille de l'écran,Pour lancer du code Ruby,IA : Prompt Engineering,medium,Projet formation
+Quel risque existe avec les réponses d'une IA générative ?,Elle peut produire une information fausse avec assurance,Elle ne peut jamais se tromper,Elle remplace automatiquement une base de données,Elle compile toujours le code,IA,medium,Projet formation
+Quel terme désigne une réponse inventée ou non fiable produite par une IA ?,Hallucination,Migration,Compilation,Indexation CSS,IA,medium,Projet formation
+"Dans un projet Rails, à quoi sert le fichier Gemfile ?",À déclarer les dépendances Ruby du projet,À stocker les images,À écrire le HTML principal,À configurer les couleurs CSS,Développement Web : Rails,medium,Projet formation
+"Que retourne Ruby avec [1, 2, 3].reduce(0) { |sum, n| sum + n } ?",6,"[1, 2, 3]",0,Une erreur,Développement Web : Ruby,hard,Projet formation
+Quelle différence principale existe entre each et map en Ruby ?,"map retourne un nouveau tableau, each retourne surtout l'objet parcouru","each transforme toujours les valeurs, map ne fait rien",map modifie toujours le tableau original,each ne peut parcourir que des Hash,Développement Web : Ruby,hard,Projet formation
+"Que retourne Ruby avec {a: 1, b: 2}.keys ?","[:a, :b]","[1, 2]","['a', 'b']",{:keys=>2},Développement Web : Ruby,hard,Projet formation
+Quel problème peut arriver avec User.find_by(email: email).name si aucun utilisateur n'existe ?,Une erreur car find_by peut retourner nil,Rails crée automatiquement l'utilisateur,name retourne une chaîne vide,find_by relance toujours la recherche,Développement Web : Rails,hard,Projet formation
+Quelle méthode Rails est utile pour éviter une erreur nil en chaînant prudemment un appel ?,&.,try! uniquement,nil?=,safe_call,Développement Web : Ruby,hard,Projet formation
+"Dans Rails, quelle méthode forte protège contre l'assignation massive non contrôlée dans un contrôleur ?",strong parameters,safe params disabled,hidden fields,CSRF only,Développement Web : Rails,hard,Projet formation
+Quel fichier Rails contient généralement la configuration des credentials chiffrés ?,config/credentials.yml.enc,app/secrets.html,db/credentials.sql,public/passwords.txt,Développement Web : Rails,hard,Projet formation
+À quoi sert un index en base de données ?,À accélérer certaines recherches sur une colonne,À traduire les données,À supprimer les doublons automatiquement,À transformer SQL en HTML,Développement Web : Bases de données,hard,Projet formation
+Quel risque peut apparaître si une colonne souvent filtrée n'est jamais indexée ?,Des requêtes lentes quand la table grossit,Une couleur CSS incorrecte,Une erreur HTML obligatoire,Un commit Git impossible,Développement Web : Bases de données,hard,Projet formation
+Quel type de relation correspond à users has_many bookings et booking belongs_to user ?,Un utilisateur peut avoir plusieurs réservations,Une réservation peut avoir plusieurs utilisateurs sans table jointe,Les deux tables sont indépendantes,Rails interdit cette relation,Développement Web : Rails,hard,Projet formation
+Quelle clause SQL filtre après un GROUP BY sur une valeur agrégée ?,HAVING,WHERE,ORDER BY,LIMIT,Développement Web : SQL,hard,Projet formation
+Quelle requête compte les utilisateurs par ville ?,"SELECT city, COUNT(*) FROM users GROUP BY city",SELECT COUNT(city) WHERE users GROUP city,GROUP users BY city SELECT COUNT,SELECT city FROM users COUNT BY city,Développement Web : SQL,hard,Projet formation
+Pourquoi SELECT * peut être moins adapté en production ?,Il récupère parfois plus de données que nécessaire,Il empêche toujours les JOIN,Il supprime les index,Il ne fonctionne pas avec PostgreSQL,Développement Web : SQL,hard,Projet formation
+Quelle attaque vise à injecter du code dans une requête SQL mal protégée ?,Injection SQL,Cross-flex attack,HTML overflow,Prompt padding,Développement Web : Sécurité,hard,Projet formation
+Quelle protection Rails aide à limiter les attaques CSRF dans les formulaires ?,Un token d'authenticité,Une classe CSS spéciale,Une migration unique,Un fichier README,Développement Web : Sécurité,hard,Projet formation
+Que signifie XSS dans le contexte web ?,Cross-Site Scripting,Extended Style Sheet,External SQL Sync,Cross Server Storage,Développement Web : Sécurité,hard,Projet formation
+Pourquoi échapper du contenu utilisateur en HTML est important ?,Pour éviter l'exécution de code malveillant injecté,Pour accélérer toutes les requêtes SQL,Pour rendre les images plus légères,Pour remplacer Git,Développement Web : Sécurité,hard,Projet formation
+"Dans CSS Flexbox, quelle propriété aligne les éléments sur l'axe principal ?",justify-content,align-items,flex-wrap,main-axis,Développement Web : CSS,hard,Projet formation
+"Dans CSS Flexbox, quelle propriété aligne les éléments sur l'axe secondaire ?",align-items,justify-content,flex-direction,gap-main,Développement Web : CSS,hard,Projet formation
+Quelle différence principale existe entre margin et padding ?,"margin est extérieur, padding est intérieur","margin colore le fond, padding change la police",padding est toujours négatif,margin ne fonctionne que sur les images,Développement Web : CSS,hard,Projet formation
+"En JavaScript, que signifie le comportement asynchrone d'une Promise ?",Le résultat peut arriver plus tard sans bloquer tout le script,Le code est toujours exécuté deux fois,La variable devient CSS,La fonction ne retourne jamais rien,Développement Web : JavaScript,hard,Projet formation
+Quel mot-clé JavaScript permet d'attendre le résultat d'une Promise dans une fonction async ?,await,wait,pause,sleep,Développement Web : JavaScript,hard,Projet formation
+Quelle erreur fréquente arrive si querySelector ne trouve aucun élément puis qu'on appelle addEventListener dessus ?,Une erreur car la valeur est null,L'événement est ajouté au body,Le navigateur crée l'élément,Le script devient CSS,Développement Web : JavaScript,hard,Projet formation
+"Dans Git, que signifie généralement un conflit de merge ?",Deux changements incompatibles doivent être résolus manuellement,Git a supprimé le dépôt distant,Le commit est trop petit,La branche n'existe plus forcément,Développement Web : Git,hard,Projet formation
+Quelle bonne pratique Git évite de mélanger trop de sujets dans un même historique ?,Faire des commits petits et cohérents,Tout committer une fois par mois,Ne jamais créer de branche,Modifier directement main en équipe,Développement Web : Git,hard,Projet formation
+À quoi sert une Pull Request dans un workflow GitHub ?,À proposer et discuter des changements avant fusion,À supprimer une branche locale automatiquement,À démarrer le serveur Rails,À générer du CSS,Développement Web : Git,hard,Projet formation
+"Dans REST, que devrait idéalement représenter une URL comme /restaurants/5 ?",La ressource restaurant ayant l'identifiant 5,Le cinquième fichier CSS,Une action JavaScript obligatoire,Un serveur complet,Développement Web : API,hard,Projet formation
+Pourquoi séparer front-end et back-end peut être utile ?,Pour clarifier les responsabilités et faire évoluer les parties séparément,Pour supprimer le besoin de base de données,Pour éviter HTML et CSS,Pour empêcher les tests,Développement Web : Architecture,hard,Projet formation
+Quel rôle joue le modèle MVC dans Rails ?,"Il sépare données, logique de contrôle et affichage",Il remplace totalement SQL,Il sert uniquement à écrire du CSS,Il compresse les images,Développement Web : Architecture,hard,Projet formation
+"Dans MVC, quel élément est principalement responsable de l'affichage ?",La vue,Le modèle,La migration,Le seed,Développement Web : Architecture,hard,Projet formation
+"Dans MVC, quel élément orchestre souvent la réponse à une requête utilisateur ?",Le contrôleur,La vue,Le fichier CSS,Le README,Développement Web : Architecture,hard,Projet formation
+Pourquoi écrire des validations dans un modèle Rails ?,Pour empêcher l'enregistrement de données invalides,Pour rendre les boutons plus beaux,Pour trier automatiquement les routes,Pour créer un serveur local,Développement Web : Rails,hard,Projet formation
+Quelle validation Rails vérifie qu'un champ n'est pas vide ?,presence: true,required_html,not_blank_css,exists: always,Développement Web : Rails,hard,Projet formation
+Quelle validation Rails peut vérifier l'unicité d'un champ ?,uniqueness: true,unique: always,single: true,one_only: yes,Développement Web : Rails,hard,Projet formation
+Pourquoi ajouter aussi une contrainte d'unicité en base en plus d'une validation Rails ?,Pour éviter les doublons même en cas de requêtes concurrentes,Pour colorer les erreurs,Pour remplacer les tests,Pour accélérer le CSS,Développement Web : Rails,hard,Projet formation
+Quel fichier Rails est souvent utilisé pour créer des données de départ en développement ?,db/seeds.rb,app/start.rb,config/data.html,db/init.css,Développement Web : Rails,hard,Projet formation
+Que fait généralement la commande rails db:seed ?,Elle insère des données de départ définies dans db/seeds.rb,Elle supprime toutes les routes,Elle compile le JavaScript,Elle crée un compte GitHub,Développement Web : Rails,hard,Projet formation
+Pourquoi écrire des tests automatisés dans un projet web ?,Pour vérifier que le comportement attendu reste correct,Pour éviter d'écrire du code,Pour remplacer la base de données,Pour générer les maquettes,Développement Web : Qualité,hard,Projet formation
+Que vérifie généralement un test de modèle Rails ?,Les règles métier et validations du modèle,La couleur exacte des boutons uniquement,Le débit internet,La taille du logo,Développement Web : Qualité,hard,Projet formation
+Quel principe UX conseille de réduire l'effort nécessaire pour réaliser une action ?,Réduire la friction,Augmenter la complexité,Cacher les boutons,Multiplier les choix inutiles,Développement Web : UX,hard,Projet formation
+Pourquoi limiter le nombre de choix peut améliorer une interface ?,Cela réduit la charge cognitive,Cela rend le serveur plus rapide automatiquement,Cela remplace les tests,Cela supprime HTML,Développement Web : UX,hard,Projet formation
+"Dans un prompt IA, pourquoi préciser le public cible ?","Pour adapter le ton, le vocabulaire et le niveau de détail",Pour empêcher l'IA de répondre,Pour réduire le nombre de fichiers,Pour créer une base SQL,IA : Prompt Engineering,hard,Projet formation
+"Dans un prompt IA, pourquoi donner des exemples de sortie ?",Pour guider le format et le style attendus,Pour rendre la réponse forcément vraie,Pour supprimer le besoin de contexte,Pour éviter toute vérification,IA : Prompt Engineering,hard,Projet formation
+Pourquoi faut-il vérifier les réponses d'une IA pour du code ou des faits ?,Parce qu'elle peut se tromper ou inventer des détails,Parce qu'elle ne sait jamais écrire de texte,Parce qu'elle ne peut pas lire une consigne,Parce qu'elle remplace toujours la documentation,IA,hard,Projet formation
+Quel est un bon usage de l'IA dans un projet de développement ?,"Aider à expliquer, générer des pistes et relire du code",Remplacer toute validation humaine,Déployer directement sans test,Donner des secrets d'API au modèle,IA,hard,Projet formation
+Quel risque existe si on colle des clés API privées dans un outil non maîtrisé ?,Exposer des informations sensibles,Accélérer Rails automatiquement,Améliorer le CSS,Créer une migration,IA : Sécurité,hard,Projet formation
+Pourquoi ne faut-il pas stocker un mot de passe en clair ?,Parce qu'il serait lisible en cas de fuite,Parce que Rails refuse tous les mots de passe,Parce que CSS ne l'affiche pas,Parce que Git ne peut pas committer,Développement Web : Sécurité,hard,Projet formation
+Quel mécanisme transforme un mot de passe en empreinte non directement lisible ?,Le hachage,Le centrage CSS,Le routage REST,La migration front-end,Développement Web : Sécurité,hard,Projet formation
+Pourquoi utiliser des variables d'environnement pour des secrets ?,Pour éviter de les écrire directement dans le code source,Pour changer la police du site,Pour remplacer la base de données,Pour créer des images,Développement Web : Sécurité,hard,Projet formation
+Quel objectif principal a un MVP dans un projet produit ?,Tester une version minimale utile rapidement,Créer toutes les fonctionnalités imaginables,Éviter les retours utilisateurs,Remplacer le design,Développement Web : Produit,hard,Projet formation

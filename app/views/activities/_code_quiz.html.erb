@@ -1,0 +1,58 @@
+<%# Copie du quiz culture, câblée sur le controller Stimulus "code-quiz".
+    On garde les classes CSS "culture-*" pour réutiliser le style ;
+    seuls les attributs Stimulus (data-*) passent en "code-quiz". %>
+<% serialized_questions = code_questions.map { |question|
+  {
+    question: question.question,
+    category: question.category,
+    correct_answer: question.correct_answer,
+    answers: question.answers
+  }
+} %>
+<% categories = code_questions.map(&:category).uniq.sort %>
+<div
+  data-controller="code-quiz"
+  data-code-quiz-questions-value="<%= serialized_questions.to_json %>"
+  data-code-quiz-duration-seconds-value="<%= duration_seconds %>"
+  class="culture-quiz"
+>
+  <div class="activity-card culture-start-card" data-code-quiz-target="startScreen">
+    <div class="activity-top"><h2>Choisis un thème</h2></div>
+    <p class="activity-content">
+      Tu as <strong><%= duration_seconds / 60 %> minutes</strong>.
+      Le chrono commence quand tu choisis un thème.
+    </p>
+    <div class="culture-theme-list">
+      <% categories.each do |category| %>
+        <button type="button" class="culture-theme-button"
+          data-category="<%= category %>"
+          data-action="click->code-quiz#selectCategory">
+          <%= category %>
+        </button>
+      <% end %>
+    </div>
+  </div>
+  <div class="activity-card d-none" data-code-quiz-target="quizHeader">
+    <div class="culture-quiz-header-row">
+      <div>
+        <h2>Quiz code</h2>
+        <p class="activity-content">Thème : <strong data-code-quiz-target="selectedCategory"></strong></p>
+      </div>
+      <div class="culture-timer">Temps restant : <strong data-code-quiz-target="timer"></strong></div>
+    </div>
+    <p class="activity-content"><strong data-code-quiz-target="progress"></strong></p>
+  </div>
+  <div class="activity-card culture-question-card d-none" data-code-quiz-target="card">
+    <div class="activity-top">
+      <h2 data-code-quiz-target="question">Chargement de la question...</h2>
+    </div>
+    <div class="quiz-answers" data-code-quiz-target="answers"></div>
+    <p class="activity-content quiz-feedback" data-code-quiz-target="feedback"></p>
+    <p class="activity-content quiz-score" data-code-quiz-target="score"></p>
+  </div>
+  <button type="button" class="primary-button d-none"
+    data-code-quiz-target="nextButton"
+    data-action="click->code-quiz#nextQuestion">
+    Question suivante
+  </button>
+</div>
