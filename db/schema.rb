@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_04_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_05_102632) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -71,9 +71,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_000000) do
     t.datetime "created_at", null: false
     t.integer "height"
     t.string "image_url"
+    t.bigint "interest_id", null: false
     t.string "name"
+    t.integer "required_xp"
     t.datetime "updated_at", null: false
     t.integer "width"
+    t.index ["interest_id"], name: "index_furnitures_on_interest_id"
   end
 
   create_table "interests", force: :cascade do |t|
@@ -268,6 +271,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_000000) do
     t.index ["key"], name: "index_solid_queue_semaphores_on_key", unique: true
   end
 
+  create_table "user_interest_progresses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "interest_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.integer "xp"
+    t.index ["interest_id"], name: "index_user_interest_progresses_on_interest_id"
+    t.index ["user_id"], name: "index_user_interest_progresses_on_user_id"
+  end
+
   create_table "user_interests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "interest_id", null: false
@@ -299,6 +312,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_000000) do
   add_foreign_key "activities", "moods"
   add_foreign_key "activity_sessions", "activities"
   add_foreign_key "activity_sessions", "users"
+  add_foreign_key "furnitures", "interests"
   add_foreign_key "room_furnitures", "furnitures"
   add_foreign_key "room_furnitures", "rooms"
   add_foreign_key "rooms", "users"
@@ -308,6 +322,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_000000) do
   add_foreign_key "solid_queue_ready_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_recurring_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_scheduled_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
+  add_foreign_key "user_interest_progresses", "interests"
+  add_foreign_key "user_interest_progresses", "users"
   add_foreign_key "user_interests", "interests"
   add_foreign_key "user_interests", "users"
 end
