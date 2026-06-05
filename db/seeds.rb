@@ -355,14 +355,6 @@ puts "#{Activity.where(activity_type: "culture_quiz", active: true).count} cultu
 puts "Creating furnitures..."
 
 
-Furniture.create!(
-  name: "Books",
-  image_url: "furnitures/books.png",
-  required_xp: 10,
-  width: 1,
-  height: 1,
-  interest: culture
-)
 
 Furniture.create!(
   name: "escalade",
@@ -390,6 +382,14 @@ Furniture.create!(
   interest: sport,
   required_xp: 30
 )
+Furniture.create!(
+  name: "Pool",
+  image_url: "furnitures/pool.png",
+  width: 1,
+  height: 1,
+  interest: productivite,
+  required_xp: 30
+)
 
 Furniture.create!(
   name: "Books",
@@ -411,7 +411,7 @@ Furniture.create!(
 
 Furniture.create!(
   name: "Jasky",
-  image_url: "furnitures/jasky.png",
+  image_url: "furnitures/jasky.gif",
   width: 1,
   height: 1,
   interest: culture,
