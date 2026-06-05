@@ -22,13 +22,13 @@
     <div class="setup-choice-list">
       <% @durations.each_with_index do |duration, index| %>
 
-        <% icon =
+        <% duration_image =
           if duration.value <= 5
-            "↯"
+            "duration-short.png"
           elsif duration.value <= 15
-            "◷"
+            "duration-medium.png"
           else
-            "◎"
+            "duration-long.png"
           end
         %>
 
@@ -40,8 +40,10 @@
           value="<%= duration.id %>"
           class="choice-card setup-choice-card <%= card_color %>"
         >
-          <div class="setup-choice-icon">
-            <%= icon %>
+          <div class="setup-choice-visual">
+            <%= image_tag "mascot/#{duration_image}",
+                          class: "setup-choice-image",
+                          alt: "" %>
           </div>
 
           <div class="setup-choice-text">

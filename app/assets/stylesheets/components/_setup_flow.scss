@@ -1,11 +1,12 @@
 .setup-page {
-  padding-top: 34px;
+  padding-top: 30px;
 }
 
 .has-step-progress {
   padding-bottom: calc(162px + env(safe-area-inset-bottom));
 }
 
+/* Ancienne topbar setup : gardée au cas où une page l’utilise encore */
 .setup-topbar {
   display: flex;
   align-items: flex-start;
@@ -38,23 +39,40 @@
 .setup-topbar h1 {
   max-width: 260px;
 
-  color: rgba(21, 27, 47, 0.78);
+  color: $ta-ink;
 
   font-size: 28px;
   line-height: 1.08;
-  font-weight: 760;
-  letter-spacing: -0.035em;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+/* Hero utilisé sur location et duration */
+.setup-hero {
+  margin-top: 18px;
+  margin-bottom: 14px;
+}
+
+.setup-hero h1 {
+  max-width: 320px;
+
+  color: $ta-ink;
+
+  font-size: 28px;
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.04em;
 }
 
 .setup-helper {
-  max-width: 310px;
-  margin: 0 0 24px;
+  max-width: 330px;
+  margin: 0 0 20px;
 
   color: $ta-ink-muted;
 
   font-size: 14px;
-  line-height: 1.45;
-  font-weight: 550;
+  line-height: 1.35;
+  font-weight: 650;
 }
 
 .setup-form {
@@ -65,14 +83,59 @@
 .setup-choice-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: clamp(14px, 2.1vh, 22px);
 }
 
+/* Cards location / duration : même logique que la page mood */
 .setup-choice-card {
-  min-height: 104px;
-  padding: 16px 54px 16px 18px;
+  min-height: clamp(92px, 12.2vh, 116px);
+  padding: 14px 52px 14px 18px;
 }
 
+.setup-choice-visual {
+  width: 78px;
+  height: 78px;
+
+  flex: 0 0 78px;
+
+  display: grid;
+  place-items: center;
+
+  overflow: visible;
+}
+
+.setup-choice-image {
+  width: 90px;
+  height: 90px;
+
+  display: block;
+  object-fit: contain;
+
+  filter: drop-shadow(0 8px 14px rgba(43, 45, 66, 0.08));
+}
+
+.setup-choice-text {
+  flex: 1;
+  min-width: 0;
+
+  padding-left: 14px;
+  padding-right: 18px;
+
+  text-align: center;
+}
+
+.setup-choice-text strong {
+  display: block;
+
+  color: $ta-ink;
+
+  font-size: 20px;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+/* Ancien système avec icônes texte : gardé en fallback si une page l’utilise encore */
 .setup-choice-icon {
   width: 58px;
   height: 58px;
@@ -97,21 +160,6 @@
     0 8px 16px rgba(43, 45, 66, 0.045);
 }
 
-.setup-choice-text {
-  min-width: 0;
-  padding-left: 16px;
-}
-
-.setup-choice-text strong {
-  display: block;
-
-  color: rgba(21, 27, 47, 0.84);
-
-  font-size: 17px;
-  line-height: 1.15;
-  font-weight: 760;
-}
-
 .mood-hero .setup-step-label {
   margin-bottom: 8px;
   text-align: left;
@@ -119,7 +167,7 @@
 
 @media (max-height: 760px) {
   .setup-page {
-    padding-top: 26px;
+    padding-top: 24px;
   }
 
   .setup-topbar {
@@ -134,9 +182,19 @@
     font-size: 25px;
   }
 
+  .setup-hero {
+    margin-top: 14px;
+    margin-bottom: 10px;
+  }
+
+  .setup-hero h1 {
+    font-size: 24px;
+  }
+
   .setup-helper {
-    margin-bottom: 18px;
+    margin-bottom: 16px;
     font-size: 13px;
+    line-height: 1.3;
   }
 
   .setup-choice-list {
@@ -144,7 +202,24 @@
   }
 
   .setup-choice-card {
-    min-height: 92px;
+    min-height: 88px;
+    padding: 12px 48px 12px 16px;
+  }
+
+  .setup-choice-visual {
+    width: 70px;
+    height: 70px;
+
+    flex-basis: 70px;
+  }
+
+  .setup-choice-image {
+    width: 82px;
+    height: 82px;
+  }
+
+  .setup-choice-text strong {
+    font-size: 18px;
   }
 
   .setup-choice-icon {
@@ -159,40 +234,5 @@
 @media (max-height: 670px) {
   .setup-helper {
     display: none;
-  }
-}
-
-.setup-page {
-  padding-top: 30px;
-}
-
-.setup-hero {
-  margin-top: 18px;
-  margin-bottom: 14px;
-}
-
-.setup-hero h1 {
-  max-width: 320px;
-
-  color: $ta-ink;
-
-  font-size: 28px;
-  line-height: 1.08;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-}
-
-@media (max-height: 760px) {
-  .setup-page {
-    padding-top: 24px;
-  }
-
-  .setup-hero {
-    margin-top: 14px;
-    margin-bottom: 10px;
-  }
-
-  .setup-hero h1 {
-    font-size: 24px;
   }
 }
