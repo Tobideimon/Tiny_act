@@ -1,7 +1,7 @@
 .step-progress-footer {
   position: fixed;
   left: 50%;
-  bottom: calc(92px + env(safe-area-inset-bottom));
+  bottom: calc(34px + env(safe-area-inset-bottom));
   transform: translateX(-50%);
 
   width: calc(100% - 36px);
@@ -19,11 +19,11 @@
 .step-progress-label {
   margin: 0 0 9px;
 
-  color: $ta-ink-light;
+  color: rgba(21, 27, 47, 0.50);
 
   font-size: 11px;
-  font-weight: 850;
-  letter-spacing: 0.08em;
+  font-weight: 900;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   text-align: center;
 }
@@ -32,12 +32,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
+  gap: 8px;
 }
 
 .step-dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
 
   display: block;
 
@@ -56,18 +56,27 @@
 }
 
 .step-dot.is-active {
-  width: 20px;
+  width: 24px;
 
   background: linear-gradient(90deg, $ta-purple, $ta-gold);
 }
 
 @media (max-height: 760px) {
   .step-progress-footer {
-    bottom: calc(80px + env(safe-area-inset-bottom));
+    bottom: calc(24px + env(safe-area-inset-bottom));
   }
 
   .step-progress-label {
     margin-bottom: 7px;
     font-size: 10px;
+  }
+
+  .step-dot {
+    width: 7px;
+    height: 7px;
+  }
+
+  .step-dot.is-active {
+    width: 21px;
   }
 }

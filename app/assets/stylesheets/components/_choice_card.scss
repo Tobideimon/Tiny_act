@@ -6,11 +6,11 @@
   align-items: center;
 
   width: 100%;
-  min-height: clamp(96px, 12.5vh, 120px);
+  min-height: 104px;
   padding: 16px 18px;
 
   border-radius: 30px;
-  border: 2px solid rgba(21, 27, 47, 0.08);
+  border: 2px solid rgba(21, 27, 47, 0.12);
 
   box-sizing: border-box;
   cursor: pointer;
@@ -18,8 +18,9 @@
   background: $ta-surface;
 
   box-shadow:
-    0 18px 34px rgba(21, 27, 47, 0.08),
-    0 6px 14px rgba(21, 27, 47, 0.04);
+    0 18px 30px rgba(21, 27, 47, 0.09),
+    0 6px 13px rgba(21, 27, 47, 0.05),
+    0 1px 0 rgba(255, 255, 255, 0.7) inset;
 
   transition:
     transform 0.2s ease,
@@ -43,34 +44,40 @@ button.choice-card {
 
 button.mood-card:focus-visible,
 button.choice-card:focus-visible {
-  outline: 3px solid $ta-purple-soft;
+  outline: 3px solid rgba(124, 99, 242, 0.34);
   outline-offset: 3px;
 }
 
 button.mood-card:active,
 button.choice-card:active {
-  transform: scale(0.98);
+  transform: scale(0.985);
 }
 
 .mood-choice-energy,
 .choice-card-green {
   background:
-    linear-gradient(135deg, #dff2d8 0%, #f7fcf4 48%, #ffffff 100%);
-  border-color: rgba(88, 140, 58, 0.34);
+    radial-gradient(circle at 12% 18%, rgba(113, 179, 75, 0.14) 0, transparent 30%),
+    linear-gradient(135deg, #e2f6dc 0%, #f5fcf2 48%, #ffffff 100%);
+
+  border-color: rgba(73, 155, 67, 0.54);
 }
 
 .mood-choice-bof,
 .choice-card-yellow {
   background:
-    linear-gradient(135deg, #ffe9ae 0%, #fff8df 48%, #ffffff 100%);
-  border-color: rgba(190, 139, 43, 0.36);
+    radial-gradient(circle at 13% 18%, rgba(232, 172, 48, 0.16) 0, transparent 30%),
+    linear-gradient(135deg, #ffe7a6 0%, #fff7dd 48%, #ffffff 100%);
+
+  border-color: rgba(221, 162, 31, 0.58);
 }
 
 .mood-choice-flat,
 .choice-card-blue {
   background:
-    linear-gradient(135deg, #dcecff 0%, #f2f8ff 48%, #ffffff 100%);
-  border-color: rgba(89, 119, 170, 0.34);
+    radial-gradient(circle at 13% 18%, rgba(93, 153, 222, 0.14) 0, transparent 30%),
+    linear-gradient(135deg, #dceeff 0%, #f2f8ff 48%, #ffffff 100%);
+
+  border-color: rgba(76, 143, 222, 0.56);
 }
 
 .mood-card-arrow,
@@ -78,9 +85,31 @@ button.choice-card:active {
   position: absolute;
   right: 22px;
 
-  color: rgba(21, 27, 47, 0.48);
+  color: $ta-purple;
 
-  font-size: 30px;
+  font-size: 34px;
   line-height: 1;
-  font-weight: 900;
+  font-weight: 950;
+}
+
+@media (max-height: 760px) {
+  .mood-card,
+  .choice-card {
+    min-height: 88px;
+    border-radius: 26px;
+  }
+
+  .mood-card-arrow,
+  .choice-card-arrow {
+    font-size: 30px;
+  }
+}
+
+@media (max-height: 670px) {
+  .mood-card,
+  .choice-card {
+    min-height: 80px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
 }

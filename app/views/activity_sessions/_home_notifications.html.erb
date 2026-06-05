@@ -1,0 +1,71 @@
+<% notifications = [] %>
+
+<% if @pending_activity_session.present? %>
+  <% activity = @pending_activity_session.activity %>
+
+  <% notifications << {
+    type: "pending",
+    url: activity_session_path(@pending_activity_session),
+    kicker: "Activité en cours",
+    title: "Reprendre ton activité",
+    text: "#{activity.interest.name} · #{activity.duration.value} min"
+  } %>
+<% end %>
+
+<% notifications << {
+  type: "room",
+  url: room_path,
+  kicker: "Room",
+  title: "Ta room progresse",
+  text: "Encore #{@actions_before_reward} #{@actions_before_reward > 1 ? "actions" : "action"} avant un meuble",
+  progress: @room_progress_percent
+} %>
+
+<div
+  class="home-notification-stack home-notification-stack-count-<%= notifications.size %>"
+  data-controller="home-notifications"
+>
+  <% notifications.each_with_index do |notification, index| %>
+    <%= link_to notification[:url],
+                class: "home-notification-card home-notification-card-#{notification[:type]}",
+                data: {
+                  home_notifications_target: "card",
+                  index: index
+                } do %>
+
+      <% if notification[:type] == "pending" %>
+        <div class="home-notification-icon">
+          <i class="fa-solid fa-play"></i>
+        </div>
+      <% else %>
+        <div class="home-notification-room-visual">
+          <%= image_tag "mascot/room-preview.png",
+                        class: "home-notification-room-image",
+                        alt: "" %>
+        </div>
+      <% end %>
+
+      <div class="home-notification-content">
+        <div class="home-notification-topline">
+          <span><%= notification[:kicker] %></span>
+
+          <% if notifications.size > 1 %>
+            <em><%= index + 1 %>/<%= notifications.size %></em>
+          <% end %>
+        </div>
+
+        <strong><%= notification[:title] %></strong>
+
+        <p><%= notification[:text] %></p>
+
+        <% if notification[:type] == "room" %>
+          <div class="home-notification-progress">
+            <span style="width: <%= notification[:progress] %>%;"></span>
+          </div>
+        <% end %>
+      </div>
+
+      <span class="home-notification-arrow">›</span>
+    <% end %>
+  <% end %>
+</div>

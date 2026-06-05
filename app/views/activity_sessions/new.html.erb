@@ -2,29 +2,7 @@
 
   <%= render "activity_sessions/selection_topbar" %>
 
-  <%= link_to room_path, class: "room-notification" do %>
-    <div class="room-notification-visual">
-      <%= image_tag "mascot/room-preview.png",
-                    class: "room-notification-image",
-                    alt: "" %>
-    </div>
-
-    <div class="room-notification-content">
-      <strong>Ta room progresse</strong>
-
-      <span>
-        Encore <%= @actions_before_reward %>
-        <%= @actions_before_reward > 1 ? "actions" : "action" %>
-        avant un meuble
-      </span>
-
-      <div class="room-progress">
-        <span style="width: <%= @room_progress_percent %>%;"></span>
-      </div>
-    </div>
-
-    <span class="room-notification-arrow">›</span>
-  <% end %>
+  <%= render "activity_sessions/home_notifications" %>
 
   <div class="mood-hero mood-hero-after-room">
     <h1>

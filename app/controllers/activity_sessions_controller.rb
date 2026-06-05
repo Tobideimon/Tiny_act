@@ -7,6 +7,13 @@ class ActivitySessionsController < ApplicationController
   def new
     @moods = Mood.all
 
+    @pending_activity_session = current_user
+                                .activity_sessions
+                                .includes(activity: %i[interest duration])
+                                .where(finished: false)
+                                .order(created_at: :desc)
+                                .first
+
     actions_needed_for_reward = 3
     current_cycle_progress = @finished_sessions_count % actions_needed_for_reward
 

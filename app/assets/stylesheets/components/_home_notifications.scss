@@ -1,0 +1,386 @@
+.home-notification-stack {
+  position: relative;
+
+  height: 132px;
+  margin: 2px 0 16px;
+
+  overflow: visible;
+  touch-action: pan-y;
+  isolation: isolate;
+}
+
+/* ========================= */
+/* CARTES PRINCIPALES */
+/* ========================= */
+
+.home-notification-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  min-height: 88px;
+  padding: 12px 42px 12px 12px;
+
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  align-items: center;
+  gap: 12px;
+
+  border-radius: 21px;
+  border: 1px solid rgba(21, 27, 47, 0.14);
+
+  color: $ta-ink;
+  text-decoration: none;
+
+  background: linear-gradient(135deg, $ta-room-start 0%, $ta-room-end 100%);
+
+  box-shadow:
+    0 22px 34px rgba(21, 27, 47, 0.14),
+    0 8px 15px rgba(21, 27, 47, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.62) inset;
+
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.24s ease,
+    box-shadow 0.24s ease;
+
+  will-change: transform, opacity;
+  transform-origin: 50% 56%;
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+.home-notification-card:hover {
+  color: $ta-ink;
+}
+
+.home-notification-card:active {
+  box-shadow:
+    0 14px 24px rgba(21, 27, 47, 0.12),
+    0 5px 10px rgba(21, 27, 47, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.62) inset;
+}
+
+/* ========================= */
+/* VARIANTES DE CARTES */
+/* ========================= */
+
+.home-notification-card-pending {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(124, 99, 242, 0.14) 0, transparent 34%),
+    linear-gradient(135deg, #efeaff 0%, #fff7e6 100%);
+
+  border-color: rgba(124, 99, 242, 0.22);
+}
+
+.home-notification-card-room {
+  background:
+    radial-gradient(circle at 10% 12%, rgba(216, 154, 50, 0.13) 0, transparent 34%),
+    linear-gradient(135deg, $ta-room-start 0%, $ta-room-end 100%);
+
+  border-color: rgba(95, 75, 45, 0.18);
+}
+
+/* petit reflet façon carte plastifiée */
+.home-notification-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 1px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.58) 0%,
+      rgba(255, 255, 255, 0.18) 28%,
+      rgba(255, 255, 255, 0) 54%
+    );
+
+  pointer-events: none;
+}
+
+/* ========================= */
+/* POSITIONNEMENT DU TAS */
+/* ========================= */
+
+/* Carte visible */
+.home-notification-card.is-active {
+  z-index: 5;
+  opacity: 1;
+  pointer-events: auto;
+
+  transform:
+    translateX(-1px)
+    translateY(3px)
+    rotate(-1deg)
+    scale(1);
+}
+
+/* Carte derrière droite */
+.home-notification-card.is-next {
+  z-index: 4;
+  opacity: 0.92;
+  pointer-events: none;
+
+  transform:
+    translateX(19px)
+    translateY(19px)
+    rotate(3.2deg)
+    scale(0.963);
+}
+
+/* Carte derrière gauche */
+.home-notification-card.is-third {
+  z-index: 3;
+  opacity: 0.78;
+  pointer-events: none;
+
+  transform:
+    translateX(-17px)
+    translateY(31px)
+    rotate(-2.8deg)
+    scale(0.932);
+}
+
+/* Autres cartes invisibles */
+.home-notification-card.is-hidden {
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+
+  transform:
+    translateX(0)
+    translateY(42px)
+    rotate(0deg)
+    scale(0.9);
+}
+
+/* si seulement 1 carte, pas de rotation bizarre */
+.home-notification-stack-count-1 .home-notification-card.is-active {
+  transform:
+    translateX(0)
+    translateY(0)
+    rotate(0deg)
+    scale(1);
+}
+
+/* si seulement 2 cartes, la seconde reste visible mais plus propre */
+.home-notification-stack-count-2 .home-notification-card.is-next {
+  opacity: 0.86;
+
+  transform:
+    translateX(17px)
+    translateY(18px)
+    rotate(1.8deg)
+    scale(0.958);
+}
+
+/* ========================= */
+/* CONTENU */
+/* ========================= */
+
+.home-notification-icon {
+  width: 58px;
+  height: 58px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 17px;
+
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid rgba(21, 27, 47, 0.11);
+
+  color: $ta-purple;
+
+  font-size: 21px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 9px 15px rgba(21, 27, 47, 0.07);
+}
+
+.home-notification-room-visual {
+  width: 64px;
+  height: 58px;
+
+  overflow: hidden;
+
+  border-radius: 17px;
+  background: #ead3ac;
+  border: 1px solid rgba(95, 75, 45, 0.17);
+
+  box-shadow:
+    0 8px 14px rgba(74, 55, 28, 0.08);
+}
+
+.home-notification-room-image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+  object-fit: cover;
+}
+
+.home-notification-content {
+  position: relative;
+  z-index: 2;
+
+  min-width: 0;
+}
+
+.home-notification-topline {
+  margin-bottom: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.home-notification-topline span,
+.home-notification-topline em {
+  color: rgba(21, 27, 47, 0.58);
+
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+.home-notification-content strong {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: $ta-ink;
+
+  font-size: 14px;
+  line-height: 1.08;
+  font-weight: 850;
+  letter-spacing: -0.025em;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.home-notification-content p {
+  margin: 0;
+
+  color: rgba(21, 27, 47, 0.72);
+
+  font-size: 11px;
+  line-height: 1.25;
+  font-weight: 700;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.home-notification-progress {
+  width: 100%;
+  height: 5px;
+  margin-top: 8px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+  background: rgba(21, 27, 47, 0.13);
+}
+
+.home-notification-progress span {
+  display: block;
+  height: 100%;
+
+  border-radius: inherit;
+  background: linear-gradient(90deg, $ta-gold, $ta-purple);
+}
+
+.home-notification-arrow {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  z-index: 2;
+
+  color: $ta-purple;
+
+  font-size: 28px;
+  line-height: 1;
+  font-weight: 900;
+
+  transform: translateY(-50%);
+}
+
+/* ========================= */
+/* RESPONSIVE HAUTEUR COURTE */
+/* ========================= */
+
+@media (max-height: 760px) {
+  .home-notification-stack {
+    height: 118px;
+    margin-bottom: 12px;
+  }
+
+  .home-notification-card {
+    min-height: 80px;
+    padding: 10px 40px 10px 10px;
+
+    grid-template-columns: 58px 1fr;
+    gap: 10px;
+
+    border-radius: 20px;
+  }
+
+  .home-notification-card::before {
+    border-radius: 19px;
+  }
+
+  .home-notification-icon,
+  .home-notification-room-visual {
+    width: 54px;
+    height: 54px;
+
+    border-radius: 16px;
+  }
+
+  .home-notification-content strong {
+    font-size: 13px;
+  }
+
+  .home-notification-content p {
+    font-size: 10.5px;
+  }
+
+  .home-notification-card.is-next {
+    transform:
+      translateX(16px)
+      translateY(16px)
+      rotate(4.8deg)
+      scale(0.96);
+  }
+
+  .home-notification-card.is-third {
+    transform:
+      translateX(-14px)
+      translateY(26px)
+      rotate(-5.4deg)
+      scale(0.93);
+  }
+}
+
+/* ========================= */
+/* ACCESSIBILITÉ */
+/* ========================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .home-notification-card {
+    transition: none;
+  }
+}

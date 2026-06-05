@@ -1,7 +1,7 @@
 .mood-home-page {
   min-height: 100dvh;
   padding-top: 30px;
-  padding-bottom: 22px;
+  padding-bottom: 138px;
 
   display: flex;
   flex-direction: column;
@@ -12,49 +12,47 @@
 }
 
 .mood-hero-after-room {
-  margin-top: 14px;
+  margin-top: 8px;
+  margin-bottom: 14px;
 }
 
 .mood-hero h1,
 .mood-header h1 {
-  max-width: 260px;
+  max-width: 100%;
   margin: 0;
 
-  color: rgba(21, 27, 47, 0.72);
+  color: $ta-ink;
 
-  font-size: 23px;
-  line-height: 1.18;
-  font-weight: 600;
-  letter-spacing: -0.015em;
+  font-size: 30px;
+  line-height: 1.08;
+  font-weight: 850;
+  letter-spacing: -0.045em;
 }
 
 .mood-header {
   text-align: center;
-  margin-bottom: 34px;
+  margin-bottom: 28px;
 }
 
 .mood-form {
-  flex: 1;
+  flex: 0 0 auto;
 
   display: flex;
   flex-direction: column;
 }
 
 .mood-list {
-  flex: 1;
-
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: clamp(14px, 2.1vh, 22px);
+  gap: 18px;
 }
 
 .mood-mascot-image-wrapper {
   position: absolute;
   left: 24px;
 
-  width: 84px;
-  height: 84px;
+  width: 86px;
+  height: 86px;
 
   display: grid;
   place-items: center;
@@ -63,17 +61,20 @@
 }
 
 .mood-mascot-image {
-  width: 104px;
-  height: 104px;
+  width: 108px;
+  height: 108px;
 
   display: block;
   object-fit: contain;
+
+  filter:
+    drop-shadow(0 9px 13px rgba(21, 27, 47, 0.08));
 }
 
 .mood-text {
   width: 100%;
-  padding-left: 108px;
-  padding-right: 36px;
+  padding-left: 112px;
+  padding-right: 42px;
 
   text-align: center;
 }
@@ -81,10 +82,11 @@
 .mood-text strong {
   display: block;
 
-  color: rgba(21, 27, 47, 0.78);
+  color: $ta-ink;
 
-  font-size: 17px;
-  font-weight: 650;
+  font-size: 24px;
+  font-weight: 850;
+  letter-spacing: -0.045em;
 }
 
 .mood-text-simple {
@@ -92,15 +94,16 @@
   align-items: center;
   justify-content: center;
 
-  min-height: 48px;
+  min-height: 56px;
 }
 
 .mood-text-simple strong {
-  color: rgba(21, 27, 47, 0.78);
+  color: $ta-ink;
 
-  font-size: 18px;
-  font-weight: 650;
-  letter-spacing: -0.015em;
+  font-size: 25px;
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: -0.045em;
 }
 
 .mood-icon {
@@ -147,50 +150,63 @@
 @media (max-height: 760px) {
   .mood-home-page {
     padding-top: 24px;
-    padding-bottom: 16px;
+    padding-bottom: 118px;
   }
 
   .mood-topbar {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
 
-  .mood-brand-image {
-    width: 48px;
-    height: 48px;
-  }
-
-  .mood-brand-name {
-    font-size: 12px;
-  }
-
-  .mood-xp-pill {
-    height: 32px;
-    padding: 0 10px;
-  }
-
-  .room-notification {
-    margin-bottom: 12px;
-  }
-
-  .mood-hero {
+  .mood-hero-after-room {
+    margin-top: 4px;
     margin-bottom: 10px;
   }
 
   .mood-hero h1,
   .mood-header h1 {
-    font-size: 21px;
+    font-size: 26px;
+  }
+
+  .mood-list {
+    gap: 13px;
   }
 
   .mood-card {
-    min-height: 88px;
+    min-height: 86px;
+  }
+
+  .mood-mascot-image-wrapper {
+    left: 20px;
+
+    width: 76px;
+    height: 76px;
   }
 
   .mood-mascot-image {
-    width: 92px;
-    height: 92px;
+    width: 94px;
+    height: 94px;
+  }
+
+  .mood-text {
+    padding-left: 96px;
   }
 
   .mood-text-simple strong {
-    font-size: 17px;
+    font-size: 22px;
+  }
+}
+
+@media (max-height: 670px) {
+  .mood-home-page {
+    padding-bottom: 104px;
+  }
+
+  .mood-list {
+    gap: 10px;
+  }
+
+  .mood-hero h1,
+  .mood-header h1 {
+    font-size: 24px;
   }
 }
