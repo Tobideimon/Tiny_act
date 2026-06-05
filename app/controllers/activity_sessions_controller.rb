@@ -80,10 +80,18 @@ class ActivitySessionsController < ApplicationController
 
     if params[:activity_session].present?
       @activity_session.update!(activity_session_params)
-      redirect_back fallback_location: activity_path(@activity_session.activity,
-                                                     activity_session_id: @activity_session.id)
+
+      redirect_back fallback_location: activity_path(
+        @activity_session.activity,
+        activity_session_id: @activity_session.id
+      )
     else
+      was_already_finished = @activity_session.finished?
+
       @activity_session.update!(finished: true)
+
+      add_interest_xp_for(@activity_session) unless was_already_finished
+
       redirect_to activity_session_path(@activity_session)
     end
   end
@@ -157,5 +165,18 @@ class ActivitySessionsController < ApplicationController
   def set_selection_topbar
     @finished_sessions_count = current_user.activity_sessions.where(finished: true).count
     @home_xp = @finished_sessions_count * 15
+  end
+
+  def add_interest_xp_for(activity_session)
+    interest = activity_session.activity.interest
+
+    progress = UserInterestProgress.find_or_create_by!(
+      user: current_user,
+      interest: interest
+    ) do |p|
+      p.xp = 0
+    end
+
+    progress.increment!(:xp, 15)
   end
 end

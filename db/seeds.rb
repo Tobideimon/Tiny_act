@@ -7,7 +7,8 @@ UserInterest.destroy_all
 Activity.destroy_all
 LanguageItem.destroy_all
 CultureQuestion.destroy_all if defined?(CultureQuestion)
-
+RoomFurniture.destroy_all
+Furniture.destroy_all
 User.destroy_all
 Interest.destroy_all
 Mood.destroy_all
@@ -349,3 +350,53 @@ puts "#{Activity.where(activity_type: "word_learning", active: true).count} word
 puts "#{Activity.where(activity_type: "sentence_completion", active: true).count} sentence completion activities created"
 puts "#{Activity.where(activity_type: "llm_chat", active: false).count} inactive LLM chat activities created"
 puts "#{Activity.where(activity_type: "culture_quiz", active: true).count} culture quiz activities created"
+
+puts "Creating furnitures..."
+
+
+Furniture.create!(
+  name: "Books",
+  image_url: "furnitures/books.png",
+  required_xp: 10,
+  width: 1,
+  height: 1,
+  interest: culture
+)
+
+Furniture.create!(
+  name: "escalade",
+  image_url: "furnitures/Escalade.png",
+  interest: sport,
+  required_xp: 50,
+  width: 2,
+  height: 1
+)
+
+Furniture.create!(
+  name: "orangechair",
+  image_url: "furnitures/chair.png",
+  interest: culture,
+  required_xp: 5,
+  width: 1,
+  height: 1
+)
+
+Furniture.create!(
+  name: "Punching Ball",
+  image_url: "furnitures/punching_ball.png",
+  width: 1,
+  height: 1,
+  interest: sport,
+  required_xp: 30
+)
+
+Furniture.create!(
+  name: "Sport Mat",
+  image_url: "furnitures/sport_mat.png",
+  width: 2,
+  height: 1,
+  interest: sport,
+  required_xp: 5
+)
+
+puts "#{Furniture.count} furnitures created!"

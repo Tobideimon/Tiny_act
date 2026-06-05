@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   validates :avatar, inclusion: { in: AVATARS }, allow_blank: true
   has_one :room, dependent: :destroy
+  has_many :user_interest_progresses, dependent: :destroy
   has_many :activity_sessions, dependent: :destroy
   has_many :user_interests, dependent: :destroy
   has_many :interests, through: :user_interests

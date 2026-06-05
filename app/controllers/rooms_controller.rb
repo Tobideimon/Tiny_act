@@ -4,8 +4,17 @@ class RoomsController < ApplicationController
   def show
     @room = current_user.room || current_user.create_room!(width: Room::GRID_WIDTH, height: Room::GRID_HEIGHT)
     @room.ensure_default_size!
-    @available_furnitures = Furniture.all
+    @available_furnitures = Furniture
+      .joins(:interest)
+      .select do |furniture|
+        progress = current_user.user_interest_progresses.find_by(
+          interest: furniture.interest
+        )
 
+        user_xp = progress&.xp || 0
+
+        user_xp >= furniture.required_xp
+      end
     @room_data = {
       id: @room.id,
       width: @room.width,
