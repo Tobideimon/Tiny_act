@@ -9,7 +9,7 @@ namespace :productivite_activities do
       exit
     end
 
-    # interest = Interest.find_or_create_by!(name: "Productivité")
+    interest = Interest.find_or_create_by!(name: "Productivité")
     puts "🗂  Importing productivité activities..."
     imported_count = 0
     updated_count = 0
