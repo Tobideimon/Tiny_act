@@ -111,6 +111,7 @@ class ActivitiesController < ApplicationController
     @code_questions = CodeQuestion
                       .where(difficulty: code_difficulty)
                       .order(Arel.sql("RANDOM()"))
+                      .limit(code_question_limit)
   end
 
   def code_difficulty
