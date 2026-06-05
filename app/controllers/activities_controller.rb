@@ -19,6 +19,11 @@ class ActivitiesController < ApplicationController
       return
     end
 
+    if @activity.code_quiz?
+      load_code_quiz
+      return
+    end
+
     return unless @activity.language_activity?
 
     assign_language_if_needed
@@ -99,6 +104,31 @@ class ActivitiesController < ApplicationController
       40
     else
       10
+    end
+  end
+
+  def load_code_quiz
+    @code_questions = CodeQuestion
+                      .where(difficulty: code_difficulty)
+                      .order(Arel.sql("RANDOM()"))
+                      .limit(code_question_limit)
+  end
+
+  def code_difficulty
+    case @activity.mood.name
+    when "À plat"  then "easy"
+    when "Mitigé"  then "medium"
+    when "En forme" then "hard"
+    else "easy"
+    end
+  end
+
+  def code_question_limit
+    case @activity.duration.value
+    when 5  then 10
+    when 15 then 24
+    when 30 then 40
+    else 10
     end
   end
 end

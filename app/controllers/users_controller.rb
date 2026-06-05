@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   def show
     @user = current_user
-    @available_furnitures = Furniture.all
     @room = @user.room || @user.create_room!(width: Room::GRID_WIDTH, height: Room::GRID_HEIGHT)
     @room.ensure_default_size!
 

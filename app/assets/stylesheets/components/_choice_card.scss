@@ -54,19 +54,22 @@ button.choice-card:active {
 
 .mood-choice-energy,
 .choice-card-green {
-  background: linear-gradient(135deg, #ffffff 0%, #edf8e8 100%);
+  background:
+    linear-gradient(135deg, #dff2d8 0%, #f7fcf4 48%, #ffffff 100%);
   border-color: rgba(88, 140, 58, 0.34);
 }
 
 .mood-choice-bof,
 .choice-card-yellow {
-  background: linear-gradient(135deg, #ffffff 0%, #fff3cf 100%);
+  background:
+    linear-gradient(135deg, #ffe9ae 0%, #fff8df 48%, #ffffff 100%);
   border-color: rgba(190, 139, 43, 0.36);
 }
 
 .mood-choice-flat,
 .choice-card-blue {
-  background: linear-gradient(135deg, #ffffff 0%, #e8f2ff 100%);
+  background:
+    linear-gradient(135deg, #dcecff 0%, #f2f8ff 48%, #ffffff 100%);
   border-color: rgba(89, 119, 170, 0.34);
 }
 

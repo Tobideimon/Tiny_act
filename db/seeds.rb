@@ -7,7 +7,8 @@ UserInterest.destroy_all
 Activity.destroy_all
 LanguageItem.destroy_all
 CultureQuestion.destroy_all if defined?(CultureQuestion)
-
+RoomFurniture.destroy_all
+Furniture.destroy_all
 User.destroy_all
 Interest.destroy_all
 Mood.destroy_all
@@ -195,6 +196,32 @@ puts "🧠 Creating culture quiz activities..."
   )
 end
 
+puts "💻 Creating code quiz activities..."
+code = Interest.find_or_create_by!(name: "Code")
+
+[
+  { mood: en_forme, duration: five_minutes },
+  { mood: en_forme, duration: fifteen_minutes },
+  { mood: en_forme, duration: thirty_minutes },
+  { mood: mitige,   duration: five_minutes },
+  { mood: mitige,   duration: fifteen_minutes },
+  { mood: mitige,   duration: thirty_minutes },
+  { mood: a_plat,   duration: five_minutes },
+  { mood: a_plat,   duration: fifteen_minutes },
+  { mood: a_plat,   duration: thirty_minutes }
+].each do |data|
+  Activity.create!(
+    name: "Quiz code",
+    content: "Teste tes connaissances en développement web et IA.",
+    mood: data[:mood],
+    location: anywhere,
+    duration: data[:duration],
+    interest: code,
+    activity_type: "code_quiz",
+    active: true
+  )
+end
+
 puts "🧘 Creating non-sport demo activities..."
 
 Activity.create!(
@@ -290,12 +317,19 @@ Rake::Task["sport_activities:import"].invoke
 puts "🗂  Importing productivité activities from CSV..."
 Rake::Task["productivite_activities:import"].invoke
 
+puts "#{Activity.where(activity_type: "code_quiz", active: true).count} code quiz activities created"
+
 puts "📸 Importing photo activities from CSV..."
 Rake::Task["photo_activities:import"].invoke
 
 if defined?(CultureQuestion)
   puts "🧠 Importing culture questions from CSV..."
   Rake::Task["culture_questions:import_csv"].invoke
+end
+
+if defined?(CodeQuestion)
+  puts "💻 Importing code questions from CSV..."
+  Rake::Task["code_questions:import_csv"].invoke
 end
 
 puts "✅ Seed completed!"
@@ -316,3 +350,53 @@ puts "#{Activity.where(activity_type: "word_learning", active: true).count} word
 puts "#{Activity.where(activity_type: "sentence_completion", active: true).count} sentence completion activities created"
 puts "#{Activity.where(activity_type: "llm_chat", active: false).count} inactive LLM chat activities created"
 puts "#{Activity.where(activity_type: "culture_quiz", active: true).count} culture quiz activities created"
+
+puts "Creating furnitures..."
+
+
+Furniture.create!(
+  name: "Books",
+  image_url: "furnitures/books.png",
+  required_xp: 10,
+  width: 1,
+  height: 1,
+  interest: culture
+)
+
+Furniture.create!(
+  name: "escalade",
+  image_url: "furnitures/Escalade.png",
+  interest: sport,
+  required_xp: 50,
+  width: 2,
+  height: 1
+)
+
+Furniture.create!(
+  name: "orangechair",
+  image_url: "furnitures/chair.png",
+  interest: culture,
+  required_xp: 5,
+  width: 1,
+  height: 1
+)
+
+Furniture.create!(
+  name: "Punching Ball",
+  image_url: "furnitures/punching_ball.png",
+  width: 1,
+  height: 1,
+  interest: sport,
+  required_xp: 30
+)
+
+Furniture.create!(
+  name: "Sport Mat",
+  image_url: "furnitures/sport_mat.png",
+  width: 2,
+  height: 1,
+  interest: sport,
+  required_xp: 5
+)
+
+puts "#{Furniture.count} furnitures created!"

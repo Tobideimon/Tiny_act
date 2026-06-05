@@ -64,52 +64,16 @@
       <h2 class="profile-section-title">Ma room</h2>
 
       <% if @user == current_user %>
-        <div class="inventory-menu" data-controller="inventory">
-          <button
-            class="inventory-toggle"
-            type="button"
-            data-action="click->inventory#toggle"
-          >
-            <i class="fa-solid fa-box-open"></i>
-          </button>
-
-          <div class="inventory-panel" data-inventory-target="panel">
-            <h2 class="profile-section-title">Inventaire</h2>
-
-            <div class="room-inventory">
-              <% @available_furnitures.each do |furniture| %>
-                <div class="inventory-item">
-                  <%= image_tag furniture.image_url,
-                      class: "inventory-item-image" %>
-
-                  <p><%= furniture.name %></p>
-
-                  <%= button_to "Placer",
-                      room_furnitures_path,
-                      method: :post,
-                      data: { action: "click->inventory#close" },
-                      params: {
-                        room_furniture: {
-                          furniture_id: furniture.id,
-                          x: 0,
-                          y: 0,
-                          z: 0,
-                          rotation: 0
-                        }
-                      },
-                      class: "profile-btn" %>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        </div>
+        <%= link_to room_path, class: "room-edit-button" do %>
+          <i class="fa-solid fa-pen"></i>
+        <% end %>
       <% end %>
     </div>
 
     <div class="room-wrapper">
       <%= render "users/room",
           room_data: @room_data,
-          editable: @user == current_user %>
+          editable: false %>
     </div>
   </div>
 

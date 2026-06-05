@@ -1,7 +1,65 @@
-<h1>Ma room</h1>
+<div class="room-editor-page">
+  <header class="room-editor-header">
+    <%= link_to user_path, class: "room-editor-back" do %>
+      <i class="fa-solid fa-arrow-left"></i>
+    <% end %>
 
-<div
-  id="room-editor"
-  data-room="<%= @room_data.to_json %>"
->
+    <div class="room-editor-heading">
+      <h1 class="room-editor-title">Modifier ma room</h1>
+    </div>
+  </header>
+
+  <main class="room-editor-main">
+    <div class="room-editor-stage">
+      <div class="room-wrapper">
+        <%= render "users/room",
+            room_data: @room_data,
+            editable: true %>
+      </div>
+    </div>
+  </main>
+
+  <div class="room-editor-inventory" data-controller="inventory">
+    <button
+      class="room-editor-inventory-toggle"
+      type="button"
+      data-action="click->inventory#toggle"
+      aria-label="Inventaire"
+    >
+      <i class="fa-solid fa-box-open"></i>
+    </button>
+
+    <div class="room-editor-inventory-panel" data-inventory-target="panel">
+      <div class="room-editor-panel-handle"></div>
+      <h2 class="room-editor-panel-title">Inventaire</h2>
+
+      <div class="room-editor-inventory-grid">
+        <% @available_furnitures.each do |furniture| %>
+          <div class="room-editor-inventory-item">
+            <%= image_tag furniture.image_url,
+                class: "room-editor-inventory-image" %>
+
+            <p class="room-editor-inventory-name">
+              <%= furniture.name %>
+            </p>
+
+            <%= button_to "Placer",
+                room_furnitures_path,
+                method: :post,
+                data: { action: "click->inventory#close" },
+                params: {
+                  room_furniture: {
+                    furniture_id: furniture.id,
+                    x: 0,
+                    y: 0,
+                    z: 0,
+                    rotation: 0
+                  }
+                },
+                class: "room-editor-place-btn" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
