@@ -44,6 +44,8 @@ drawing        = Interest.create!(name: "Dessin")
 writing        = Interest.create!(name: "Écriture")
 languages      = Interest.create!(name: "Langues")
 culture        = Interest.create!(name: "Culture")
+productivity   = Interest.create!(name: "Productivity")
+code           = Interest.create!(name: "Code")
 
 puts "🌍 Creating language activities..."
 
@@ -197,7 +199,6 @@ puts "🧠 Creating culture quiz activities..."
 end
 
 puts "💻 Creating code quiz activities..."
-code = Interest.find_or_create_by!(name: "Code")
 
 [
   { mood: en_forme, duration: five_minutes },
@@ -375,7 +376,7 @@ Furniture.create!(
 Furniture.create!(
   name: "orangechair",
   image_url: "furnitures/chair.png",
-  interest: culture,
+  interest: ,
   required_xp: 5,
   width: 1,
   height: 1
@@ -388,6 +389,15 @@ Furniture.create!(
   height: 1,
   interest: sport,
   required_xp: 30
+)
+
+Furniture.create!(
+  name: "Books",
+  image_url: "furnitures/books.png",
+  required_xp: 5,
+  width: 1,
+  height: 1,
+  interest: culture
 )
 
 Furniture.create!(
