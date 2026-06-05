@@ -8,24 +8,24 @@
 }
 
 .mood-hero {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .mood-hero-after-room {
-  margin-top: 16px;
+  margin-top: 14px;
 }
 
 .mood-hero h1,
 .mood-header h1 {
-  max-width: 320px;
+  max-width: 260px;
   margin: 0;
 
-  color: $ta-ink;
+  color: rgba(21, 27, 47, 0.72);
 
-  font-size: 28px;
-  line-height: 1.08;
-  font-weight: 800;
-  letter-spacing: -0.04em;
+  font-size: 23px;
+  line-height: 1.18;
+  font-weight: 600;
+  letter-spacing: -0.015em;
 }
 
 .mood-header {
@@ -81,10 +81,10 @@
 .mood-text strong {
   display: block;
 
-  color: $ta-ink;
+  color: rgba(21, 27, 47, 0.78);
 
-  font-size: 18px;
-  font-weight: 800;
+  font-size: 17px;
+  font-weight: 650;
 }
 
 .mood-text-simple {
@@ -96,11 +96,11 @@
 }
 
 .mood-text-simple strong {
-  color: $ta-ink;
+  color: rgba(21, 27, 47, 0.78);
 
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
 }
 
 .mood-icon {
@@ -178,7 +178,7 @@
 
   .mood-hero h1,
   .mood-header h1 {
-    font-size: 24px;
+    font-size: 21px;
   }
 
   .mood-card {
@@ -191,6 +191,6 @@
   }
 
   .mood-text-simple strong {
-    font-size: 18px;
+    font-size: 17px;
   }
 }
