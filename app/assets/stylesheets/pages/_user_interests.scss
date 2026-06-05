@@ -1,24 +1,9 @@
-.interests-page {
-  background: $ta-cream;
-  min-height: 100vh;
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 32px 20px 40px;
-}
-
-.interests-title {
-  color: $ta-navy;
-  font-weight: 700;
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 24px;
-}
-
 .interests-grid {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin-bottom: 24px;
+  gap: 16px;
+  margin-top: 28px;
+  padding-bottom: 170px;
 }
 
 .interest-option {
@@ -30,144 +15,336 @@
   display: none;
 }
 
-.interest-option span {
+.interest-card {
+  position: relative;
+
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 22px;
 
-  border-radius: 18px;
+  width: 100%;
+  min-height: clamp(92px, 12.2vh, 116px);
 
-  padding: 18px 20px;
+  padding: 16px 22px;
 
-  color: white;
+  border-radius: 30px;
+  border: 2px solid transparent;
 
-  font-weight: 700;
-  font-size: 18px;
+  box-sizing: border-box;
 
-  text-shadow: 0 1px 2px rgba(0,0,0,0.12);
+  color: $ta-ink;
+  font-size: 22px;
+  font-weight: 800;
 
-  transition: all 0.2s ease;
-  border: 3px solid transparent;
+  box-shadow:
+    0 18px 34px rgba(21, 27, 47, 0.08),
+    0 6px 14px rgba(21, 27, 47, 0.04);
+
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    background 0.22s ease;
+}
+
+.interest-option:hover .interest-card {
+  transform: translateY(-2px);
+}
+
+.interest-option input:checked + .interest-card {
+  transform: translateY(-3px) scale(1.01);
+
+  box-shadow:
+    0 22px 42px rgba(21, 27, 47, 0.13),
+    0 8px 18px rgba(21, 27, 47, 0.07);
+}
+
+.interest-icon-shell {
+  width: 64px;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(255,255,255,.25);
+
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.15),
+    0 2px 8px rgba(21,27,47,.05);
+
+  flex-shrink: 0;
 }
 
 .interest-icon {
-  width: 38px;
-  height: 38px;
-  object-fit: contain;
+  width: 46px;
+  height: 46px;
+
+  opacity: 1;
+
+  filter:
+    drop-shadow(0 1px 2px rgba(21,27,47,.15));
+}
+
+/* SPORT */
+.interest-sport .interest-icon-shell {
+  background: linear-gradient(
+    135deg,
+    rgba(159,211,157,.45) 0%,
+    rgba(159,211,157,.32) 100%
+  );
+}
+
+/* CRÉATIVITÉ */
+.interest-creativity .interest-icon-shell {
+  background: linear-gradient(
+    135deg,
+    rgba(235,200,167,.45) 0%,
+    rgba(235,200,167,.32) 100%
+  );
+}
+
+/* BIEN-ÊTRE */
+.interest-wellbeing .interest-icon-shell {
+  background: linear-gradient(
+    135deg,
+    rgba(183,205,233,.45) 0%,
+    rgba(183,205,233,.32) 100%
+  );
+}
+
+/* PHOTO */
+.interest-photo .interest-icon-shell {
+  background: linear-gradient(
+    135deg,
+    rgba(232,189,212,.45) 0%,
+    rgba(232,189,212,.32) 100%
+  );
+}
+
+/* DESSIN */
+.interest-drawing .interest-icon-shell {
+  background: linear-gradient(
+    135deg,
+    rgba(185,213,211,.45) 0%,
+    rgba(185,213,211,.32) 100%
+  );
+}
+
+/* ÉCRITURE */
+.interest-writing .interest-icon-shell {
+  background: linear-gradient(
+    135deg,
+    rgba(234,217,147,.45) 0%,
+    rgba(234,217,147,.32) 100%
+  );
+}
+
+/* LANGUES */
+.interest-langues .interest-icon-shell {
+  background: linear-gradient(
+    135deg,
+    rgba(182,168,234,.45) 0%,
+    rgba(182,168,234,.32) 100%
+  );
+}
+
+/* CULTURE */
+.interest-culture .interest-icon-shell {
+  background: linear-gradient(
+    135deg,
+    rgba(231,185,175,.45) 0%,
+    rgba(231,185,175,.32) 100%
+  );
+}
+.interest-name {
+  color: $ta-ink;
 }
 
 /* SPORT */
 
 .interest-sport {
-  background: #A8DDA8;
+  background: linear-gradient(135deg, #ffffff 0%, $interest-sport-bg 100%);
+  border-color: $interest-sport-border;
 }
 
 .interest-option input:checked + .interest-sport {
-  background: #67C56B;
-  border-color: #43A047;
-}
-
-/* LANGUES */
-
-.interest-langues {
-  background: #BFB6F8;
-}
-
-.interest-option input:checked + .interest-langues {
-  background: #7D6AF0;
-  border-color: #5B4AE3;
-}
-
-/* BIEN-ÊTRE */
-
-.interest-wellbeing {
-  background: #B8D4F2;
-}
-
-.interest-option input:checked + .interest-wellbeing {
-  background: #6EA9E8;
-  border-color: #4D8DD6;
+  background: linear-gradient(135deg, #ffffff 0%, $interest-sport-selected 100%);
+  border-color: $interest-sport-selected-border;
 }
 
 /* CRÉATIVITÉ */
 
 .interest-creativity {
-  background: #F5D0AF;
+  background: linear-gradient(135deg, #ffffff 0%, $interest-creativity-bg 100%);
+  border-color: $interest-creativity-border;
 }
 
 .interest-option input:checked + .interest-creativity {
-  background: #F1A766;
-  border-color: #E78A3A;
+  background: linear-gradient(135deg, #ffffff 0%, $interest-creativity-selected 100%);
+  border-color: $interest-creativity-selected-border;
+}
+
+/* BIEN-ÊTRE */
+
+.interest-wellbeing {
+  background: linear-gradient(135deg, #ffffff 0%, $interest-wellbeing-bg 100%);
+  border-color: $interest-wellbeing-border;
+}
+
+.interest-option input:checked + .interest-wellbeing {
+  background: linear-gradient(135deg, #ffffff 0%, $interest-wellbeing-selected 100%);
+  border-color: $interest-wellbeing-selected-border;
 }
 
 /* PHOTO */
 
 .interest-photo {
-  background: #F3C1D8;
-
+  background: linear-gradient(135deg, #ffffff 0%, $interest-photo-bg 100%);
+  border-color: $interest-photo-border;
 }
 
 .interest-option input:checked + .interest-photo {
-  background: #EB7FB1;
-  border-color: #DD5F98;
+  background: linear-gradient(135deg, #ffffff 0%, $interest-photo-selected 100%);
+  border-color: $interest-photo-selected-border;
 }
 
 /* DESSIN */
 
 .interest-drawing {
-  background: #B8DAD7;
+  background: linear-gradient(135deg, #ffffff 0%, $interest-drawing-bg 100%);
+  border-color: $interest-drawing-border;
 }
 
 .interest-option input:checked + .interest-drawing {
-  background: #67BDB4;
-  border-color: #469F95;
+  background: linear-gradient(135deg, #ffffff 0%, $interest-drawing-selected 100%);
+  border-color: $interest-drawing-selected-border;
 }
 
 /* ÉCRITURE */
 
 .interest-writing {
-  background: #F5E4A4;
+  background: linear-gradient(135deg, #ffffff 0%, $interest-writing-bg 100%);
+  border-color: $interest-writing-border;
 }
 
 .interest-option input:checked + .interest-writing {
-  background: #E8C94D;
-  border-color: #D8B62A;
+  background: linear-gradient(135deg, #ffffff 0%, $interest-writing-selected 100%);
+  border-color: $interest-writing-selected-border;
+}
+
+/* LANGUES */
+
+.interest-langues {
+  background: linear-gradient(135deg, #ffffff 0%, $interest-language-bg 100%);
+  border-color: $interest-language-border;
+}
+
+.interest-option input:checked + .interest-langues {
+  background: linear-gradient(135deg, #ffffff 0%, $interest-language-selected 100%);
+  border-color: $interest-language-selected-border;
 }
 
 /* CULTURE */
 
 .interest-culture {
-  background: #F0C0B7;
+  background: linear-gradient(135deg, #ffffff 0%, $interest-culture-bg 100%);
+  border-color: $interest-culture-border;
 }
 
 .interest-option input:checked + .interest-culture {
-  background: #E08E7D;
-  border-color: #D36C57;
+  background: linear-gradient(135deg, #ffffff 0%, $interest-culture-selected 100%);
+  border-color: $interest-culture-selected-border;
 }
 
-.interest-option input:checked + span {
-  transform: scale(1.02);
+/* INTÉRÊT NON DISPONIBLE */
 
-  box-shadow:
-  0 8px 18px rgba(0,0,0,0.08);
-
-  transition: all 0.2s ease;
+.interest-disabled {
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(21, 27, 47, 0.06);
+  opacity: 0.6;
 }
+
+/* BOUTON */
 
 .interests-submit {
-  width: 100%;
+  position: fixed;
+
+  left: 50%;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+
+  transform: translateX(-50%);
+
+  width: calc(100% - 36px);
+  max-width: 394px;
+
   border: none;
   cursor: pointer;
 
   background: $ta-yellow;
   color: white;
 
-  font-weight: 700;
-  font-size: 17px;
+  font-size: 18px;
+  font-weight: 800;
 
-  padding: 16px;
+  padding: 18px;
 
-  border-radius: 30px;
+  border-radius: 999px;
 
-  box-shadow: 0 6px 16px rgba($ta-yellow, 0.4);
+  box-shadow:
+    0 14px 28px rgba(255, 194, 60, 0.35);
+
+  z-index: 30;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.interests-submit:hover {
+  transform: translateX(-50%) translateY(-2px);
+}
+
+/* RESPONSIVE */
+
+@media (max-height: 760px) {
+  .interests-grid {
+    gap: 13px;
+  }
+
+  .interest-card {
+    min-height: 86px;
+  }
+
+  .interest-icon-shell {
+    width: 58px;
+    height: 58px;
+  }
+
+  .interest-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-height: 670px) {
+  .interests-grid {
+    gap: 10px;
+  }
+
+  .interest-card {
+    min-height: 78px;
+  }
+
+  .interest-icon-shell {
+    width: 52px;
+    height: 52px;
+  }
+
+  .interest-icon {
+    width: 36px;
+    height: 36px;
+  }
 }

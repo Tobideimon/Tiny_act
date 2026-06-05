@@ -1,5 +1,15 @@
-<div class="interests-page">
-  <h1 class="interests-title">Tes centres d'intérêt</h1>
+  <div class="phone-page setup-page has-bottom-action has-step-progress">
+
+  <%= render "activity_sessions/selection_topbar" %>
+
+  <div class="mood-hero setup-hero">
+    <h1>Tes centres d'intérêt</h1>
+  </div>
+
+  <p class="setup-helper">
+    Choisis les activités qui t'intéressent.<br>
+    On te recommandera des idées rien que pour toi.
+  </p>
 
   <%= form_with url: user_interests_path, method: :patch do %>
 
@@ -9,24 +19,15 @@
 
         <% css_class =
           case interest.name
-          when "Sport"
-            "interest-sport"
-          when "Langues"
-            "interest-langues"
-          when "Bien-être"
-            "interest-wellbeing"
-          when "Créativité"
-            "interest-creativity"
-          when "Photo"
-            "interest-photo"
-          when "Dessin"
-            "interest-drawing"
-          when "Écriture"
-            "interest-writing"
-          when "Culture"
-            "interest-culture"
-          else
-            ""
+          when "Sport" then "interest-sport"
+          when "Langues" then "interest-langues"
+          when "Bien-être" then "interest-wellbeing"
+          when "Créativité" then "interest-creativity"
+          when "Photo" then "interest-photo"
+          when "Dessin" then "interest-drawing"
+          when "Écriture" then "interest-writing"
+          when "Culture" then "interest-culture"
+          else "interest-disabled"
           end
         %>
 
@@ -38,34 +39,31 @@
                 @selected_interest_ids.include?(interest.id)
               ) %>
 
-          <span class="<%= css_class %>">
+          <span class="interest-card <%= css_class %>">
 
-            <% if interest.name == "Sport" %>
-              <%= image_tag "sport.png", class: "interest-icon" %>
+            <span class="interest-icon-shell">
+              <% if interest.name == "Sport" %>
+                <%= image_tag "sport.png", class: "interest-icon" %>
+              <% elsif interest.name == "Langues" %>
+                <%= image_tag "langue.png", class: "interest-icon" %>
+              <% elsif interest.name == "Bien-être" %>
+                <%= image_tag "bien_etre.png", class: "interest-icon" %>
+              <% elsif interest.name == "Photo" %>
+                <%= image_tag "photo.png", class: "interest-icon" %>
+              <% elsif interest.name == "Dessin" %>
+                <%= image_tag "dessin.png", class: "interest-icon" %>
+              <% elsif interest.name == "Écriture" %>
+                <%= image_tag "ecriture.png", class: "interest-icon" %>
+              <% elsif interest.name == "Créativité" %>
+                <%= image_tag "creativite.png", class: "interest-icon" %>
+              <% elsif interest.name == "Culture" %>
+                <%= image_tag "culture.png", class: "interest-icon" %>
+              <% end %>
+            </span>
 
-            <% elsif interest.name == "Langues" %>
-              <%= image_tag "langue.png", class: "interest-icon" %>
-
-            <% elsif interest.name == "Bien-être" %>
-              <%= image_tag "bien_etre.png", class: "interest-icon" %>
-
-            <% elsif interest.name == "Photo" %>
-              <%= image_tag "photo.png", class: "interest-icon" %>
-
-            <% elsif interest.name == "Dessin" %>
-              <%= image_tag "dessin.png", class: "interest-icon" %>
-
-            <% elsif interest.name == "Écriture" %>
-              <%= image_tag "ecriture.png", class: "interest-icon" %>
-
-            <% elsif interest.name == "Créativité" %>
-              <%= image_tag "creativite.png", class: "interest-icon" %>
-
-            <% elsif interest.name == "Culture" %>
-              <%= image_tag "culture.png", class: "interest-icon" %>
-
-            <% end %>
-            <%= interest.name %>
+            <span class="interest-name">
+              <%= interest.name %>
+            </span>
 
           </span>
 
@@ -75,8 +73,11 @@
 
     </div>
 
-    <%= submit_tag "Enregistrer",
-                   class: "interests-submit" %>
+    <%= submit_tag "Enregistrer", class: "interests-submit" %>
 
   <% end %>
+
+  <%= render "activity_sessions/step_indicator",
+             current_step: 2 %>
+
 </div>
