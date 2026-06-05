@@ -9,6 +9,12 @@ export default class extends Controller {
   connect() {
     this.room = this.roomValue
 
+    console.log("[room] connect", {
+      roomValue: this.roomValue,
+      editableValue: this.editableValue,
+      furnitureCount: this.roomValue.furnitures.length
+    })
+
     this.tileWidth = 85
     this.tileHeight = 45
 
