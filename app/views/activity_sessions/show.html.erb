@@ -71,7 +71,7 @@
 
       <% if @activities.any? %>
 
-        <div class="activities-list">
+        <div class="activities-list activities-count-<%= @activities.size %>">
 
           <% @activities.each_with_index do |activity, index| %>
 
