@@ -1,5 +1,5 @@
 class Activity < ApplicationRecord
-  ACTIVITY_TYPES = %w[standard word_learning sentence_completion llm_chat culture_quiz]
+  ACTIVITY_TYPES = %w[standard word_learning sentence_completion llm_chat culture_quiz code_quiz] # rubocop:disable Lint/ConstantReassignment
   LANGUAGE_ACTIVITY_TYPES = %w[word_learning sentence_completion llm_chat]
 
   belongs_to :duration
@@ -19,6 +19,10 @@ class Activity < ApplicationRecord
 
   def culture_activity?
     activity_type == "culture_quiz"
+  end
+
+  def code_quiz?
+    activity_type == "code_quiz"
   end
 
   def sport_activity?

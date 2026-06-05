@@ -49,6 +49,12 @@
       culture_questions: @culture_questions,
       duration_seconds: @duration_seconds %>
 
+  <% elsif @activity.code_quiz? %>
+    <%= render "code_quiz",
+      activity: @activity,
+      code_questions: @code_questions,
+      duration_seconds: @duration_seconds %>
+
   <% elsif @activity.interest.name == "Photo" %>
     <%= render "photo", activity: @activity %>
 
