@@ -1,20 +1,61 @@
-<div class="guided-activity photo-activity">
-  <div class="guided-activity-tags">
-    <span class="guided-tag"><i class="fa-regular fa-clock"></i> <%= activity.duration.value %> min</span>
-    <span class="guided-tag"><i class="fa-solid fa-camera"></i> Photo</span>
+<% steps = activity.step_list %>
+
+<div class="photo-activity">
+  <div class="photo-panel photo-main-card">
+    <div class="photo-start-header">
+      <p class="photo-kicker">
+        Défi photo
+      </p>
+
+      <h2>
+        Observe, cadre, déclenche
+      </h2>
+
+      <p>
+        Prends quelques minutes pour produire une vraie image, même simple.
+      </p>
+    </div>
+
+    <% if steps.any? %>
+      <div class="photo-steps">
+        <% steps.each_with_index do |step, index| %>
+          <div class="photo-step-card">
+            <span class="photo-step-number">
+              <%= index + 1 %>
+            </span>
+
+            <p>
+              <%= step %>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="photo-step-card">
+        <span class="photo-step-number">
+          1
+        </span>
+
+        <p>
+          Lance-toi à ton rythme, prends une photo, puis valide l’activité.
+        </p>
+      </div>
+    <% end %>
   </div>
 
-  <% steps = activity.step_list %>
-  <% if steps.any? %>
-    <h2 class="guided-steps-title">Ton défi photo</h2>
-    <ol class="guided-steps">
-      <% steps.each do |step| %>
-        <li><%= step %></li>
-      <% end %>
-    </ol>
-  <% else %>
-    <p class="guided-note">Lance-toi à ton rythme, puis valide ci-dessous.</p>
-  <% end %>
+  <div class="photo-panel photo-upload-placeholder">
+    <div class="photo-upload-icon">
+      <i class="fa-solid fa-camera"></i>
+    </div>
 
-  <p class="guided-note">📸 Bientôt : tu pourras importer la photo que tu as prise.</p>
+    <div>
+      <strong>
+        Import photo bientôt disponible
+      </strong>
+
+      <p>
+        Pour l’instant, prends la photo avec ton téléphone puis termine l’activité.
+      </p>
+    </div>
+  </div>
 </div>

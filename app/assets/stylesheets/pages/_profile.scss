@@ -145,3 +145,164 @@
 .edit-avatar-button:hover {
   transform: scale(1.05);
 }
+
+
+.unlock-carousel-card {
+  overflow: hidden;
+}
+
+.unlock-carousel {
+  display: grid;
+  gap: 16px;
+}
+
+.unlock-carousel-track {
+  min-height: 132px;
+}
+
+.next-unlock-card {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  min-height: 132px;
+  padding: 14px;
+  border: 2px solid rgba($ta-yellow, 0.35);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba($ta-yellow-soft, 0.26), rgba(#fff, 0.95)),
+    #fff;
+  box-shadow: inset 0 -4px 0 rgba($ta-navy, 0.04);
+}
+
+.next-unlock-card[hidden] {
+  display: none;
+}
+
+.next-unlock-image-frame {
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  background: rgba(#fff, 0.78);
+  box-shadow: inset 0 0 0 1px rgba($ta-navy, 0.06);
+}
+
+.next-unlock-image {
+  width: 78px;
+  height: 78px;
+  object-fit: contain;
+}
+
+.next-unlock-content {
+  min-width: 0;
+}
+
+.next-unlock-category {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba($ta-navy, 0.08);
+  color: $ta-navy;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.next-unlock-name {
+  margin: 0 0 8px;
+  color: $ta-navy;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.next-unlock-xp {
+  margin: 0 0 9px;
+  color: $ta-grey;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.next-unlock-xp strong {
+  color: $ta-navy;
+}
+
+.unlock-progress-bar {
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba($ta-navy, 0.1);
+}
+
+.unlock-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, $ta-yellow, #ff8f5a);
+  box-shadow: 0 0 10px rgba($ta-yellow, 0.35);
+}
+
+.unlock-carousel-controls {
+  display: grid;
+  grid-template-columns: 42px 1fr 42px;
+  align-items: center;
+  gap: 12px;
+}
+
+.unlock-carousel-button {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 14px;
+  background: $ta-navy;
+  color: #fff;
+  font-size: 15px;
+  box-shadow: 0 8px 16px rgba($ta-navy, 0.16);
+}
+
+.unlock-carousel-button:active {
+  transform: translateY(1px);
+}
+
+.unlock-carousel-count {
+  justify-self: center;
+  min-width: 52px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba($ta-yellow-soft, 0.45);
+  color: $ta-navy;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.unlock-empty {
+  margin: 0;
+}
+
+@media (max-width: 360px) {
+  .next-unlock-card {
+    grid-template-columns: 82px minmax(0, 1fr);
+    padding: 12px;
+  }
+
+  .next-unlock-image-frame {
+    width: 82px;
+    height: 82px;
+  }
+
+  .next-unlock-image {
+    width: 66px;
+    height: 66px;
+  }
+}

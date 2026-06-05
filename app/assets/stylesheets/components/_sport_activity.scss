@@ -1,13 +1,287 @@
+.phone-page.activity-show-page {
+  height: 100dvh;
+  min-height: 100dvh;
+
+  padding-top: 30px;
+  padding-bottom: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+/* Topbar hors de la zone de scroll */
+.activity-show-sticky-topbar {
+  flex: 0 0 auto;
+
+  position: relative;
+  z-index: 20;
+
+  margin-bottom: 22px;
+
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.activity-show-sticky-topbar .mood-topbar {
+  margin-bottom: 0;
+}
+
+/* Seule cette zone scrolle */
+.activity-show-content {
+  flex: 1;
+  min-height: 0;
+
+  padding-top: 18px;
+  padding-bottom: 18px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.activity-show-content::-webkit-scrollbar {
+  display: none;
+}
+
+.activity-show-header {
+  margin-bottom: 20px;
+  padding: 20px;
+
+  border-radius: 30px;
+  border: 2px solid rgba(21, 27, 47, 0.08);
+
+  box-shadow:
+    0 18px 34px rgba(21, 27, 47, 0.08),
+    0 6px 14px rgba(21, 27, 47, 0.04);
+}
+
+.activity-show-header-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-bottom: 16px;
+}
+
+.activity-show-icon {
+  width: 72px;
+  height: 72px;
+
+  flex: 0 0 72px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 26px;
+
+  background: rgba(255, 253, 249, 0.78);
+  border: 1px solid rgba(90, 74, 54, 0.08);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    0 10px 18px rgba(43, 45, 66, 0.05);
+}
+
+.activity-show-icon-image {
+  width: 56px;
+  height: 56px;
+
+  display: block;
+  object-fit: contain;
+
+  filter: drop-shadow(0 8px 12px rgba(43, 45, 66, 0.08));
+}
+
+.activity-show-fallback-icon {
+  color: $ta-purple;
+
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.activity-show-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.activity-show-interest,
+.activity-show-duration {
+  display: inline-flex;
+  align-items: center;
+
+  min-height: 26px;
+  padding: 5px 12px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: 0.02em;
+}
+
+.activity-show-interest {
+  color: #588c3a;
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.activity-show-duration {
+  color: $ta-purple;
+  background: rgba(124, 99, 242, 0.13);
+}
+
+.activity-show-header h1 {
+  margin: 0 0 12px;
+
+  color: $ta-ink;
+
+  font-size: 30px;
+  line-height: 1.04;
+  font-weight: 850;
+  letter-spacing: -0.05em;
+}
+
+.activity-show-header p,
+.activity-show-description {
+  margin: 0;
+
+  color: $ta-ink-muted;
+
+  font-size: 14px;
+  line-height: 1.42;
+  font-weight: 650;
+}
+
+/* Variantes du header */
+
+.activity-show-header.activity-sport {
+  background: linear-gradient(135deg, #ffffff 0%, #edf8e8 100%);
+  border-color: rgba(88, 140, 58, 0.34);
+}
+
+.activity-show-header.activity-langues {
+  background: linear-gradient(135deg, #ffffff 0%, #f0ecff 100%);
+  border-color: rgba(124, 99, 242, 0.32);
+}
+
+.activity-show-header.activity-creativity {
+  background: linear-gradient(135deg, #ffffff 0%, #fff0dc 100%);
+  border-color: rgba(216, 154, 50, 0.34);
+}
+
+.activity-show-header.activity-wellbeing {
+  background: linear-gradient(135deg, #ffffff 0%, #eaf7f3 100%);
+  border-color: rgba(76, 150, 126, 0.28);
+}
+
+.activity-show-header.activity-photo {
+  background: linear-gradient(135deg, #ffffff 0%, #ffeef7 100%);
+  border-color: rgba(190, 88, 140, 0.26);
+}
+
+.activity-show-header.activity-drawing {
+  background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+  border-color: rgba(89, 119, 170, 0.3);
+}
+
+.activity-show-header.activity-writing {
+  background: linear-gradient(135deg, #ffffff 0%, #fff8df 100%);
+  border-color: rgba(190, 139, 43, 0.34);
+}
+
+.activity-show-header.activity-culture,
+.activity-show-header.activity-default {
+  background: linear-gradient(135deg, #ffffff 0%, #f6f0ea 100%);
+  border-color: rgba(128, 95, 63, 0.24);
+}
+
+/* Sport */
+
 .sport-activity {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
+.sport-panel,
+.activity-show-panel {
+  padding: 18px;
+
+  border-radius: 30px;
+  border: 2px solid rgba(21, 27, 47, 0.08);
+
+  background: rgba(255, 253, 249, 0.74);
+
+  box-shadow:
+    0 18px 34px rgba(21, 27, 47, 0.08),
+    0 6px 14px rgba(21, 27, 47, 0.04);
+}
+
 .sport-main-card {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.sport-preparation-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  padding: 14px;
+
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.68);
+  border: 1px solid rgba(88, 140, 58, 0.2);
+}
+
+.sport-preparation-number,
+.sport-step-number {
+  width: 30px;
+  height: 30px;
+
+  flex: 0 0 30px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  color: #ffffff;
+  background: #588c3a;
+
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.sport-preparation-card strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: $ta-ink;
+
+  font-size: 15px;
+  font-weight: 850;
+}
+
+.sport-preparation-card p {
+  margin: 0;
+
+  color: $ta-ink-muted;
+
+  font-size: 13px;
+  line-height: 1.35;
+  font-weight: 650;
 }
 
 .sport-steps-preview {
@@ -18,76 +292,216 @@
 
 .sport-step-card {
   display: flex;
-  gap: 12px;
   align-items: flex-start;
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 12px;
+  gap: 12px;
 
-  p {
-    margin: 0;
-    color: #333;
-    line-height: 1.4;
-  }
+  padding: 14px;
+
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(90, 74, 54, 0.08);
 }
 
-.sport-step-card-preparation {
-  background: #eef2ff;
-}
+.sport-step-card p {
+  margin: 0;
 
-.sport-step-number {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #111827;
-  color: white;
-  font-weight: 800;
+  color: $ta-ink;
+
   font-size: 14px;
+  line-height: 1.38;
+  font-weight: 700;
 }
+
+/* Bouton lancer */
 
 .sport-launch-button {
   width: 100%;
+  min-height: 62px;
+
+  border: none;
+  border-radius: 26px;
+
+  color: #ffffff;
+  background: linear-gradient(135deg, #73b94b 0%, #4d8a2b 100%);
+
+  box-shadow:
+    0 14px 26px rgba(88, 140, 58, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+  font-size: 21px;
+  font-weight: 850;
+  letter-spacing: -0.02em;
+}
+
+.sport-launch-button:hover {
+  transform: translateY(-1px);
+}
+
+.sport-launch-button:active {
+  transform: translateY(0);
 }
 
 .sport-runner-card {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-
-  h2 {
-    margin: 0;
-    font-size: 24px;
-    line-height: 1.3;
-  }
+  gap: 18px;
 }
 
 .sport-runner-label {
   margin: 0;
-  font-weight: 800;
-  color: #777;
+
+  color: $ta-ink-light;
+
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sport-runner-card h2 {
+  margin: 0;
+
+  color: $ta-ink;
+
+  font-size: 26px;
+  line-height: 1.18;
+  font-weight: 850;
+  letter-spacing: -0.04em;
 }
 
 .sport-timer {
   align-self: flex-start;
-  padding: 10px 16px;
+
+  padding: 12px 18px;
+
   border-radius: 999px;
-  background: #eef2ff;
-  color: #4f46e5;
-  font-size: 28px;
+
+  color: #588c3a;
+  background: rgba(88, 140, 58, 0.12);
+
+  font-size: 30px;
+  line-height: 1;
   font-weight: 900;
+}
+
+.sport-next-button {
+  min-height: 56px;
+
+  border-radius: 24px;
 }
 
 .sport-finished-card {
   text-align: center;
+}
 
-  h2 {
-    margin-bottom: 8px;
-  }
+.sport-finished-card h2 {
+  margin: 0 0 8px;
+
+  color: $ta-ink;
+
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 850;
+}
+
+/* Bouton bas hors de la zone de scroll */
+
+.activity-bottom-action {
+  flex: 0 0 auto;
+
+  position: relative;
+  z-index: 20;
+
+  padding-top: 12px;
+  padding-bottom: calc(18px + env(safe-area-inset-bottom));
+
+  background: transparent;
+}
+
+.activity-bottom-action form {
+  margin: 0;
+}
+
+.activity-stop-button {
+  width: 100%;
+  min-height: 76px;
+
+  border: 2px solid #f08c00;
+  border-radius: 30px;
+
+  color: #f08c00;
+  background: linear-gradient(180deg, #fff7f0 0%, #ffe8d6 100%);
+
+  box-shadow:
+    0 18px 34px rgba(240, 140, 0, 0.14),
+    0 6px 14px rgba(21, 27, 47, 0.06);
+
+  font-size: 19px;
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: -0.02em;
+}
+
+.activity-stop-button:hover {
+  transform: translateY(-1px);
+}
+
+.activity-stop-button:active {
+  transform: translateY(0);
 }
 
 .is-hidden {
   display: none;
+}
+
+@media (max-height: 760px) {
+  .phone-page.activity-show-page {
+    padding-top: 24px;
+  }
+
+  .activity-show-sticky-topbar {
+    margin-bottom: 18px;
+  }
+
+  .activity-show-content {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .activity-show-header {
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+
+  .activity-show-icon {
+    width: 64px;
+    height: 64px;
+
+    flex-basis: 64px;
+  }
+
+  .activity-show-icon-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .activity-show-header h1 {
+    font-size: 26px;
+  }
+
+  .sport-panel,
+  .activity-show-panel {
+    padding: 16px;
+  }
+
+  .activity-bottom-action {
+    padding-top: 10px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom));
+  }
+
+  .activity-stop-button {
+    min-height: 68px;
+    font-size: 18px;
+  }
 }

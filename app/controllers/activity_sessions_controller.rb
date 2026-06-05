@@ -1,6 +1,8 @@
 class ActivitySessionsController < ApplicationController
+  include TopbarData
+
   before_action :authenticate_user!
-  before_action :set_selection_topbar, only: %i[new location duration show]
+  before_action :set_topbar_data, only: %i[new location duration show]
 
   def new
     @moods = Mood.all
@@ -52,7 +54,10 @@ class ActivitySessionsController < ApplicationController
   def show
     @activity_session = current_user.activity_sessions.find(params[:id])
 
-    return if @activity_session.finished?
+    if @activity_session.finished?
+      prepare_finished_summary
+      return
+    end
 
     reference_activity = @activity_session.activity
 
@@ -162,11 +167,6 @@ class ActivitySessionsController < ApplicationController
     params.require(:activity_session).permit(:culture_category)
   end
 
-  def set_selection_topbar
-    @finished_sessions_count = current_user.activity_sessions.where(finished: true).count
-    @home_xp = @finished_sessions_count * 15
-  end
-
   def add_interest_xp_for(activity_session)
     interest = activity_session.activity.interest
 
@@ -178,5 +178,14 @@ class ActivitySessionsController < ApplicationController
     end
 
     progress.increment!(:xp, 15)
+  end
+
+  def prepare_finished_summary
+    @activity = @activity_session.activity
+    @summary_interest_name = @activity&.interest&.name.presence || "Activité"
+    @summary_duration_minutes = @activity&.duration&.value.to_i
+    @summary_duration_label = @summary_duration_minutes.positive? ? "#{@summary_duration_minutes} min" : "Durée non renseignée"
+    @summary_saved_scroll_minutes = @summary_duration_minutes.positive? ? @summary_duration_minutes : 15
+    @summary_xp_gained = 15
   end
 end

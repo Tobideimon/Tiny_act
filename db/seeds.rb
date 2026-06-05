@@ -44,6 +44,8 @@ drawing        = Interest.create!(name: "Dessin")
 writing        = Interest.create!(name: "Écriture")
 languages      = Interest.create!(name: "Langues")
 culture        = Interest.create!(name: "Culture")
+productivite   = Interest.create!(name: "Productivité")
+code           = Interest.create!(name: "Code")
 
 puts "🌍 Creating language activities..."
 
@@ -197,7 +199,6 @@ puts "🧠 Creating culture quiz activities..."
 end
 
 puts "💻 Creating code quiz activities..."
-code = Interest.find_or_create_by!(name: "Code")
 
 [
   { mood: en_forme, duration: five_minutes },
@@ -354,14 +355,6 @@ puts "#{Activity.where(activity_type: "culture_quiz", active: true).count} cultu
 puts "Creating furnitures..."
 
 
-Furniture.create!(
-  name: "Books",
-  image_url: "furnitures/books.png",
-  required_xp: 10,
-  width: 1,
-  height: 1,
-  interest: culture
-)
 
 Furniture.create!(
   name: "escalade",
@@ -375,7 +368,7 @@ Furniture.create!(
 Furniture.create!(
   name: "orangechair",
   image_url: "furnitures/chair.png",
-  interest: culture,
+  interest: productivite,
   required_xp: 5,
   width: 1,
   height: 1
@@ -389,6 +382,23 @@ Furniture.create!(
   interest: sport,
   required_xp: 30
 )
+Furniture.create!(
+  name: "Pool",
+  image_url: "furnitures/pool.png",
+  width: 1,
+  height: 1,
+  interest: productivite,
+  required_xp: 30
+)
+
+Furniture.create!(
+  name: "Books",
+  image_url: "furnitures/books.png",
+  required_xp: 5,
+  width: 1,
+  height: 1,
+  interest: culture
+)
 
 Furniture.create!(
   name: "Sport Mat",
@@ -397,6 +407,15 @@ Furniture.create!(
   height: 1,
   interest: sport,
   required_xp: 5
+)
+
+Furniture.create!(
+  name: "Jasky",
+  image_url: "furnitures/jasky.gif",
+  width: 1,
+  height: 1,
+  interest: culture,
+  required_xp: 30
 )
 
 puts "#{Furniture.count} furnitures created!"

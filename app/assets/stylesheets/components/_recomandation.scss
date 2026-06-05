@@ -35,7 +35,6 @@
   margin: 0 0 8px;
 
   color: $ta-ink-light;
-
   font-size: 11px;
   font-weight: 850;
   letter-spacing: 0.08em;
@@ -307,49 +306,280 @@
 
 /* Résumé session terminée */
 
-.activity-summary-card {
-  height: auto;
-  min-height: auto;
+.session-summary {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  overflow-y: auto;
+  scrollbar-width: none;
 }
 
-.summary-details {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-
-  margin-top: 16px;
+.session-summary::-webkit-scrollbar {
+  display: none;
 }
 
-.summary-details p {
+.summary-hero {
+  flex: 0 0 auto;
+}
+
+.summary-hero h1 {
+  margin: 0 0 8px;
+
+  color: $ta-ink;
+
+  font-size: clamp(29px, 4.3vh, 34px);
+  line-height: 1;
+  font-weight: 900;
+}
+
+.summary-hero p:not(.recommendations-kicker) {
+  max-width: 340px;
   margin: 0;
+
+  color: $ta-ink-muted;
+
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 650;
+}
+
+.summary-main-card,
+.summary-stat-card,
+.summary-reward-card {
+  border: 2px solid rgba(21, 27, 47, 0.08);
+  border-radius: 28px;
+  background: $ta-surface;
+  box-shadow: $ta-shadow-card;
+}
+
+.summary-main-card {
+  position: relative;
+  overflow: hidden;
+
+  min-height: 190px;
+  padding: 20px;
+
+  background:
+    radial-gradient(circle at 88% 12%, rgba(255, 194, 60, 0.34), transparent 34%),
+    linear-gradient(135deg, #ffffff 0%, #fff3d8 100%);
+}
+
+.summary-complete-badge {
+  width: fit-content;
+  max-width: 100%;
+  min-height: 30px;
+  padding: 7px 12px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  border-radius: 999px;
+
+  color: #2f7d4f;
+  background: rgba(30, 221, 136, 0.16);
+
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 850;
+}
+
+.summary-main-card h2 {
+  margin: 16px 0;
+
+  color: $ta-ink;
+
+  font-size: 22px;
+  line-height: 1.08;
+  font-weight: 900;
+}
+
+.summary-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.summary-meta-grid div {
+  min-width: 0;
   padding: 10px;
 
   border-radius: 18px;
-
-  background: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.68);
 }
 
-.summary-details strong,
-.summary-details span {
+.summary-meta-grid span,
+.summary-meta-grid strong {
   display: block;
 }
 
-.summary-details strong {
-  margin-bottom: 4px;
+.summary-meta-grid span {
+  margin-bottom: 5px;
 
   color: $ta-ink-light;
 
-  font-size: 10px;
+  font-size: 9px;
+  line-height: 1;
   font-weight: 850;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.summary-details span {
+.summary-meta-grid strong {
+  overflow: hidden;
+
   color: $ta-ink;
 
-  font-size: 13px;
-  font-weight: 750;
+  font-size: 12px;
+  line-height: 1.14;
+  font-weight: 850;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.summary-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.summary-stat-card {
+  min-height: 142px;
+  padding: 14px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.summary-stat-time {
+  background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+}
+
+.summary-stat-xp {
+  background: linear-gradient(135deg, #ffffff 0%, #fff0dc 100%);
+}
+
+.summary-stat-icon,
+.summary-reward-icon {
+  display: grid;
+  place-items: center;
+
+  border-radius: 18px;
+}
+
+.summary-stat-icon {
+  width: 38px;
+  height: 38px;
+
+  color: $ta-purple;
+  background: rgba(124, 99, 242, 0.12);
+}
+
+.summary-stat-card p,
+.summary-reward-card p {
+  margin: 0 0 4px;
+
+  color: $ta-ink-muted;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.summary-stat-card strong {
+  display: block;
+  margin-bottom: 5px;
+
+  color: $ta-ink;
+
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.summary-stat-card span {
+  display: block;
+
+  color: $ta-ink-muted;
+
+  font-size: 11px;
+  line-height: 1.25;
+  font-weight: 650;
+}
+
+.summary-reward-card {
+  padding: 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background: linear-gradient(135deg, #ffffff 0%, #f2ecff 100%);
+}
+
+.summary-reward-icon {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+
+  color: $ta-gold;
+  background: rgba(216, 154, 50, 0.14);
+
+  font-size: 19px;
+}
+
+.summary-reward-card strong {
+  display: block;
+
+  color: $ta-ink;
+
+  font-size: 14px;
+  line-height: 1.25;
+  font-weight: 850;
+}
+
+.summary-actions {
+  margin-top: auto;
+  padding-top: 2px;
+
+  display: grid;
+  gap: 10px;
+}
+
+.summary-action-primary,
+.summary-action-secondary {
+  min-height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 24px;
+
+  font-size: 15px;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.summary-action-primary {
+  margin: 0;
+}
+
+.summary-action-secondary {
+  color: $ta-ink;
+  background: rgba(255, 255, 255, 0.72);
+  border: 2px solid rgba(21, 27, 47, 0.08);
+}
+
+.summary-action-secondary:hover,
+.summary-action-secondary:visited {
+  color: $ta-ink;
+  text-decoration: none;
 }
 
 .empty-state {
@@ -516,6 +746,42 @@
 
   .activity-interest-header {
     margin-bottom: 6px;
+  }
+
+  .session-summary {
+    gap: 10px;
+  }
+
+  .summary-hero h1 {
+    margin-bottom: 6px;
+    font-size: 26px;
+  }
+
+  .summary-hero p:not(.recommendations-kicker) {
+    font-size: 13px;
+  }
+
+  .summary-main-card {
+    min-height: 174px;
+    padding: 16px;
+  }
+
+  .summary-main-card h2 {
+    margin: 12px 0;
+    font-size: 19px;
+  }
+
+  .summary-stat-card {
+    min-height: 124px;
+  }
+
+  .summary-stat-card strong {
+    font-size: 20px;
+  }
+
+  .summary-action-primary,
+  .summary-action-secondary {
+    min-height: 52px;
   }
 }
 

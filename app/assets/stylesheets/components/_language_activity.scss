@@ -4,82 +4,249 @@
   gap: 16px;
 }
 
-.language-card {
+/* Petit panneau temps / progression */
+
+.language-status-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.language-status-item {
+  min-height: 72px;
+  padding: 14px;
+
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  justify-content: center;
+  gap: 6px;
+
+  border-radius: 24px;
+  border: 2px solid rgba(124, 99, 242, 0.18);
+
+  background: linear-gradient(135deg, #ffffff 0%, #f0ecff 100%);
+
+  box-shadow:
+    0 14px 26px rgba(21, 27, 47, 0.06),
+    0 5px 12px rgba(21, 27, 47, 0.035);
 }
 
-.language-card h2 {
-  font-size: 28px;
-  font-weight: 800;
+.language-status-item span {
+  color: $ta-ink-light;
+
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.language-instruction {
+.language-status-item strong {
+  color: $ta-purple;
+
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+/* Cartes langue */
+
+.language-panel {
+  padding: 20px;
+
+  border-radius: 30px;
+  border: 2px solid rgba(124, 99, 242, 0.22);
+
+  background: linear-gradient(135deg, #ffffff 0%, #f0ecff 100%);
+
+  box-shadow:
+    0 18px 34px rgba(21, 27, 47, 0.08),
+    0 6px 14px rgba(21, 27, 47, 0.04);
+}
+
+.language-main-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.language-kicker {
   margin: 0;
-  font-size: 14px;
-  font-weight: 700;
-  opacity: 0.75;
+
+  color: $ta-purple;
+
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.language-kicker-spaced {
+  margin-top: 8px;
 }
 
 .language-word {
   margin: 0;
+
+  color: $ta-ink;
+
+  font-size: clamp(34px, 7vw, 46px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.055em;
 }
 
-.language-answer {
-  margin: 0;
+.language-answer-box {
+  padding: 16px;
+
+  border-radius: 22px;
+
+  color: $ta-ink;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(124, 99, 242, 0.18);
+
   font-size: 22px;
-  font-weight: 700;
-  color: #4f46e5;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
 .language-translation {
   margin: 0;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.35;
+
+  color: $ta-ink;
+
+  font-size: 21px;
+  line-height: 1.28;
+  font-weight: 800;
+  letter-spacing: -0.035em;
 }
 
-.language-reveal-button {
-  width: fit-content;
+/* Boutons */
+
+.language-primary-button,
+.language-secondary-button {
+  width: 100%;
+  min-height: 58px;
+
+  border-radius: 26px;
+
+  font-family: inherit;
+  font-weight: 850;
+  letter-spacing: -0.02em;
+
+  cursor: pointer;
+}
+
+.language-primary-button {
+  border: none;
+
+  color: #ffffff;
+  background: linear-gradient(135deg, #8b74ff 0%, #6f55e8 100%);
+
+  box-shadow:
+    0 14px 26px rgba(124, 99, 242, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+
+  font-size: 20px;
+}
+
+.language-secondary-button {
+  border: 2px solid rgba(124, 99, 242, 0.28);
+
+  color: $ta-purple;
+  background: rgba(255, 255, 255, 0.72);
+
+  font-size: 16px;
+}
+
+.language-primary-button:disabled,
+.language-secondary-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.language-primary-button:hover,
+.language-secondary-button:hover {
+  transform: translateY(-1px);
+}
+
+.language-primary-button:active,
+.language-secondary-button:active {
+  transform: translateY(0);
+}
+
+/* Phrase à compléter */
+
+.language-sentence-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  margin: 0;
 }
 
 .sentence-line {
+  margin: 0;
+  padding: 16px;
+
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  gap: 4px;
-  margin: 0;
+  gap: 6px;
+
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(124, 99, 242, 0.18);
+
+  color: $ta-ink;
+
   font-size: 22px;
-  font-weight: 800;
-  line-height: 1.5;
+  line-height: 1.45;
+  font-weight: 850;
+  letter-spacing: -0.035em;
 }
 
 .sentence-gap-input {
   display: inline-block;
+
   min-width: 4ch;
   padding: 2px 4px;
+
   border: 2px solid transparent;
-  border-bottom-color: currentColor;
-  border-radius: 6px;
+  border-bottom-color: $ta-purple;
+  border-radius: 8px;
+
   background: transparent;
+
+  color: $ta-purple;
+
   font: inherit;
   text-align: center;
   outline: none;
 }
 
 .sentence-gap-input::placeholder {
-  opacity: 0.45;
+  color: rgba(124, 99, 242, 0.45);
+  opacity: 1;
+}
+
+.sentence-gap-input:focus {
+  border-color: rgba(124, 99, 242, 0.38);
+  background: rgba(124, 99, 242, 0.08);
 }
 
 .sentence-gap-input.is-correct {
   color: #16a34a;
   border-color: #16a34a;
+  background: rgba(22, 163, 74, 0.08);
 }
 
 .sentence-gap-input.is-wrong {
   color: #dc2626;
   border-color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
 }
 
 .sentence-revealed-answer {
@@ -90,7 +257,12 @@
 .sentence-feedback {
   min-height: 24px;
   margin: 0;
-  font-weight: 700;
+
+  color: $ta-ink-muted;
+
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 750;
 }
 
 .sentence-feedback.is-correct {
@@ -101,16 +273,57 @@
   color: #dc2626;
 }
 
-.primary-button.is-correct {
+.language-primary-button.is-correct {
   border: 2px solid #16a34a;
-  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18);
+  box-shadow:
+    0 0 0 3px rgba(22, 163, 74, 0.18),
+    0 14px 26px rgba(22, 163, 74, 0.18);
 }
 
-.primary-button.is-wrong {
+.language-primary-button.is-wrong {
   border: 2px solid #dc2626;
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.18);
+  box-shadow:
+    0 0 0 3px rgba(220, 38, 38, 0.18),
+    0 14px 26px rgba(220, 38, 38, 0.12);
 }
 
 .is-hidden {
   display: none;
+}
+
+@media (max-height: 760px) {
+  .language-activity {
+    gap: 14px;
+  }
+
+  .language-status-item {
+    min-height: 64px;
+    padding: 12px;
+  }
+
+  .language-status-item strong {
+    font-size: 20px;
+  }
+
+  .language-panel {
+    padding: 18px;
+  }
+
+  .language-word {
+    font-size: clamp(30px, 6vw, 40px);
+  }
+
+  .language-translation {
+    font-size: 19px;
+  }
+
+  .sentence-line {
+    padding: 14px;
+    font-size: 20px;
+  }
+
+  .language-primary-button,
+  .language-secondary-button {
+    min-height: 54px;
+  }
 }

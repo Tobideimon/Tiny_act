@@ -1,4 +1,4 @@
-<div class="phone-page recommendations-phone-page has-bottom-action">
+<div class="phone-page recommendations-phone-page <%= "has-bottom-action" unless @activity_session&.finished? %>">
 
   <%= render "activity_sessions/selection_topbar" %>
 
@@ -6,57 +6,90 @@
 
     <% if @activity_session.finished? %>
 
-      <div class="session-summary">
-        <div class="recommendations-header">
+      <section class="session-summary">
+        <div class="summary-hero">
           <p class="recommendations-kicker">Bravo</p>
-          <h1>Session terminée</h1>
-          <p>Tu as transformé un moment disponible en action réelle.</p>
+          <h1>Activité terminée</h1>
+          <p>Tu as choisi une vraie action plutôt qu'un scroll automatique.</p>
         </div>
 
-        <div class="activity-card activity-summary-card">
-          <div class="activity-interest-header">
-            <span class="activity-interest-label badge-interest">
-              <%= @activity_session.activity.interest.name %>
+        <article class="summary-main-card">
+          <div class="summary-complete-badge">
+            <i class="fa-solid fa-check"></i>
+            <span>Terminé</span>
+          </div>
+
+          <h2><%= @activity&.name.presence || "Activité réalisée" %></h2>
+
+          <div class="summary-meta-grid">
+            <div>
+              <span>Catégorie</span>
+              <strong><%= @summary_interest_name %></strong>
+            </div>
+
+            <div>
+              <span>Durée</span>
+              <strong><%= @summary_duration_label %></strong>
+            </div>
+
+            <div>
+              <span>Statut</span>
+              <strong>Terminé</strong>
+            </div>
+          </div>
+        </article>
+
+        <div class="summary-stats-grid">
+          <article class="summary-stat-card summary-stat-time">
+            <span class="summary-stat-icon">
+              <i class="fa-solid fa-mobile-screen-button"></i>
             </span>
-          </div>
 
-          <div class="activity-top">
-            <h2>
-              <%= @activity_session.activity.name %>
-            </h2>
-          </div>
+            <div>
+              <p>Temps d'écran gagné</p>
+              <strong><%= @summary_saved_scroll_minutes %> min</strong>
+              <span>Tu as évité <%= @summary_saved_scroll_minutes %> minutes de scroll.</span>
+            </div>
+          </article>
 
-          <p class="activity-content">
-            <%= @activity_session.activity.content %>
-          </p>
+          <article class="summary-stat-card summary-stat-xp">
+            <span class="summary-stat-icon">
+              <i class="fa-solid fa-bolt"></i>
+            </span>
 
-          <div class="summary-details">
-            <p>
-              <strong>Date</strong>
-              <span><%= @activity_session.date %></span>
-            </p>
-
-            <p>
-              <strong>Mood</strong>
-              <span><%= @activity_session.activity.mood.name %></span>
-            </p>
-
-            <p>
-              <strong>Durée</strong>
-              <span><%= @activity_session.activity.duration.value %> min</span>
-            </p>
-
-            <p>
-              <strong>Lieu</strong>
-              <span><%= @activity_session.activity.location.name %></span>
-            </p>
-          </div>
+            <div>
+              <p>XP gagnée</p>
+              <strong>+<%= @summary_xp_gained %> XP</strong>
+              <span>Ton intérêt <%= @summary_interest_name %> progresse.</span>
+            </div>
+          </article>
         </div>
-      </div>
 
-      <%= link_to "Recommencer",
-                  new_activity_session_path,
-                  class: "primary-button recommendations-primary-button" %>
+        <article class="summary-reward-card">
+          <div class="summary-reward-icon">
+            <i class="fa-solid fa-couch"></i>
+          </div>
+
+          <div>
+            <p>Récompense room</p>
+            <strong>Tu as gagné un nouveau meuble !</strong>
+          </div>
+        </article>
+
+        <div class="summary-actions">
+
+
+          <%= link_to room_path,
+                      class: "summary-action-secondary" do %>
+            Voir ma room
+          <% end %>
+
+          <%= link_to new_activity_session_path,
+                      class: "primary-button summary-action-primary" do %>
+            Faire une nouvelle activité
+          <% end %>
+        </div>
+      </section>
 
     <% else %>
 
