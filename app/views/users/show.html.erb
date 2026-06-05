@@ -59,6 +59,87 @@
     <% end %>
   </div>
 
+  <div class="profile-card unlock-carousel-card">
+    <h2 class="profile-section-title">Prochain meuble à débloquer</h2>
+
+    <% unlock_progress_items = @furniture_unlock_progress || [] %>
+
+    <% if unlock_progress_items.any? %>
+      <div
+        class="unlock-carousel"
+        data-controller="unlock-carousel"
+        data-unlock-carousel-current-index-value="0"
+      >
+        <div class="unlock-carousel-track">
+          <% unlock_progress_items.each_with_index do |progress, index| %>
+            <div
+              class="next-unlock-card <%= "active" if index.zero? %>"
+              data-unlock-carousel-target="slide"
+              <%= "hidden" unless index.zero? %>
+            >
+              <div class="next-unlock-image-frame">
+                <%= image_tag progress[:next_furniture].image_url,
+                    class: "next-unlock-image" %>
+              </div>
+
+              <div class="next-unlock-content">
+                <p class="next-unlock-category">
+                  <%= progress[:interest].name %>
+                </p>
+
+                <h3 class="next-unlock-name">
+                  <%= progress[:next_furniture].name %>
+                </h3>
+
+                <p class="next-unlock-xp">
+                  <strong><%= progress[:current_xp] %></strong> /
+                  <%= progress[:required_xp] %> XP
+                </p>
+
+                <div class="unlock-progress-bar" aria-label="<%= progress[:percentage] %>% complété">
+                  <div
+                    class="unlock-progress-fill"
+                    style="width: <%= progress[:percentage] %>%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <% if unlock_progress_items.size > 1 %>
+          <div class="unlock-carousel-controls">
+            <button
+              type="button"
+              class="unlock-carousel-button"
+              data-action="unlock-carousel#previous"
+              aria-label="Meuble précédent"
+            >
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <span class="unlock-carousel-count">
+              <span data-unlock-carousel-target="index">1</span>/<%= unlock_progress_items.size %>
+            </span>
+
+            <button
+              type="button"
+              class="unlock-carousel-button"
+              data-action="unlock-carousel#next"
+              aria-label="Meuble suivant"
+            >
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="profile-empty unlock-empty">
+        Tu as débloqué tous les meubles disponibles pour le moment.
+      </p>
+    <% end %>
+  </div>
+
   <div class="profile-card room-card">
     <div class="room-header">
       <h2 class="profile-section-title">Ma room</h2>
