@@ -1,126 +1,235 @@
-<div class="phone-page room-editor-page">
-  <header class="room-editor-header">
-    <%= render "activity_sessions/selection_topbar" %>
+<div class="phone-page recommendations-phone-page <%= "has-bottom-action" unless @activity_session&.finished? %>">
 
-    <div class="room-editor-page-title">
-      <%= link_to user_path, class: "room-editor-back", aria: { label: "Retour au profil" } do %>
-        <i class="fa-solid fa-arrow-left"></i>
-        <span>Profil</span>
-      <% end %>
+  <%= render "activity_sessions/selection_topbar" %>
 
-      <div class="room-editor-heading">
-        <p>Édition</p>
-        <h1>Ma room</h1>
-      </div>
-    </div>
-  </header>
+  <div class="recommendations-page">
 
-  <main class="room-editor-content">
-    <section class="room-editor-stage-card">
-      <div class="room-editor-stage-header">
-        <div>
-          <p class="room-editor-kicker">
-            Espace personnel
-          </p>
+    <% if @activity_session.finished? %>
 
-          <h2>
-            Organise ta pièce
-          </h2>
+      <section class="session-summary">
+        <div class="summary-hero">
+          <p class="recommendations-kicker">Bravo</p>
+          <h1>Activité terminée</h1>
+          <p>Tu as choisi une vraie action plutôt qu'un scroll automatique.</p>
         </div>
 
-        <button
-          class="room-editor-mini-help"
-          type="button"
-          aria-label="Aide"
-        >
-          <i class="fa-solid fa-hand-pointer"></i>
-        </button>
-      </div>
+        <article class="summary-main-card">
+          <div class="summary-complete-badge">
+            <i class="fa-solid fa-check"></i>
+            <span>Terminé</span>
+          </div>
 
-      <div class="room-editor-room-shell">
-        <div class="room-wrapper">
-          <%= render "users/room",
-              room_data: @room_data,
-              editable: true %>
-        </div>
-      </div>
+          <h2><%= @activity&.name.presence || "Activité réalisée" %></h2>
 
-      <p class="room-editor-hint">
-        Déplace tes meubles dans la pièce. Glisse un meuble hors de la room pour le retirer.
-      </p>
-    </section>
-  </main>
-
-  <div class="room-editor-inventory" data-controller="inventory">
-    <button
-      class="room-editor-inventory-toggle"
-      type="button"
-      data-action="click->inventory#toggle"
-      aria-label="Ouvrir l'inventaire"
-    >
-      <span class="room-editor-inventory-toggle-icon">
-        <i class="fa-solid fa-box-open"></i>
-      </span>
-
-      <span class="room-editor-inventory-toggle-label">
-        Inventaire
-      </span>
-
-      <span class="room-editor-inventory-toggle-chevron">
-        <i class="fa-solid fa-chevron-up"></i>
-      </span>
-    </button>
-
-    <div class="room-editor-inventory-panel" data-inventory-target="panel">
-      <div class="room-editor-panel-handle"></div>
-
-      <div class="room-editor-panel-header">
-        <div>
-          <p class="room-editor-kicker">
-            Meubles débloqués
-          </p>
-
-          <h2 class="room-editor-panel-title">
-            Inventaire
-          </h2>
-        </div>
-      </div>
-
-      <% if @available_furnitures.any? %>
-        <div class="room-editor-inventory-grid">
-          <% @available_furnitures.each do |furniture| %>
-            <div class="room-editor-inventory-item">
-              <div class="room-editor-inventory-image-frame">
-                <%= image_tag furniture.image_url,
-                    class: "room-editor-inventory-image" %>
-              </div>
-
-              <p class="room-editor-inventory-name">
-                <%= furniture.name %>
-              </p>
-
-              <%= button_to "Placer",
-                  room_furnitures_path,
-                  method: :post,
-                  data: { action: "click->inventory#close" },
-                  params: {
-                    room_furniture: {
-                      furniture_id: furniture.id,
-                      x: 0,
-                      y: 0,
-                      z: 0,
-                      rotation: 0
-                    }
-                  },
-                  class: "room-editor-place-btn" %>
+          <div class="summary-meta-grid">
+            <div>
+              <span>Catégorie</span>
+              <strong><%= @summary_interest_name %></strong>
             </div>
+
+            <div>
+              <span>Durée</span>
+              <strong><%= @summary_duration_label %></strong>
+            </div>
+
+            <div>
+              <span>Statut</span>
+              <strong>Terminé</strong>
+            </div>
+          </div>
+        </article>
+
+        <div class="summary-stats-grid">
+          <article class="summary-stat-card summary-stat-time">
+            <span class="summary-stat-icon">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+            </span>
+
+            <div>
+              <p>Temps d'écran gagné</p>
+              <strong><%= @summary_saved_scroll_minutes %> min</strong>
+              <span>Tu as évité <%= @summary_saved_scroll_minutes %> minutes de scroll.</span>
+            </div>
+          </article>
+
+          <article class="summary-stat-card summary-stat-xp">
+            <span class="summary-stat-icon">
+              <i class="fa-solid fa-bolt"></i>
+            </span>
+
+            <div>
+              <p>XP gagnée</p>
+              <strong>+<%= @summary_xp_gained %> XP</strong>
+              <span>Ton intérêt <%= @summary_interest_name %> progresse.</span>
+            </div>
+          </article>
+        </div>
+
+        <article class="summary-reward-card">
+          <div class="summary-reward-icon">
+            <i class="fa-solid fa-couch"></i>
+          </div>
+
+          <div>
+            <p>Récompense room</p>
+            <strong>Tu as gagné un nouveau meuble !</strong>
+          </div>
+        </article>
+
+        <div class="summary-actions">
+
+
+          <%= link_to room_path,
+                      class: "summary-action-secondary" do %>
+            Voir ma room
+          <% end %>
+
+          <%= link_to new_activity_session_path,
+                      class: "primary-button summary-action-primary" do %>
+            Faire une nouvelle activité
           <% end %>
         </div>
+      </section>
+
+    <% else %>
+
+      <div class="recommendations-header">
+        <p class="recommendations-kicker">À toi de choisir</p>
+
+        <h1>
+          Activités recommandées
+        </h1>
+
+      </div>
+
+      <% if @activities.any? %>
+
+        <div class="activities-list activities-count-<%= @activities.size %>">
+
+          <% @activities.each_with_index do |activity, index| %>
+
+            <% interest_class =
+              case activity.interest.name
+              when "Sport"
+                "activity-sport"
+              when "Langues"
+                "activity-langues"
+              when "Créativité"
+                "activity-creativity"
+              when "Bien-être"
+                "activity-wellbeing"
+              when "Photo"
+                "activity-photo"
+              when "Dessin"
+                "activity-drawing"
+              when "Écriture"
+                "activity-writing"
+              when "Culture"
+                "activity-culture"
+              else
+                "activity-default"
+              end
+            %>
+
+            <% activity_icon =
+              case activity.interest.name
+              when "Sport"
+                "sport.png"
+              when "Langues"
+                "langue.png"
+              when "Créativité"
+                "creativite.png"
+              when "Bien-être"
+                "bien_etre.png"
+              when "Photo"
+                "photo.png"
+              when "Dessin"
+                "dessin.png"
+              when "Écriture"
+                "ecriture.png"
+              when "Culture"
+                "culture.png"
+              else
+                nil
+              end
+            %>
+
+            <%= link_to activity_path(
+                  activity,
+                  activity_session_id: @activity_session.id
+                ),
+                class: "activity-card-link" do %>
+
+              <article class="activity-card <%= interest_class %>">
+                <div class="activity-card-main">
+                  <div class="activity-visual">
+                    <% if activity_icon.present? %>
+                      <%= image_tag activity_icon,
+                                    class: "activity-interest-icon",
+                                    alt: "" %>
+                    <% else %>
+                      <span class="activity-fallback-icon">✦</span>
+                    <% end %>
+                  </div>
+
+                  <div class="activity-body">
+                    <div class="activity-interest-header">
+                      <span class="activity-interest-label badge-interest">
+                        <%= activity.interest.name %>
+                      </span>
+
+                      <span class="activity-duration-pill">
+                        <%= activity.duration.value %> min
+                      </span>
+                    </div>
+
+                    <div class="activity-top">
+                      <h2>
+                        <%= activity.name %>
+
+                        <% if activity.language_activity? &&
+                              @language_label.present? %>
+                          en <%= @language_label %>
+                        <% end %>
+                      </h2>
+                    </div>
+
+                    <p class="activity-content">
+                      <%= activity.content %>
+                    </p>
+                  </div>
+
+                  <span class="activity-card-arrow">›</span>
+                </div>
+              </article>
+
+            <% end %>
+
+          <% end %>
+
+        </div>
+
       <% else %>
-        <p class="room-editor-empty">
-          Tu n’as pas encore débloqué de meuble.
-        </p>
+
+        <div class="empty-state">
+          <p>Aucune activité trouvée.</p>
+          <%= link_to "Recommencer",
+                      new_activity_session_path,
+                      class: "primary-button recommendations-primary-button" %>
+        </div>
+
       <% end %>
-    </div>
+
+    <% end %>
+
   </div>
+  <% unless @activity_session.finished? %>
+  <%= link_to duration_activity_sessions_path(
+                mood_id: @activity_session.activity.mood_id,
+                location_id: @activity_session.activity.location_id
+              ),
+              class: "bottom-back-button" do %>
+    ← Retour
+  <% end %>
+<% end %>
 </div>
