@@ -195,6 +195,32 @@ puts "🧠 Creating culture quiz activities..."
   )
 end
 
+puts "💻 Creating code quiz activities..."
+code = Interest.find_or_create_by!(name: "Code")
+
+[
+  { mood: en_forme, duration: five_minutes },
+  { mood: en_forme, duration: fifteen_minutes },
+  { mood: en_forme, duration: thirty_minutes },
+  { mood: mitige,   duration: five_minutes },
+  { mood: mitige,   duration: fifteen_minutes },
+  { mood: mitige,   duration: thirty_minutes },
+  { mood: a_plat,   duration: five_minutes },
+  { mood: a_plat,   duration: fifteen_minutes },
+  { mood: a_plat,   duration: thirty_minutes }
+].each do |data|
+  Activity.create!(
+    name: "Quiz code",
+    content: "Teste tes connaissances en développement web et IA.",
+    mood: data[:mood],
+    location: anywhere,
+    duration: data[:duration],
+    interest: code,
+    activity_type: "code_quiz",
+    active: true
+  )
+end
+
 puts "🧘 Creating non-sport demo activities..."
 
 Activity.create!(
@@ -290,12 +316,19 @@ Rake::Task["sport_activities:import"].invoke
 puts "🗂  Importing productivité activities from CSV..."
 Rake::Task["productivite_activities:import"].invoke
 
+puts "#{Activity.where(activity_type: "code_quiz", active: true).count} code quiz activities created"
+
 puts "📸 Importing photo activities from CSV..."
 Rake::Task["photo_activities:import"].invoke
 
 if defined?(CultureQuestion)
   puts "🧠 Importing culture questions from CSV..."
   Rake::Task["culture_questions:import_csv"].invoke
+end
+
+if defined?(CodeQuestion)
+  puts "💻 Importing code questions from CSV..."
+  Rake::Task["code_questions:import_csv"].invoke
 end
 
 puts "✅ Seed completed!"
