@@ -46,7 +46,13 @@
   end
 %>
 
-<div class="phone-page activity-show-page">
+<div
+  class="phone-page activity-show-page"
+  data-controller="activity-timer"
+  data-activity-timer-progress-url-value="<%= progress_activity_session_path(@activity_session) %>"
+  data-activity-timer-initial-elapsed-value="<%= @activity_session.elapsed_seconds.to_i %>"
+  data-activity-timer-duration-value="<%= @activity.duration.value.to_i * 60 %>"
+  >
   <div class="activity-show-sticky-topbar">
     <%= render "activity_sessions/selection_topbar" %>
   </div>

@@ -11,6 +11,10 @@ Rails.application.routes.draw do
       get :location
       get :duration
     end
+
+    member do
+      patch :progress
+    end
   end
 
   resources :activities, only: [:show]
