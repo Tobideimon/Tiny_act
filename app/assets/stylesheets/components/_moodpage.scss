@@ -1,13 +1,14 @@
 .mood-home-page {
-  height: 100dvh;
+  height: auto;
   min-height: 100dvh;
-  padding-top: 30px;
-  padding-bottom: 10px;
+  padding-top: 54px;
+  padding-bottom: 104px;
 
   display: flex;
   flex-direction: column;
 
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* ========================= */
@@ -21,7 +22,7 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
 
-  padding-top: 46px;
+  padding-top: 0;
 }
 
 .mood-hero,
@@ -61,10 +62,10 @@
   align-items: center;
   justify-content: center;
 
-  padding-top: 24px;
+  padding-top: 28px;
   padding-bottom: 28px;
 
-  overflow: hidden;
+  overflow: visible;
 }
 
 .mood-list {
@@ -324,11 +325,11 @@
 
 @media (max-height: 760px) {
   .mood-home-page {
-    padding-top: 24px;
+    padding-top: 46px;
   }
 
   .mood-choice-layout {
-    padding-top: 34px;
+    padding-top: 0;
   }
 
   .mood-hero h1,
@@ -337,14 +338,18 @@
   }
 
   .mood-form {
-    padding-top: 18px;
-    padding-bottom: 22px;
+    padding-top: 22px;
+    padding-bottom: 24px;
   }
 }
 
 @media (max-height: 670px) {
+  .mood-home-page {
+    padding-top: 40px;
+  }
+
   .mood-choice-layout {
-    padding-top: 24px;
+    padding-top: 0;
   }
 
   .mood-hero h1,
@@ -353,7 +358,7 @@
   }
 
   .mood-form {
-    padding-top: 14px;
+    padding-top: 16px;
     padding-bottom: 18px;
   }
 }

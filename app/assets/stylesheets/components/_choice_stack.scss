@@ -3,7 +3,7 @@
    Used to align the main choice cards across the flow
 ========================= */
 
-/* Location + Duration */
+/* Location + Duration uniquement */
 .flow-choice-stack,
 .setup-choice-list {
   position: fixed;
@@ -11,8 +11,8 @@
   bottom: calc(240px + env(safe-area-inset-bottom));
   transform: translateX(-50%);
 
-  width: calc(100% - 36px);
-  max-width: 394px;
+  width: calc(100% - 56px);
+  max-width: 374px;
 
   display: flex;
   flex-direction: column;
@@ -21,30 +21,93 @@
   z-index: 10;
 }
 
-/* Mood page only */
+/* =========================
+   HOME / MOOD PAGE
+   La home ne doit pas utiliser le fixed stack
+========================= */
+
+.mood-home-page {
+  height: auto;
+  min-height: 100dvh;
+
+  padding-top: calc(54px + env(safe-area-inset-top));
+  padding-left: 28px;
+  padding-right: 28px;
+  padding-bottom: calc(104px + env(safe-area-inset-bottom));
+
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Navbar un peu plus basse */
+.mood-home-page .mood-topbar {
+  margin-bottom: 40px;
+}
+
+/* Notifications proches de la navbar, mais sans toucher les bords */
+.mood-home-page .home-notification-stack {
+  width: calc(100% - 12px);
+  margin: 0 auto 24px;
+}
+
+/* Supprime l’espace artificiel entre notifications et titre */
+.mood-home-page .mood-choice-layout {
+  padding-top: 0;
+}
+
+/* Le formulaire reste dans le flux normal */
+.mood-home-page .mood-form {
+  padding-top: 28px;
+  padding-bottom: 28px;
+
+  overflow: visible;
+}
+
+/* Les cards mood ne doivent surtout pas être fixed */
 .mood-home-page .mood-list {
-  position: fixed;
-  left: 50%;
-  bottom: calc(178px + env(safe-area-inset-bottom));
-  transform: translateX(-50%);
+  position: relative;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  transform: none;
 
-  width: calc(100% - 36px);
-  max-width: 394px;
+  width: 100%;
+  max-width: none;
 
   display: flex;
   flex-direction: column;
-  gap: clamp(14px, 2.1vh, 22px);
+  gap: clamp(18px, 2.7vh, 24px);
 
   z-index: 10;
 }
 
-/* Card height */
+/* Les cards respectent le padding de la page */
+.mood-home-page .mood-card,
+.mood-home-page .mood-choice-card {
+  width: 100%;
+}
+
+/* Hauteur des cards home */
 .mood-home-page .mood-list .mood-card,
+.mood-home-page .mood-list .mood-choice-card {
+  min-height: clamp(104px, 13vh, 126px);
+}
+
+/* Hauteur des cards location / duration */
 .setup-choice-list .setup-choice-card {
   min-height: clamp(92px, 12.2vh, 116px);
 }
 
-/* Medium height screens */
+/* Le stepper reste fixed mais avec le même retrait visuel que le reste */
+.mood-home-page .step-progress-footer {
+  width: calc(100% - 56px);
+  max-width: 374px;
+}
+
+/* =========================
+   MEDIUM HEIGHT SCREENS
+========================= */
+
 @media (max-height: 760px) {
   .flow-choice-stack,
   .setup-choice-list {
@@ -52,13 +115,42 @@
     gap: 13px;
   }
 
+  .mood-home-page {
+    padding-top: calc(46px + env(safe-area-inset-top));
+    padding-left: 26px;
+    padding-right: 26px;
+    padding-bottom: calc(96px + env(safe-area-inset-bottom));
+  }
+
+  .mood-home-page .mood-topbar {
+    margin-bottom: 0;
+  }
+
+  .mood-home-page .home-notification-stack {
+    width: calc(100% - 10px);
+    margin: 0 auto 18px;
+  }
+
+  .mood-home-page .mood-form {
+    padding-top: 22px;
+    padding-bottom: 24px;
+  }
+
   .mood-home-page .mood-list {
-    bottom: calc(150px + env(safe-area-inset-bottom));
-    gap: 13px;
+    bottom: auto;
+    gap: 14px;
+  }
+
+  .mood-home-page .step-progress-footer {
+    width: calc(100% - 52px);
+    max-width: 378px;
   }
 }
 
-/* Small height screens */
+/* =========================
+   SMALL HEIGHT SCREENS
+========================= */
+
 @media (max-height: 670px) {
   .flow-choice-stack,
   .setup-choice-list {
@@ -66,12 +158,30 @@
     gap: 10px;
   }
 
+  .mood-home-page {
+    padding-top: calc(40px + env(safe-area-inset-top));
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: calc(88px + env(safe-area-inset-bottom));
+  }
+
+  .mood-home-page .home-notification-stack {
+    width: calc(100% - 8px);
+    margin: 0 auto 14px;
+  }
+
+  .mood-home-page .mood-form {
+    padding-top: 16px;
+    padding-bottom: 18px;
+  }
+
   .mood-home-page .mood-list {
-    bottom: calc(128px + env(safe-area-inset-bottom));
+    bottom: auto;
     gap: 10px;
   }
 
   .mood-home-page .mood-list .mood-card,
+  .mood-home-page .mood-list .mood-choice-card,
   .setup-choice-list .setup-choice-card {
     min-height: 82px;
   }
