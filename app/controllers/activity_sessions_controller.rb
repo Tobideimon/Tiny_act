@@ -1,4 +1,6 @@
 class ActivitySessionsController < ApplicationController
+  ROOM_REWARD_XP = 120
+
   include TopbarData
 
   before_action :authenticate_user!
@@ -122,13 +124,30 @@ class ActivitySessionsController < ApplicationController
   private
 
   def matching_activities
-    Activity.where(
+    scope = Activity.where(
       active: true,
       mood_id: params[:mood_id],
       duration_id: params[:duration_id],
       interest_id: current_user.interest_ids,
       location_id: allowed_location_ids(params[:location_id])
     )
+
+    apply_temporary_activity_rules(scope, params[:duration_id])
+  end
+
+  def apply_temporary_activity_rules(scope, duration_id)
+    duration_value = Duration.find_by(id: duration_id)&.value.to_i
+
+    case duration_value
+    when 5
+      scope.where.not(activity_type: ["sentence_completion", "llm_chat"])
+    when 15
+      scope.where.not(activity_type: ["word_learning", "llm_chat"])
+    when 30
+      scope.where.not(activity_type: ["word_learning", "sentence_completion", "llm_chat", "code_quiz"])
+    else
+      scope
+    end
   end
 
   def allowed_location_ids(selected_location_id)
@@ -186,7 +205,10 @@ class ActivitySessionsController < ApplicationController
   end
 
   def add_interest_xp_for(activity_session)
+    return if activity_session.xp_awarded_at.present?
+
     interest = activity_session.activity.interest
+    xp_earned = XpCalculator.new(activity_session).call
 
     progress = UserInterestProgress.find_or_create_by!(
       user: current_user,
@@ -195,16 +217,27 @@ class ActivitySessionsController < ApplicationController
       p.xp = 0
     end
 
-    progress.increment!(:xp, 15)
+    progress.increment!(:xp, xp_earned)
+
+    activity_session.update!(
+      xp_earned: xp_earned,
+      xp_awarded_at: Time.current
+    )
   end
 
   def prepare_finished_summary
     @activity = @activity_session.activity
     @summary_interest_name = @activity&.interest&.name.presence || "Activité"
+
     @summary_duration_minutes = @activity&.duration&.value.to_i
-    @summary_duration_label = @summary_duration_minutes.positive? ? "#{@summary_duration_minutes} min" : "Durée non renseignée"
+    @summary_duration_label = if @summary_duration_minutes.positive?
+                                "#{@summary_duration_minutes} min"
+                              else
+                                "Durée non renseignée"
+                              end
+
     @summary_saved_scroll_minutes = @summary_duration_minutes.positive? ? @summary_duration_minutes : 15
-    @summary_xp_gained = 15
+    @summary_xp_gained = @activity_session.xp_earned
   end
 
   # =========================
@@ -260,12 +293,20 @@ class ActivitySessionsController < ApplicationController
       priority: 2,
       label: "PROGRESSION",
       title: "Ta room progresse",
-      subtitle: "Encore #{@room_xp_before_reward} XP avant un meuble",
+      subtitle: room_progress_subtitle,
       icon_type: :room,
       url: room_path,
       tab_class: "tab-gold",
       decoration_class: nil
     }
+  end
+
+  def room_progress_subtitle
+    if @room_xp_before_reward.to_i.zero?
+      "Un meuble est prêt à être débloqué"
+    else
+      "Encore #{@room_xp_before_reward} XP avant un meuble"
+    end
   end
 
   def daily_streak_notification
@@ -321,12 +362,26 @@ class ActivitySessionsController < ApplicationController
   end
 
   def prepare_room_progress
-    xp_per_activity = 15
-    reward_threshold_xp = actions_needed_for_reward * xp_per_activity
-    current_cycle_xp = (finished_sessions_count % actions_needed_for_reward) * xp_per_activity
+    @room_reward_threshold_xp = ROOM_REWARD_XP
+    @room_total_xp = current_user_total_xp
+    @room_rewards_unlocked = @room_total_xp / ROOM_REWARD_XP
 
-    @room_xp_before_reward = reward_threshold_xp - current_cycle_xp
-    @room_xp_before_reward = reward_threshold_xp if @room_xp_before_reward.zero?
+    current_cycle_xp = @room_total_xp % ROOM_REWARD_XP
+
+    if current_cycle_xp.zero? && @room_total_xp.positive?
+      @room_progress_percent = 100
+      @room_xp_before_reward = 0
+    else
+      @room_progress_percent = ((current_cycle_xp.to_f / ROOM_REWARD_XP) * 100).round
+      @room_xp_before_reward = ROOM_REWARD_XP - current_cycle_xp
+    end
+  end
+
+  def current_user_total_xp
+    current_user
+      .activity_sessions
+      .where.not(xp_awarded_at: nil)
+      .sum(:xp_earned)
   end
 
   def finished_sessions_count

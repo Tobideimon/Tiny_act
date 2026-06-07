@@ -12,17 +12,18 @@ export default class extends Controller {
     "currentStepText",
     "timerWrapper",
     "timer",
-    "nextButton"
+    "nextButton",
+    "finishButton"
   ]
 
   static values = {
-    plan: Object
+    plan: Object,
+    finishUrl: String
   }
 
   connect() {
     this.currentIndex = 0
     this.timerInterval = null
-    this.startedAt = null
     this.stage = "idle"
     this.mainStepCount = this.mainSteps.length
 
@@ -40,7 +41,6 @@ export default class extends Controller {
     this.finishedTarget.classList.add("is-hidden")
 
     this.currentIndex = 0
-    this.startedAt = null
     this.showPreparation()
   }
 
@@ -50,6 +50,7 @@ export default class extends Controller {
     this.stage = "preparation"
     this.runnerLabelTarget.textContent = "Début dans :"
     this.currentStepTextTarget.textContent = "Prépare-toi"
+    this.nextButtonTarget.textContent = "Passer la préparation"
     this.nextButtonTarget.classList.remove("is-hidden")
 
     this.startTimer(this.preparationSeconds, () => {
@@ -61,7 +62,6 @@ export default class extends Controller {
     this.clearTimer()
 
     this.stage = "main"
-    this.startedAt = Date.now()
     this.currentIndex = 0
 
     this.showCurrentStep()
@@ -71,13 +71,16 @@ export default class extends Controller {
     this.clearTimer()
 
     const currentStep = this.mainSteps[this.currentIndex]
+
     if (!currentStep) {
-      this.finish()
+      this.showFinishedScreen()
       return
     }
 
     this.runnerLabelTarget.innerHTML = `Étape ${this.currentIndex + 1} / ${this.mainStepCount}`
     this.currentStepTextTarget.textContent = currentStep.text
+    this.nextButtonTarget.textContent = this.isLastStep() ? "Terminer le parcours" : "Passer cette étape"
+    this.nextButtonTarget.classList.remove("is-hidden")
 
     const duration = Number(currentStep.duration_seconds || 0)
 
@@ -101,28 +104,60 @@ export default class extends Controller {
 
     if (this.stage !== "main") return
 
-    this.currentIndex += 1
-
-    if (this.currentIndex >= this.mainStepCount) {
-      if (this.mustLoopAgain()) {
-        this.currentIndex = 0
-        this.showCurrentStep()
-        return
-      }
-
-      this.finish()
+    if (this.isLastStep()) {
+      this.showFinishedScreen()
       return
     }
 
+    this.currentIndex += 1
     this.showCurrentStep()
   }
 
-  finish() {
+  showFinishedScreen() {
     this.clearTimer()
 
     this.stage = "finished"
     this.runnerTarget.classList.add("is-hidden")
     this.finishedTarget.classList.remove("is-hidden")
+
+    if (this.hasTimerWrapperTarget) {
+      this.timerWrapperTarget.classList.add("is-hidden")
+    }
+
+    if (this.hasFinishButtonTarget) {
+      this.finishButtonTarget.disabled = false
+      this.finishButtonTarget.textContent = "Terminer"
+    }
+  }
+
+  finishActivity() {
+    if (!this.hasFinishUrlValue) return
+
+    if (this.hasFinishButtonTarget) {
+      this.finishButtonTarget.disabled = true
+      this.finishButtonTarget.textContent = "Validation..."
+    }
+
+    const form = document.createElement("form")
+    form.method = "post"
+    form.action = this.finishUrlValue
+    form.style.display = "none"
+
+    const methodInput = document.createElement("input")
+    methodInput.type = "hidden"
+    methodInput.name = "_method"
+    methodInput.value = "patch"
+
+    const csrfInput = document.createElement("input")
+    csrfInput.type = "hidden"
+    csrfInput.name = "authenticity_token"
+    csrfInput.value = this.csrfToken()
+
+    form.appendChild(methodInput)
+    form.appendChild(csrfInput)
+
+    document.body.appendChild(form)
+    form.submit()
   }
 
   startTimer(seconds, onComplete = null) {
@@ -165,12 +200,13 @@ export default class extends Controller {
     this.timerTarget.textContent = `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`
   }
 
-  mustLoopAgain() {
-    if (this.plan.repeat_mode !== "until_duration") return false
-    if (!this.startedAt) return false
+  isLastStep() {
+    return this.currentIndex >= this.mainStepCount - 1
+  }
 
-    const elapsedSeconds = Math.floor((Date.now() - this.startedAt) / 1000)
-    return elapsedSeconds < this.targetDurationSeconds
+  csrfToken() {
+    const token = document.querySelector("meta[name='csrf-token']")
+    return token ? token.content : ""
   }
 
   get plan() {
@@ -183,9 +219,5 @@ export default class extends Controller {
 
   get preparationSeconds() {
     return Number(this.plan.preparation_seconds || 30)
-  }
-
-  get targetDurationSeconds() {
-    return Number(this.plan.target_duration_seconds || 0)
   }
 }

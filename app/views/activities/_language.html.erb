@@ -1,4 +1,5 @@
 <% language_label = local_assigns.fetch(:language_label, @language_label) %>
+<% duration_seconds = activity.duration.value.to_i * 60 %>
 
 <% if activity.activity_type == "word_learning" %>
 
@@ -11,12 +12,44 @@
         translation: item.translation.presence || item.answer
       }
     }.to_json %>"
-    data-language-activity-duration-value="<%= duration_seconds %>"
     data-language-activity-mode-value="word_learning"
+    data-language-activity-duration-seconds-value="<%= duration_seconds %>"
+    data-language-activity-finish-url-value="<%= activity_session_path(@activity_session) %>"
     class="language-activity language-word-activity"
   >
 
-    <div class="language-status-panel">
+    <div
+      class="language-panel language-main-card"
+      data-language-activity-target="startScreen"
+    >
+      <p class="language-kicker">
+        Mots en <%= language_label %>
+      </p>
+
+      <h2>
+        Mémorise autant de mots que possible
+      </h2>
+
+      <p class="activity-show-description">
+        Tu as <strong><%= activity.duration.value %> minutes</strong>.
+        Le chrono commence quand tu lances l’activité.
+      </p>
+
+      <button
+        type="button"
+        class="language-primary-button"
+        data-language-activity-target="launchButton"
+        data-action="click->language-activity#launch"
+      >
+        Lancer l’activité
+      </button>
+    </div>
+
+    <div
+      class="language-status-panel"
+      data-language-activity-target="statusPanel"
+      hidden
+    >
       <div class="language-status-item">
         <span>Temps</span>
         <strong data-language-activity-target="timer"></strong>
@@ -28,7 +61,11 @@
       </div>
     </div>
 
-    <div class="language-panel language-main-card">
+    <div
+      class="language-panel language-main-card"
+      data-language-activity-target="wordCard"
+      hidden
+    >
       <p class="language-kicker">
         Mot en <%= language_label %>
       </p>
@@ -60,9 +97,38 @@
       class="language-primary-button"
       data-language-activity-target="nextButton"
       data-action="click->language-activity#nextWord"
+      hidden
     >
       Mot suivant
     </button>
+
+    <div
+      class="language-panel language-main-card"
+      data-language-activity-target="resultCard"
+      hidden
+    >
+      <p class="language-kicker">
+        Temps écoulé
+      </p>
+
+      <h2>
+        Session terminée
+      </h2>
+
+      <p
+        class="activity-show-description"
+        data-language-activity-target="resultText"
+      ></p>
+
+      <button
+        type="button"
+        class="language-primary-button"
+        data-language-activity-target="finishButton"
+        data-action="click->language-activity#finishActivity"
+      >
+        Terminer
+      </button>
+    </div>
   </div>
 
 <% elsif activity.activity_type == "sentence_completion" %>
@@ -76,24 +142,60 @@
         translation: item.translation
       }
     }.to_json %>"
-    data-language-activity-duration-value="<%= duration_seconds %>"
     data-language-activity-mode-value="sentence_completion"
+    data-language-activity-duration-seconds-value="<%= duration_seconds %>"
+    data-language-activity-finish-url-value="<%= activity_session_path(@activity_session) %>"
     class="language-activity language-sentence-activity"
   >
 
-    <div class="language-status-panel">
+    <div
+      class="language-panel language-main-card"
+      data-language-activity-target="startScreen"
+    >
+      <p class="language-kicker">
+        Phrases en <%= language_label %>
+      </p>
+
+      <h2>
+        Complète autant de phrases que possible
+      </h2>
+
+      <p class="activity-show-description">
+        Tu as <strong><%= activity.duration.value %> minutes</strong>.
+        Le chrono commence quand tu lances l’activité.
+      </p>
+
+      <button
+        type="button"
+        class="language-primary-button"
+        data-language-activity-target="launchButton"
+        data-action="click->language-activity#launch"
+      >
+        Lancer l’activité
+      </button>
+    </div>
+
+    <div
+      class="language-status-panel"
+      data-language-activity-target="statusPanel"
+      hidden
+    >
       <div class="language-status-item">
         <span>Temps</span>
         <strong data-language-activity-target="timer"></strong>
       </div>
 
       <div class="language-status-item">
-        <span>Progression</span>
+        <span>Score</span>
         <strong data-language-activity-target="progress"></strong>
       </div>
     </div>
 
-    <div class="language-panel language-main-card">
+    <div
+      class="language-panel language-main-card"
+      data-language-activity-target="sentenceCard"
+      hidden
+    >
       <p class="language-kicker">
         Phrase en français
       </p>
@@ -120,7 +222,7 @@
         <p class="sentence-line">
           <span data-language-activity-target="sentenceBefore"></span>
 
-          <input <%# herb:disable html-input-require-autocomplete %>
+          <input
             type="text"
             class="sentence-gap-input"
             placeholder="___"
@@ -150,13 +252,41 @@
         data-language-activity-target="sentenceFeedback"
       ></p>
     </div>
+
+    <div
+      class="language-panel language-main-card"
+      data-language-activity-target="resultCard"
+      hidden
+    >
+      <p class="language-kicker">
+        Temps écoulé
+      </p>
+
+      <h2>
+        Session terminée
+      </h2>
+
+      <p
+        class="activity-show-description"
+        data-language-activity-target="resultText"
+      ></p>
+
+      <button
+        type="button"
+        class="language-primary-button"
+        data-language-activity-target="finishButton"
+        data-action="click->language-activity#finishActivity"
+      >
+        Terminer
+      </button>
+    </div>
   </div>
 
 <% elsif activity.activity_type == "llm_chat" %>
 
   <div class="language-panel">
     <p class="activity-show-description">
-      Le chat avec IA sera branché plus tard.
+      Conversation guidée bientôt disponible.
     </p>
   </div>
 

@@ -2,11 +2,18 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = [
-    "timer",
+    "startScreen",
+    "statusPanel",
+    "wordCard",
+    "sentenceCard",
+    "resultCard",
+    "launchButton",
     "nextButton",
+    "finishButton",
     "revealTranslationButton",
     "wordPrompt",
     "wordAnswer",
+    "sentenceForm",
     "sentenceTranslation",
     "sentenceBefore",
     "sentenceAfter",
@@ -14,60 +21,151 @@ export default class extends Controller {
     "revealedAnswer",
     "sentenceFeedback",
     "submitButton",
-    "progress"
+    "progress",
+    "timer",
+    "resultText"
   ]
 
   static values = {
     items: Array,
-    duration: Number,
-    mode: String
+    mode: String,
+    durationSeconds: Number,
+    finishUrl: String
   }
 
   connect() {
     this.currentIndex = 0
     this.completedCount = 0
-    this.remainingSeconds = this.durationValue
-    this.timerInterval = null
+    this.correctCount = 0
     this.sentenceAttempts = 0
+    this.waitingForSentenceNext = false
+    this.remainingSeconds = this.durationSecondsValue || 300
+    this.timerInterval = null
+    this.activityFinished = false
+    this.selectedItems = this.shuffle(this.itemsValue)
 
-    this.updateTimer()
+    this.showStartScreen()
+  }
+
+  showStartScreen() {
+    if (this.hasStartScreenTarget) this.startScreenTarget.hidden = false
+    if (this.hasStatusPanelTarget) this.statusPanelTarget.hidden = true
+    if (this.hasWordCardTarget) this.wordCardTarget.hidden = true
+    if (this.hasSentenceCardTarget) this.sentenceCardTarget.hidden = true
+    if (this.hasResultCardTarget) this.resultCardTarget.hidden = true
+    if (this.hasNextButtonTarget) this.nextButtonTarget.hidden = true
+  }
+
+  launch() {
+    if (this.itemsValue.length === 0) return
+
+    this.currentIndex = 0
+    this.completedCount = 0
+    this.correctCount = 0
+    this.sentenceAttempts = 0
+    this.waitingForSentenceNext = false
+    this.remainingSeconds = this.durationSecondsValue || 300
+    this.activityFinished = false
+    this.selectedItems = this.shuffle(this.itemsValue)
+
+    this.startScreenTarget.hidden = true
+    this.statusPanelTarget.hidden = false
 
     if (this.modeValue === "word_learning") {
+      this.wordCardTarget.hidden = false
+      this.nextButtonTarget.hidden = false
+      this.nextButtonTarget.textContent = "Mot suivant"
       this.showCurrentWord()
-      this.startTimer()
     }
 
     if (this.modeValue === "sentence_completion") {
+      this.sentenceCardTarget.hidden = false
       this.showCurrentSentence()
-      this.updateProgress()
-      this.startTimer()
-
-      if (this.hasSentenceInputTarget) {
-        this.sentenceInputTarget.focus()
-      }
     }
+
+    this.updateTimer()
+    this.updateProgress()
+    this.startTimer()
   }
 
   startTimer() {
+    this.clearTimer()
+
     this.timerInterval = setInterval(() => {
       this.remainingSeconds -= 1
       this.updateTimer()
 
       if (this.remainingSeconds <= 0) {
-        this.finish()
+        this.clearTimer()
+        this.showResult()
       }
     }, 1000)
   }
 
-  nextWord() {
-    if (this.remainingSeconds <= 0) return
+  clearTimer() {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval)
+      this.timerInterval = null
+    }
+  }
 
-    this.currentIndex = this.nextIndex()
+  updateTimer() {
+    if (!this.hasTimerTarget) return
+
+    const safeSeconds = Math.max(0, this.remainingSeconds)
+    const minutes = Math.floor(safeSeconds / 60)
+    const seconds = safeSeconds % 60
+
+    this.timerTarget.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`
+  }
+
+  nextWord() {
+    if (this.activityFinished) return
+
+    if (this.remainingSeconds <= 0) {
+      this.showResult()
+      return
+    }
+
+    this.currentIndex += 1
     this.showCurrentWord()
   }
 
+  showCurrentWord() {
+    if (this.activityFinished) return
+
+    if (this.remainingSeconds <= 0) {
+      this.showResult()
+      return
+    }
+
+    if (this.currentIndex >= this.selectedItems.length) {
+      this.selectedItems = this.shuffle(this.itemsValue)
+      this.currentIndex = 0
+    }
+
+    const currentItem = this.selectedItems[this.currentIndex]
+
+    if (!currentItem) {
+      this.showResult()
+      return
+    }
+
+    this.completedCount += 1
+
+    this.wordPromptTarget.textContent = currentItem.prompt
+    this.wordAnswerTarget.textContent = currentItem.translation || currentItem.answer
+    this.wordAnswerTarget.classList.add("is-hidden")
+
+    if (this.hasRevealTranslationButtonTarget) {
+      this.revealTranslationButtonTarget.textContent = "Voir la traduction"
+    }
+
+    this.updateProgress()
+  }
+
   toggleWordTranslation() {
-    if (!this.hasWordAnswerTarget) return
+    if (!this.hasWordAnswerTarget || this.activityFinished) return
 
     const isHidden = this.wordAnswerTarget.classList.contains("is-hidden")
 
@@ -83,9 +181,19 @@ export default class extends Controller {
   checkSentence(event) {
     event.preventDefault()
 
-    if (this.remainingSeconds <= 0) return
+    if (this.activityFinished) return
 
-    const currentItem = this.itemsValue[this.currentIndex]
+    if (this.remainingSeconds <= 0) {
+      this.showResult()
+      return
+    }
+
+    if (this.waitingForSentenceNext) {
+      this.goToNextSentence()
+      return
+    }
+
+    const currentItem = this.selectedItems[this.currentIndex]
     const userAnswer = this.normalize(this.sentenceInputTarget.value)
     const expectedAnswer = this.normalize(currentItem.answer)
 
@@ -93,6 +201,7 @@ export default class extends Controller {
 
     if (userAnswer === expectedAnswer) {
       this.completedCount += 1
+      this.correctCount += 1
       this.updateProgress()
 
       this.sentenceInputTarget.classList.add("is-correct")
@@ -100,10 +209,8 @@ export default class extends Controller {
       this.sentenceFeedbackTarget.textContent = "Correct."
       this.sentenceFeedbackTarget.classList.add("is-correct")
 
-      setTimeout(() => {
-        this.currentIndex = this.nextIndex()
-        this.showCurrentSentence()
-      }, 800)
+      this.lockSentenceBeforeNext()
+      this.submitButtonTarget.textContent = "Phrase suivante"
 
       return
     }
@@ -123,26 +230,35 @@ export default class extends Controller {
     this.sentenceInputTarget.focus()
   }
 
-  showCurrentWord() {
-    const currentItem = this.itemsValue[this.currentIndex]
-
-    this.wordPromptTarget.textContent = currentItem.prompt
-    this.wordAnswerTarget.textContent = currentItem.translation || currentItem.answer
-    this.wordAnswerTarget.classList.add("is-hidden")
-
-    if (this.hasRevealTranslationButtonTarget) {
-      this.revealTranslationButtonTarget.textContent = "Voir la traduction"
-    }
-
-    this.completedCount += 1
-    this.updateProgress()
+  goToNextSentence() {
+    this.currentIndex += 1
+    this.showCurrentSentence()
   }
 
   showCurrentSentence() {
-    const currentItem = this.itemsValue[this.currentIndex]
+    if (this.activityFinished) return
+
+    if (this.remainingSeconds <= 0) {
+      this.showResult()
+      return
+    }
+
+    if (this.currentIndex >= this.selectedItems.length) {
+      this.selectedItems = this.shuffle(this.itemsValue)
+      this.currentIndex = 0
+    }
+
+    const currentItem = this.selectedItems[this.currentIndex]
+
+    if (!currentItem) {
+      this.showResult()
+      return
+    }
+
     const sentenceParts = this.splitSentence(currentItem.prompt)
 
     this.sentenceAttempts = 0
+    this.waitingForSentenceNext = false
 
     this.sentenceTranslationTarget.textContent = currentItem.translation
     this.sentenceBeforeTarget.textContent = sentenceParts.before
@@ -158,14 +274,19 @@ export default class extends Controller {
     this.revealedAnswerTarget.classList.add("is-hidden")
 
     this.submitButtonTarget.disabled = false
+    this.submitButtonTarget.textContent = "Valider"
 
     this.clearSentenceState()
     this.sentenceFeedbackTarget.textContent = ""
 
     this.sentenceInputTarget.focus()
+    this.updateProgress()
   }
 
   revealSentenceAnswer(currentItem) {
+    this.completedCount += 1
+    this.updateProgress()
+
     this.sentenceInputTarget.value = ""
     this.sentenceInputTarget.disabled = true
     this.sentenceInputTarget.classList.add("is-hidden")
@@ -174,16 +295,75 @@ export default class extends Controller {
     this.revealedAnswerTarget.classList.remove("is-hidden")
     this.revealedAnswerTarget.classList.add("is-wrong")
 
-    this.submitButtonTarget.disabled = true
     this.submitButtonTarget.classList.add("is-wrong")
 
-    this.sentenceFeedbackTarget.textContent = "La réponse était affichée. On passe à la suivante."
+    this.sentenceFeedbackTarget.textContent = "La réponse était affichée."
     this.sentenceFeedbackTarget.classList.add("is-wrong")
 
-    setTimeout(() => {
-      this.currentIndex = this.nextIndex()
-      this.showCurrentSentence()
-    }, 1800)
+    this.lockSentenceBeforeNext()
+    this.submitButtonTarget.textContent = "Phrase suivante"
+  }
+
+  lockSentenceBeforeNext() {
+    this.waitingForSentenceNext = true
+
+    if (this.hasSentenceInputTarget) {
+      this.sentenceInputTarget.disabled = true
+    }
+  }
+
+  showResult() {
+    if (this.activityFinished) return
+
+    this.activityFinished = true
+    this.clearTimer()
+    this.updateTimer()
+
+    if (this.hasWordCardTarget) this.wordCardTarget.hidden = true
+    if (this.hasSentenceCardTarget) this.sentenceCardTarget.hidden = true
+    if (this.hasNextButtonTarget) this.nextButtonTarget.hidden = true
+
+    this.resultCardTarget.hidden = false
+
+    if (this.modeValue === "word_learning") {
+      this.resultTextTarget.textContent = `${this.completedCount} mot(s) vus pendant la session.`
+    }
+
+    if (this.modeValue === "sentence_completion") {
+      this.resultTextTarget.textContent = `${this.correctCount} phrase(s) réussie(s) sur ${this.completedCount} phrase(s) jouée(s).`
+    }
+
+    this.progressTarget.textContent = "Résultat"
+  }
+
+  finishActivity() {
+    if (!this.hasFinishUrlValue) return
+
+    if (this.hasFinishButtonTarget) {
+      this.finishButtonTarget.disabled = true
+      this.finishButtonTarget.textContent = "Validation..."
+    }
+
+    const form = document.createElement("form")
+    form.method = "post"
+    form.action = this.finishUrlValue
+    form.style.display = "none"
+
+    const methodInput = document.createElement("input")
+    methodInput.type = "hidden"
+    methodInput.name = "_method"
+    methodInput.value = "patch"
+
+    const csrfInput = document.createElement("input")
+    csrfInput.type = "hidden"
+    csrfInput.name = "authenticity_token"
+    csrfInput.value = this.csrfToken()
+
+    form.appendChild(methodInput)
+    form.appendChild(csrfInput)
+
+    document.body.appendChild(form)
+    form.submit()
   }
 
   splitSentence(sentence) {
@@ -230,58 +410,25 @@ export default class extends Controller {
     }
   }
 
-  nextIndex() {
-    if (this.itemsValue.length === 0) return 0
-
-    return (this.currentIndex + 1) % this.itemsValue.length
-  }
-
-  updateTimer() {
-    const minutes = Math.floor(this.remainingSeconds / 60)
-    const seconds = this.remainingSeconds % 60
-
-    this.timerTarget.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`
-  }
-
   updateProgress() {
     if (!this.hasProgressTarget) return
 
     if (this.modeValue === "word_learning") {
-      const label = this.completedCount > 1 ? "mots vus" : "mot vu"
-      this.progressTarget.textContent = `${this.completedCount} ${label}`
+      this.progressTarget.textContent = `${this.completedCount} mot(s)`
     }
 
     if (this.modeValue === "sentence_completion") {
-      const label = this.completedCount > 1 ? "phrases réussies" : "phrase réussie"
-      this.progressTarget.textContent = `${this.completedCount} ${label}`
+      this.progressTarget.textContent = `${this.correctCount} / ${this.completedCount}`
     }
   }
 
-  finish() {
-    clearInterval(this.timerInterval)
-    this.remainingSeconds = 0
-    this.updateTimer()
+  shuffle(array) {
+    return [...array].sort(() => Math.random() - 0.5)
+  }
 
-    if (this.hasNextButtonTarget) {
-      this.nextButtonTarget.disabled = true
-    }
-
-    if (this.hasRevealTranslationButtonTarget) {
-      this.revealTranslationButtonTarget.disabled = true
-    }
-
-    if (this.hasSentenceInputTarget) {
-      this.sentenceInputTarget.disabled = true
-    }
-
-    if (this.hasSubmitButtonTarget) {
-      this.submitButtonTarget.disabled = true
-    }
-
-    if (this.hasSentenceFeedbackTarget) {
-      this.sentenceFeedbackTarget.textContent = "Temps écoulé."
-      this.sentenceFeedbackTarget.classList.remove("is-correct", "is-wrong")
-    }
+  csrfToken() {
+    const token = document.querySelector("meta[name='csrf-token']")
+    return token ? token.content : ""
   }
 
   normalize(value) {

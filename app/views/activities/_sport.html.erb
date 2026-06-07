@@ -5,6 +5,7 @@
   class="sport-activity"
   data-controller="sport-activity"
   data-sport-activity-plan-value="<%= json_escape(sport_plan.to_json) %>"
+  data-sport-activity-finish-url-value="<%= activity_session_path(@activity_session) %>"
 >
   <div class="sport-panel sport-main-card">
     <% if sport_steps.any? %>
@@ -38,7 +39,7 @@
         data-sport-activity-target="launchButton"
         data-action="click->sport-activity#launch"
       >
-        Lancer
+        Lancer l’activité
       </button>
     <% else %>
       <p class="activity-show-description">
@@ -83,7 +84,16 @@
     <h2>Bravo</h2>
 
     <p class="activity-show-description">
-      Tu as terminé cette activité.
+      Tu as terminé cette activité sportive.
     </p>
+
+    <button
+      type="button"
+      class="primary-button sport-finish-button"
+      data-sport-activity-target="finishButton"
+      data-action="click->sport-activity#finishActivity"
+    >
+      Terminer
+    </button>
   </div>
 </div>

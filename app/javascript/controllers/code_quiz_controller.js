@@ -11,55 +11,101 @@ export default class extends Controller {
     "feedback",
     "nextButton",
     "score",
-    "timer",
-    "selectedCategory"
+    "launchButton",
+    "timer"
   ]
 
   static values = {
     questions: Array,
-    durationSeconds: Number
+    durationSeconds: Number,
+    finishUrl: String
   }
 
   connect() {
     this.currentIndex = 0
     this.correctCount = 0
+    this.completedCount = 0
     this.answered = false
     this.selectedQuestions = []
     this.remainingSeconds = this.durationSecondsValue || 300
     this.timerInterval = null
+    this.quizFinished = false
 
-    this.updateTimerDisplay()
+    this.startScreenTarget.hidden = false
+    this.quizHeaderTarget.hidden = true
+    this.cardTarget.hidden = true
+    this.nextButtonTarget.hidden = true
   }
 
-  selectCategory(event) {
-    const category = event.currentTarget.dataset.category
+  launch() {
+    if (this.questionsValue.length === 0) return
 
-    this.selectedQuestions = this.questionsValue.filter((question) => {
-      return question.category === category
-    })
-
-    if (this.selectedQuestions.length === 0) return
-
+    this.selectedQuestions = this.shuffle(this.questionsValue)
     this.currentIndex = 0
     this.correctCount = 0
+    this.completedCount = 0
     this.answered = false
+    this.quizFinished = false
     this.remainingSeconds = this.durationSecondsValue || 300
 
-    this.selectedCategoryTarget.textContent = category
+    this.startScreenTarget.hidden = true
+    this.quizHeaderTarget.hidden = false
+    this.cardTarget.hidden = false
+    this.nextButtonTarget.hidden = true
 
-    this.startScreenTarget.classList.add("d-none")
-    this.quizHeaderTarget.classList.remove("d-none")
-    this.cardTarget.classList.remove("d-none")
-
+    this.updateTimer()
     this.startTimer()
     this.showQuestion()
   }
 
+  startTimer() {
+    this.clearTimer()
+
+    this.timerInterval = setInterval(() => {
+      this.remainingSeconds -= 1
+      this.updateTimer()
+
+      if (this.remainingSeconds <= 0) {
+        this.clearTimer()
+        this.showResult()
+      }
+    }, 1000)
+  }
+
+  clearTimer() {
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval)
+      this.timerInterval = null
+    }
+  }
+
+  updateTimer() {
+    if (!this.hasTimerTarget) return
+
+    const safeSeconds = Math.max(0, this.remainingSeconds)
+    const minutes = Math.floor(safeSeconds / 60)
+    const seconds = safeSeconds % 60
+
+    this.timerTarget.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`
+  }
+
   showQuestion() {
+    if (this.quizFinished) return
+
+    if (this.remainingSeconds <= 0) {
+      this.showResult()
+      return
+    }
+
+    if (this.currentIndex >= this.selectedQuestions.length) {
+      this.selectedQuestions = this.shuffle(this.questionsValue)
+      this.currentIndex = 0
+    }
+
     const currentQuestion = this.selectedQuestions[this.currentIndex]
 
     if (!currentQuestion) {
-      this.showResult("Quiz terminé")
+      this.showResult()
       return
     }
 
@@ -71,11 +117,11 @@ export default class extends Controller {
     this.scoreTarget.textContent = ""
     this.feedbackTarget.classList.remove("is-correct", "is-wrong")
 
-    this.progressTarget.textContent = `Question ${this.currentIndex + 1} / ${this.selectedQuestions.length}`
+    this.updateProgress()
 
     this.answersTarget.innerHTML = ""
 
-    currentQuestion.answers.forEach((answer) => {
+    this.shuffle(currentQuestion.answers).forEach((answer) => {
       const button = document.createElement("button")
 
       button.type = "button"
@@ -87,13 +133,19 @@ export default class extends Controller {
       this.answersTarget.appendChild(button)
     })
 
-    this.nextButtonTarget.classList.add("d-none")
+    this.nextButtonTarget.hidden = true
   }
 
   selectAnswer(event) {
-    if (this.answered) return
+    if (this.answered || this.quizFinished) return
+
+    if (this.remainingSeconds <= 0) {
+      this.showResult()
+      return
+    }
 
     this.answered = true
+    this.completedCount += 1
 
     const selectedButton = event.currentTarget
     const selectedAnswer = selectedButton.dataset.answer
@@ -124,20 +176,18 @@ export default class extends Controller {
       this.feedbackTarget.classList.add("is-wrong")
     }
 
-    if (this.currentIndex === this.selectedQuestions.length - 1) {
-      this.nextButtonTarget.textContent = "Voir le résultat"
-    } else {
-      this.nextButtonTarget.textContent = "Question suivante"
-    }
+    this.updateProgress()
 
-    this.nextButtonTarget.classList.remove("d-none")
+    this.nextButtonTarget.textContent = "Question suivante"
+    this.nextButtonTarget.dataset.action = "click->code-quiz#nextQuestion"
+    this.nextButtonTarget.hidden = false
   }
 
   nextQuestion() {
-    if (!this.answered) return
+    if (!this.answered || this.quizFinished) return
 
-    if (this.currentIndex === this.selectedQuestions.length - 1) {
-      this.showResult("Quiz terminé")
+    if (this.remainingSeconds <= 0) {
+      this.showResult()
       return
     }
 
@@ -145,46 +195,73 @@ export default class extends Controller {
     this.showQuestion()
   }
 
-  startTimer() {
+  showResult() {
+    if (this.quizFinished) return
+
+    this.quizFinished = true
     this.clearTimer()
-    this.updateTimerDisplay()
+    this.updateTimer()
 
-    this.timerInterval = setInterval(() => {
-      this.remainingSeconds -= 1
-      this.updateTimerDisplay()
-
-      if (this.remainingSeconds <= 0) {
-        this.showResult("Temps écoulé")
-      }
-    }, 1000)
-  }
-
-  clearTimer() {
-    if (this.timerInterval) {
-      clearInterval(this.timerInterval)
-      this.timerInterval = null
-    }
-  }
-
-  updateTimerDisplay() {
-    const safeSeconds = Math.max(0, Number(this.remainingSeconds || 0))
-    const minutes = Math.floor(safeSeconds / 60)
-    const seconds = safeSeconds % 60
-
-    this.timerTarget.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`
-  }
-
-  showResult(title) {
-    this.clearTimer()
-
+    this.cardTarget.hidden = false
     this.cardTarget.classList.remove("quiz-card-correct", "quiz-card-wrong")
-    this.questionTarget.textContent = title
+
+    this.questionTarget.textContent = "Temps écoulé"
     this.answersTarget.innerHTML = ""
     this.feedbackTarget.textContent = ""
-    this.nextButtonTarget.classList.add("d-none")
 
     this.progressTarget.textContent = "Résultat"
 
-    this.scoreTarget.textContent = `${this.correctCount} bonne(s) réponse(s) sur ${this.currentIndex + (this.answered ? 1 : 0)} question(s) jouée(s).`
+    if (this.completedCount === 0) {
+      this.scoreTarget.textContent = "Tu n’as pas encore répondu à une question."
+    } else {
+      this.scoreTarget.textContent = `${this.correctCount} bonne(s) réponse(s) sur ${this.completedCount} question(s).`
+    }
+
+    this.nextButtonTarget.textContent = "Terminer"
+    this.nextButtonTarget.dataset.action = "click->code-quiz#finishActivity"
+    this.nextButtonTarget.hidden = false
+  }
+
+  finishActivity() {
+    if (!this.hasFinishUrlValue) return
+
+    this.nextButtonTarget.disabled = true
+    this.nextButtonTarget.textContent = "Validation..."
+
+    const form = document.createElement("form")
+    form.method = "post"
+    form.action = this.finishUrlValue
+    form.style.display = "none"
+
+    const methodInput = document.createElement("input")
+    methodInput.type = "hidden"
+    methodInput.name = "_method"
+    methodInput.value = "patch"
+
+    const csrfInput = document.createElement("input")
+    csrfInput.type = "hidden"
+    csrfInput.name = "authenticity_token"
+    csrfInput.value = this.csrfToken()
+
+    form.appendChild(methodInput)
+    form.appendChild(csrfInput)
+
+    document.body.appendChild(form)
+    form.submit()
+  }
+
+  updateProgress() {
+    if (!this.hasProgressTarget) return
+
+    this.progressTarget.textContent = `${this.correctCount} / ${this.completedCount}`
+  }
+
+  shuffle(array) {
+    return [...array].sort(() => Math.random() - 0.5)
+  }
+
+  csrfToken() {
+    const token = document.querySelector("meta[name='csrf-token']")
+    return token ? token.content : ""
   }
 }

@@ -1,7 +1,23 @@
 <% steps = activity.step_list %>
 
-<div class="productivity-activity">
-  <div class="productivity-panel productivity-main-card">
+<% if steps.blank? %>
+  <% steps = [
+    "Choisis une micro-tâche concrète.",
+    "Élimine une distraction immédiate.",
+    "Commence maintenant pendant quelques minutes.",
+    "Arrête-toi quand tu as créé un vrai départ."
+  ] %>
+<% end %>
+
+<div
+  class="productivity-activity"
+  data-controller="productivite-activity"
+  data-productivite-activity-finish-url-value="<%= activity_session_path(@activity_session) %>"
+>
+  <div
+    class="productivity-panel productivity-main-card"
+    data-productivite-activity-target="startScreen"
+  >
     <div class="productivity-start-header">
       <p class="productivity-kicker">
         Mini-action
@@ -16,46 +32,94 @@
       </p>
     </div>
 
-    <% if steps.any? %>
-      <div class="productivity-steps">
-        <% steps.each_with_index do |step, index| %>
-          <div class="productivity-step-card">
-            <span class="productivity-step-check">
-              <%= index + 1 %>
-            </span>
+    <div class="productivity-steps">
+      <% steps.each_with_index do |step, index| %>
+        <div class="productivity-step-card">
+          <span class="productivity-step-check">
+            <%= index + 1 %>
+          </span>
 
-            <p>
-              <%= step %>
-            </p>
-          </div>
-        <% end %>
+          <p>
+            <%= step %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+
+    <button
+      type="button"
+      class="primary-button productivity-launch-button"
+      data-productivite-activity-target="launchButton"
+      data-action="click->productivite-activity#launch"
+    >
+      Lancer l’activité
+    </button>
+  </div>
+
+  <div
+    class="productivity-panel productivity-runner-card"
+    data-productivite-activity-target="runner"
+    hidden
+  >
+    <p class="productivity-kicker">
+      Étape
+      <span data-productivite-activity-target="currentStepNumber"></span>
+      /
+      <span data-productivite-activity-target="totalSteps"></span>
+    </p>
+
+    <h2 data-productivite-activity-target="currentStepText"></h2>
+
+    <div class="productivity-focus-card">
+      <div class="productivity-focus-icon">
+        <i class="fa-solid fa-bolt"></i>
       </div>
-    <% else %>
-      <div class="productivity-step-card">
-        <span class="productivity-step-check">
-          1
-        </span>
+
+      <div>
+        <strong>
+          Mode focus
+        </strong>
 
         <p>
-          Choisis une micro-tâche, lance-toi maintenant, puis valide l’activité.
+          Évite de changer d’application pendant cette action. Reste sur une seule tâche.
         </p>
       </div>
-    <% end %>
-  </div>
-
-  <div class="productivity-panel productivity-focus-card">
-    <div class="productivity-focus-icon">
-      <i class="fa-solid fa-bolt"></i>
     </div>
 
-    <div>
-      <strong>
-        Mode focus
-      </strong>
-
-      <p>
-        Évite de changer d’application pendant cette action. Reste sur une seule tâche.
-      </p>
-    </div>
+    <button
+      type="button"
+      class="primary-button productivity-next-button"
+      data-productivite-activity-target="nextButton"
+      data-action="click->productivite-activity#nextStep"
+    >
+      Étape suivante
+    </button>
   </div>
+
+  <div
+    class="productivity-panel productivity-finished-card"
+    data-productivite-activity-target="finished"
+    hidden
+  >
+    <h2>
+      Action lancée
+    </h2>
+
+    <p class="activity-show-description">
+      Tu as transformé une intention en action concrète. Même petite, elle compte.
+    </p>
+
+    <button
+      type="button"
+      class="primary-button productivity-finish-button"
+      data-productivite-activity-target="finishButton"
+      data-action="click->productivite-activity#finishActivity"
+    >
+      Terminer
+    </button>
+  </div>
+
+  <script type="application/json" data-productivite-activity-target="stepsData">
+    <%= raw steps.to_json %>
+  </script>
 </div>

@@ -1,7 +1,23 @@
 <% steps = activity.step_list %>
 
-<div class="photo-activity">
-  <div class="photo-panel photo-main-card">
+<% if steps.blank? %>
+  <% steps = [
+    "Observe ton environnement et choisis un sujet simple.",
+    "Cherche un cadrage intéressant.",
+    "Prends une photo, même imparfaite.",
+    "Regarde rapidement ton image et garde celle qui raconte le mieux ton intention."
+  ] %>
+<% end %>
+
+<div
+  class="photo-activity"
+  data-controller="photo-activity"
+  data-photo-activity-finish-url-value="<%= activity_session_path(@activity_session) %>"
+>
+  <div
+    class="photo-panel photo-main-card"
+    data-photo-activity-target="startScreen"
+  >
     <div class="photo-start-header">
       <p class="photo-kicker">
         Défi photo
@@ -16,46 +32,94 @@
       </p>
     </div>
 
-    <% if steps.any? %>
-      <div class="photo-steps">
-        <% steps.each_with_index do |step, index| %>
-          <div class="photo-step-card">
-            <span class="photo-step-number">
-              <%= index + 1 %>
-            </span>
+    <div class="photo-steps">
+      <% steps.each_with_index do |step, index| %>
+        <div class="photo-step-card">
+          <span class="photo-step-number">
+            <%= index + 1 %>
+          </span>
 
-            <p>
-              <%= step %>
-            </p>
-          </div>
-        <% end %>
+          <p>
+            <%= step %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+
+    <button
+      type="button"
+      class="primary-button photo-launch-button"
+      data-photo-activity-target="launchButton"
+      data-action="click->photo-activity#launch"
+    >
+      Lancer l’activité
+    </button>
+  </div>
+
+  <div
+    class="photo-panel photo-runner-card"
+    data-photo-activity-target="runner"
+    hidden
+  >
+    <p class="photo-kicker">
+      Étape
+      <span data-photo-activity-target="currentStepNumber"></span>
+      /
+      <span data-photo-activity-target="totalSteps"></span>
+    </p>
+
+    <h2 data-photo-activity-target="currentStepText"></h2>
+
+    <div class="photo-upload-placeholder">
+      <div class="photo-upload-icon">
+        <i class="fa-solid fa-camera"></i>
       </div>
-    <% else %>
-      <div class="photo-step-card">
-        <span class="photo-step-number">
-          1
-        </span>
+
+      <div>
+        <strong>
+          Import photo bientôt disponible
+        </strong>
 
         <p>
-          Lance-toi à ton rythme, prends une photo, puis valide l’activité.
+          Pour l’instant, prends la photo avec ton téléphone puis continue l’activité.
         </p>
       </div>
-    <% end %>
-  </div>
-
-  <div class="photo-panel photo-upload-placeholder">
-    <div class="photo-upload-icon">
-      <i class="fa-solid fa-camera"></i>
     </div>
 
-    <div>
-      <strong>
-        Import photo bientôt disponible
-      </strong>
-
-      <p>
-        Pour l’instant, prends la photo avec ton téléphone puis termine l’activité.
-      </p>
-    </div>
+    <button
+      type="button"
+      class="primary-button photo-next-button"
+      data-photo-activity-target="nextButton"
+      data-action="click->photo-activity#nextStep"
+    >
+      Étape suivante
+    </button>
   </div>
+
+  <div
+    class="photo-panel photo-finished-card"
+    data-photo-activity-target="finished"
+    hidden
+  >
+    <h2>
+      Photo réalisée
+    </h2>
+
+    <p class="activity-show-description">
+      Tu as pris le temps d’observer, de cadrer et de produire une image.
+    </p>
+
+    <button
+      type="button"
+      class="primary-button photo-finish-button"
+      data-photo-activity-target="finishButton"
+      data-action="click->photo-activity#finishActivity"
+    >
+      Terminer
+    </button>
+  </div>
+
+  <script type="application/json" data-photo-activity-target="stepsData">
+    <%= raw steps.to_json %>
+  </script>
 </div>
