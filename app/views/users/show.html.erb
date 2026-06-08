@@ -157,11 +157,26 @@
           <h2 class="profile-section-title">Ma room</h2>
         </div>
 
-        <% if @user == current_user %>
-          <%= link_to room_path, class: "profile-small-action", aria: { label: "Modifier la room" } do %>
-            <i class="fa-solid fa-pen"></i>
+        <div class="profile-room-actions">
+          <div class="profile-room-likes">
+            <i class="fa-solid fa-heart"></i>
+            <span><%= @user.room.room_likes.count %></span>
+          </div>
+
+          <%= link_to rooms_path,
+              class: "profile-small-action",
+              aria: { label: "Voir toutes les rooms" } do %>
+            <i class="fa-solid fa-users"></i>
           <% end %>
-        <% end %>
+
+          <% if @user == current_user %>
+            <%= link_to room_path(current_user.room),
+                class: "profile-small-action",
+                aria: { label: "Modifier la room" } do %>
+              <i class="fa-solid fa-pen"></i>
+            <% end %>
+          <% end %>
+        </div>
       </div>
 
       <div class="room-wrapper">
@@ -185,11 +200,13 @@
             <i class="fa-solid fa-clock-rotate-left"></i>
           <% end %>
         </div>
+
         <p class="profile-empty">
           <strong><%= @user.activity_sessions.where(finished: true).count %></strong>
           activités terminées.
         </p>
       </section>
+
       <section class="profile-card profile-account-card">
         <div>
           <p class="profile-kicker">Compte</p>

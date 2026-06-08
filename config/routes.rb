@@ -23,6 +23,9 @@ Rails.application.routes.draw do
 
   resource :user_interests, only: [ :show, :update ]
 
-  resource :room, only: [:show]
   resources :room_furnitures, only: [:create, :update, :destroy]
+
+  resources :rooms, only: [:index, :show] do
+    resource :like, only: [:create, :destroy], controller: "room_likes"
+  end
 end

@@ -1,0 +1,82 @@
+<div class="phone-page social-rooms-page">
+  <header class="social-rooms-header">
+    <%= link_to root_path, class: "social-back-link" do %>
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>Retour</span>
+    <% end %>
+
+    <div class="social-rooms-heading">
+      <p>Galerie sociale</p>
+      <h1>Rooms populaires</h1>
+    </div>
+  </header>
+
+  <div class="social-rooms-list">
+    <% @rooms.each_with_index do |room, index| %>
+      <% liked = current_user.room_likes.exists?(room: room) %>
+
+      <section class="social-room-card">
+        <div class="social-room-card-header">
+          <div class="social-room-rank">
+            <span>#<%= index + 1 %></span>
+          </div>
+
+          <div class="social-room-meta">
+            <p class="social-room-owner">
+              <%= room.user.first_name %>
+            </p>
+
+            <h2 class="social-room-title">
+              Room de <%= room.user.first_name %>
+            </h2>
+          </div>
+
+          <div class="social-room-likes">
+            <i class="fa-solid fa-heart"></i>
+            <span><%= room.room_likes.size %></span>
+          </div>
+        </div>
+
+        <div class="social-room-preview">
+          <%= render "users/room",
+              room_data: {
+                id: room.id,
+                width: room.width,
+                height: room.height,
+                furnitures: room.room_furnitures.includes(:furniture).map do |item|
+                  {
+                    id: item.id,
+                    furniture_id: item.furniture_id,
+                    name: item.furniture.name,
+                    image_url: asset_path(item.furniture.image_url),
+                    width: item.furniture.width,
+                    height: item.furniture.height,
+                    x: item.x,
+                    y: item.y,
+                    z: item.z,
+                    rotation: item.rotation
+                  }
+                end
+              },
+              editable: false %>
+        </div>
+
+        <% if liked %>
+          <%= button_to room_like_path(room),
+              method: :delete,
+              class: "social-like-button liked" do %>
+            <i class="fa-solid fa-heart"></i>
+            <span>Aimée</span>
+          <% end %>
+        <% else %>
+          <%= button_to room_like_path(room),
+              method: :post,
+              class: "social-like-button" do %>
+            <i class="fa-regular fa-heart"></i>
+            <span>J’aime</span>
+          <% end %>
+        <% end %>
+      </section>
+    <% end %>
+  </div>
+</div>

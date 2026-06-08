@@ -79,7 +79,7 @@
         <div class="summary-actions">
 
 
-          <%= link_to room_path,
+          <%= link_to room_path(current_user.room),
                       class: "summary-action-secondary" do %>
             Voir ma room
           <% end %>

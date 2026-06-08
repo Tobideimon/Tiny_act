@@ -4,6 +4,13 @@ class RoomsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_topbar_data, only: [:show]
 
+  def index
+    @rooms = Room
+      .includes(:user, :room_likes, room_furnitures: :furniture)
+      .left_joins(:room_likes)
+      .group("rooms.id")
+      .order("COUNT(room_likes.id) DESC")
+  end
   def show
     @room = current_user.room || current_user.create_room!(width: Room::GRID_WIDTH, height: Room::GRID_HEIGHT)
     @room.ensure_default_size!

@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :activity_sessions, dependent: :destroy
   has_many :user_interests, dependent: :destroy
   has_many :interests, through: :user_interests
+  has_many :room_likes, dependent: :destroy
+  has_many :liked_rooms, through: :room_likes, source: :room
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   after_create :create_default_room

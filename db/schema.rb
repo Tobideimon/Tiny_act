@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_06_211901) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_08_084654) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -138,6 +138,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_06_211901) do
     t.integer "z"
     t.index ["furniture_id"], name: "index_room_furnitures_on_furniture_id"
     t.index ["room_id"], name: "index_room_furnitures_on_room_id"
+  end
+
+  create_table "room_likes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "room_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["room_id"], name: "index_room_likes_on_room_id"
+    t.index ["user_id"], name: "index_room_likes_on_user_id"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -335,6 +344,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_06_211901) do
   add_foreign_key "furnitures", "interests"
   add_foreign_key "room_furnitures", "furnitures"
   add_foreign_key "room_furnitures", "rooms"
+  add_foreign_key "room_likes", "rooms"
+  add_foreign_key "room_likes", "users"
   add_foreign_key "rooms", "users"
   add_foreign_key "solid_queue_blocked_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade
   add_foreign_key "solid_queue_claimed_executions", "solid_queue_jobs", column: "job_id", on_delete: :cascade

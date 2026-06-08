@@ -1,0 +1,226 @@
+.social-rooms-page {
+  padding-top: 24px;
+  padding-bottom: 34px;
+}
+
+.social-room-card-header,
+.social-room-meta,
+.social-room-title {
+  min-width: 0;
+}
+
+.social-rooms-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.social-back-link {
+  min-height: 44px;
+  padding: 0 13px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 2px solid rgba(21, 27, 47, 0.07);
+  text-decoration: none;
+  color: $ta-ink;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 850;
+  box-shadow: 0 10px 20px rgba(21, 27, 47, 0.06);
+}
+
+.social-rooms-heading {
+  min-width: 0;
+  text-align: right;
+}
+
+.social-rooms-heading p {
+  margin: 0 0 5px;
+  color: $ta-purple;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.social-rooms-heading h1 {
+  margin: 0;
+  color: $ta-ink;
+  font-size: 27px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.social-rooms-list {
+  display: grid;
+  gap: 14px;
+}
+
+.social-room-card {
+  width: 100%;
+  max-width: 100%;
+
+  overflow: hidden;
+
+  padding: 13px;
+
+  border-radius: 24px;
+
+  background:
+    radial-gradient(circle at top left,
+    rgba(255, 194, 60, 0.13) 0,
+    transparent 42%),
+    $ta-surface-soft;
+
+  border: 2px solid rgba(21, 27, 47, 0.07);
+
+  box-shadow: $ta-shadow-card;
+}
+
+.social-room-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.social-room-rank {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, $ta-yellow 0%, $ta-orange 100%);
+  color: $ta-ink;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 9px 18px rgba(216, 154, 50, 0.22);
+}
+
+.social-room-rank span {
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.social-room-meta {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.social-room-owner {
+  margin: 0 0 4px;
+  color: $ta-ink-muted;
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.social-room-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.social-room-likes {
+  min-width: 56px;
+  min-height: 40px;
+  padding: 0 11px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: rgba(255, 116, 92, 0.12);
+  border: 1px solid rgba(255, 116, 92, 0.18);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  color: $ta-red;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.social-room-preview {
+  width: 100%;
+  height: 210px;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 249, 0.74),
+    rgba(244, 239, 232, 0.88));
+
+  border: 2px solid rgba(90, 74, 54, 0.08);
+
+  margin-bottom: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.social-room-preview .room-wrapper {
+  width: 100%;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+}
+
+.social-room-preview .profile-room {
+  transform-origin: top center;
+  transform: scale(0.28);
+
+  margin-left: 0px;
+}
+
+.social-room-card form {
+  margin: 0;
+}
+
+.social-like-button {
+  width: 100%;
+  min-height: 52px;
+  border: none;
+  border-radius: 17px;
+  background: $ta-purple;
+  color: #ffffff;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 900;
+  box-shadow: 0 12px 22px rgba(124, 99, 242, 0.22);
+}
+
+.social-like-button.liked {
+  background: rgba(255, 116, 92, 0.15);
+  color: $ta-red;
+  border: 2px solid rgba(255, 116, 92, 0.22);
+  box-shadow: none;
+}
+
+@media (min-width: 390px) {
+  .social-room-card {
+    padding: 15px;
+  }
+
+  .social-room-preview .profile-room {
+    transform: scale(0.43);
+  }
+}
+
+@media (min-width: 360px) and (max-width: 389px) {
+  .social-room-preview .profile-room {
+    transform: scale(0.39);
+  }
+}

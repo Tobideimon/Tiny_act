@@ -4,7 +4,7 @@ class Room < ApplicationRecord
 
   belongs_to :user
   has_many :room_furnitures, dependent: :destroy
-
+  has_many :room_likes, dependent: :destroy
   def ensure_default_size!
     return if width == GRID_WIDTH && height == GRID_HEIGHT
 
