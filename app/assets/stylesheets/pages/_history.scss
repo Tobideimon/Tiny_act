@@ -1,0 +1,88 @@
+.activity-history-page {
+  padding-top: 26px;
+  padding-bottom: 32px;
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.history-header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.history-back-link {
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: white;
+  text-decoration: none;
+  color: $ta-ink;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 850;
+}
+
+.history-list {
+  display: grid;
+  gap: 12px;
+}
+
+.history-card {
+  padding: 16px;
+  border-radius: 22px;
+  background: rgba(255, 253, 249, 0.9);
+  border: 2px solid rgba(21, 27, 47, 0.08);
+  box-shadow: 0 10px 20px rgba(21, 27, 47, 0.06);
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.history-category {
+  margin: 0 0 6px;
+  color: $ta-purple;
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.history-title {
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.history-date {
+  margin: 0;
+  color: $ta-ink-muted;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.history-xp {
+  align-self: center;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(124, 99, 242, 0.12);
+  color: $ta-purple;
+  font-size: 13px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.history-empty {
+  padding: 24px;
+  border-radius: 24px;
+  background: white;
+  text-align: center;
+}

@@ -6,6 +6,10 @@ class ActivitySessionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_topbar_data, only: %i[new location duration show]
 
+  def index
+    @activity_sessions = current_user.activity_sessions.where(finished: true).includes(activity: :interest).order(updated_at: :desc)
+  end
+
   def new
     @moods = Mood.all
 
@@ -110,8 +114,11 @@ class ActivitySessionsController < ApplicationController
 
     return head :not_found if @activity_session.finished?
 
-    elapsed_seconds = params[:elapsed_seconds].to_i
-    elapsed_seconds = 0 if elapsed_seconds.negative?
+    # Important : si l'activité est en pause, un vieux timer JS ne doit pas
+    # remettre automatiquement la session en "in_progress".
+    return head :ok if @activity_session.paused?
+
+    elapsed_seconds = safe_elapsed_seconds
 
     @activity_session.update!(
       elapsed_seconds: elapsed_seconds,
@@ -121,7 +128,51 @@ class ActivitySessionsController < ApplicationController
     head :ok
   end
 
+  def pause
+    @activity_session = current_user.activity_sessions.find(params[:id])
+
+    return head :not_found if @activity_session.finished?
+
+    @activity_session.update!(
+      elapsed_seconds: safe_elapsed_seconds,
+      status: "paused"
+    )
+
+    head :ok
+  end
+
+  def resume
+    @activity_session = current_user.activity_sessions.find(params[:id])
+
+    return head :not_found if @activity_session.finished?
+
+    @activity_session.update!(
+      status: "in_progress",
+      timer_started_at: Time.current
+    )
+
+    head :ok
+  end
+
+  def abandon
+    @activity_session = current_user.activity_sessions.find(params[:id])
+
+    return redirect_to new_activity_session_path if @activity_session.finished?
+
+    @activity_session.update!(
+      status: "paused"
+    )
+
+    redirect_to new_activity_session_path
+  end
+
   private
+
+  def safe_elapsed_seconds
+    elapsed_seconds = params[:elapsed_seconds].to_i
+    elapsed_seconds = 0 if elapsed_seconds.negative?
+    elapsed_seconds
+  end
 
   def matching_activities
     scope = Activity.where(
@@ -295,7 +346,7 @@ class ActivitySessionsController < ApplicationController
       title: "Ta room progresse",
       subtitle: room_progress_subtitle,
       icon_type: :room,
-      url: room_path,
+      url: room_path(current_user.room),
       tab_class: "tab-gold",
       decoration_class: nil
     }
@@ -331,7 +382,7 @@ class ActivitySessionsController < ApplicationController
     current_user
       .activity_sessions
       .includes(activity: %i[interest duration])
-      .where(finished: false, status: "in_progress")
+      .where(finished: false, status: ["in_progress", "paused"])
       .order(updated_at: :desc)
       .first
   end

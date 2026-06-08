@@ -9,10 +9,12 @@
   <% end %>
 
   <div class="mood-user-actions">
-    <div class="mood-xp-pill">
+    <%= link_to activity_sessions_path,
+                class: "mood-xp-pill mood-xp-link",
+                aria: { label: "Voir mon historique d'activités" } do %>
       <strong><%= @home_xp %></strong>
       <span>XP</span>
-    </div>
+    <% end %>
 
     <%= link_to user_path, class: "mood-profile-link" do %>
       <%= image_tag "avatars/#{current_user.avatar || 'blueberry'}.png",

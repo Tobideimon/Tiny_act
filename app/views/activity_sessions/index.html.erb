@@ -1,0 +1,39 @@
+<div class="phone-page activity-history-page">
+  <header class="history-header">
+    <%= link_to user_path(current_user), class: "history-back-link" do %>
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>Profil</span>
+    <% end %>
+
+    <h1>Historique</h1>
+  </header>
+
+  <% if @activity_sessions.any? %>
+    <div class="history-list">
+      <% @activity_sessions.each do |session| %>
+        <div class="history-card">
+          <div>
+            <p class="history-category">
+              <%= session.activity.interest.name %>
+            </p>
+            <p class="history-category">
+              <%= session.activity.name %>
+            </p>
+            <p class="history-date">
+              <%= l(session.updated_at, format: :short) %>
+            </p>
+          </div>
+
+          <div class="history-xp">
+            +<%= session.xp_earned %> XP
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="history-empty">
+      <h2>Aucune activité terminée</h2>
+      <p>Termine une activité pour la voir apparaître ici.</p>
+    </div>
+  <% end %>
+</div>

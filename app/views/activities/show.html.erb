@@ -51,11 +51,19 @@
   @activity.culture_activity? ||
   @activity.code_quiz? ||
   @activity.sport_activity? ||
+  @activity.interest.name == "Bien-être" ||
   @activity.interest.name == "Photo" ||
-  @activity.interest.name == "Productivité"
+  @activity.interest.name == "Productivité" ||
+  @activity.interest.name == "Dessin"
 %>
 
-<div class="phone-page activity-show-page">
+<div
+  class="phone-page activity-show-page"
+  data-controller="pause-modal"
+  data-pause-modal-pause-url-value="<%= pause_activity_session_path(@activity_session) %>"
+  data-pause-modal-resume-url-value="<%= resume_activity_session_path(@activity_session) %>"
+  data-pause-modal-initial-elapsed-value="<%= @activity_session.elapsed_seconds.to_i %>"
+>
   <div class="activity-show-sticky-topbar">
     <%= render "activity_sessions/selection_topbar" %>
   </div>
@@ -92,15 +100,25 @@
         <% end %>
       </h1>
 
-      <p>
-        <%= @activity.sport_activity? ? @activity.display_description : @activity.content %>
-      </p>
+        <p>
+          <%= @activity.description.presence || @activity.content %>
+        </p>
     </section>
 
     <% if @activity.interest.name == "Sport" %>
 
       <%= render "sport",
                  activity: @activity %>
+
+    <% elsif @activity.interest.name == "Bien-être" %>
+
+        <%= render "bien_etre",
+             activity: @activity %>
+
+    <% elsif @activity.interest.name == "Dessin" %>
+
+      <%= render "dessin",
+                activity: @activity %>
 
     <% elsif @activity.interest.name == "Langues" %>
 
@@ -144,12 +162,23 @@
     <% end %>
   </main>
 
-  <% unless activity_has_internal_finish %>
-    <div class="activity-bottom-action">
+  <div class="activity-bottom-action <%= "activity-bottom-action-with-finish" unless activity_has_internal_finish %>">
+    <button
+      type="button"
+      class="activity-pause-button"
+      data-action="click->pause-modal#open"
+    >
+      Pause de l’activité
+    </button>
+
+    <% unless activity_has_internal_finish %>
       <%= button_to "Finir l'activité",
                     activity_session_path(@activity_session),
                     method: :patch,
                     class: "activity-stop-button" %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
+
+  <%= render "activity_sessions/pause_modal",
+             activity_session: @activity_session %>
 </div>
