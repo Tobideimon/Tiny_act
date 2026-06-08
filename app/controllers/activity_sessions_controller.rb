@@ -298,7 +298,7 @@ class ActivitySessionsController < ApplicationController
       title: "Ta room progresse",
       subtitle: room_progress_subtitle,
       icon_type: :room,
-      url: room_path,
+      url: room_path(current_user.room),
       tab_class: "tab-gold",
       decoration_class: nil
     }
