@@ -211,6 +211,16 @@ export default class extends Controller {
     image.src = dataUrl
   }
 
+  clearCanvas() {
+  const rect = this.canvas.getBoundingClientRect()
+
+  this.ctx.clearRect(0, 0, rect.width, rect.height)
+  this.saveState()
+
+    if (this.hasPlaceholderTarget) {
+      this.placeholderTarget.classList.remove("is-hidden")
+      }
+  }
   toggleFullscreen() {
     const previous = this.canvas.toDataURL()
 
