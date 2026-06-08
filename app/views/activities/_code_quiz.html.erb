@@ -1,122 +1,53 @@
-<% serialized_questions = code_questions.map { |question|
-  {
-    question: question.question,
-    category: question.category,
-    difficulty: question.difficulty,
-    correct_answer: question.correct_answer,
-    answers: question.answers
-  }
-} %>
-
+<% limit = [activity.duration.value.to_i * 8, 100].min %>
+<% pool_by_family = CodeQuestion::FAMILY_NAMES.index_with do |family|
+     CodeQuestion.weighted_pool(family: family, mood_name: activity.mood.name, limit: limit).map do |q|
+       { question: q.question, family: q.family, difficulty: q.difficulty,
+         correct_answer: q.correct_answer, answers: q.answers }
+     end
+   end %>
 <% duration_seconds = activity.duration.value.to_i * 60 %>
-
-<% difficulty_label =
-  case activity.mood.name
-  when "À plat"
-    "facile"
-  when "Bof", "Mitigé"
-    "intermédiaire"
-  when "En forme"
-    "difficile"
-  else
-    "facile"
-  end
-%>
 
 <div
   class="code-quiz"
   data-controller="code-quiz"
-  data-code-quiz-questions-value="<%= serialized_questions.to_json %>"
+  data-code-quiz-questions-by-family-value="<%= pool_by_family.to_json %>"
   data-code-quiz-duration-seconds-value="<%= duration_seconds %>"
   data-code-quiz-finish-url-value="<%= activity_session_path(@activity_session) %>"
 >
-  <div
-    class="code-panel code-start-card"
-    data-code-quiz-target="startScreen"
-  >
+  <div class="code-panel code-start-card" data-code-quiz-target="startScreen">
     <div class="code-start-header">
-      <p class="code-kicker">
-        Quiz code
-      </p>
-
-      <h2>
-        Teste tes réflexes de dev
-      </h2>
-
-      <p>
-        Tu vas répondre à un maximum de questions pendant
-        <strong><%= activity.duration.value %> minutes</strong>,
-        avec un niveau <strong><%= difficulty_label %></strong>.
-      </p>
+      <p class="code-kicker">Quiz code</p>
+      <h2>Choisis un thème</h2>
+      <p>Réponds au maximum en <strong><%= activity.duration.value %> min</strong>.
+         Plus la question est difficile, plus elle rapporte de points.</p>
     </div>
-
-    <button
-      type="button"
-      class="code-next-button"
-      data-code-quiz-target="launchButton"
-      data-action="click->code-quiz#launch"
-    >
-      Lancer le quiz
-    </button>
-  </div>
-
-  <div
-    class="code-status-panel"
-    data-code-quiz-target="quizHeader"
-    hidden
-  >
-    <div class="code-status-card">
-      <span>Temps</span>
-      <strong data-code-quiz-target="timer"></strong>
-    </div>
-
-    <div class="code-status-card">
-      <span>Niveau</span>
-      <strong><%= difficulty_label %></strong>
-    </div>
-
-    <div class="code-status-card code-status-wide">
-      <span>Score</span>
-      <strong data-code-quiz-target="progress"></strong>
+    <div class="code-family-buttons">
+      <% CodeQuestion::FAMILY_NAMES.each do |family| %>
+        <button type="button" class="code-next-button"
+                data-family="<%= family %>"
+                data-action="click->code-quiz#chooseFamily">
+          <%= family %>
+        </button>
+      <% end %>
     </div>
   </div>
 
-  <div
-    class="code-panel code-question-card"
-    data-code-quiz-target="card"
-    hidden
-  >
-    <p class="code-kicker">
-      Question
-    </p>
-
-    <h2 data-code-quiz-target="question">
-      Chargement de la question...
-    </h2>
-
-    <div
-      class="quiz-answers code-answers"
-      data-code-quiz-target="answers"
-    ></div>
-
-    <p
-      class="quiz-feedback code-feedback"
-      data-code-quiz-target="feedback"
-    ></p>
-
-    <p
-      class="quiz-score code-score"
-      data-code-quiz-target="score"
-    ></p>
+  <div class="code-status-panel" data-code-quiz-target="quizHeader" hidden>
+    <div class="code-status-card"><span>Temps</span><strong data-code-quiz-target="timer"></strong></div>
+    <div class="code-status-card"><span>Thème</span><strong data-code-quiz-target="familyLabel"></strong></div>
+    <div class="code-status-card code-status-wide"><span>Score</span><strong data-code-quiz-target="progress"></strong></div>
   </div>
 
-  <button
-    type="button"
-    class="code-next-button"
-    data-code-quiz-target="nextButton"
-    data-action="click->code-quiz#nextQuestion"
-    hidden
-  >
+  <div class="code-panel code-question-card" data-code-quiz-target="card" hidden>
+    <p class="code-kicker">Question</p>
+    <h2 data-code-quiz-target="question">Chargement...</h2>
+    <div class="quiz-answers code-answers" data-code-quiz-target="answers"></div>
+    <p class="quiz-feedback code-feedback" data-code-quiz-target="feedback"></p>
+    <p class="quiz-score code-score" data-code-quiz-target="score"></p>
+  </div>
+
+  <button type="button" class="code-next-button" data-code-quiz-target="nextButton"
+          data-action="click->code-quiz#nextQuestion" hidden>
     Question suivante
   </button>
 </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_06_211901) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_08_145705) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -59,12 +59,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_06_211901) do
     t.string "correct_answer", null: false
     t.datetime "created_at", null: false
     t.string "difficulty", null: false
+    t.string "family"
     t.string "question", null: false
     t.string "source"
+    t.string "topic"
     t.datetime "updated_at", null: false
     t.string "wrong_answer_1", null: false
     t.string "wrong_answer_2", null: false
     t.string "wrong_answer_3", null: false
+    t.index ["difficulty"], name: "index_code_questions_on_difficulty"
+    t.index ["family"], name: "index_code_questions_on_family"
     t.index ["question"], name: "index_code_questions_on_question", unique: true
   end
 
