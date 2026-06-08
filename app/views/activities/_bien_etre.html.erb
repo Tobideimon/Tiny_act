@@ -1,0 +1,43 @@
+<% execution_plan = activity.execution_plan || {} %>
+<% plan_steps = execution_plan["steps"] || [] %>
+<% preparation_seconds = execution_plan["preparation_seconds"] || activity.preparation_seconds || 30 %>
+
+<div class="activity-show-panel">
+  <% if plan_steps.any? %>
+    <div class="sport-plan-list">
+      <div class="sport-plan-step sport-plan-step-preparation">
+        <div class="sport-plan-step-number">0</div>
+
+        <div class="sport-plan-step-content">
+          <h3>Préparation</h3>
+          <p>
+            <%= preparation_seconds %> secondes pour te mettre en place avant le départ.
+          </p>
+        </div>
+      </div>
+
+      <% plan_steps.each_with_index do |step, index| %>
+        <div class="sport-plan-step">
+          <div class="sport-plan-step-number"><%= index + 1 %></div>
+
+          <div class="sport-plan-step-content">
+            <h3><%= step["text"] %></h3>
+
+            <% if step["duration_seconds"].present? %>
+              <p><%= step["duration_seconds"] %> secondes</p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <%= button_to "Lancer l’activité",
+                  activity_session_path(@activity_session),
+                  method: :patch,
+                  class: "activity-start-button" %>
+  <% else %>
+    <p class="activity-show-description">
+      <%= activity.description.presence || activity.content %>
+    </p>
+  <% end %>
+</div>
