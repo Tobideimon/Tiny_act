@@ -44,7 +44,21 @@ export default class extends Controller {
     this.activityFinished = false
     this.selectedItems = this.shuffle(this.itemsValue)
 
+    this.boundHandleSentenceInput = this.handleSentenceInput.bind(this)
+
+    if (this.hasSentenceInputTarget) {
+      this.sentenceInputTarget.addEventListener("input", this.boundHandleSentenceInput)
+    }
+
     this.showStartScreen()
+  }
+
+  disconnect() {
+    this.clearTimer()
+
+    if (this.hasSentenceInputTarget) {
+      this.sentenceInputTarget.removeEventListener("input", this.boundHandleSentenceInput)
+    }
   }
 
   showStartScreen() {
@@ -54,6 +68,8 @@ export default class extends Controller {
     if (this.hasSentenceCardTarget) this.sentenceCardTarget.hidden = true
     if (this.hasResultCardTarget) this.resultCardTarget.hidden = true
     if (this.hasNextButtonTarget) this.nextButtonTarget.hidden = true
+
+    this.dispatchControlsChanged()
   }
 
   launch() {
@@ -86,6 +102,7 @@ export default class extends Controller {
     this.updateTimer()
     this.updateProgress()
     this.startTimer()
+    this.dispatchControlsChanged()
   }
 
   startTimer() {
@@ -161,7 +178,13 @@ export default class extends Controller {
       this.revealTranslationButtonTarget.textContent = "Voir la traduction"
     }
 
+    if (this.hasNextButtonTarget) {
+      this.nextButtonTarget.textContent = "Mot suivant"
+      this.nextButtonTarget.disabled = false
+    }
+
     this.updateProgress()
+    this.dispatchControlsChanged()
   }
 
   toggleWordTranslation() {
@@ -197,6 +220,11 @@ export default class extends Controller {
     const userAnswer = this.normalize(this.sentenceInputTarget.value)
     const expectedAnswer = this.normalize(currentItem.answer)
 
+    if (userAnswer.length === 0) {
+      this.updateSentenceSubmitState()
+      return
+    }
+
     this.clearSentenceState()
 
     if (userAnswer === expectedAnswer) {
@@ -211,7 +239,9 @@ export default class extends Controller {
 
       this.lockSentenceBeforeNext()
       this.submitButtonTarget.textContent = "Phrase suivante"
+      this.submitButtonTarget.disabled = false
 
+      this.dispatchControlsChanged()
       return
     }
 
@@ -228,6 +258,8 @@ export default class extends Controller {
     this.sentenceFeedbackTarget.textContent = "Ce n’est pas le mot attendu. Réessaie."
     this.sentenceFeedbackTarget.classList.add("is-wrong")
     this.sentenceInputTarget.focus()
+
+    this.updateSentenceSubmitState()
   }
 
   goToNextSentence() {
@@ -273,7 +305,7 @@ export default class extends Controller {
     this.revealedAnswerTarget.textContent = ""
     this.revealedAnswerTarget.classList.add("is-hidden")
 
-    this.submitButtonTarget.disabled = false
+    this.submitButtonTarget.disabled = true
     this.submitButtonTarget.textContent = "Valider"
 
     this.clearSentenceState()
@@ -281,6 +313,26 @@ export default class extends Controller {
 
     this.sentenceInputTarget.focus()
     this.updateProgress()
+    this.updateSentenceSubmitState()
+  }
+
+  handleSentenceInput() {
+    this.updateSentenceSubmitState()
+  }
+
+  updateSentenceSubmitState() {
+    if (!this.hasSubmitButtonTarget || this.modeValue !== "sentence_completion") return
+
+    if (this.waitingForSentenceNext) {
+      this.submitButtonTarget.disabled = false
+      this.dispatchControlsChanged()
+      return
+    }
+
+    const hasValue = this.sentenceInputTarget.value.trim().length > 0
+    this.submitButtonTarget.disabled = !hasValue
+
+    this.dispatchControlsChanged()
   }
 
   revealSentenceAnswer(currentItem) {
@@ -296,12 +348,15 @@ export default class extends Controller {
     this.revealedAnswerTarget.classList.add("is-wrong")
 
     this.submitButtonTarget.classList.add("is-wrong")
+    this.submitButtonTarget.disabled = false
 
     this.sentenceFeedbackTarget.textContent = "La réponse était affichée."
     this.sentenceFeedbackTarget.classList.add("is-wrong")
 
     this.lockSentenceBeforeNext()
     this.submitButtonTarget.textContent = "Phrase suivante"
+
+    this.dispatchControlsChanged()
   }
 
   lockSentenceBeforeNext() {
@@ -334,6 +389,12 @@ export default class extends Controller {
     }
 
     this.progressTarget.textContent = "Résultat"
+
+    this.element.dispatchEvent(
+      new CustomEvent("activity:finished", {
+        bubbles: true
+      })
+    )
   }
 
   finishActivity() {
@@ -420,6 +481,14 @@ export default class extends Controller {
     if (this.modeValue === "sentence_completion") {
       this.progressTarget.textContent = `${this.correctCount} / ${this.completedCount}`
     }
+  }
+
+  dispatchControlsChanged() {
+    this.element.dispatchEvent(
+      new CustomEvent("activity:controls-changed", {
+        bubbles: true
+      })
+    )
   }
 
   shuffle(array) {
