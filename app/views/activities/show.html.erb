@@ -156,19 +156,21 @@
     <% end %>
   </main>
 
-  <div
-    class="activity-start-action"
-    data-activity-start-target="startWrapper"
-  >
-    <button
-      type="button"
-      class="activity-start-button"
-      data-activity-start-target="startButton"
-      data-action="click->activity-start#start"
+  <% unless @activity.culture_activity? %>
+    <div
+      class="activity-start-action"
+      data-activity-start-target="startWrapper"
     >
-      Commencer l’activité
-    </button>
-  </div>
+      <button
+        type="button"
+        class="activity-start-button"
+        data-activity-start-target="startButton"
+        data-action="click->activity-start#start"
+      >
+        Commencer l’activité
+      </button>
+    </div>
+  <% end %>
 
   <div class="activity-bottom-action">
     <%= link_to activity_session_path(@activity_session),

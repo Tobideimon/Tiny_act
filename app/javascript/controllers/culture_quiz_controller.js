@@ -35,6 +35,12 @@ export default class extends Controller {
     this.quizHeaderTarget.hidden = true
     this.cardTarget.hidden = true
     this.nextButtonTarget.hidden = true
+
+    this.dispatchControlsChanged()
+  }
+
+  disconnect() {
+    this.clearTimer()
   }
 
   selectCategory(event) {
@@ -60,10 +66,12 @@ export default class extends Controller {
     this.quizHeaderTarget.hidden = false
     this.cardTarget.hidden = false
     this.nextButtonTarget.hidden = true
+    this.nextButtonTarget.disabled = true
 
     this.updateTimer()
     this.startTimer()
     this.showQuestion()
+    this.dispatchControlsChanged()
   }
 
   startTimer() {
@@ -141,7 +149,11 @@ export default class extends Controller {
       this.answersTarget.appendChild(button)
     })
 
+    this.nextButtonTarget.textContent = "Question suivante"
     this.nextButtonTarget.hidden = true
+    this.nextButtonTarget.disabled = true
+
+    this.dispatchControlsChanged()
   }
 
   selectAnswer(event) {
@@ -189,6 +201,9 @@ export default class extends Controller {
     this.nextButtonTarget.textContent = "Question suivante"
     this.nextButtonTarget.dataset.action = "click->culture-quiz#nextQuestion"
     this.nextButtonTarget.hidden = false
+    this.nextButtonTarget.disabled = false
+
+    this.dispatchControlsChanged()
   }
 
   nextQuestion() {
@@ -225,9 +240,14 @@ export default class extends Controller {
       this.scoreTarget.textContent = `${this.correctCount} bonne(s) réponse(s) sur ${this.completedCount} question(s).`
     }
 
-    this.nextButtonTarget.textContent = "Terminer"
-    this.nextButtonTarget.dataset.action = "click->culture-quiz#finishActivity"
-    this.nextButtonTarget.hidden = false
+    this.nextButtonTarget.hidden = true
+    this.nextButtonTarget.disabled = true
+
+    this.element.dispatchEvent(
+      new CustomEvent("activity:finished", {
+        bubbles: true
+      })
+    )
   }
 
   finishActivity() {
@@ -262,6 +282,14 @@ export default class extends Controller {
     if (!this.hasProgressTarget) return
 
     this.progressTarget.textContent = `${this.correctCount} / ${this.completedCount}`
+  }
+
+  dispatchControlsChanged() {
+    this.element.dispatchEvent(
+      new CustomEvent("activity:controls-changed", {
+        bubbles: true
+      })
+    )
   }
 
   shuffle(array) {

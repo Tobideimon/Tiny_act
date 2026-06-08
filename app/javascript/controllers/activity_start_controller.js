@@ -26,11 +26,15 @@ export default class extends Controller {
 
     this.boundSyncPrimaryActionLabel = this.syncPrimaryActionLabel.bind(this)
     this.element.addEventListener("activity:controls-changed", this.boundSyncPrimaryActionLabel)
+
+    this.boundHandleInternalStartClick = this.handleInternalStartClick.bind(this)
+    this.element.addEventListener("click", this.boundHandleInternalStartClick)
   }
 
   disconnect() {
     this.element.removeEventListener("activity:finished", this.boundHandleActivityFinished)
     this.element.removeEventListener("activity:controls-changed", this.boundSyncPrimaryActionLabel)
+    this.element.removeEventListener("click", this.boundHandleInternalStartClick)
   }
 
   async start() {
@@ -68,6 +72,30 @@ export default class extends Controller {
     this.markStarted()
   }
 
+  async handleInternalStartClick(event) {
+    const cultureThemeButton = event.target.closest("[data-action*='#selectCategory']")
+
+    if (!cultureThemeButton) return
+    if (this.started || this.starting) return
+
+    this.starting = true
+
+    const startSaved = await this.persistStart()
+
+    this.starting = false
+
+    if (!startSaved) {
+      alert("Impossible de démarrer l’activité. Réessaie.")
+      return
+    }
+
+    this.markStarted()
+
+    window.setTimeout(() => {
+      this.syncPrimaryActionLabel()
+    }, 0)
+  }
+
   async persistStart() {
     if (!this.hasStartUrlValue) return true
 
@@ -93,6 +121,9 @@ export default class extends Controller {
     const internalPrimaryButton = this.findInternalPrimaryButton()
 
     if (!internalPrimaryButton) return
+    if (internalPrimaryButton.disabled) return
+    if (internalPrimaryButton.hidden) return
+    if (internalPrimaryButton.classList.contains("is-hidden")) return
 
     internalPrimaryButton.click()
 
@@ -155,7 +186,16 @@ export default class extends Controller {
 
     const internalPrimaryButton = this.findInternalPrimaryButton()
 
-    if (!internalPrimaryButton) return
+    if (!internalPrimaryButton) {
+      this.primaryActionTarget.textContent = "Continuer"
+      this.primaryActionTarget.disabled = true
+      return
+    }
+
+    const isUnavailable =
+      internalPrimaryButton.disabled ||
+      internalPrimaryButton.hidden ||
+      internalPrimaryButton.classList.contains("is-hidden")
 
     const label = internalPrimaryButton.textContent.trim()
 
@@ -163,7 +203,7 @@ export default class extends Controller {
       this.primaryActionTarget.textContent = label
     }
 
-    this.primaryActionTarget.disabled = internalPrimaryButton.disabled
+    this.primaryActionTarget.disabled = isUnavailable
   }
 
   findInternalLaunchButton() {
@@ -186,7 +226,8 @@ export default class extends Controller {
         "[data-sport-activity-target='nextButton']",
         "[data-code-quiz-target='nextButton']",
         "[data-photo-activity-target='nextButton']",
-        "[data-productivite-activity-target='nextButton']"
+        "[data-productivite-activity-target='nextButton']",
+        "[data-culture-quiz-target='nextButton']"
       ].join(",")
     )
   }
