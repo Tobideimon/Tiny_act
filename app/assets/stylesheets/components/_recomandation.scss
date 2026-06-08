@@ -1,25 +1,40 @@
+/* ========================================================= */
+/* RECOMMENDATIONS / ACTIVITY SESSION SHOW                    */
+/* Refactored file - activity cards aligned with interests     */
+/* ========================================================= */
+
+
+/* ========================================================= */
+/* 1. BASE PAGE LAYOUT                                        */
+/* ========================================================= */
+
 .phone-page.recommendations-phone-page {
   height: 100dvh;
   min-height: 100dvh;
 
   padding-top: 30px;
-  padding-bottom: calc(88px + env(safe-area-inset-bottom));
+  padding-bottom: calc(102px + env(safe-area-inset-bottom));
 
   display: flex;
   flex-direction: column;
+
+  background:
+    radial-gradient(circle at top left, rgba(231, 166, 58, 0.14) 0, transparent 34%),
+    radial-gradient(circle at top right, rgba(124, 99, 242, 0.12) 0, transparent 38%),
+    linear-gradient(180deg, $ta-bg-start 0%, $ta-bg-end 100%);
 
   overflow: hidden;
 }
 
 .phone-page.recommendations-phone-page.has-bottom-action {
-  padding-bottom: calc(96px + env(safe-area-inset-bottom));
+  padding-bottom: calc(116px + env(safe-area-inset-bottom));
 }
 
 .recommendations-page {
   flex: 1;
   min-height: 0;
 
-  padding-top: 18px;
+  padding-top: 10px;
 
   display: flex;
   flex-direction: column;
@@ -28,42 +43,110 @@
 .recommendations-header {
   flex: 0 0 auto;
 
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .recommendations-kicker {
   margin: 0 0 8px;
 
-  color: $ta-ink-light;
+  color: rgba(21, 27, 47, 0.54);
+
   font-size: 11px;
-  font-weight: 850;
-  letter-spacing: 0.08em;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
 }
 
 .recommendations-header h1 {
   max-width: 360px;
-  margin: 0 0 12px;
+  margin: 0;
 
   color: $ta-ink;
 
-  font-size: clamp(27px, 4.2vh, 31px);
-  line-height: 1.02;
-  font-weight: 850;
-  letter-spacing: -0.05em;
+  font-size: 30px;
+  line-height: 1.04;
+  font-weight: 900;
+  letter-spacing: -0.055em;
 }
 
-.activities-list {
-  flex: 1;
-  min-height: 0;
+
+/* ========================================================= */
+/* 2. ACTIVITY CHOICE PAGE LAYOUT                             */
+/* Page with 1, 2 or 3 recommendation cards                   */
+/* ========================================================= */
+
+.mood-activities-page.has-bottom-action {
+  height: auto;
+  min-height: 100dvh;
+
+  padding-top: calc(54px + env(safe-area-inset-top));
+  padding-left: 28px;
+  padding-right: 28px;
+  padding-bottom: calc(116px + env(safe-area-inset-bottom));
 
   display: flex;
   flex-direction: column;
-  gap: clamp(12px, 1.9vh, 20px);
+
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-.activity-card-link {
+.mood-activities-page.has-bottom-action .mood-topbar {
+  margin-bottom: 40px;
+}
+
+.mood-activities-page.has-bottom-action .recommendations-page {
   flex: 1;
+  min-height: 0;
+
+  padding-top: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.mood-activities-page.has-bottom-action .recommendations-header {
+  flex: 0 0 auto;
+
+  margin-bottom: 24px;
+}
+
+.mood-activities-page.has-bottom-action .recommendations-kicker {
+  margin: 0 0 10px;
+
+  color: rgba(21, 27, 47, 0.54);
+
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.mood-activities-page.has-bottom-action .recommendations-header h1 {
+  max-width: 100%;
+  margin: 0;
+
+  color: $ta-ink;
+
+  font-size: clamp(34px, 8.8vw, 50px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.065em;
+}
+
+.mood-activities-page.has-bottom-action .activities-list {
+  flex: 0 0 auto;
+  min-height: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2vh, 18px);
+}
+
+.mood-activities-page.has-bottom-action .activity-card-link {
+  flex: 0 0 auto;
   min-height: 0;
 
   display: block;
@@ -74,84 +157,498 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.activity-card-link:visited,
-.activity-card-link:hover,
-.activity-card-link:active {
+.mood-activities-page.has-bottom-action .activity-card-link:visited,
+.mood-activities-page.has-bottom-action .activity-card-link:hover,
+.mood-activities-page.has-bottom-action .activity-card-link:active {
   color: inherit;
   text-decoration: none;
 }
 
-.activity-card {
+.mood-activities-page.has-bottom-action .activity-card-link:focus-visible {
+  outline: 3px solid rgba(124, 99, 242, 0.22);
+  outline-offset: 4px;
+  border-radius: 32px;
+}
+
+.mood-activities-page.has-bottom-action .bottom-back-button {
+  width: calc(100% - 56px);
+  max-width: 374px;
+}
+
+
+/* ========================================================= */
+/* 3. ACTIVITY CARDS - BUTTON / TILE VERSION                 */
+/* Minimal decision cards: mascot + category + title + CTA.  */
+/* No description, no duplicated duration, no complementary   */
+/* colors.                                                   */
+/* ========================================================= */
+
+.mood-activities-page.has-bottom-action .activity-card,
+.mood-activities-page.has-bottom-action .activities-count-1 .activity-card,
+.mood-activities-page.has-bottom-action .activities-count-2 .activity-card,
+.mood-activities-page.has-bottom-action .activities-count-3 .activity-card {
   position: relative;
+  isolation: isolate;
 
   width: 100%;
-  height: 100%;
+  height: clamp(120px, 14.7vh, 138px);
   min-height: 0;
-  padding: clamp(14px, 2.2vh, 20px);
+  padding: 12px;
 
-  border-radius: 30px;
-  border: 2px solid rgba(21, 27, 47, 0.08);
+  overflow: hidden;
+
+  border-radius: 34px;
+  border: 2px solid var(--activity-border);
 
   box-sizing: border-box;
 
-  background: $ta-surface;
+  color: $ta-ink;
+  background:
+    radial-gradient(circle at 17% 18%, var(--activity-glow) 0, transparent 43%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, var(--activity-soft) 100%);
 
   box-shadow:
-    0 18px 34px rgba(21, 27, 47, 0.08),
-    0 6px 14px rgba(21, 27, 47, 0.04);
+    0 7px 0 var(--activity-shadow-base),
+    0 18px 30px rgba(21, 27, 47, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.80) inset;
+
+  transform: translateY(0);
 
   transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
 }
 
-.activity-card-link:hover .activity-card {
+.mood-activities-page.has-bottom-action .activity-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 8px;
+  z-index: 0;
+
+  border-radius: 26px;
+
+  background:
+    linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.64) 0%,
+      rgba(255, 255, 255, 0.22) 42%,
+      rgba(255, 255, 255, 0) 70%
+    );
+
+  pointer-events: none;
+}
+
+.mood-activities-page.has-bottom-action .activity-card::after {
+  content: "";
+
+  position: absolute;
+  right: -46px;
+  top: -46px;
+  z-index: 0;
+
+  width: 128px;
+  height: 128px;
+
+  border-radius: 999px;
+  background: var(--activity-pop-strong);
+  opacity: 0.22;
+
+  pointer-events: none;
+}
+
+.mood-activities-page.has-bottom-action .activity-card-link:hover .activity-card {
   transform: translateY(-2px);
+
+  border-color: var(--activity-border-strong);
+
+  box-shadow:
+    0 9px 0 var(--activity-shadow-base),
+    0 22px 34px rgba(21, 27, 47, 0.10),
+    0 1px 0 rgba(255, 255, 255, 0.84) inset;
 }
 
-.activity-card-link:focus-visible {
-  outline: 3px solid rgba(124, 99, 242, 0.22);
-  outline-offset: 4px;
-  border-radius: 30px;
+.mood-activities-page.has-bottom-action .activity-card-link:active .activity-card {
+  transform: translateY(5px);
+
+  box-shadow:
+    0 2px 0 var(--activity-shadow-base),
+    0 10px 18px rgba(21, 27, 47, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.80) inset;
 }
 
-.activity-card-main {
+.mood-activities-page.has-bottom-action .activity-card-main {
+  position: relative;
+  z-index: 2;
+
   height: 100%;
 
-  display: flex;
+  display: grid;
+  grid-template-columns: clamp(86px, 23vw, 104px) minmax(0, 1fr) 44px;
   align-items: center;
-  gap: clamp(12px, 2vh, 18px);
+  gap: 14px;
 }
 
-.activity-visual {
-  width: clamp(64px, 9.2vh, 82px);
-  height: clamp(64px, 9.2vh, 82px);
+.mood-activities-page.has-bottom-action .activity-mascot-frame {
+  position: relative;
+  z-index: 2;
 
-  flex: 0 0 clamp(64px, 9.2vh, 82px);
+  width: 100%;
+  height: clamp(86px, 23vw, 104px);
 
   display: grid;
   place-items: center;
 
-  border-radius: 26px;
+  overflow: hidden;
 
-  background: rgba(255, 253, 249, 0.78);
-  border: 1px solid rgba(90, 74, 54, 0.08);
+  border-radius: 27px;
+  border: 2px solid rgba(255, 255, 255, 0.86);
+
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 255, 255, 0.92) 0, transparent 40%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.66) 0%, var(--activity-pop) 100%);
 
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.75),
-    0 10px 18px rgba(43, 45, 66, 0.05);
+    inset 0 1px 0 rgba(255, 255, 255, 0.90),
+    0 10px 18px rgba(21, 27, 47, 0.07),
+    0 0 0 4px rgba(255, 255, 255, 0.22);
+}
+
+.mood-activities-page.has-bottom-action .activity-mascot-frame::after {
+  content: "";
+
+  position: absolute;
+  right: -22px;
+  bottom: -20px;
+
+  width: 70px;
+  height: 70px;
+
+  border-radius: 999px;
+  background: var(--activity-accent);
+  opacity: 0.18;
+
+  pointer-events: none;
+}
+
+.mood-activities-page.has-bottom-action .activity-mascot-image {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+  object-fit: cover;
+
+  transform: scale(1.04);
+  filter: drop-shadow(0 8px 12px rgba(21, 27, 47, 0.10));
+}
+
+.mood-activities-page.has-bottom-action .activity-body {
+  min-width: 0;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+
+  overflow: hidden;
+}
+
+.mood-activities-page.has-bottom-action .activity-meta-row {
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  min-width: 0;
+}
+
+/* On garde seulement la catégorie.
+   La durée est déjà choisie à l'écran précédent, donc elle est cachée ici. */
+.mood-activities-page.has-bottom-action .activity-duration-pill {
+  display: none;
+}
+
+.mood-activities-page.has-bottom-action .activity-category-ribbon {
+  width: fit-content;
+  max-width: 100%;
+  min-height: 26px;
+  padding: 5px 10px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: var(--activity-accent-deep);
+  background: rgba(255, 255, 255, 0.66);
+  border: 1px solid var(--activity-border);
+
+  border-radius: 999px;
+
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.74) inset,
+    0 6px 12px var(--activity-shadow-soft);
+}
+
+.mood-activities-page.has-bottom-action .activity-category-ribbon i {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 999px;
+
+  color: #ffffff;
+  background: var(--activity-accent);
+
+  font-size: 10px;
+}
+
+.mood-activities-page.has-bottom-action .activity-top {
+  margin: 0;
+}
+
+.mood-activities-page.has-bottom-action .activity-top h2 {
+  display: -webkit-box;
+
+  margin: 0;
+  overflow: hidden;
+
+  color: $ta-ink;
+
+  font-size: clamp(21px, 5.4vw, 27px);
+  line-height: 0.98;
+  font-weight: 950;
+  letter-spacing: -0.065em;
+
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Le texte descriptif donnait un effet plaquette d'information.
+   On le masque même si l'ancien HTML est encore présent. */
+.mood-activities-page.has-bottom-action .activity-content {
+  display: none;
+}
+
+.mood-activities-page.has-bottom-action .activity-card-arrow {
+  position: static;
+  z-index: 3;
+
+  width: 44px;
+  height: 44px;
+
+  display: grid;
+  place-items: center;
+  justify-self: end;
+
+  transform: none;
+
+  border-radius: 999px;
+
+  color: #ffffff;
+  background: var(--activity-accent);
+  border: 2px solid rgba(255, 255, 255, 0.84);
+
+  font-size: 31px;
+  line-height: 1;
+  font-weight: 950;
+
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.54) inset;
+}
+
+.mood-activities-page.has-bottom-action .activity-card-link:active .activity-card-arrow {
+  transform: translateY(3px);
+
+  box-shadow:
+    0 2px 0 var(--activity-shadow-base),
+    0 8px 12px rgba(21, 27, 47, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.54) inset;
+}
+
+
+/* ========================================================= */
+/* 4. CATEGORY COLORS - PASTEL SINGLE COLOR SYSTEM           */
+/* One color family per category. No complementary colors.    */
+/* ========================================================= */
+
+.mood-activities-page .activity-sport {
+  --activity-accent: #7ecf66;
+  --activity-accent-deep: #4f9e3f;
+  --activity-soft: #f2fce9;
+  --activity-glow: rgba(126, 207, 102, 0.30);
+  --activity-pop: rgba(126, 207, 102, 0.24);
+  --activity-pop-strong: rgba(126, 207, 102, 0.30);
+  --activity-border: rgba(126, 207, 102, 0.48);
+  --activity-border-strong: rgba(79, 158, 63, 0.62);
+  --activity-shadow-base: rgba(79, 158, 63, 0.24);
+  --activity-shadow-soft: rgba(79, 158, 63, 0.14);
+}
+
+.mood-activities-page .activity-creativity {
+  --activity-accent: #ff9a72;
+  --activity-accent-deep: #d66a45;
+  --activity-soft: #fff1e9;
+  --activity-glow: rgba(255, 154, 114, 0.30);
+  --activity-pop: rgba(255, 154, 114, 0.24);
+  --activity-pop-strong: rgba(255, 154, 114, 0.30);
+  --activity-border: rgba(255, 154, 114, 0.48);
+  --activity-border-strong: rgba(214, 106, 69, 0.62);
+  --activity-shadow-base: rgba(214, 106, 69, 0.22);
+  --activity-shadow-soft: rgba(214, 106, 69, 0.14);
+}
+
+.mood-activities-page .activity-wellbeing {
+  --activity-accent: #75c8f3;
+  --activity-accent-deep: #419bd5;
+  --activity-soft: #eff9ff;
+  --activity-glow: rgba(117, 200, 243, 0.30);
+  --activity-pop: rgba(117, 200, 243, 0.24);
+  --activity-pop-strong: rgba(117, 200, 243, 0.30);
+  --activity-border: rgba(117, 200, 243, 0.46);
+  --activity-border-strong: rgba(65, 155, 213, 0.60);
+  --activity-shadow-base: rgba(65, 155, 213, 0.22);
+  --activity-shadow-soft: rgba(65, 155, 213, 0.14);
+}
+
+.mood-activities-page .activity-photo {
+  --activity-accent: #f58bbd;
+  --activity-accent-deep: #d94d91;
+  --activity-soft: #fff1f8;
+  --activity-glow: rgba(245, 139, 189, 0.30);
+  --activity-pop: rgba(245, 139, 189, 0.24);
+  --activity-pop-strong: rgba(245, 139, 189, 0.30);
+  --activity-border: rgba(245, 139, 189, 0.46);
+  --activity-border-strong: rgba(217, 77, 145, 0.58);
+  --activity-shadow-base: rgba(217, 77, 145, 0.22);
+  --activity-shadow-soft: rgba(217, 77, 145, 0.14);
+}
+
+.mood-activities-page .activity-drawing {
+  --activity-accent: #68d3c4;
+  --activity-accent-deep: #31a995;
+  --activity-soft: #effcf9;
+  --activity-glow: rgba(104, 211, 196, 0.30);
+  --activity-pop: rgba(104, 211, 196, 0.24);
+  --activity-pop-strong: rgba(104, 211, 196, 0.30);
+  --activity-border: rgba(104, 211, 196, 0.46);
+  --activity-border-strong: rgba(49, 169, 149, 0.58);
+  --activity-shadow-base: rgba(49, 169, 149, 0.22);
+  --activity-shadow-soft: rgba(49, 169, 149, 0.14);
+}
+
+.mood-activities-page .activity-writing {
+  --activity-accent: #f3c84f;
+  --activity-accent-deep: #bd951c;
+  --activity-soft: #fff9e5;
+  --activity-glow: rgba(243, 200, 79, 0.32);
+  --activity-pop: rgba(243, 200, 79, 0.25);
+  --activity-pop-strong: rgba(243, 200, 79, 0.32);
+  --activity-border: rgba(243, 200, 79, 0.50);
+  --activity-border-strong: rgba(189, 149, 28, 0.62);
+  --activity-shadow-base: rgba(189, 149, 28, 0.22);
+  --activity-shadow-soft: rgba(189, 149, 28, 0.14);
+}
+
+.mood-activities-page .activity-langues {
+  --activity-accent: #a58cf4;
+  --activity-accent-deep: #7655d8;
+  --activity-soft: #f4efff;
+  --activity-glow: rgba(165, 140, 244, 0.32);
+  --activity-pop: rgba(165, 140, 244, 0.25);
+  --activity-pop-strong: rgba(165, 140, 244, 0.32);
+  --activity-border: rgba(165, 140, 244, 0.50);
+  --activity-border-strong: rgba(118, 85, 216, 0.62);
+  --activity-shadow-base: rgba(118, 85, 216, 0.24);
+  --activity-shadow-soft: rgba(118, 85, 216, 0.14);
+}
+
+.mood-activities-page .activity-culture {
+  --activity-accent: #ee907d;
+  --activity-accent-deep: #c95a47;
+  --activity-soft: #fff1ee;
+  --activity-glow: rgba(238, 144, 125, 0.30);
+  --activity-pop: rgba(238, 144, 125, 0.24);
+  --activity-pop-strong: rgba(238, 144, 125, 0.30);
+  --activity-border: rgba(238, 144, 125, 0.48);
+  --activity-border-strong: rgba(201, 90, 71, 0.62);
+  --activity-shadow-base: rgba(201, 90, 71, 0.22);
+  --activity-shadow-soft: rgba(201, 90, 71, 0.14);
+}
+
+.mood-activities-page .activity-productivity {
+  --activity-accent: #f4d74f;
+  --activity-accent-deep: #bd9a10;
+  --activity-soft: #fff9df;
+  --activity-glow: rgba(244, 215, 79, 0.32);
+  --activity-pop: rgba(244, 215, 79, 0.25);
+  --activity-pop-strong: rgba(244, 215, 79, 0.32);
+  --activity-border: rgba(244, 215, 79, 0.50);
+  --activity-border-strong: rgba(189, 154, 16, 0.62);
+  --activity-shadow-base: rgba(189, 154, 16, 0.22);
+  --activity-shadow-soft: rgba(189, 154, 16, 0.14);
+}
+
+.mood-activities-page .activity-code {
+  --activity-accent: #82a7f6;
+  --activity-accent-deep: #4c73d8;
+  --activity-soft: #f0f5ff;
+  --activity-glow: rgba(130, 167, 246, 0.32);
+  --activity-pop: rgba(130, 167, 246, 0.25);
+  --activity-pop-strong: rgba(130, 167, 246, 0.32);
+  --activity-border: rgba(130, 167, 246, 0.48);
+  --activity-border-strong: rgba(76, 115, 216, 0.62);
+  --activity-shadow-base: rgba(76, 115, 216, 0.22);
+  --activity-shadow-soft: rgba(76, 115, 216, 0.14);
+}
+
+.mood-activities-page .activity-default {
+  --activity-accent: #a58cf4;
+  --activity-accent-deep: #7655d8;
+  --activity-soft: #f4efff;
+  --activity-glow: rgba(165, 140, 244, 0.30);
+  --activity-pop: rgba(165, 140, 244, 0.24);
+  --activity-pop-strong: rgba(165, 140, 244, 0.30);
+  --activity-border: rgba(165, 140, 244, 0.46);
+  --activity-border-strong: rgba(118, 85, 216, 0.60);
+  --activity-shadow-base: rgba(118, 85, 216, 0.22);
+  --activity-shadow-soft: rgba(118, 85, 216, 0.14);
+}
+
+
+/* ========================================================= */
+/* 5. LEGACY ACTIVITY CARD SUPPORT                            */
+/* Keeps old markup from breaking if some views still use it. */
+/* ========================================================= */
+
+.activity-visual {
+  display: grid;
+  place-items: center;
 }
 
 .activity-interest-icon {
-  width: clamp(48px, 7vh, 62px);
-  height: clamp(48px, 7vh, 62px);
-
   display: block;
   object-fit: contain;
-
-  filter: drop-shadow(0 8px 12px rgba(43, 45, 66, 0.08));
 }
 
 .activity-fallback-icon {
@@ -162,41 +659,11 @@
   font-weight: 900;
 }
 
-.activity-body {
-  flex: 1;
-  min-width: 0;
-  height: 100%;
-
-  padding-right: 32px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .activity-interest-header {
   display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
-
-  margin-bottom: clamp(7px, 1.3vh, 12px);
-}
-
-.badge-interest,
-.activity-duration-pill {
-  display: inline-flex;
-  align-items: center;
-
-  min-height: clamp(22px, 3vh, 26px);
-  padding: 4px 10px;
-
-  border-radius: 999px;
-
-  font-size: clamp(10px, 1.55vh, 12px);
-  line-height: 1;
-  font-weight: 850;
-  letter-spacing: 0.02em;
 }
 
 .badge-interest {
@@ -204,107 +671,10 @@
   background: rgba(255, 255, 255, 0.66);
 }
 
-.activity-sport .badge-interest {
-  color: #588c3a;
-}
 
-.activity-langues .badge-interest {
-  color: #7c63f2;
-}
-
-.activity-creativity .badge-interest {
-  color: #d89a32;
-}
-
-.activity-wellbeing .badge-interest {
-  color: #4c967e;
-}
-
-.activity-photo .badge-interest {
-  color: #be588c;
-}
-
-.activity-drawing .badge-interest {
-  color: #5977aa;
-}
-
-.activity-writing .badge-interest {
-  color: #be8b2b;
-}
-
-.activity-culture .badge-interest,
-.activity-default .badge-interest {
-  color: #805f3f;
-}
-
-.activity-duration-pill {
-  color: $ta-purple;
-  background: rgba(124, 99, 242, 0.13);
-}
-
-.activity-top {
-  margin-bottom: clamp(5px, 1vh, 9px);
-}
-
-.activity-top h2 {
-  display: -webkit-box;
-  overflow: hidden;
-
-  margin: 0;
-
-  color: $ta-ink;
-
-  font-size: clamp(17px, 2.75vh, 21px);
-  line-height: 1.08;
-  font-weight: 850;
-  letter-spacing: -0.04em;
-
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-
-.activity-content {
-  display: -webkit-box;
-  overflow: hidden;
-
-  margin: 0;
-
-  color: $ta-ink-muted;
-
-  font-size: clamp(12px, 1.8vh, 14px);
-  line-height: 1.32;
-  font-weight: 650;
-
-  -webkit-box-orient: vertical;
-}
-
-.activities-count-1 .activity-content {
-  -webkit-line-clamp: 8;
-}
-
-.activities-count-2 .activity-content {
-  -webkit-line-clamp: 5;
-}
-
-.activities-count-3 .activity-content {
-  -webkit-line-clamp: 3;
-}
-
-.activity-card-arrow {
-  position: absolute;
-  right: 22px;
-  top: 50%;
-
-  transform: translateY(-50%);
-
-  color: rgba(21, 27, 47, 0.48);
-
-  font-size: 30px;
-  line-height: 1;
-  font-weight: 900;
-}
-
-/* Résumé session terminée */
+/* ========================================================= */
+/* 6. FINISHED SESSION SUMMARY                                */
+/* ========================================================= */
 
 .session-summary {
   flex: 1;
@@ -333,27 +703,32 @@
 
   font-size: clamp(29px, 4.3vh, 34px);
   line-height: 1;
-  font-weight: 900;
+  font-weight: 950;
+  letter-spacing: -0.055em;
 }
 
 .summary-hero p:not(.recommendations-kicker) {
   max-width: 340px;
   margin: 0;
 
-  color: $ta-ink-muted;
+  color: rgba(21, 27, 47, 0.70);
 
   font-size: 14px;
   line-height: 1.35;
-  font-weight: 650;
+  font-weight: 700;
 }
 
 .summary-main-card,
 .summary-stat-card,
 .summary-reward-card {
-  border: 2px solid rgba(21, 27, 47, 0.08);
+  border: 2px solid rgba(21, 27, 47, 0.12);
   border-radius: 28px;
   background: $ta-surface;
-  box-shadow: $ta-shadow-card;
+
+  box-shadow:
+    0 18px 30px rgba(21, 27, 47, 0.10),
+    0 6px 13px rgba(21, 27, 47, 0.055),
+    0 1px 0 rgba(255, 255, 255, 0.68) inset;
 }
 
 .summary-main-card {
@@ -573,7 +948,7 @@
 .summary-action-secondary {
   color: $ta-ink;
   background: rgba(255, 255, 255, 0.72);
-  border: 2px solid rgba(21, 27, 47, 0.08);
+  border: 2px solid rgba(21, 27, 47, 0.12);
 }
 
 .summary-action-secondary:hover,
@@ -581,6 +956,11 @@
   color: $ta-ink;
   text-decoration: none;
 }
+
+
+/* ========================================================= */
+/* 7. EMPTY STATE / BUTTONS / EXERCISE FEEDBACK               */
+/* ========================================================= */
 
 .empty-state {
   margin-top: 48px;
@@ -597,60 +977,15 @@
 }
 
 .recommendations-primary-button {
+  min-height: 64px;
+  margin-top: 24px;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
-  min-height: 64px;
-  margin-top: 24px;
-
   border-radius: 28px;
 }
-
-/* Variantes par activité */
-
-.activity-sport {
-  background: linear-gradient(135deg, #ffffff 0%, #edf8e8 100%);
-  border-color: rgba(88, 140, 58, 0.34);
-}
-
-.activity-langues {
-  background: linear-gradient(135deg, #ffffff 0%, #f0ecff 100%);
-  border-color: rgba(124, 99, 242, 0.32);
-}
-
-.activity-creativity {
-  background: linear-gradient(135deg, #ffffff 0%, #fff0dc 100%);
-  border-color: rgba(216, 154, 50, 0.34);
-}
-
-.activity-wellbeing {
-  background: linear-gradient(135deg, #ffffff 0%, #eaf7f3 100%);
-  border-color: rgba(76, 150, 126, 0.28);
-}
-
-.activity-photo {
-  background: linear-gradient(135deg, #ffffff 0%, #ffeef7 100%);
-  border-color: rgba(190, 88, 140, 0.26);
-}
-
-.activity-drawing {
-  background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
-  border-color: rgba(89, 119, 170, 0.3);
-}
-
-.activity-writing {
-  background: linear-gradient(135deg, #ffffff 0%, #fff8df 100%);
-  border-color: rgba(190, 139, 43, 0.34);
-}
-
-.activity-culture,
-.activity-default {
-  background: linear-gradient(135deg, #ffffff 0%, #f6f0ea 100%);
-  border-color: rgba(128, 95, 63, 0.24);
-}
-
-/* Feedback exercices */
 
 .is-correct {
   color: #15803d;
@@ -662,103 +997,108 @@
   font-weight: 800;
 }
 
-/* Petits écrans */
+
+/* ========================================================= */
+/* 8. RESPONSIVE                                              */
+/* ========================================================= */
 
 @media (max-height: 760px) {
   .phone-page.recommendations-phone-page {
     padding-top: 24px;
-    padding-bottom: calc(84px + env(safe-area-inset-bottom));
+    padding-bottom: calc(88px + env(safe-area-inset-bottom));
   }
 
   .phone-page.recommendations-phone-page.has-bottom-action {
-    padding-bottom: calc(92px + env(safe-area-inset-bottom));
+    padding-bottom: calc(108px + env(safe-area-inset-bottom));
   }
 
-  .recommendations-page {
-    padding-top: 14px;
+  .mood-activities-page.has-bottom-action {
+    padding-top: calc(46px + env(safe-area-inset-top));
+    padding-left: 26px;
+    padding-right: 26px;
+    padding-bottom: calc(108px + env(safe-area-inset-bottom));
   }
 
-  .recommendations-header {
-    margin-bottom: 14px;
+  .mood-activities-page.has-bottom-action .mood-topbar {
+    margin-bottom: 0;
   }
 
-  .recommendations-header h1 {
-    font-size: 27px;
+  .mood-activities-page.has-bottom-action .recommendations-page {
+    padding-top: 0;
   }
 
-  .activities-list {
-    gap: 13px;
+  .mood-activities-page.has-bottom-action .recommendations-header {
+    margin-bottom: 16px;
   }
 
-  .activity-card {
-    padding: 16px;
+  .mood-activities-page.has-bottom-action .recommendations-header h1 {
+    font-size: clamp(30px, 8vw, 42px);
   }
 
-  .activity-body {
-    padding-right: 28px;
+  .mood-activities-page.has-bottom-action .activities-list {
+    gap: 11px;
   }
 
-  .activities-count-1 .activity-content {
-    -webkit-line-clamp: 6;
+  .mood-activities-page.has-bottom-action .activity-card,
+  .mood-activities-page.has-bottom-action .activities-count-1 .activity-card,
+  .mood-activities-page.has-bottom-action .activities-count-2 .activity-card,
+  .mood-activities-page.has-bottom-action .activities-count-3 .activity-card {
+    height: 118px;
+    padding: 10px;
+
+    border-radius: 28px;
   }
 
-  .activities-count-2 .activity-content {
-    -webkit-line-clamp: 4;
+  .mood-activities-page.has-bottom-action .activity-card::before {
+    inset: 7px;
+    border-radius: 22px;
   }
 
-  .activities-count-3 .activity-content {
-    -webkit-line-clamp: 2;
-  }
-}
-
-@media (max-height: 690px) {
-  .recommendations-header {
-    margin-bottom: 12px;
+  .mood-activities-page.has-bottom-action .activity-card::after {
+    width: 74px;
+    height: 74px;
   }
 
-  .recommendations-kicker {
-    margin-bottom: 5px;
-    font-size: 10px;
+  .mood-activities-page.has-bottom-action .activity-card-main {
+    grid-template-columns: 82px minmax(0, 1fr) 38px;
+    gap: 11px;
   }
 
-  .recommendations-header h1 {
-    margin-bottom: 8px;
-    font-size: 24px;
+  .mood-activities-page.has-bottom-action .activity-mascot-frame {
+    height: 82px;
+    border-radius: 23px;
   }
 
-  .recommendations-header p {
-    display: none;
-  }
-
-  .activities-count-1 .activity-content {
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-  }
-
-  .activities-count-2 .activity-content {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-  }
-
-  .activities-count-3 .activity-content {
-    display: none;
-  }
-
-  .activity-interest-header {
+  .mood-activities-page.has-bottom-action .activity-meta-row {
     margin-bottom: 6px;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-category-ribbon,
+  .mood-activities-page.has-bottom-action .activity-duration-pill {
+    min-height: 22px;
+    padding: 4px 8px;
+
+    font-size: 9px;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-top h2 {
+    font-size: 17px;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-content {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-card-arrow {
+    width: 38px;
+    height: 38px;
+
+    font-size: 28px;
   }
 
   .session-summary {
     gap: 10px;
-  }
-
-  .summary-hero h1 {
-    margin-bottom: 6px;
-    font-size: 26px;
-  }
-
-  .summary-hero p:not(.recommendations-kicker) {
-    font-size: 13px;
   }
 
   .summary-main-card {
@@ -785,482 +1125,275 @@
   }
 }
 
-@media (max-height: 620px) {
-  .phone-page.recommendations-phone-page {
-    padding-top: 18px;
+@media (max-height: 670px) {
+  .mood-activities-page.has-bottom-action {
+    padding-top: calc(40px + env(safe-area-inset-top));
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: calc(96px + env(safe-area-inset-bottom));
   }
 
-  .recommendations-page {
-    padding-top: 8px;
-  }
-
-  .recommendations-header h1 {
-    font-size: 22px;
-  }
-
-  .activities-list {
-    gap: 10px;
-  }
-
-  .activity-visual {
+  .mood-activities-page.has-bottom-action .recommendations-kicker {
     display: none;
   }
 
-  .badge-interest,
-  .activity-duration-pill {
-    min-height: 20px;
-    padding: 3px 8px;
-    font-size: 10px;
-  }
-
-  .activity-top h2 {
-    font-size: 17px;
-    -webkit-line-clamp: 1;
-  }
-
-  .activities-count-1 .activity-content {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-  }
-
-  .activities-count-2 .activity-content,
-  .activities-count-3 .activity-content {
-    display: none;
-  }
-}
-/* ========================================================= */
-/* HIGH CONTRAST REDESIGN - RECOMMENDATIONS PAGE             */
-/* ========================================================= */
-
-.phone-page.recommendations-phone-page {
-  padding-top: 30px;
-  padding-bottom: calc(102px + env(safe-area-inset-bottom));
-
-  background:
-    radial-gradient(circle at top left, rgba(231, 166, 58, 0.14) 0, transparent 34%),
-    radial-gradient(circle at top right, rgba(124, 99, 242, 0.12) 0, transparent 38%),
-    linear-gradient(180deg, $ta-bg-start 0%, $ta-bg-end 100%);
-
-  overflow: hidden;
-}
-
-.recommendations-page {
-  padding-top: 10px;
-}
-
-.recommendations-header {
-  margin-bottom: 16px;
-}
-
-.recommendations-kicker {
-  margin: 0 0 8px;
-
-  color: rgba(21, 27, 47, 0.54);
-
-  font-size: 11px;
-  line-height: 1;
-  font-weight: 900;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-}
-
-.recommendations-header h1 {
-  max-width: 360px;
-  margin: 0;
-
-  color: $ta-ink;
-
-  font-size: 30px;
-  line-height: 1.04;
-  font-weight: 900;
-  letter-spacing: -0.055em;
-}
-
-.activities-list {
-  gap: 14px;
-}
-
-.activity-card-link {
-  flex: 1;
-  min-height: 0;
-}
-
-.activity-card {
-  overflow: hidden;
-
-  padding: 16px;
-
-  border-radius: 28px;
-  border: 2px solid rgba(21, 27, 47, 0.12);
-
-  box-shadow:
-    0 20px 32px rgba(21, 27, 47, 0.10),
-    0 7px 14px rgba(21, 27, 47, 0.055),
-    0 1px 0 rgba(255, 255, 255, 0.68) inset;
-}
-
-.activity-card::before {
-  content: "";
-
-  position: absolute;
-  inset: 1px;
-
-  border-radius: 26px;
-
-  background:
-    linear-gradient(
-      125deg,
-      rgba(255, 255, 255, 0.52) 0%,
-      rgba(255, 255, 255, 0.14) 30%,
-      rgba(255, 255, 255, 0) 58%
-    );
-
-  pointer-events: none;
-}
-
-.activity-card-main {
-  position: relative;
-  z-index: 2;
-
-  gap: 14px;
-}
-
-.activity-visual {
-  width: 72px;
-  height: 72px;
-  flex: 0 0 72px;
-
-  border-radius: 24px;
-
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(21, 27, 47, 0.10);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.78),
-    0 10px 18px rgba(21, 27, 47, 0.06);
-}
-
-.activity-interest-icon {
-  width: 56px;
-  height: 56px;
-
-  filter:
-    drop-shadow(0 8px 12px rgba(21, 27, 47, 0.09));
-}
-
-.activity-body {
-  padding-right: 34px;
-}
-
-.activity-interest-header {
-  margin-bottom: 9px;
-  gap: 7px;
-}
-
-.badge-interest,
-.activity-duration-pill {
-  min-height: 25px;
-  padding: 5px 10px;
-
-  border-radius: 999px;
-
-  font-size: 11px;
-  line-height: 1;
-  font-weight: 900;
-  letter-spacing: 0.02em;
-
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.65) inset;
-}
-
-.badge-interest {
-  background: rgba(255, 255, 255, 0.72);
-}
-
-.activity-duration-pill {
-  color: $ta-purple;
-  background: rgba(124, 99, 242, 0.15);
-}
-
-.activity-top {
-  margin-bottom: 7px;
-}
-
-.activity-top h2 {
-  color: $ta-ink;
-
-  font-size: 20px;
-  line-height: 1.08;
-  font-weight: 900;
-  letter-spacing: -0.045em;
-}
-
-.activity-content {
-  color: rgba(21, 27, 47, 0.68);
-
-  font-size: 13px;
-  line-height: 1.32;
-  font-weight: 700;
-}
-
-.activity-card-arrow {
-  right: 18px;
-
-  color: $ta-purple;
-
-  font-size: 34px;
-  font-weight: 950;
-}
-
-/* Couleurs plus lisibles et plus proches du système choisi */
-
-.activity-sport {
-  background:
-    radial-gradient(circle at 12% 16%, rgba(88, 140, 58, 0.13) 0, transparent 30%),
-    linear-gradient(135deg, #ffffff 0%, #e7f7df 100%);
-
-  border-color: rgba(73, 155, 67, 0.48);
-}
-
-.activity-langues {
-  background:
-    radial-gradient(circle at 12% 16%, rgba(124, 99, 242, 0.14) 0, transparent 30%),
-    linear-gradient(135deg, #ffffff 0%, #eee8ff 100%);
-
-  border-color: rgba(124, 99, 242, 0.45);
-}
-
-.activity-creativity {
-  background:
-    radial-gradient(circle at 12% 16%, rgba(216, 154, 50, 0.15) 0, transparent 30%),
-    linear-gradient(135deg, #ffffff 0%, #fff0d8 100%);
-
-  border-color: rgba(216, 154, 50, 0.48);
-}
-
-.activity-wellbeing {
-  background:
-    radial-gradient(circle at 12% 16%, rgba(76, 150, 126, 0.13) 0, transparent 30%),
-    linear-gradient(135deg, #ffffff 0%, #e5f6ef 100%);
-
-  border-color: rgba(76, 150, 126, 0.45);
-}
-
-.activity-photo {
-  background:
-    radial-gradient(circle at 12% 16%, rgba(190, 88, 140, 0.13) 0, transparent 30%),
-    linear-gradient(135deg, #ffffff 0%, #ffe8f3 100%);
-
-  border-color: rgba(190, 88, 140, 0.45);
-}
-
-.activity-drawing {
-  background:
-    radial-gradient(circle at 12% 16%, rgba(89, 119, 170, 0.13) 0, transparent 30%),
-    linear-gradient(135deg, #ffffff 0%, #e6f0ff 100%);
-
-  border-color: rgba(89, 119, 170, 0.45);
-}
-
-.activity-writing {
-  background:
-    radial-gradient(circle at 12% 16%, rgba(190, 139, 43, 0.15) 0, transparent 30%),
-    linear-gradient(135deg, #ffffff 0%, #fff6d9 100%);
-
-  border-color: rgba(190, 139, 43, 0.48);
-}
-
-.activity-culture,
-.activity-default {
-  background:
-    radial-gradient(circle at 12% 16%, rgba(128, 95, 63, 0.13) 0, transparent 30%),
-    linear-gradient(135deg, #ffffff 0%, #f4eadf 100%);
-
-  border-color: rgba(128, 95, 63, 0.42);
-}
-
-/* Ajustements selon nombre de recommandations */
-
-.activities-count-1 .activity-card {
-  min-height: 260px;
-}
-
-.activities-count-1 .activity-visual {
-  width: 86px;
-  height: 86px;
-  flex-basis: 86px;
-}
-
-.activities-count-1 .activity-interest-icon {
-  width: 66px;
-  height: 66px;
-}
-
-.activities-count-1 .activity-top h2 {
-  font-size: 24px;
-}
-
-.activities-count-1 .activity-content {
-  font-size: 15px;
-  line-height: 1.38;
-}
-
-.activities-count-2 .activity-card {
-  min-height: 172px;
-}
-
-.activities-count-3 .activity-card {
-  min-height: 124px;
-}
-
-/* Écran résumé terminé : on garde mais on renforce légèrement */
-
-.summary-hero h1 {
-  color: $ta-ink;
-
-  font-weight: 950;
-  letter-spacing: -0.055em;
-}
-
-.summary-hero p:not(.recommendations-kicker) {
-  color: rgba(21, 27, 47, 0.70);
-
-  font-weight: 700;
-}
-
-.summary-main-card,
-.summary-stat-card,
-.summary-reward-card {
-  border-color: rgba(21, 27, 47, 0.12);
-
-  box-shadow:
-    0 18px 30px rgba(21, 27, 47, 0.10),
-    0 6px 13px rgba(21, 27, 47, 0.055),
-    0 1px 0 rgba(255, 255, 255, 0.68) inset;
-}
-
-.summary-action-secondary {
-  border-color: rgba(21, 27, 47, 0.12);
-}
-
-/* Responsive */
-
-@media (max-height: 760px) {
-  .phone-page.recommendations-phone-page {
-    padding-top: 24px;
-    padding-bottom: calc(88px + env(safe-area-inset-bottom));
-  }
-
-  .recommendations-page {
-    padding-top: 6px;
-  }
-
-  .recommendations-header {
+  .mood-activities-page.has-bottom-action .recommendations-header {
     margin-bottom: 12px;
   }
 
-  .recommendations-header h1 {
-    font-size: 26px;
+  .mood-activities-page.has-bottom-action .recommendations-header h1 {
+    font-size: 28px;
   }
 
-  .activities-list {
+  .mood-activities-page.has-bottom-action .activities-list {
+    gap: 9px;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-card,
+  .mood-activities-page.has-bottom-action .activities-count-1 .activity-card,
+  .mood-activities-page.has-bottom-action .activities-count-2 .activity-card,
+  .mood-activities-page.has-bottom-action .activities-count-3 .activity-card {
+    height: 100px;
+    padding: 9px;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-card::before {
+    inset: 6px;
+    border-radius: 20px;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-card::after {
+    width: 58px;
+    height: 58px;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-card-main {
+    grid-template-columns: 68px minmax(0, 1fr) 34px;
+    gap: 10px;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-mascot-frame {
+    height: 68px;
+    border-radius: 20px;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-duration-pill {
+    display: none;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-top h2 {
+    font-size: 15px;
+
+    -webkit-line-clamp: 1;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-content {
+    display: none;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-card-arrow {
+    width: 34px;
+    height: 34px;
+
+    font-size: 24px;
+  }
+}
+
+
+/* ========================================================= */
+/* 7. RESPONSIVE                                              */
+/* ========================================================= */
+
+@media (max-height: 760px) {
+  .mood-activities-page.has-bottom-action {
+    padding-top: calc(46px + env(safe-area-inset-top));
+    padding-left: 26px;
+    padding-right: 26px;
+    padding-bottom: calc(108px + env(safe-area-inset-bottom));
+  }
+
+  .mood-activities-page.has-bottom-action .mood-topbar {
+    margin-bottom: 0;
+  }
+
+  .mood-activities-page.has-bottom-action .recommendations-header {
+    margin-bottom: 16px;
+  }
+
+  .mood-activities-page.has-bottom-action .recommendations-header h1 {
+    font-size: clamp(30px, 8vw, 42px);
+  }
+
+  .mood-activities-page.has-bottom-action .activities-list {
     gap: 11px;
   }
 
-  .activity-card {
-    padding: 13px;
-    border-radius: 25px;
+  .mood-activities-page.has-bottom-action .activity-card,
+  .mood-activities-page.has-bottom-action .activities-count-1 .activity-card,
+  .mood-activities-page.has-bottom-action .activities-count-2 .activity-card,
+  .mood-activities-page.has-bottom-action .activities-count-3 .activity-card {
+    height: 106px;
+    padding: 10px;
+
+    border-radius: 29px;
   }
 
-  .activity-card::before {
-    border-radius: 23px;
+  .mood-activities-page.has-bottom-action .activity-card::before {
+    border-radius: 22px;
   }
 
-  .activity-visual {
-    width: 62px;
-    height: 62px;
-    flex-basis: 62px;
-
-    border-radius: 21px;
+  .mood-activities-page.has-bottom-action .activity-card-main {
+    grid-template-columns: 78px minmax(0, 1fr) 38px;
+    gap: 11px;
   }
 
-  .activity-interest-icon {
-    width: 48px;
-    height: 48px;
+  .mood-activities-page.has-bottom-action .activity-mascot-frame {
+    height: 78px;
+
+    border-radius: 22px;
   }
 
-  .activity-interest-header {
-    margin-bottom: 7px;
-  }
-
-  .badge-interest,
-  .activity-duration-pill {
+  .mood-activities-page.has-bottom-action .activity-category-ribbon {
     min-height: 22px;
-    padding: 4px 9px;
+    padding: 4px 8px;
 
-    font-size: 10px;
+    font-size: 9px;
   }
 
-  .activity-top h2 {
+  .mood-activities-page.has-bottom-action .activity-category-ribbon i {
+    width: 16px;
+    height: 16px;
+
+    font-size: 9px;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-top h2 {
     font-size: 18px;
+    line-height: 1;
   }
 
-  .activity-content {
-    font-size: 12px;
-  }
+  .mood-activities-page.has-bottom-action .activity-card-arrow {
+    width: 38px;
+    height: 38px;
 
-  .activities-count-3 .activity-card {
-    min-height: 104px;
-  }
-
-  .activities-count-2 .activity-card {
-    min-height: 145px;
-  }
-
-  .activities-count-1 .activity-card {
-    min-height: 220px;
+    font-size: 27px;
   }
 }
 
 @media (max-height: 670px) {
-  .recommendations-kicker {
+  .mood-activities-page.has-bottom-action {
+    padding-top: calc(40px + env(safe-area-inset-top));
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: calc(96px + env(safe-area-inset-bottom));
+  }
+
+  .mood-activities-page.has-bottom-action .recommendations-kicker {
     display: none;
   }
 
-  .recommendations-header h1 {
-    font-size: 24px;
+  .mood-activities-page.has-bottom-action .recommendations-header {
+    margin-bottom: 12px;
   }
 
-  .activities-list {
+  .mood-activities-page.has-bottom-action .recommendations-header h1 {
+    font-size: 28px;
+  }
+
+  .mood-activities-page.has-bottom-action .activities-list {
     gap: 9px;
   }
 
-  .activity-card {
-    padding: 11px;
+  .mood-activities-page.has-bottom-action .activity-card,
+  .mood-activities-page.has-bottom-action .activities-count-1 .activity-card,
+  .mood-activities-page.has-bottom-action .activities-count-2 .activity-card,
+  .mood-activities-page.has-bottom-action .activities-count-3 .activity-card {
+    height: 92px;
   }
 
-  .activity-visual {
-    width: 56px;
-    height: 56px;
-    flex-basis: 56px;
+  .mood-activities-page.has-bottom-action .activity-card-main {
+    grid-template-columns: 64px minmax(0, 1fr) 34px;
+    gap: 10px;
   }
 
-  .activity-interest-icon {
-    width: 43px;
-    height: 43px;
+  .mood-activities-page.has-bottom-action .activity-mascot-frame {
+    height: 64px;
+
+    border-radius: 20px;
   }
 
-  .activity-top h2 {
+  .mood-activities-page.has-bottom-action .activity-category-ribbon {
+    min-height: 20px;
+    padding: 3px 7px;
+
+    font-size: 8px;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-category-ribbon i {
+    display: none;
+  }
+
+  .mood-activities-page.has-bottom-action .activity-top h2 {
     font-size: 16px;
+
+    -webkit-line-clamp: 2;
   }
 
-  .activity-content {
-    font-size: 11px;
-    line-height: 1.25;
-  }
+  .mood-activities-page.has-bottom-action .activity-card-arrow {
+    width: 34px;
+    height: 34px;
 
-  .activity-card-arrow {
-    font-size: 28px;
-    right: 14px;
+    font-size: 25px;
+  }
+}
+
+/* ========================================================= */
+/* ACTIVITY CARD ARROW - SIMPLE PURPLE ARROW                 */
+/* ========================================================= */
+
+.mood-activities-page.has-bottom-action .activity-card-arrow {
+  position: static;
+  z-index: 3;
+
+  width: auto;
+  height: auto;
+
+  display: block;
+  justify-self: end;
+
+  transform: none;
+
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+
+  color: #8b6df1;
+
+  font-size: 54px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.mood-activities-page.has-bottom-action .activity-card-link:active .activity-card-arrow {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+
+@media (max-height: 760px) {
+  .mood-activities-page.has-bottom-action .activity-card-arrow {
+    width: auto;
+    height: auto;
+
+    font-size: 46px;
+  }
+}
+
+@media (max-height: 670px) {
+  .mood-activities-page.has-bottom-action .activity-card-arrow {
+    width: auto;
+    height: auto;
+
+    font-size: 38px;
   }
 }

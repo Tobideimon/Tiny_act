@@ -1,51 +1,113 @@
+/* ========================================================= */
+/* USER INTERESTS PAGE                                       */
+/* Selection des centres d'intérêt                           */
+/* ========================================================= */
+
 .user-interests-page {
   height: 100dvh;
   min-height: 100dvh;
 
-  padding-top: 30px;
+  padding-top: calc(28px + env(safe-area-inset-top));
+  padding-left: 28px;
+  padding-right: 28px;
   padding-bottom: 0;
 
   display: flex;
   flex-direction: column;
 
   overflow: hidden;
+
+  background:
+    radial-gradient(circle at top left, rgba(231, 166, 58, 0.13) 0, transparent 34%),
+    radial-gradient(circle at top right, rgba(124, 99, 242, 0.12) 0, transparent 38%),
+    linear-gradient(180deg, $ta-bg-start 0%, $ta-bg-end 100%);
 }
 
-.user-interests-topbar {
+/* ========================================================= */
+/* HEADER / INTRO                                            */
+/* ========================================================= */
+
+.user-interests-screen-header {
   flex: 0 0 auto;
 
-  position: relative;
-  z-index: 20;
+  position: sticky;
+  top: 0;
+  z-index: 60;
 
-  margin-bottom: 18px;
+  margin-left: -28px;
+  margin-right: -28px;
+
+  padding-top: 8px;
+  padding-left: 28px;
+  padding-right: 28px;
+  padding-bottom: 14px;
+
+  background:
+    radial-gradient(circle at top left, rgba(231, 166, 58, 0.13) 0, transparent 34%),
+    radial-gradient(circle at top right, rgba(124, 99, 242, 0.12) 0, transparent 38%),
+    linear-gradient(180deg, $ta-bg-start 0%, $ta-bg-end 100%);
 }
 
-.user-interests-topbar .mood-topbar {
+.user-interests-screen-header .mood-topbar {
   margin-bottom: 0;
+}
+
+.user-interests-screen-main {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .user-interests-intro {
   flex: 0 0 auto;
+  margin-top: 18px;
+  margin-bottom: 24px;
+}
+
+.user-interests-kicker {
+  margin: 0 0 10px;
+
+  color: rgba(21, 27, 47, 0.54);
+
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
 }
 
 .user-interests-page .setup-hero {
-  margin-bottom: 10px;
+  margin: 0 0 10px;
 }
 
 .user-interests-page .setup-hero h1 {
-  margin-bottom: 0;
+  max-width: 100%;
+  margin: 0;
 
-  font-size: 30px;
-  line-height: 1.02;
-  letter-spacing: -0.055em;
+  color: $ta-ink;
+
+  font-size: clamp(34px, 8.8vw, 50px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.065em;
 }
 
 .user-interests-page .setup-helper {
-  margin: 0 0 16px;
+  max-width: 340px;
+  margin: 0;
 
-  font-size: 13px;
-  line-height: 1.35;
+  color: rgba(21, 27, 47, 0.68);
+
+  font-size: 14px;
+  line-height: 1.36;
+  font-weight: 700;
 }
+
+/* ========================================================= */
+/* FORM / SCROLL                                             */
+/* ========================================================= */
 
 .interests-form {
   flex: 1;
@@ -65,7 +127,7 @@
   overflow-x: hidden;
 
   padding-top: 2px;
-  padding-bottom: 16px;
+  padding-bottom: 24px;
 
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -78,15 +140,21 @@
 .interests-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 14px;
 
   margin: 0;
   padding: 0;
 }
 
+/* ========================================================= */
+/* INTEREST CARD                                             */
+/* ========================================================= */
+
 .interest-option {
   display: block;
   cursor: pointer;
+
+  -webkit-tap-highlight-color: transparent;
 }
 
 .interest-option input {
@@ -97,54 +165,213 @@
   position: relative;
 
   width: 100%;
-  min-height: 94px;
-  padding: 11px 8px 10px;
+  min-height: 160px;
+  padding: 12px;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
 
-  border-radius: 26px;
-  border: 2px solid transparent;
+  overflow: hidden;
+
+  border-radius: 32px;
+  border: 2px solid var(--interest-border);
+
+  color: $ta-ink;
+  background:
+    radial-gradient(circle at 18% 18%, var(--interest-glow) 0, transparent 42%),
+    radial-gradient(circle at 92% 88%, var(--interest-complement-glow) 0, transparent 38%),
+    linear-gradient(135deg, #ffffff 0%, var(--interest-soft) 100%);
+
+  box-shadow:
+    0 7px 0 var(--interest-shadow-base),
+    0 18px 30px rgba(21, 27, 47, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.78) inset;
 
   box-sizing: border-box;
 
-  color: $ta-ink;
-
-  box-shadow:
-    0 14px 26px rgba(21, 27, 47, 0.07),
-    0 5px 12px rgba(21, 27, 47, 0.035);
+  transform: translateY(0);
 
   transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
 }
 
-.interest-option:hover .interest-card {
-  transform: translateY(-1px);
+.interest-card-shine {
+  content: "";
+
+  position: absolute;
+  inset: 8px;
+
+  border-radius: 25px;
+
+  background:
+    linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.60) 0%,
+      rgba(255, 255, 255, 0.18) 38%,
+      rgba(255, 255, 255, 0) 68%
+    );
+
+  pointer-events: none;
+}
+
+.interest-option:active .interest-card {
+  transform: translateY(5px);
+
+  box-shadow:
+    0 2px 0 var(--interest-shadow-base),
+    0 10px 18px rgba(21, 27, 47, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.78) inset;
 }
 
 .interest-option input:checked + .interest-card {
-  transform: translateY(-2px);
+  border-color: var(--interest-accent);
+
+  background:
+    radial-gradient(circle at 18% 18%, var(--interest-selected-glow) 0, transparent 43%),
+    radial-gradient(circle at 92% 88%, var(--interest-complement-glow) 0, transparent 40%),
+    linear-gradient(135deg, #ffffff 0%, var(--interest-selected-soft) 100%);
 
   box-shadow:
-    0 18px 34px rgba(21, 27, 47, 0.12),
-    0 7px 16px rgba(21, 27, 47, 0.06);
+    0 7px 0 var(--interest-shadow-base),
+    0 20px 34px rgba(21, 27, 47, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.82) inset;
 }
 
-.interest-option input:checked + .interest-card::after {
-  content: "✓";
+/* ========================================================= */
+/* MASCOT                                                    */
+/* ========================================================= */
+
+.interest-mascot-frame {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  height: 92px;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+
+  border-radius: 25px;
+  border: 1px solid rgba(21, 27, 47, 0.08);
+
+  background:
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.90) 0, transparent 42%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.76), var(--interest-mascot-bg));
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.84),
+    0 10px 18px rgba(21, 27, 47, 0.06);
+}
+
+.interest-mascot-frame::after {
+  content: "";
 
   position: absolute;
-  top: 8px;
-  right: 8px;
+  right: -18px;
+  bottom: -22px;
 
-  width: 22px;
-  height: 22px;
+  width: 70px;
+  height: 70px;
+
+  border-radius: 999px;
+
+  background: var(--interest-complement);
+  opacity: 0.20;
+
+  pointer-events: none;
+}
+
+.interest-mascot-image {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+
+  display: block;
+  object-fit: cover;
+
+  filter:
+    drop-shadow(0 8px 12px rgba(21, 27, 47, 0.10));
+}
+
+.interest-fallback-icon {
+  position: relative;
+  z-index: 2;
+
+  color: var(--interest-accent);
+
+  font-size: 34px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+/* ========================================================= */
+/* COPY                                                      */
+/* ========================================================= */
+
+.interest-copy {
+  position: relative;
+  z-index: 2;
+
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.interest-name {
+  display: -webkit-box;
+
+  overflow: hidden;
+
+  color: $ta-ink;
+
+  font-size: 18px;
+  line-height: 1.02;
+  font-weight: 950;
+  letter-spacing: -0.055em;
+  text-align: left;
+
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.interest-description {
+  display: -webkit-box;
+
+  overflow: hidden;
+
+  color: rgba(21, 27, 47, 0.64);
+
+  font-size: 11px;
+  line-height: 1.22;
+  font-weight: 700;
+  text-align: left;
+
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* ========================================================= */
+/* CHECK STATE                                               */
+/* ========================================================= */
+
+.interest-checkmark {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 4;
+
+  width: 30px;
+  height: 30px;
 
   display: grid;
   place-items: center;
@@ -152,269 +379,211 @@
   border-radius: 999px;
 
   color: #ffffff;
-  background: $ta-purple;
+  background:
+    linear-gradient(135deg, var(--interest-complement) 0%, var(--interest-accent) 100%);
 
   font-size: 13px;
   line-height: 1;
-  font-weight: 900;
-
-  box-shadow: 0 6px 12px rgba(124, 99, 242, 0.24);
-}
-
-.interest-icon-shell {
-  width: 48px;
-  height: 48px;
-
-  flex: 0 0 48px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 18px;
-
-  border: 1px solid rgba(255, 255, 255, 0.42);
+  font-weight: 950;
 
   box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.2),
-    0 2px 8px rgba(21, 27, 47, 0.04);
+    0 8px 16px rgba(21, 27, 47, 0.14),
+    0 1px 0 rgba(255, 255, 255, 0.46) inset;
+
+  opacity: 0;
+  transform: scale(0.72) rotate(-10deg);
+
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
 }
 
-.interest-icon {
-  width: 36px;
-  height: 36px;
-
-  object-fit: contain;
-
+.interest-option input:checked + .interest-card .interest-checkmark {
   opacity: 1;
-
-  filter: drop-shadow(0 1px 2px rgba(21, 27, 47, 0.12));
+  transform: scale(1) rotate(0deg);
 }
 
-.interest-fa-icon {
-  color: #ffffff;
-
-  font-size: 24px;
-  line-height: 1;
-
-  filter: drop-shadow(0 2px 4px rgba(21, 27, 47, 0.18));
-}
-
-.interest-name {
-  color: $ta-ink;
-
-  font-size: 15px;
-  line-height: 1.05;
-  font-weight: 850;
-  letter-spacing: -0.035em;
-  text-align: center;
-}
-
-/* FONDS DES ICÔNES */
-
-.interest-sport .interest-icon-shell {
-  background: linear-gradient(
-    135deg,
-    rgba(159, 211, 157, 0.45) 0%,
-    rgba(159, 211, 157, 0.32) 100%
-  );
-}
-
-.interest-creativity .interest-icon-shell {
-  background: linear-gradient(
-    135deg,
-    rgba(235, 200, 167, 0.45) 0%,
-    rgba(235, 200, 167, 0.32) 100%
-  );
-}
-
-.interest-wellbeing .interest-icon-shell {
-  background: linear-gradient(
-    135deg,
-    rgba(183, 205, 233, 0.45) 0%,
-    rgba(183, 205, 233, 0.32) 100%
-  );
-}
-
-.interest-photo .interest-icon-shell {
-  background: linear-gradient(
-    135deg,
-    rgba(232, 189, 212, 0.45) 0%,
-    rgba(232, 189, 212, 0.32) 100%
-  );
-}
-
-.interest-drawing .interest-icon-shell {
-  background: linear-gradient(
-    135deg,
-    rgba(185, 213, 211, 0.45) 0%,
-    rgba(185, 213, 211, 0.32) 100%
-  );
-}
-
-.interest-writing .interest-icon-shell {
-  background: linear-gradient(
-    135deg,
-    rgba(234, 217, 147, 0.45) 0%,
-    rgba(234, 217, 147, 0.32) 100%
-  );
-}
-
-.interest-langues .interest-icon-shell {
-  background: linear-gradient(
-    135deg,
-    rgba(182, 168, 234, 0.45) 0%,
-    rgba(182, 168, 234, 0.32) 100%
-  );
-}
-
-.interest-culture .interest-icon-shell {
-  background: linear-gradient(
-    135deg,
-    rgba(231, 185, 175, 0.45) 0%,
-    rgba(231, 185, 175, 0.32) 100%
-  );
-}
-
-.interest-code .interest-icon-shell {
-  background: linear-gradient(
-    135deg,
-    rgba(89, 119, 170, 0.45) 0%,
-    rgba(89, 119, 170, 0.32) 100%
-  );
-}
-
-.interest-productivity .interest-icon-shell {
-  background: linear-gradient(
-    135deg,
-    rgba(234, 217, 147, 0.48) 0%,
-    rgba(234, 217, 147, 0.34) 100%
-  );
-}
-
-/* CARTES */
+/* ========================================================= */
+/* CATEGORY COLORS                                           */
+/* primary + complementary accent                            */
+/* ========================================================= */
 
 .interest-sport {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-sport-bg 100%);
-  border-color: $interest-sport-border;
-}
-
-.interest-option input:checked + .interest-sport {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-sport-selected 100%);
-  border-color: $interest-sport-selected-border;
+  --interest-accent: #69ba4c;
+  --interest-complement: #ffb15c;
+  --interest-soft: #effbe7;
+  --interest-selected-soft: #def8cb;
+  --interest-glow: rgba(105, 186, 76, 0.18);
+  --interest-selected-glow: rgba(105, 186, 76, 0.30);
+  --interest-complement-glow: rgba(255, 177, 92, 0.24);
+  --interest-border: rgba(105, 186, 76, 0.36);
+  --interest-shadow-base: rgba(105, 186, 76, 0.22);
+  --interest-mascot-bg: rgba(105, 186, 76, 0.16);
 }
 
 .interest-creativity {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-creativity-bg 100%);
-  border-color: $interest-creativity-border;
-}
-
-.interest-option input:checked + .interest-creativity {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-creativity-selected 100%);
-  border-color: $interest-creativity-selected-border;
+  --interest-accent: #ff8a5b;
+  --interest-complement: #55c7bd;
+  --interest-soft: #fff0e8;
+  --interest-selected-soft: #ffe1d2;
+  --interest-glow: rgba(255, 138, 91, 0.18);
+  --interest-selected-glow: rgba(255, 138, 91, 0.30);
+  --interest-complement-glow: rgba(85, 199, 189, 0.22);
+  --interest-border: rgba(255, 138, 91, 0.38);
+  --interest-shadow-base: rgba(255, 138, 91, 0.22);
+  --interest-mascot-bg: rgba(255, 138, 91, 0.16);
 }
 
 .interest-wellbeing {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-wellbeing-bg 100%);
-  border-color: $interest-wellbeing-border;
-}
-
-.interest-option input:checked + .interest-wellbeing {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-wellbeing-selected 100%);
-  border-color: $interest-wellbeing-selected-border;
+  --interest-accent: #5daeea;
+  --interest-complement: #8fdc9a;
+  --interest-soft: #edf8ff;
+  --interest-selected-soft: #d9efff;
+  --interest-glow: rgba(93, 174, 234, 0.18);
+  --interest-selected-glow: rgba(93, 174, 234, 0.28);
+  --interest-complement-glow: rgba(143, 220, 154, 0.22);
+  --interest-border: rgba(93, 174, 234, 0.36);
+  --interest-shadow-base: rgba(93, 174, 234, 0.20);
+  --interest-mascot-bg: rgba(93, 174, 234, 0.16);
 }
 
 .interest-photo {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-photo-bg 100%);
-  border-color: $interest-photo-border;
-}
-
-.interest-option input:checked + .interest-photo {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-photo-selected 100%);
-  border-color: $interest-photo-selected-border;
+  --interest-accent: #ec6aa5;
+  --interest-complement: #7bbcff;
+  --interest-soft: #fff0f7;
+  --interest-selected-soft: #ffddec;
+  --interest-glow: rgba(236, 106, 165, 0.18);
+  --interest-selected-glow: rgba(236, 106, 165, 0.28);
+  --interest-complement-glow: rgba(123, 188, 255, 0.22);
+  --interest-border: rgba(236, 106, 165, 0.36);
+  --interest-shadow-base: rgba(236, 106, 165, 0.20);
+  --interest-mascot-bg: rgba(236, 106, 165, 0.16);
 }
 
 .interest-drawing {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-drawing-bg 100%);
-  border-color: $interest-drawing-border;
-}
-
-.interest-option input:checked + .interest-drawing {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-drawing-selected 100%);
-  border-color: $interest-drawing-selected-border;
+  --interest-accent: #55bfae;
+  --interest-complement: #b99cff;
+  --interest-soft: #ecfbf8;
+  --interest-selected-soft: #d7f8f1;
+  --interest-glow: rgba(85, 191, 174, 0.18);
+  --interest-selected-glow: rgba(85, 191, 174, 0.28);
+  --interest-complement-glow: rgba(185, 156, 255, 0.22);
+  --interest-border: rgba(85, 191, 174, 0.36);
+  --interest-shadow-base: rgba(85, 191, 174, 0.20);
+  --interest-mascot-bg: rgba(85, 191, 174, 0.16);
 }
 
 .interest-writing {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-writing-bg 100%);
-  border-color: $interest-writing-border;
-}
-
-.interest-option input:checked + .interest-writing {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-writing-selected 100%);
-  border-color: $interest-writing-selected-border;
+  --interest-accent: #e7b42f;
+  --interest-complement: #9b7cf2;
+  --interest-soft: #fff8de;
+  --interest-selected-soft: #ffefae;
+  --interest-glow: rgba(231, 180, 47, 0.18);
+  --interest-selected-glow: rgba(231, 180, 47, 0.30);
+  --interest-complement-glow: rgba(155, 124, 242, 0.20);
+  --interest-border: rgba(231, 180, 47, 0.38);
+  --interest-shadow-base: rgba(231, 180, 47, 0.20);
+  --interest-mascot-bg: rgba(231, 180, 47, 0.16);
 }
 
 .interest-langues {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-language-bg 100%);
-  border-color: $interest-language-border;
-}
-
-.interest-option input:checked + .interest-langues {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-language-selected 100%);
-  border-color: $interest-language-selected-border;
+  --interest-accent: #8a69f2;
+  --interest-complement: #ffd45c;
+  --interest-soft: #f2edff;
+  --interest-selected-soft: #e7ddff;
+  --interest-glow: rgba(138, 105, 242, 0.18);
+  --interest-selected-glow: rgba(138, 105, 242, 0.30);
+  --interest-complement-glow: rgba(255, 212, 92, 0.22);
+  --interest-border: rgba(138, 105, 242, 0.38);
+  --interest-shadow-base: rgba(138, 105, 242, 0.22);
+  --interest-mascot-bg: rgba(138, 105, 242, 0.16);
 }
 
 .interest-culture {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-culture-bg 100%);
-  border-color: $interest-culture-border;
-}
-
-.interest-option input:checked + .interest-culture {
-  background: linear-gradient(135deg, #ffffff 0%, $interest-culture-selected 100%);
-  border-color: $interest-culture-selected-border;
-}
-
-.interest-code {
-  background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
-  border-color: rgba(89, 119, 170, 0.3);
-}
-
-.interest-option input:checked + .interest-code {
-  background: linear-gradient(135deg, #ffffff 0%, #dbeaff 100%);
-  border-color: rgba(89, 119, 170, 0.58);
+  --interest-accent: #e47b69;
+  --interest-complement: #6dc9b8;
+  --interest-soft: #fff0ed;
+  --interest-selected-soft: #ffe0dc;
+  --interest-glow: rgba(228, 123, 105, 0.18);
+  --interest-selected-glow: rgba(228, 123, 105, 0.28);
+  --interest-complement-glow: rgba(109, 201, 184, 0.20);
+  --interest-border: rgba(228, 123, 105, 0.36);
+  --interest-shadow-base: rgba(228, 123, 105, 0.20);
+  --interest-mascot-bg: rgba(228, 123, 105, 0.16);
 }
 
 .interest-productivity {
-  background: linear-gradient(135deg, #ffffff 0%, #fff8df 100%);
-  border-color: rgba(190, 139, 43, 0.34);
+  --interest-accent: #d8a51f;
+  --interest-complement: #8a69f2;
+  --interest-soft: #fff6d9;
+  --interest-selected-soft: #ffefa9;
+  --interest-glow: rgba(216, 165, 31, 0.18);
+  --interest-selected-glow: rgba(216, 165, 31, 0.30);
+  --interest-complement-glow: rgba(138, 105, 242, 0.20);
+  --interest-border: rgba(216, 165, 31, 0.38);
+  --interest-shadow-base: rgba(216, 165, 31, 0.20);
+  --interest-mascot-bg: rgba(216, 165, 31, 0.16);
 }
 
-.interest-option input:checked + .interest-productivity {
-  background: linear-gradient(135deg, #ffffff 0%, #ffefad 100%);
-  border-color: rgba(190, 139, 43, 0.62);
+.interest-code {
+  --interest-accent: #5f86e8;
+  --interest-complement: #ffd45c;
+  --interest-soft: #eef4ff;
+  --interest-selected-soft: #dce8ff;
+  --interest-glow: rgba(95, 134, 232, 0.18);
+  --interest-selected-glow: rgba(95, 134, 232, 0.28);
+  --interest-complement-glow: rgba(255, 212, 92, 0.22);
+  --interest-border: rgba(95, 134, 232, 0.36);
+  --interest-shadow-base: rgba(95, 134, 232, 0.20);
+  --interest-mascot-bg: rgba(95, 134, 232, 0.16);
 }
 
-.interest-disabled {
-  background: rgba(255, 255, 255, 0.55);
-  border-color: rgba(21, 27, 47, 0.06);
-  opacity: 0.6;
+.interest-default {
+  --interest-accent: #7c63f2;
+  --interest-complement: #ffd45c;
+  --interest-soft: #f2edff;
+  --interest-selected-soft: #e7ddff;
+  --interest-glow: rgba(124, 99, 242, 0.16);
+  --interest-selected-glow: rgba(124, 99, 242, 0.26);
+  --interest-complement-glow: rgba(255, 212, 92, 0.20);
+  --interest-border: rgba(124, 99, 242, 0.34);
+  --interest-shadow-base: rgba(124, 99, 242, 0.20);
+  --interest-mascot-bg: rgba(124, 99, 242, 0.16);
 }
 
-/* BAS DE PAGE HORS SCROLL */
+/* ========================================================= */
+/* BOTTOM ACTION                                             */
+/* ========================================================= */
 
 .interests-bottom-action {
   flex: 0 0 auto;
 
-  position: relative;
-  z-index: 20;
+  position: sticky;
+  bottom: 0;
+  z-index: 60;
 
-  padding-top: 14px;
-  padding-bottom: calc(18px + env(safe-area-inset-bottom));
+  margin-left: -28px;
+  margin-right: -28px;
+  padding: 16px 28px calc(18px + env(safe-area-inset-bottom));
+
+  background:
+    linear-gradient(
+      0deg,
+      rgba(255, 250, 241, 0.98) 0%,
+      rgba(255, 250, 241, 0.92) 76%,
+      rgba(255, 250, 241, 0) 100%
+    );
+
+  backdrop-filter: blur(14px);
 }
 
 .interests-submit {
   width: 100%;
-  min-height: 76px;
+  min-height: 72px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   border: none;
   border-radius: 30px;
@@ -422,134 +591,182 @@
   cursor: pointer;
 
   color: #ffffff;
-  background: linear-gradient(135deg, #8b74ff 0%, #6f55e8 100%);
+  background:
+    radial-gradient(circle at 18% 10%, rgba(255, 255, 255, 0.22) 0, transparent 28%),
+    linear-gradient(135deg, #8b74ff 0%, #6f55e8 100%);
 
   box-shadow:
-    0 16px 30px rgba(124, 99, 242, 0.26),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    0 7px 0 rgba(79, 56, 176, 0.36),
+    0 18px 30px rgba(124, 99, 242, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
 
   font-family: inherit;
   font-size: 19px;
   line-height: 1;
-  font-weight: 850;
-  letter-spacing: -0.02em;
+  font-weight: 900;
+  letter-spacing: -0.025em;
+
+  transform: translateY(0);
 
   transition:
-    transform 0.18s ease,
-    box-shadow 0.18s ease;
-}
-
-.interests-submit:hover {
-  transform: translateY(-1px);
+    transform 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .interests-submit:active {
-  transform: translateY(0);
+  transform: translateY(5px);
+
+  box-shadow:
+    0 2px 0 rgba(79, 56, 176, 0.36),
+    0 10px 18px rgba(124, 99, 242, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
+
+/* ========================================================= */
+/* RESPONSIVE                                                */
+/* ========================================================= */
 
 @media (max-height: 760px) {
   .user-interests-page {
-    padding-top: 24px;
+    padding-top: calc(20px + env(safe-area-inset-top));
+    padding-left: 26px;
+    padding-right: 26px;
   }
 
-  .user-interests-topbar {
-    margin-bottom: 14px;
+  .user-interests-screen-header {
+    margin-left: -26px;
+    margin-right: -26px;
+
+    padding-left: 26px;
+    padding-right: 26px;
+  }
+
+  .user-interests-screen-header .mood-topbar {
+    margin-bottom: 0;
+  }
+
+  .user-interests-intro {
+    margin-bottom: 16px;
   }
 
   .user-interests-page .setup-hero h1 {
-    font-size: 27px;
+    font-size: clamp(30px, 8vw, 42px);
   }
 
   .user-interests-page .setup-helper {
-    margin-bottom: 12px;
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .interests-grid {
-    gap: 10px;
+    gap: 11px;
   }
 
   .interest-card {
-    min-height: 84px;
-    padding: 9px 7px;
-    border-radius: 24px;
+    min-height: 140px;
+    padding: 10px;
+    border-radius: 28px;
   }
 
-  .interest-icon-shell {
-    width: 43px;
-    height: 43px;
-
-    flex-basis: 43px;
-
-    border-radius: 16px;
+  .interest-card-shine {
+    border-radius: 22px;
   }
 
-  .interest-icon {
-    width: 32px;
-    height: 32px;
+  .interest-mascot-frame {
+    height: 78px;
+    border-radius: 22px;
   }
 
-  .interest-fa-icon {
-    font-size: 21px;
+  .interest-name {
+    font-size: 16px;
+  }
+
+  .interest-description {
+    font-size: 10px;
+    -webkit-line-clamp: 1;
+  }
+
+  .interest-checkmark {
+    width: 27px;
+    height: 27px;
+
+    font-size: 12px;
+  }
+
+  .interests-submit {
+    min-height: 66px;
+    font-size: 18px;
+  }
+
+  .interests-bottom-action {
+    margin-left: -26px;
+    margin-right: -26px;
+    padding: 12px 26px calc(14px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-height: 670px) {
+  .user-interests-page {
+    padding-top: calc(16px + env(safe-area-inset-top));
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .user-interests-screen-header {
+    margin-left: -24px;
+    margin-right: -24px;
+
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+
+  .user-interests-kicker {
+    display: none;
+  }
+
+  .user-interests-intro {
+    margin-bottom: 12px;
+  }
+
+  .user-interests-page .setup-hero h1 {
+    font-size: 28px;
+  }
+
+  .user-interests-page .setup-helper {
+    display: none;
+  }
+
+  .interests-grid {
+    gap: 9px;
+  }
+
+  .interest-card {
+    min-height: 112px;
+    padding: 9px;
+    border-radius: 25px;
+  }
+
+  .interest-mascot-frame {
+    height: 58px;
+    border-radius: 19px;
   }
 
   .interest-name {
     font-size: 14px;
   }
 
+  .interest-description {
+    display: none;
+  }
+
   .interests-submit {
-    min-height: 68px;
-    font-size: 18px;
+    min-height: 60px;
   }
 
   .interests-bottom-action {
-    padding-top: 10px;
-    padding-bottom: calc(14px + env(safe-area-inset-bottom));
-  }
-}
-
-@media (max-height: 670px) {
-  .user-interests-topbar {
-    margin-bottom: 10px;
-  }
-
-  .user-interests-page .setup-hero {
-    margin-bottom: 6px;
-  }
-
-  .user-interests-page .setup-hero h1 {
-    font-size: 24px;
-  }
-
-  .user-interests-page .setup-helper {
-    margin-bottom: 10px;
-  }
-
-  .interest-card {
-    min-height: 76px;
-  }
-
-  .interest-icon-shell {
-    width: 38px;
-    height: 38px;
-
-    flex-basis: 38px;
-  }
-
-  .interest-icon {
-    width: 28px;
-    height: 28px;
-  }
-
-  .interest-fa-icon {
-    font-size: 19px;
-  }
-
-  .interest-name {
-    font-size: 13px;
-  }
-
-  .interests-submit {
-    min-height: 62px;
+    margin-left: -24px;
+    margin-right: -24px;
+    padding-left: 24px;
+    padding-right: 24px;
   }
 }

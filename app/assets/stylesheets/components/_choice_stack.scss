@@ -190,3 +190,664 @@
     display: none;
   }
 }
+
+/* =========================
+   LOCATION PAGE
+   Same visual rhythm as home/new
+========================= */
+
+.mood-location-page {
+  height: auto;
+  min-height: 100dvh;
+
+  padding-top: calc(54px + env(safe-area-inset-top));
+  padding-left: 28px;
+  padding-right: 28px;
+  padding-bottom: calc(156px + env(safe-area-inset-bottom));
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.mood-location-page .mood-topbar {
+  margin-bottom: 40px;
+}
+
+.mood-location-page .mood-screen-main {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.mood-location-page .mood-screen-title {
+  margin: 0;
+}
+
+.mood-location-page .setup-hero {
+  margin: 0 0 10px;
+}
+
+.mood-location-page .setup-hero h1 {
+  max-width: 100%;
+  margin: 0;
+
+  color: $ta-ink;
+
+  font-size: clamp(34px, 8.8vw, 50px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.065em;
+}
+
+.mood-location-page .setup-helper {
+  max-width: 340px;
+  margin: 0;
+
+  color: rgba(21, 27, 47, 0.68);
+
+  font-size: 14px;
+  line-height: 1.36;
+  font-weight: 700;
+}
+
+.mood-location-page .setup-form {
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 28px;
+  padding-bottom: 28px;
+
+  overflow: visible;
+}
+
+/* On annule le fixed de .setup-choice-list uniquement pour location */
+.mood-location-page .setup-choice-list {
+  position: relative;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  transform: none;
+
+  width: 100%;
+  max-width: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2.7vh, 24px);
+
+  z-index: 10;
+}
+
+/* Cards alignées sur la logique visuelle de la home */
+.mood-location-page .setup-choice-card {
+  position: relative;
+
+  width: 100%;
+  min-height: clamp(104px, 13vh, 126px);
+  padding: 16px 52px 16px 18px;
+
+  display: flex;
+  align-items: center;
+
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 34px;
+
+  box-shadow:
+    0 7px 0 rgba(18, 24, 45, 0.11),
+    0 18px 28px rgba(18, 24, 45, 0.08);
+
+  overflow: hidden;
+
+  transform: translateY(0);
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.mood-location-page .setup-choice-card:active {
+  transform: translateY(5px);
+
+  box-shadow:
+    0 2px 0 rgba(18, 24, 45, 0.11),
+    0 10px 18px rgba(18, 24, 45, 0.08);
+}
+
+.mood-location-page .setup-choice-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 8px;
+
+  border-radius: 27px;
+
+  background:
+    radial-gradient(
+      circle at 17% 48%,
+      rgba(255, 255, 255, 0.96),
+      transparent 40%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.66),
+      rgba(255, 255, 255, 0.18)
+    );
+
+  pointer-events: none;
+}
+
+.mood-location-page .setup-choice-visual,
+.mood-location-page .setup-choice-text,
+.mood-location-page .choice-card-arrow {
+  position: relative;
+  z-index: 1;
+}
+
+.mood-location-page .setup-choice-visual {
+  width: 96px;
+  height: 96px;
+
+  flex: 0 0 96px;
+
+  display: grid;
+  place-items: center;
+
+  overflow: visible;
+}
+
+.mood-location-page .setup-choice-image {
+  width: 112px;
+  height: 112px;
+
+  display: block;
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 8px 11px rgba(21, 27, 47, 0.12));
+}
+
+.mood-location-page .setup-choice-text {
+  flex: 1;
+  min-width: 0;
+
+  padding-left: 18px;
+  padding-right: 28px;
+
+  text-align: center;
+}
+
+.mood-location-page .setup-choice-text strong {
+  display: block;
+
+  color: $ta-ink;
+
+  font-size: clamp(28px, 7vw, 40px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.055em;
+}
+
+.mood-location-page .choice-card-arrow {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+
+  transform: translateY(-52%);
+
+  color: $ta-purple;
+
+  font-size: 54px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+/* Stepper au-dessus du bouton retour */
+.mood-location-page .step-progress-footer {
+  bottom: calc(88px + env(safe-area-inset-bottom));
+
+  width: calc(100% - 56px);
+  max-width: 374px;
+}
+
+.mood-location-page .bottom-back-button {
+  width: calc(100% - 56px);
+  max-width: 374px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-height: 760px) {
+  .mood-location-page {
+    padding-top: calc(46px + env(safe-area-inset-top));
+    padding-left: 26px;
+    padding-right: 26px;
+    padding-bottom: calc(142px + env(safe-area-inset-bottom));
+  }
+
+  .mood-location-page .mood-topbar {
+    margin-bottom: 0;
+  }
+
+  .mood-location-page .setup-hero h1 {
+    font-size: clamp(30px, 8vw, 42px);
+  }
+
+  .mood-location-page .setup-form {
+    padding-top: 22px;
+    padding-bottom: 24px;
+  }
+
+  .mood-location-page .setup-choice-list {
+    gap: 14px;
+  }
+
+  .mood-location-page .setup-choice-card {
+    min-height: 88px;
+    border-radius: 26px;
+  }
+
+  .mood-location-page .setup-choice-visual {
+    width: 76px;
+    height: 76px;
+    flex-basis: 76px;
+  }
+
+  .mood-location-page .setup-choice-image {
+    width: 92px;
+    height: 92px;
+  }
+
+  .mood-location-page .setup-choice-text strong {
+    font-size: clamp(24px, 6.4vw, 34px);
+  }
+
+  .mood-location-page .choice-card-arrow {
+    font-size: 42px;
+  }
+
+  .mood-location-page .step-progress-footer {
+    bottom: calc(78px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-height: 670px) {
+  .mood-location-page {
+    padding-top: calc(40px + env(safe-area-inset-top));
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: calc(132px + env(safe-area-inset-bottom));
+  }
+
+  .mood-location-page .setup-helper {
+    display: none;
+  }
+
+  .mood-location-page .setup-form {
+    padding-top: 16px;
+    padding-bottom: 18px;
+  }
+
+  .mood-location-page .setup-choice-list {
+    gap: 10px;
+  }
+
+  .mood-location-page .setup-choice-card {
+    min-height: 82px;
+  }
+
+  .mood-location-page .setup-choice-image {
+    width: 82px;
+    height: 82px;
+  }
+
+  .mood-location-page .setup-choice-text strong {
+    font-size: 24px;
+  }
+
+  .mood-location-page .choice-card-arrow {
+    font-size: 36px;
+  }
+
+  .mood-location-page .step-progress-footer {
+    bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+}
+
+/* =========================
+   DURATION PAGE
+   Same visual rhythm as home/new and location
+========================= */
+
+.mood-duration-page {
+  height: auto;
+  min-height: 100dvh;
+
+  padding-top: calc(54px + env(safe-area-inset-top));
+  padding-left: 28px;
+  padding-right: 28px;
+  padding-bottom: calc(156px + env(safe-area-inset-bottom));
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.mood-duration-page .mood-topbar {
+  margin-bottom: 40px;
+}
+
+.mood-duration-page .mood-screen-main {
+  flex: 1;
+  min-height: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.mood-duration-page .mood-screen-title {
+  margin: 0;
+}
+
+.mood-duration-page .setup-hero {
+  margin: 0 0 10px;
+}
+
+.mood-duration-page .setup-hero h1 {
+  max-width: 100%;
+  margin: 0;
+
+  color: $ta-ink;
+
+  font-size: clamp(34px, 8.8vw, 50px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.065em;
+}
+
+.mood-duration-page .setup-helper {
+  max-width: 340px;
+  margin: 0;
+
+  color: rgba(21, 27, 47, 0.68);
+
+  font-size: 14px;
+  line-height: 1.36;
+  font-weight: 700;
+}
+
+.mood-duration-page .setup-form {
+  display: flex;
+  flex-direction: column;
+
+  padding-top: 28px;
+  padding-bottom: 28px;
+
+  overflow: visible;
+}
+
+/* On annule le fixed global de .setup-choice-list uniquement pour duration */
+.mood-duration-page .setup-choice-list {
+  position: relative;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  transform: none;
+
+  width: 100%;
+  max-width: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2.7vh, 24px);
+
+  z-index: 10;
+}
+
+.mood-duration-page .setup-choice-card {
+  position: relative;
+
+  width: 100%;
+  min-height: clamp(104px, 13vh, 126px);
+  padding: 16px 52px 16px 18px;
+
+  display: flex;
+  align-items: center;
+
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 34px;
+
+  box-shadow:
+    0 7px 0 rgba(18, 24, 45, 0.11),
+    0 18px 28px rgba(18, 24, 45, 0.08);
+
+  overflow: hidden;
+
+  transform: translateY(0);
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.mood-duration-page .setup-choice-card:active {
+  transform: translateY(5px);
+
+  box-shadow:
+    0 2px 0 rgba(18, 24, 45, 0.11),
+    0 10px 18px rgba(18, 24, 45, 0.08);
+}
+
+.mood-duration-page .setup-choice-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 8px;
+
+  border-radius: 27px;
+
+  background:
+    radial-gradient(
+      circle at 17% 48%,
+      rgba(255, 255, 255, 0.96),
+      transparent 40%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.66),
+      rgba(255, 255, 255, 0.18)
+    );
+
+  pointer-events: none;
+}
+
+.mood-duration-page .setup-choice-visual,
+.mood-duration-page .setup-choice-text,
+.mood-duration-page .choice-card-arrow {
+  position: relative;
+  z-index: 1;
+}
+
+.mood-duration-page .setup-choice-visual {
+  width: 96px;
+  height: 96px;
+
+  flex: 0 0 96px;
+
+  display: grid;
+  place-items: center;
+
+  overflow: visible;
+}
+
+.mood-duration-page .setup-choice-image {
+  width: 112px;
+  height: 112px;
+
+  display: block;
+  object-fit: contain;
+
+  filter:
+    drop-shadow(0 8px 11px rgba(21, 27, 47, 0.12));
+}
+
+.mood-duration-page .setup-choice-text {
+  flex: 1;
+  min-width: 0;
+
+  padding-left: 18px;
+  padding-right: 28px;
+
+  text-align: center;
+}
+
+.mood-duration-page .setup-choice-text strong {
+  display: block;
+
+  color: $ta-ink;
+
+  font-size: clamp(28px, 7vw, 40px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.055em;
+}
+
+.mood-duration-page .choice-card-arrow {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+
+  transform: translateY(-52%);
+
+  color: $ta-purple;
+
+  font-size: 54px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+/* Stepper au-dessus du bouton retour */
+.mood-duration-page .step-progress-footer {
+  bottom: calc(88px + env(safe-area-inset-bottom));
+
+  width: calc(100% - 56px);
+  max-width: 374px;
+}
+
+.mood-duration-page .bottom-back-button {
+  width: calc(100% - 56px);
+  max-width: 374px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-height: 760px) {
+  .mood-duration-page {
+    padding-top: calc(46px + env(safe-area-inset-top));
+    padding-left: 26px;
+    padding-right: 26px;
+    padding-bottom: calc(142px + env(safe-area-inset-bottom));
+  }
+
+  .mood-duration-page .mood-topbar {
+    margin-bottom: 0;
+  }
+
+  .mood-duration-page .setup-hero h1 {
+    font-size: clamp(30px, 8vw, 42px);
+  }
+
+  .mood-duration-page .setup-form {
+    padding-top: 22px;
+    padding-bottom: 24px;
+  }
+
+  .mood-duration-page .setup-choice-list {
+    gap: 14px;
+  }
+
+  .mood-duration-page .setup-choice-card {
+    min-height: 88px;
+    border-radius: 26px;
+  }
+
+  .mood-duration-page .setup-choice-visual {
+    width: 76px;
+    height: 76px;
+    flex-basis: 76px;
+  }
+
+  .mood-duration-page .setup-choice-image {
+    width: 92px;
+    height: 92px;
+  }
+
+  .mood-duration-page .setup-choice-text strong {
+    font-size: clamp(24px, 6.4vw, 34px);
+  }
+
+  .mood-duration-page .choice-card-arrow {
+    font-size: 42px;
+  }
+
+  .mood-duration-page .step-progress-footer {
+    bottom: calc(78px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-height: 670px) {
+  .mood-duration-page {
+    padding-top: calc(40px + env(safe-area-inset-top));
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: calc(132px + env(safe-area-inset-bottom));
+  }
+
+  .mood-duration-page .setup-helper {
+    display: none;
+  }
+
+  .mood-duration-page .setup-form {
+    padding-top: 16px;
+    padding-bottom: 18px;
+  }
+
+  .mood-duration-page .setup-choice-list {
+    gap: 10px;
+  }
+
+  .mood-duration-page .setup-choice-card {
+    min-height: 82px;
+  }
+
+  .mood-duration-page .setup-choice-image {
+    width: 82px;
+    height: 82px;
+  }
+
+  .mood-duration-page .setup-choice-text strong {
+    font-size: 24px;
+  }
+
+  .mood-duration-page .choice-card-arrow {
+    font-size: 36px;
+  }
+
+  .mood-duration-page .step-progress-footer {
+    bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+}

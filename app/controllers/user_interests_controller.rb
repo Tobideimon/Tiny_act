@@ -1,5 +1,8 @@
 class UserInterestsController < ApplicationController
+  include TopbarData
+
   before_action :authenticate_user!
+  before_action :set_topbar_data, only: %i[show]
 
   def show
     @interests = Interest.all
