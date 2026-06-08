@@ -6,6 +6,9 @@ class ActivitySessionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_topbar_data, only: %i[new location duration show]
 
+  def index
+    @activity_sessions = current_user.activity_sessions.where(finished: true).includes(activity: :interest).order(updated_at: :desc)
+  end
   def new
     @moods = Mood.all
 

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   root to: "activity_sessions#new"
 
-  resources :activity_sessions, only: [:new, :create, :show, :update] do
+  resources :activity_sessions, only: [:index, :new, :create, :show, :update] do
     collection do
       get :location
       get :duration
