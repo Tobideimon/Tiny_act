@@ -1,43 +1,99 @@
-<% execution_plan = activity.execution_plan || {} %>
-<% plan_steps = execution_plan["steps"] || [] %>
-<% preparation_seconds = execution_plan["preparation_seconds"] || activity.preparation_seconds || 30 %>
+<% wellbeing_plan = activity.execution_plan || {} %>
+<% wellbeing_steps = wellbeing_plan["steps"] || [] %>
 
-<div class="activity-show-panel">
-  <% if plan_steps.any? %>
-    <div class="sport-plan-list">
-      <div class="sport-plan-step sport-plan-step-preparation">
-        <div class="sport-plan-step-number">0</div>
+<div
+  class="sport-activity"
+  data-controller="sport-activity"
+  data-sport-activity-plan-value="<%= json_escape(wellbeing_plan.to_json) %>"
+  data-sport-activity-finish-url-value="<%= activity_session_path(@activity_session) %>"
+>
+  <div class="sport-panel sport-main-card">
+    <% if wellbeing_steps.any? %>
+      <div class="sport-preparation-card">
+        <span class="sport-preparation-number">0</span>
 
-        <div class="sport-plan-step-content">
-          <h3>Préparation</h3>
-          <p>
-            <%= preparation_seconds %> secondes pour te mettre en place avant le départ.
-          </p>
+        <div>
+          <strong>Préparation</strong>
+          <p><%= wellbeing_plan["preparation_seconds"] || activity.preparation_seconds || 30 %> secondes pour te mettre en place avant le départ.</p>
         </div>
       </div>
 
-      <% plan_steps.each_with_index do |step, index| %>
-        <div class="sport-plan-step">
-          <div class="sport-plan-step-number"><%= index + 1 %></div>
+      <div
+        class="sport-steps-preview"
+        data-sport-activity-target="stepsPreview"
+      >
+        <% wellbeing_steps.each_with_index do |step, index| %>
+          <div class="sport-step-card">
+            <span class="sport-step-number"><%= index + 1 %></span>
 
-          <div class="sport-plan-step-content">
-            <h3><%= step["text"] %></h3>
-
-            <% if step["duration_seconds"].present? %>
-              <p><%= step["duration_seconds"] %> secondes</p>
-            <% end %>
+            <p>
+              <%= step["text"] %>
+            </p>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
+
+      <button
+        type="button"
+        class="primary-button sport-launch-button"
+        data-sport-activity-target="launchButton"
+        data-action="click->sport-activity#launch"
+      >
+        Lancer l’activité
+      </button>
+    <% else %>
+      <p class="activity-show-description">
+        Aucune étape détaillée pour cette activité.
+      </p>
+    <% end %>
+  </div>
+
+  <div
+    class="sport-panel sport-runner-card is-hidden"
+    data-sport-activity-target="runner"
+  >
+    <p class="sport-runner-label" data-sport-activity-target="runnerLabel">
+      Étape <span data-sport-activity-target="currentStepNumber"></span>
+      /
+      <span data-sport-activity-target="totalSteps"></span>
+    </p>
+
+    <h2 data-sport-activity-target="currentStepText"></h2>
+
+    <div
+      class="sport-timer is-hidden"
+      data-sport-activity-target="timerWrapper"
+    >
+      <span data-sport-activity-target="timer"></span>
     </div>
 
-    <%= button_to "Lancer l’activité",
-                  activity_session_path(@activity_session),
-                  method: :patch,
-                  class: "activity-start-button" %>
-  <% else %>
+    <button
+      type="button"
+      class="secondary-button sport-next-button"
+      data-sport-activity-target="nextButton"
+      data-action="click->sport-activity#nextStep"
+    >
+      Passer cette étape
+    </button>
+  </div>
+
+  <div
+    class="sport-panel sport-finished-card is-hidden"
+    data-sport-activity-target="finished"
+  >
+    <h2>Bravo</h2>
+
     <p class="activity-show-description">
-      <%= activity.description.presence || activity.content %>
+      Tu as terminé cette activité bien-être.
     </p>
-  <% end %>
+
+    <button
+      type="button"
+      class="primary-button sport-finish-button"
+      data-sport-activity-target="finishButton"
+      data-action="click->sport-activity#finishActivity"
+    >
+      Terminer
+    </button>
+  </div>
 </div>
