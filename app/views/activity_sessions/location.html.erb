@@ -1,79 +1,89 @@
-<div class="phone-page setup-page has-bottom-action has-step-progress">
+<div class="phone-page mood-page setup-page mood-location-page has-bottom-action has-step-progress">
 
-  <%= render "activity_sessions/selection_topbar" %>
+  <header class="mood-screen-header">
+    <%= render "activity_sessions/selection_topbar" %>
+  </header>
 
-  <div class="mood-hero setup-hero">
-    <h1>
-      Où es-tu ?
-    </h1>
-  </div>
+  <main class="mood-screen-main">
+    <section class="mood-screen-title">
+      <div class="mood-hero setup-hero">
+        <h1>
+          Où es-tu ?
+        </h1>
+      </div>
 
-  <p class="setup-helper">
-    On adapte les activités à l’endroit où tu peux vraiment agir maintenant.
-  </p>
+      <p class="setup-helper">
+        On adapte les activités à l’endroit où tu peux vraiment agir maintenant.
+      </p>
+    </section>
 
-  <%= form_with url: duration_activity_sessions_path,
-                method: :get,
-                class: "setup-form" do %>
+    <section class="mood-screen-actions">
+      <%= form_with url: duration_activity_sessions_path,
+                    method: :get,
+                    class: "setup-form" do %>
 
-    <%= hidden_field_tag :mood_id, @mood_id %>
+        <%= hidden_field_tag :mood_id, @mood_id %>
 
-    <div class="setup-choice-list">
-      <% @locations.each_with_index do |location, index| %>
+        <div class="setup-choice-list">
+          <% @locations.each_with_index do |location, index| %>
 
-        <% location_label =
-          if location.name.downcase.include?("bureau")
-            "Transport"
-          else
-            location.name
-          end
-        %>
+            <% location_label =
+              if location.name.downcase.include?("bureau")
+                "Transport"
+              else
+                location.name
+              end
+            %>
 
-        <% location_key = location_label.downcase %>
+            <% location_key = location_label.downcase %>
 
-        <% location_image =
-          if location_key.include?("maison") || location_key.include?("chez")
-            "location-home.png"
-          elsif location_key.include?("extérieur") || location_key.include?("dehors")
-            "location-outdoor.png"
-          elsif location_key.include?("transport")
-            "location-transport.png"
-          else
-            "location-outdoor.png"
-          end
-        %>
+            <% location_image =
+              if location_key.include?("maison") || location_key.include?("chez")
+                "location-home.png"
+              elsif location_key.include?("extérieur") || location_key.include?("dehors")
+                "location-outdoor.png"
+              elsif location_key.include?("transport")
+                "location-transport.png"
+              else
+                "location-outdoor.png"
+              end
+            %>
 
-        <% card_color = ["choice-card-green", "choice-card-yellow", "choice-card-blue"][index % 3] %>
+            <% card_color = ["choice-card-green", "choice-card-yellow", "choice-card-blue"][index % 3] %>
 
-        <button
-          type="submit"
-          name="location_id"
-          value="<%= location.id %>"
-          class="choice-card setup-choice-card <%= card_color %>"
-        >
-          <div class="setup-choice-visual">
-            <%= image_tag "mascot/#{location_image}",
-                          class: "setup-choice-image",
-                          alt: "" %>
-          </div>
+            <button
+              type="submit"
+              name="location_id"
+              value="<%= location.id %>"
+              class="choice-card setup-choice-card <%= card_color %>"
+            >
+              <div class="setup-choice-visual">
+                <%= image_tag "mascot/#{location_image}",
+                              class: "setup-choice-image",
+                              alt: "" %>
+              </div>
 
-          <div class="setup-choice-text">
-            <strong><%= location_label %></strong>
-          </div>
+              <div class="setup-choice-text">
+                <strong><%= location_label %></strong>
+              </div>
 
-          <span class="choice-card-arrow">›</span>
-        </button>
+              <span class="choice-card-arrow">›</span>
+            </button>
+
+          <% end %>
+        </div>
 
       <% end %>
-    </div>
+    </section>
+  </main>
 
-  <% end %>
+  <footer class="mood-screen-footer">
+    <%= render "step_indicator", current_step: 2 %>
 
-  <%= render "step_indicator", current_step: 2 %>
-
-  <%= link_to new_activity_session_path,
-              class: "bottom-back-button" do %>
-    ← Retour
-  <% end %>
+    <%= link_to new_activity_session_path,
+                class: "bottom-back-button" do %>
+      ← Retour
+    <% end %>
+  </footer>
 
 </div>

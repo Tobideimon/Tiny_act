@@ -311,3 +311,32 @@
     height: calc(100% - 8px);
   }
 }
+
+/* ========================= */
+/* XP LINK RESET             */
+/* ========================= */
+
+/*
+  Le badge XP garde exactement son style existant grâce à .mood-xp-pill.
+  Ici, on enlève seulement le comportement visuel par défaut du lien :
+  bleu, soulignement, couleur visitée, etc.
+*/
+
+a.mood-xp-pill {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a.mood-xp-pill:visited,
+a.mood-xp-pill:hover,
+a.mood-xp-pill:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+a.mood-xp-pill:focus-visible {
+  outline: 3px solid rgba(124, 99, 242, 0.28);
+  outline-offset: 4px;
+}

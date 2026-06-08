@@ -1,8 +1,10 @@
-<div class="phone-page recommendations-phone-page <%= "has-bottom-action" unless @activity_session&.finished? %>">
+<div class="phone-page mood-page recommendations-phone-page mood-activities-page <%= "has-bottom-action" unless @activity_session&.finished? %>">
 
-  <%= render "activity_sessions/selection_topbar" %>
+  <header class="mood-screen-header">
+    <%= render "activity_sessions/selection_topbar" %>
+  </header>
 
-  <div class="recommendations-page">
+  <main class="mood-screen-main recommendations-page">
 
     <% if @activity_session.finished? %>
 
@@ -108,51 +110,88 @@
 
           <% @activities.each_with_index do |activity, index| %>
 
-            <% interest_class =
-              case activity.interest.name
-              when "Sport"
-                "activity-sport"
-              when "Langues"
-                "activity-langues"
-              when "Créativité"
-                "activity-creativity"
-              when "Bien-être"
-                "activity-wellbeing"
-              when "Photo"
-                "activity-photo"
-              when "Dessin"
-                "activity-drawing"
-              when "Écriture"
-                "activity-writing"
-              when "Culture"
-                "activity-culture"
-              else
-                "activity-default"
-              end
-            %>
+            <% interest_name = activity.interest.name %>
 
-            <% activity_icon =
-              case activity.interest.name
-              when "Sport"
-                "sport.png"
-              when "Langues"
-                "langue.png"
-              when "Créativité"
-                "creativite.png"
-              when "Bien-être"
-                "bien_etre.png"
-              when "Photo"
-                "photo.png"
-              when "Dessin"
-                "dessin.png"
-              when "Écriture"
-                "ecriture.png"
-              when "Culture"
-                "culture.png"
-              else
-                nil
-              end
-            %>
+              <% interest_class =
+                case interest_name
+                when "Sport"
+                  "activity-sport"
+                when "Langues"
+                  "activity-langues"
+                when "Créativité"
+                  "activity-creativity"
+                when "Bien-être"
+                  "activity-wellbeing"
+                when "Photo"
+                  "activity-photo"
+                when "Dessin"
+                  "activity-drawing"
+                when "Écriture"
+                  "activity-writing"
+                when "Culture"
+                  "activity-culture"
+                when "Productivité"
+                  "activity-productivity"
+                when "Code"
+                  "activity-code"
+                else
+                  "activity-default"
+                end
+              %>
+
+              <% activity_mascot =
+                case interest_name
+                when "Sport"
+                  "mascot/activities/sport.png"
+                when "Langues"
+                  "mascot/activities/langues.png"
+                when "Créativité"
+                  "mascot/activities/creativite.png"
+                when "Bien-être"
+                  "mascot/activities/bien_etre.png"
+                when "Photo"
+                  "mascot/activities/photo.png"
+                when "Dessin"
+                  "mascot/activities/dessin.png"
+                when "Écriture"
+                  "mascot/activities/ecriture.png"
+                when "Culture"
+                  "mascot/activities/culture.png"
+                when "Productivité"
+                  "mascot/activities/productivite.png"
+                when "Code"
+                  "mascot/activities/code.png"
+                else
+                  nil
+                end
+              %>
+
+              <% activity_category_icon =
+                case interest_name
+                when "Sport"
+                  "fa-solid fa-person-running"
+                when "Langues"
+                  "fa-solid fa-language"
+                when "Créativité"
+                  "fa-solid fa-palette"
+                when "Bien-être"
+                  "fa-solid fa-spa"
+                when "Photo"
+                  "fa-solid fa-camera"
+                when "Dessin"
+                  "fa-solid fa-pen-nib"
+                when "Écriture"
+                  "fa-solid fa-pen"
+                when "Culture"
+                  "fa-solid fa-book-open"
+                when "Productivité"
+                  "fa-solid fa-list-check"
+                when "Code"
+                  "fa-solid fa-code"
+                else
+                  "fa-solid fa-star"
+                end
+              %>
 
             <%= link_to activity_path(
                   activity,
@@ -162,10 +201,11 @@
 
               <article class="activity-card <%= interest_class %>">
                 <div class="activity-card-main">
-                  <div class="activity-visual">
-                    <% if activity_icon.present? %>
-                      <%= image_tag activity_icon,
-                                    class: "activity-interest-icon",
+
+                  <div class="activity-mascot-frame">
+                    <% if activity_mascot.present? %>
+                      <%= image_tag activity_mascot,
+                                    class: "activity-mascot-image",
                                     alt: "" %>
                     <% else %>
                       <span class="activity-fallback-icon">✦</span>
@@ -173,13 +213,10 @@
                   </div>
 
                   <div class="activity-body">
-                    <div class="activity-interest-header">
-                      <span class="activity-interest-label badge-interest">
-                        <%= activity.interest.name %>
-                      </span>
-
-                      <span class="activity-duration-pill">
-                        <%= activity.duration.value %> min
+                    <div class="activity-meta-row">
+                      <span class="activity-category-ribbon">
+                        <i class="<%= activity_category_icon %>"></i>
+                        <%= interest_name %>
                       </span>
                     </div>
 
@@ -187,21 +224,18 @@
                       <h2>
                         <%= activity.name %>
 
-                        <% if activity.language_activity? &&
-                              @language_label.present? %>
+                        <% if activity.language_activity? && @language_label.present? %>
                           en <%= @language_label %>
                         <% end %>
                       </h2>
                     </div>
-
-                    <p class="activity-content">
-                      <%= activity.content %>
-                    </p>
                   </div>
 
                   <span class="activity-card-arrow">›</span>
+
                 </div>
               </article>
+
 
             <% end %>
 
@@ -222,14 +256,17 @@
 
     <% end %>
 
-  </div>
+    </main>
+
   <% unless @activity_session.finished? %>
-  <%= link_to duration_activity_sessions_path(
-                mood_id: @activity_session.activity.mood_id,
-                location_id: @activity_session.activity.location_id
-              ),
-              class: "bottom-back-button" do %>
-    ← Retour
+    <footer class="mood-screen-footer">
+      <%= link_to duration_activity_sessions_path(
+                    mood_id: @activity_session.activity.mood_id,
+                    location_id: @activity_session.activity.location_id
+                  ),
+                  class: "bottom-back-button" do %>
+        ← Retour
+      <% end %>
+    </footer>
   <% end %>
-<% end %>
 </div>

@@ -1,88 +1,154 @@
-<div class="phone-page user-interests-page">
-  <div class="user-interests-topbar">
+<div class="phone-page mood-page user-interests-page">
+  <header class="user-interests-screen-header">
     <%= render "activity_sessions/selection_topbar" %>
-  </div>
+  </header>
 
-  <div class="user-interests-intro">
-    <div class="mood-hero setup-hero">
-      <h1>Tes centres d'intérêt</h1>
-    </div>
+  <main class="user-interests-screen-main">
+    <section class="user-interests-intro">
+      <p class="user-interests-kicker">Personnalisation</p>
 
-    <p class="setup-helper">
-      Choisis les activités qui t'intéressent.<br>
-      On te recommandera des idées rien que pour toi.
-    </p>
-  </div>
-
-  <%= form_with url: user_interests_path,
-                method: :patch,
-                class: "interests-form" do %>
-
-    <div class="interests-scroll-area">
-      <div class="interests-grid">
-        <% @interests.each do |interest| %>
-
-          <% css_class =
-            case interest.name
-            when "Sport" then "interest-sport"
-            when "Langues" then "interest-langues"
-            when "Bien-être" then "interest-wellbeing"
-            when "Créativité" then "interest-creativity"
-            when "Photo" then "interest-photo"
-            when "Dessin" then "interest-drawing"
-            when "Écriture" then "interest-writing"
-            when "Culture" then "interest-culture"
-            when "Code", "Programmation", "Développement" then "interest-code"
-            when "Productivité", "Productivite" then "interest-productivity"
-            else "interest-disabled"
-            end
-          %>
-
-          <label class="interest-option">
-            <%= check_box_tag(
-                  "interest_ids[]",
-                  interest.id,
-                  @selected_interest_ids.include?(interest.id)
-                ) %>
-
-            <span class="interest-card <%= css_class %>">
-              <span class="interest-icon-shell">
-                <% if interest.name == "Sport" %>
-                  <%= image_tag "sport.png", class: "interest-icon" %>
-                <% elsif interest.name == "Langues" %>
-                  <%= image_tag "langue.png", class: "interest-icon" %>
-                <% elsif interest.name == "Bien-être" %>
-                  <%= image_tag "bien_etre.png", class: "interest-icon" %>
-                <% elsif interest.name == "Photo" %>
-                  <%= image_tag "photo.png", class: "interest-icon" %>
-                <% elsif interest.name == "Dessin" %>
-                  <%= image_tag "dessin.png", class: "interest-icon" %>
-                <% elsif interest.name == "Écriture" %>
-                  <%= image_tag "ecriture.png", class: "interest-icon" %>
-                <% elsif interest.name == "Créativité" %>
-                  <%= image_tag "creativite.png", class: "interest-icon" %>
-                <% elsif interest.name == "Culture" %>
-                  <%= image_tag "culture.png", class: "interest-icon" %>
-                <% elsif ["Code", "Programmation", "Développement"].include?(interest.name) %>
-                  <i class="fa-solid fa-code interest-fa-icon"></i>
-                <% elsif ["Productivité", "Productivite"].include?(interest.name) %>
-                  <i class="fa-solid fa-list-check interest-fa-icon"></i>
-                <% end %>
-              </span>
-
-              <span class="interest-name">
-                <%= interest.name %>
-              </span>
-            </span>
-          </label>
-
-        <% end %>
+      <div class="mood-hero setup-hero">
+        <h1>Tes centres d'intérêt</h1>
       </div>
-    </div>
 
-    <div class="interests-bottom-action">
-      <%= submit_tag "Enregistrer", class: "interests-submit" %>
-    </div>
+      <p class="setup-helper">
+        Choisis ce que tu veux retrouver dans tes recommandations.
+        On adaptera les actions à tes envies.
+      </p>
+    </section>
 
-  <% end %>
+    <%= form_with url: user_interests_path,
+                  method: :patch,
+                  class: "interests-form" do %>
+
+      <div class="interests-scroll-area">
+        <div class="interests-grid">
+          <% @interests.each do |interest| %>
+            <% interest_name = interest.name %>
+
+            <% css_class =
+              case interest_name
+              when "Sport"
+                "interest-sport"
+              when "Langues"
+                "interest-langues"
+              when "Bien-être"
+                "interest-wellbeing"
+              when "Créativité"
+                "interest-creativity"
+              when "Photo"
+                "interest-photo"
+              when "Dessin"
+                "interest-drawing"
+              when "Écriture"
+                "interest-writing"
+              when "Culture"
+                "interest-culture"
+              when "Code", "Programmation", "Développement"
+                "interest-code"
+              when "Productivité", "Productivite"
+                "interest-productivity"
+              else
+                "interest-default"
+              end
+            %>
+
+            <% interest_mascot =
+              case interest_name
+              when "Sport"
+                "mascot/activities/sport.png"
+              when "Langues"
+                "mascot/activities/langues.png"
+              when "Bien-être"
+                "mascot/activities/bien_etre.png"
+              when "Créativité"
+                "mascot/activities/creativite.png"
+              when "Photo"
+                "mascot/activities/photo.png"
+              when "Dessin"
+                "mascot/activities/dessin.png"
+              when "Écriture"
+                "mascot/activities/ecriture.png"
+              when "Culture"
+                "mascot/activities/culture.png"
+              when "Code", "Programmation", "Développement"
+                "mascot/activities/code.png"
+              when "Productivité", "Productivite"
+                "mascot/activities/productivite.png"
+              else
+                nil
+              end
+            %>
+
+            <% interest_description =
+              case interest_name
+              when "Sport"
+                "Bouger et relancer ton énergie."
+              when "Langues"
+                "Apprendre quelques mots utiles."
+              when "Bien-être"
+                "Respirer, ralentir, te recentrer."
+              when "Créativité"
+                "Produire une idée ou une forme."
+              when "Photo"
+                "Regarder autrement ce qui t’entoure."
+              when "Dessin"
+                "Dessiner sans pression."
+              when "Écriture"
+                "Poser une idée en quelques lignes."
+              when "Culture"
+                "Nourrir ta curiosité."
+              when "Code", "Programmation", "Développement"
+                "Résoudre un petit problème."
+              when "Productivité", "Productivite"
+                "Clarifier et avancer."
+              else
+                "Ajouter cette catégorie."
+              end
+            %>
+
+            <label class="interest-option">
+              <%= check_box_tag(
+                    "interest_ids[]",
+                    interest.id,
+                    @selected_interest_ids.include?(interest.id)
+                  ) %>
+
+              <span class="interest-card <%= css_class %>">
+                <span class="interest-card-shine"></span>
+
+                <span class="interest-mascot-frame">
+                  <% if interest_mascot.present? %>
+                    <%= image_tag interest_mascot,
+                                  class: "interest-mascot-image",
+                                  alt: "" %>
+                  <% else %>
+                    <span class="interest-fallback-icon">✦</span>
+                  <% end %>
+                </span>
+
+                <span class="interest-copy">
+                  <span class="interest-name">
+                    <%= interest_name %>
+                  </span>
+
+                  <span class="interest-description">
+                    <%= interest_description %>
+                  </span>
+                </span>
+
+                <span class="interest-checkmark">
+                  <i class="fa-solid fa-check"></i>
+                </span>
+              </span>
+            </label>
+          <% end %>
+        </div>
+      </div>
+
+      <footer class="interests-bottom-action">
+        <%= submit_tag "Enregistrer mes choix", class: "interests-submit" %>
+      </footer>
+    <% end %>
+  </main>
 </div>

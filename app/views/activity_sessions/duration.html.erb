@@ -1,68 +1,78 @@
-<div class="phone-page setup-page has-bottom-action has-step-progress">
+<div class="phone-page mood-page setup-page mood-duration-page has-bottom-action has-step-progress">
 
-  <%= render "activity_sessions/selection_topbar" %>
+  <header class="mood-screen-header">
+    <%= render "activity_sessions/selection_topbar" %>
+  </header>
 
-  <div class="mood-hero setup-hero">
-    <h1>
-      Combien de temps ?
-    </h1>
-  </div>
+  <main class="mood-screen-main">
+    <section class="mood-screen-title">
+      <div class="mood-hero setup-hero">
+        <h1>
+          Combien de temps ?
+        </h1>
+      </div>
 
-  <p class="setup-helper">
-    Choisis une durée réaliste. L’objectif est de commencer, pas de te charger.
-  </p>
+      <p class="setup-helper">
+        Choisis une durée réaliste. L’objectif est de commencer, pas de te charger.
+      </p>
+    </section>
 
-  <%= form_with url: activity_sessions_path,
-                method: :post,
-                class: "setup-form" do %>
+    <section class="mood-screen-actions">
+      <%= form_with url: activity_sessions_path,
+                    method: :post,
+                    class: "setup-form" do %>
 
-    <%= hidden_field_tag :mood_id, @mood_id %>
-    <%= hidden_field_tag :location_id, @location_id %>
+        <%= hidden_field_tag :mood_id, @mood_id %>
+        <%= hidden_field_tag :location_id, @location_id %>
 
-    <div class="setup-choice-list">
-      <% @durations.each_with_index do |duration, index| %>
+        <div class="setup-choice-list">
+          <% @durations.each_with_index do |duration, index| %>
 
-        <% duration_image =
-          if duration.value <= 5
-            "duration-short.png"
-          elsif duration.value <= 15
-            "duration-medium.png"
-          else
-            "duration-long.png"
-          end
-        %>
+            <% duration_image =
+              if duration.value <= 5
+                "duration-short.png"
+              elsif duration.value <= 15
+                "duration-medium.png"
+              else
+                "duration-long.png"
+              end
+            %>
 
-        <% card_color = ["choice-card-green", "choice-card-yellow", "choice-card-blue"][index % 3] %>
+            <% card_color = ["choice-card-green", "choice-card-yellow", "choice-card-blue"][index % 3] %>
 
-        <button
-          type="submit"
-          name="duration_id"
-          value="<%= duration.id %>"
-          class="choice-card setup-choice-card <%= card_color %>"
-        >
-          <div class="setup-choice-visual">
-            <%= image_tag "mascot/#{duration_image}",
-                          class: "setup-choice-image",
-                          alt: "" %>
-          </div>
+            <button
+              type="submit"
+              name="duration_id"
+              value="<%= duration.id %>"
+              class="choice-card setup-choice-card <%= card_color %>"
+            >
+              <div class="setup-choice-visual">
+                <%= image_tag "mascot/#{duration_image}",
+                              class: "setup-choice-image",
+                              alt: "" %>
+              </div>
 
-          <div class="setup-choice-text">
-            <strong><%= duration.value %> minutes</strong>
-          </div>
+              <div class="setup-choice-text">
+                <strong><%= duration.value %> minutes</strong>
+              </div>
 
-          <span class="choice-card-arrow">›</span>
-        </button>
+              <span class="choice-card-arrow">›</span>
+            </button>
+
+          <% end %>
+        </div>
 
       <% end %>
-    </div>
+    </section>
+  </main>
 
-  <% end %>
+  <footer class="mood-screen-footer">
+    <%= render "step_indicator", current_step: 3 %>
 
-  <%= render "step_indicator", current_step: 3 %>
-
-  <%= link_to location_activity_sessions_path(mood_id: @mood_id),
-              class: "bottom-back-button" do %>
-    ← Retour
-  <% end %>
+    <%= link_to location_activity_sessions_path(mood_id: @mood_id),
+                class: "bottom-back-button" do %>
+      ← Retour
+    <% end %>
+  </footer>
 
 </div>
