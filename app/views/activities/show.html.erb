@@ -18,6 +18,10 @@
     "activity-writing"
   when "Culture"
     "activity-culture"
+  when "Productivité"
+    "activity-productivity"
+  when "Code"
+    "activity-code"
   else
     "activity-default"
   end
@@ -46,20 +50,10 @@
   end
 %>
 
-<% activity_has_internal_finish =
-  @activity.language_activity? ||
-  @activity.culture_activity? ||
-  @activity.code_quiz? ||
-  @activity.sport_activity? ||
-  @activity.interest.name == "Bien-être" ||
-  @activity.interest.name == "Photo" ||
-  @activity.interest.name == "Productivité" ||
-  @activity.interest.name == "Dessin"
-%>
-
 <div
   class="phone-page activity-show-page"
-  data-controller="pause-modal"
+  data-controller="pause-modal activity-start"
+  data-activity-start-start-url-value="<%= start_activity_session_path(@activity_session) %>"
   data-pause-modal-pause-url-value="<%= pause_activity_session_path(@activity_session) %>"
   data-pause-modal-resume-url-value="<%= resume_activity_session_path(@activity_session) %>"
   data-pause-modal-initial-elapsed-value="<%= @activity_session.elapsed_seconds.to_i %>"
@@ -100,9 +94,9 @@
         <% end %>
       </h1>
 
-        <p>
-          <%= @activity.description.presence || @activity.content %>
-        </p>
+      <p>
+        <%= @activity.description.presence || @activity.content %>
+      </p>
     </section>
 
     <% if @activity.interest.name == "Sport" %>
@@ -112,13 +106,13 @@
 
     <% elsif @activity.interest.name == "Bien-être" %>
 
-        <%= render "bien_etre",
-             activity: @activity %>
+      <%= render "bien_etre",
+                 activity: @activity %>
 
     <% elsif @activity.interest.name == "Dessin" %>
 
       <%= render "dessin",
-                activity: @activity %>
+                 activity: @activity %>
 
     <% elsif @activity.interest.name == "Langues" %>
 
@@ -162,21 +156,59 @@
     <% end %>
   </main>
 
-  <div class="activity-bottom-action <%= "activity-bottom-action-with-finish" unless activity_has_internal_finish %>">
+  <div
+    class="activity-start-action"
+    data-activity-start-target="startWrapper"
+  >
+    <button
+      type="button"
+      class="activity-start-button"
+      data-activity-start-target="startButton"
+      data-action="click->activity-start#start"
+    >
+      Commencer l’activité
+    </button>
+  </div>
+
+  <div class="activity-bottom-action">
+    <%= link_to activity_session_path(@activity_session),
+                class: "activity-back-button",
+                data: {
+                  activity_start_target: "backButton"
+                } do %>
+      ← Retour
+    <% end %>
+
     <button
       type="button"
       class="activity-pause-button"
+      data-activity-start-target="pauseButton"
       data-action="click->pause-modal#open"
+      hidden
     >
-      Pause de l’activité
+      Pause
     </button>
 
-    <% unless activity_has_internal_finish %>
-      <%= button_to "Finir l'activité",
+    <button
+      type="button"
+      class="activity-primary-action-button"
+      data-activity-start-target="primaryAction"
+      data-action="click->activity-start#primaryAction"
+      hidden
+    >
+      Étape suivante
+    </button>
+
+    <div
+      class="activity-finish-action"
+      data-activity-start-target="finishAction"
+      hidden
+    >
+      <%= button_to "Terminer l’activité",
                     activity_session_path(@activity_session),
                     method: :patch,
                     class: "activity-stop-button" %>
-    <% end %>
+    </div>
   </div>
 
   <%= render "activity_sessions/pause_modal",

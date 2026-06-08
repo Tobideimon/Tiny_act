@@ -1,6 +1,6 @@
 class ActivitySession < ApplicationRecord
   LANGUAGES = %w[english spanish]
-  STATUSES = %w[selecting in_progress paused finished abandoned]
+  STATUSES = %w[selecting preview in_progress paused finished abandoned]
 
   belongs_to :user
   belongs_to :activity
