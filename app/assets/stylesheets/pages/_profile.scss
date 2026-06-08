@@ -620,4 +620,31 @@
   .profile-logout-link {
     width: 100%;
   }
+  .profile-account-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .profile-history-link {
+    min-height: 48px;
+    padding: 0 14px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    border-radius: 18px;
+
+    color: $ta-ink;
+    background: rgba(124, 99, 242, 0.08);
+    border: 1px solid rgba(124, 99, 242, 0.14);
+
+    text-decoration: none;
+
+    font-size: 14px;
+    line-height: 1;
+    font-weight: 850;
+  }
 }

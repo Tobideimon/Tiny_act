@@ -172,6 +172,24 @@
     </section>
 
     <% if @user == current_user %>
+      <section class="profile-card profile-history-card">
+        <div class="profile-card-header">
+          <div>
+            <p class="profile-kicker">Activités</p>
+            <h2 class="profile-section-title">Historique</h2>
+          </div>
+
+          <%= link_to activity_sessions_path,
+              class: "profile-small-action",
+              aria: { label: "Voir l'historique" } do %>
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          <% end %>
+        </div>
+        <p class="profile-empty">
+          <strong><%= @user.activity_sessions.where(finished: true).count %></strong>
+          activités terminées.
+        </p>
+      </section>
       <section class="profile-card profile-account-card">
         <div>
           <p class="profile-kicker">Compte</p>
