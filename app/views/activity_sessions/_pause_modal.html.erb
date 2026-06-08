@@ -1,0 +1,48 @@
+<div
+  class="activity-pause-modal"
+  data-pause-modal-target="modal"
+  hidden
+>
+  <div
+    class="activity-pause-modal-backdrop"
+    data-action="click->pause-modal#resume"
+  ></div>
+
+  <section
+    class="activity-pause-modal-card"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="activity-pause-title"
+  >
+    <div class="activity-pause-modal-icon">
+      <i class="fa-solid fa-pause"></i>
+    </div>
+
+    <p class="activity-pause-modal-kicker">
+      Activité en pause
+    </p>
+
+    <h2 id="activity-pause-title">
+      Tu peux reprendre quand tu veux.
+    </h2>
+
+    <p>
+      Même une petite pause fait partie du chemin.
+    </p>
+
+    <div class="activity-pause-modal-actions">
+      <button
+        type="button"
+        class="activity-pause-modal-resume"
+        data-action="click->pause-modal#resume"
+      >
+        Reprendre
+      </button>
+
+      <%= button_to "Quitter l’activité",
+              abandon_activity_session_path(activity_session),
+              method: :patch,
+              class: "activity-pause-modal-quit" %>
+    </div>
+  </section>
+</div>

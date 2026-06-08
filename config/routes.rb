@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
     member do
       patch :progress
+      patch :pause
+      patch :resume
+      patch :abandon
     end
   end
 
@@ -21,7 +24,7 @@ Rails.application.routes.draw do
 
   resource :user, only: [:show, :edit, :update]
 
-  resource :user_interests, only: [ :show, :update ]
+  resource :user_interests, only: [:show, :update]
 
   resource :room, only: [:show]
   resources :room_furnitures, only: [:create, :update, :destroy]

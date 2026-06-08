@@ -1,6 +1,6 @@
 class ActivitySession < ApplicationRecord
   LANGUAGES = %w[english spanish]
-  STATUSES = %w[selecting in_progress finished abandoned]
+  STATUSES = %w[selecting in_progress paused finished abandoned]
 
   belongs_to :user
   belongs_to :activity
@@ -11,6 +11,10 @@ class ActivitySession < ApplicationRecord
 
   def in_progress?
     status == "in_progress" && !finished?
+  end
+
+  def paused?
+    status == "paused" && !finished?
   end
 
   def finished_status?
