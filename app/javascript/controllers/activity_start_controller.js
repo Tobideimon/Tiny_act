@@ -23,10 +23,14 @@ export default class extends Controller {
 
     this.boundHandleActivityFinished = this.handleActivityFinished.bind(this)
     this.element.addEventListener("activity:finished", this.boundHandleActivityFinished)
+
+    this.boundSyncPrimaryActionLabel = this.syncPrimaryActionLabel.bind(this)
+    this.element.addEventListener("activity:controls-changed", this.boundSyncPrimaryActionLabel)
   }
 
   disconnect() {
     this.element.removeEventListener("activity:finished", this.boundHandleActivityFinished)
+    this.element.removeEventListener("activity:controls-changed", this.boundSyncPrimaryActionLabel)
   }
 
   async start() {
