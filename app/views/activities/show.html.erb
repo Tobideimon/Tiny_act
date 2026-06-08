@@ -51,6 +51,7 @@
   @activity.culture_activity? ||
   @activity.code_quiz? ||
   @activity.sport_activity? ||
+  @activity.interest.name == "Bien-être" ||
   @activity.interest.name == "Photo" ||
   @activity.interest.name == "Productivité"
 %>
@@ -98,15 +99,20 @@
         <% end %>
       </h1>
 
-      <p>
-        <%= @activity.sport_activity? ? @activity.display_description : @activity.content %>
-      </p>
+        <p>
+          <%= @activity.description.presence || @activity.content %>
+        </p>
     </section>
 
     <% if @activity.interest.name == "Sport" %>
 
       <%= render "sport",
                  activity: @activity %>
+
+    <% elsif @activity.interest.name == "Bien-être" %>
+
+        <%= render "bien_etre",
+             activity: @activity %>
 
     <% elsif @activity.interest.name == "Langues" %>
 
