@@ -11,8 +11,7 @@ module ActivityLoaders
     def culture_questions
       CultureQuestion
         .where(difficulty: culture_difficulty)
-        .order(Arel.sql("RANDOM()"))
-        .limit(300)
+        .order(:category, :id)
     end
 
     def culture_difficulty
