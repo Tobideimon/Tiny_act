@@ -326,6 +326,9 @@
   puts "🧘 Importing bien-être activities from CSV..."
   Rake::Task["bien_etre_activities:import"].invoke
 
+  puts "🎨 Importing dessin activities from CSV..."
+  Rake::Task["dessin_activities:import"].invoke
+
   if defined?(CultureQuestion)
     puts "🧠 Importing culture questions from CSV..."
     Rake::Task["culture_questions:import_csv"].invoke

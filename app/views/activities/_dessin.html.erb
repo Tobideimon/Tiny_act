@@ -1,0 +1,20 @@
+<div class="activity-show-panel drawing-activity-panel">
+  <div class="drawing-instruction-card">
+    <h2>À toi de dessiner</h2>
+
+    <p class="activity-show-description">
+      <%= activity.content %>
+    </p>
+  </div>
+
+  <div class="drawing-placeholder-card">
+    <p>
+      Pour l’instant, réalise ce dessin avec ton doigt sur l’écran ou sur le support de ton choix.
+    </p>
+  </div>
+
+  <%= button_to "Finir l'activité",
+                activity_session_path(@activity_session),
+                method: :patch,
+                class: "activity-stop-button drawing-finish-button" %>
+</div>
