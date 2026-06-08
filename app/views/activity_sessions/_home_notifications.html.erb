@@ -1,0 +1,129 @@
+<% if @home_notifications.present? %>
+  <div
+    class="home-notification-stack home-notification-stack-count-<%= @home_notifications.size %>"
+    data-controller="home-notifications"
+  >
+    <% @home_notifications.each_with_index do |notification, index| %>
+      <% stack_class =
+        case index
+        when 0 then "is-active"
+        when 1 then "is-next"
+        when 2 then "is-third"
+        else "is-hidden"
+        end
+      %>
+
+      <%= link_to notification[:url],
+                  class: "home-notification-card home-notification-card-#{notification[:kind]} #{stack_class}",
+                  data: {
+                    home_notifications_target: "card",
+                    index: index
+                  } do %>
+
+        <svg
+          class="home-notification-frame"
+          viewBox="0 0 720 108"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <!-- ombre externe -->
+          <path
+            class="notification-frame-shadow"
+            d="
+              M48 3
+              H672
+              C685 3 693 11 696 24
+              C708 26 717 37 717 50
+              V58
+              C717 71 708 82 696 84
+              C693 97 685 105 672 105
+              H48
+              C35 105 27 97 24 84
+              C12 82 3 71 3 58
+              V50
+              C3 37 12 26 24 24
+              C27 11 35 3 48 3
+              Z
+            "
+          />
+
+          <!-- forme extérieure blanche + trait extérieur -->
+          <path
+            class="notification-frame-outer"
+            d="
+              M46 1
+              H674
+              C688 1 697 10 700 23
+              C712 25 719 36 719 49
+              V59
+              C719 72 712 83 700 85
+              C697 98 688 107 674 107
+              H46
+              C32 107 23 98 20 85
+              C8 83 1 72 1 59
+              V49
+              C1 36 8 25 20 23
+              C23 10 32 1 46 1
+              Z
+            "
+          />
+
+          <!-- fond intérieur coloré + trait intérieur -->
+          <path
+            class="notification-frame-inner-fill"
+            d="
+              M57 12
+              H663
+              C674 12 681 19 684 29
+              C694 31 701 40 701 51
+              V57
+              C701 68 694 77 684 79
+              C681 89 674 96 663 96
+              H57
+              C46 96 39 89 36 79
+              C26 77 19 68 19 57
+              V51
+              C19 40 26 31 36 29
+              C39 19 46 12 57 12
+              Z
+            "
+          />
+        </svg>
+
+        <div class="home-notification-card-tab <%= notification[:tab_class] %>">
+          <%= notification[:label] %>
+        </div>
+
+        <div class="home-notification-counter">
+          <%= notification[:counter] %>
+        </div>
+
+        <div class="home-notification-icon-wrap">
+          <% case notification[:icon_type] %>
+          <% when :play %>
+            <div class="home-notification-icon home-notification-icon-play">
+              <i class="fa-solid fa-play"></i>
+            </div>
+
+          <% when :room %>
+            <div class="home-notification-icon home-notification-icon-room">
+              <i class="fa-solid fa-couch"></i>
+            </div>
+
+          <% when :star_mascot %>
+            <div class="home-notification-icon home-notification-icon-star">
+              <i class="fa-solid fa-star"></i>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="home-notification-content">
+          <strong><%= notification[:title] %></strong>
+          <p><%= notification[:subtitle] %></p>
+        </div>
+
+        <div class="home-notification-arrow">›</div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

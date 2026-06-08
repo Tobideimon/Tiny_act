@@ -2,18 +2,33 @@
   {
     question: question.question,
     category: question.category,
+    difficulty: question.difficulty,
     correct_answer: question.correct_answer,
     answers: question.answers
   }
 } %>
 
-<% categories = code_questions.map(&:category).uniq.sort %>
+<% duration_seconds = activity.duration.value.to_i * 60 %>
+
+<% difficulty_label =
+  case activity.mood.name
+  when "À plat"
+    "facile"
+  when "Bof", "Mitigé"
+    "intermédiaire"
+  when "En forme"
+    "difficile"
+  else
+    "facile"
+  end
+%>
 
 <div
+  class="code-quiz"
   data-controller="code-quiz"
   data-code-quiz-questions-value="<%= serialized_questions.to_json %>"
   data-code-quiz-duration-seconds-value="<%= duration_seconds %>"
-  class="code-quiz"
+  data-code-quiz-finish-url-value="<%= activity_session_path(@activity_session) %>"
 >
   <div
     class="code-panel code-start-card"
@@ -25,52 +40,51 @@
       </p>
 
       <h2>
-        Choisis ton sujet
+        Teste tes réflexes de dev
       </h2>
 
       <p>
-        Tu as <strong><%= duration_seconds / 60 %> minutes</strong>. Le chrono commence quand tu choisis un thème.
+        Tu vas répondre à un maximum de questions pendant
+        <strong><%= activity.duration.value %> minutes</strong>,
+        avec un niveau <strong><%= difficulty_label %></strong>.
       </p>
     </div>
 
-    <div class="code-theme-list">
-      <% categories.each do |category| %>
-        <button
-          type="button"
-          class="code-theme-button"
-          data-category="<%= category %>"
-          data-action="click->code-quiz#selectCategory"
-        >
-          <span><%= category %></span>
-          <strong>›</strong>
-        </button>
-      <% end %>
-    </div>
+    <button
+      type="button"
+      class="code-next-button"
+      data-code-quiz-target="launchButton"
+      data-action="click->code-quiz#launch"
+    >
+      Lancer le quiz
+    </button>
   </div>
 
   <div
-    class="code-status-panel d-none"
+    class="code-status-panel"
     data-code-quiz-target="quizHeader"
+    hidden
   >
-    <div class="code-status-card">
-      <span>Thème</span>
-      <strong data-code-quiz-target="selectedCategory"></strong>
-    </div>
-
     <div class="code-status-card">
       <span>Temps</span>
       <strong data-code-quiz-target="timer"></strong>
     </div>
 
+    <div class="code-status-card">
+      <span>Niveau</span>
+      <strong><%= difficulty_label %></strong>
+    </div>
+
     <div class="code-status-card code-status-wide">
-      <span>Progression</span>
+      <span>Score</span>
       <strong data-code-quiz-target="progress"></strong>
     </div>
   </div>
 
   <div
-    class="code-panel code-question-card d-none"
+    class="code-panel code-question-card"
     data-code-quiz-target="card"
+    hidden
   >
     <p class="code-kicker">
       Question
@@ -98,9 +112,10 @@
 
   <button
     type="button"
-    class="code-next-button d-none"
+    class="code-next-button"
     data-code-quiz-target="nextButton"
     data-action="click->code-quiz#nextQuestion"
+    hidden
   >
     Question suivante
   </button>

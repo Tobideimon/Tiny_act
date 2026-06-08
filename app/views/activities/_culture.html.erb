@@ -8,11 +8,13 @@
 } %>
 
 <% categories = culture_questions.map(&:category).uniq.sort %>
+<% duration_seconds = activity.duration.value.to_i * 60 %>
 
 <div
   data-controller="culture-quiz"
   data-culture-quiz-questions-value="<%= serialized_questions.to_json %>"
   data-culture-quiz-duration-seconds-value="<%= duration_seconds %>"
+  data-culture-quiz-finish-url-value="<%= activity_session_path(@activity_session) %>"
   class="culture-quiz"
 >
   <div
@@ -29,7 +31,9 @@
       </h2>
 
       <p>
-        Tu as <strong><%= duration_seconds / 60 %> minutes</strong>. Le chrono commence quand tu choisis un thème.
+        Tu vas répondre à un maximum de questions pendant
+        <strong><%= activity.duration.value %> minutes</strong>.
+        Le chrono commence quand tu choisis un thème.
       </p>
     </div>
 
@@ -49,8 +53,9 @@
   </div>
 
   <div
-    class="culture-status-panel d-none"
+    class="culture-status-panel"
     data-culture-quiz-target="quizHeader"
+    hidden
   >
     <div class="culture-status-card">
       <span>Thème</span>
@@ -63,14 +68,15 @@
     </div>
 
     <div class="culture-status-card culture-status-wide">
-      <span>Progression</span>
+      <span>Score</span>
       <strong data-culture-quiz-target="progress"></strong>
     </div>
   </div>
 
   <div
-    class="culture-panel culture-question-card d-none"
+    class="culture-panel culture-question-card"
     data-culture-quiz-target="card"
+    hidden
   >
     <p class="culture-kicker">
       Question
@@ -98,9 +104,10 @@
 
   <button
     type="button"
-    class="culture-next-button d-none"
+    class="culture-next-button"
     data-culture-quiz-target="nextButton"
     data-action="click->culture-quiz#nextQuestion"
+    hidden
   >
     Question suivante
   </button>

@@ -46,6 +46,15 @@
   end
 %>
 
+<% activity_has_internal_finish =
+  @activity.language_activity? ||
+  @activity.culture_activity? ||
+  @activity.code_quiz? ||
+  @activity.sport_activity? ||
+  @activity.interest.name == "Photo" ||
+  @activity.interest.name == "Productivité"
+%>
+
 <div class="phone-page activity-show-page">
   <div class="activity-show-sticky-topbar">
     <%= render "activity_sessions/selection_topbar" %>
@@ -135,10 +144,12 @@
     <% end %>
   </main>
 
-  <div class="activity-bottom-action">
-    <%= button_to "Finir l'activité",
-                  activity_session_path(@activity_session),
-                  method: :patch,
-                  class: "activity-stop-button" %>
-  </div>
+  <% unless activity_has_internal_finish %>
+    <div class="activity-bottom-action">
+      <%= button_to "Finir l'activité",
+                    activity_session_path(@activity_session),
+                    method: :patch,
+                    class: "activity-stop-button" %>
+    </div>
+  <% end %>
 </div>

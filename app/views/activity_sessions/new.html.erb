@@ -1,82 +1,73 @@
 <div class="phone-page mood-page mood-home-page has-step-progress">
 
-  <%= render "activity_sessions/selection_topbar" %>
+  <header class="mood-screen-header">
+    <%= render "activity_sessions/selection_topbar" %>
+  </header>
 
-  <%= link_to room_path, class: "room-notification" do %>
-    <div class="room-notification-visual">
-      <%= image_tag "mascot/room-preview.png",
-                    class: "room-notification-image",
-                    alt: "" %>
-    </div>
+  <main class="mood-screen-main">
+    <section class="mood-screen-notifications">
+      <%= render "activity_sessions/home_notifications" %>
+    </section>
 
-    <div class="room-notification-content">
-      <strong>Ta room progresse</strong>
-
-      <span>
-        Encore <%= @actions_before_reward %>
-        <%= @actions_before_reward > 1 ? "actions" : "action" %>
-        avant un meuble
-      </span>
-
-      <div class="room-progress">
-        <span style="width: <%= @room_progress_percent %>%;"></span>
+    <section class="mood-screen-title">
+      <div class="mood-hero mood-hero-after-room">
+        <h1>
+          Comment tu te sens ?
+        </h1>
       </div>
-    </div>
+    </section>
 
-    <span class="room-notification-arrow">›</span>
-  <% end %>
+    <section class="mood-screen-actions">
+      <%= form_with url: location_activity_sessions_path,
+                    method: :get,
+                    class: "mood-form" do %>
 
-  <div class="mood-hero mood-hero-after-room">
-    <h1>
-      Comment tu te sens ?
-    </h1>
-  </div>
+        <div class="mood-list">
+          <% @moods.each do |mood| %>
 
-  <%= form_with url: location_activity_sessions_path,
-                method: :get,
-                class: "mood-form" do %>
+            <% mood_key =
+              case mood.name
+              when "En forme"
+                "energy"
+              when "Mitigé"
+                "bof"
+              else
+                "flat"
+              end
+            %>
 
-    <div class="mood-list">
-      <% @moods.each do |mood| %>
+            <% mood_label = mood.name == "Mitigé" ? "Bof" : mood.name %>
 
-        <% mood_key =
-          case mood.name
-          when "En forme"
-            "energy"
-          when "Mitigé"
-            "bof"
-          else
-            "flat"
-          end
-        %>
+            <button
+              type="submit"
+              name="mood_id"
+              value="<%= mood.id %>"
+              class="mood-card mood-choice-card mood-choice-<%= mood_key %>"
+            >
+              <div class="mood-mascot-image-wrapper">
+                <%= image_tag "mascot/mood-#{mood_key}.png",
+                              class: "mood-mascot-image",
+                              alt: "" %>
+              </div>
 
-        <% mood_label = mood.name == "Mitigé" ? "Bof" : mood.name %>
+              <div class="mood-text mood-text-simple">
+                <strong>
+                  <%= mood_label %>
+                </strong>
+              </div>
 
-        <button
-          type="submit"
-          name="mood_id"
-          value="<%= mood.id %>"
-          class="mood-card mood-choice-card mood-choice-<%= mood_key %>"
-        >
-          <div class="mood-mascot-image-wrapper">
-            <%= image_tag "mascot/mood-#{mood_key}.png",
-                          class: "mood-mascot-image",
-                          alt: "" %>
-          </div>
+              <span class="mood-card-arrow">›</span>
+            </button>
 
-          <div class="mood-text mood-text-simple">
-            <strong>
-              <%= mood_label %>
-            </strong>
-          </div>
-
-          <span class="mood-card-arrow">›</span>
-        </button>
+          <% end %>
+        </div>
 
       <% end %>
-    </div>
+    </section>
+  </main>
 
-  <% end %>
+  <footer class="mood-screen-footer">
+    <%= render "step_indicator", current_step: 1 %>
+  </footer>
 
-  <%= render "step_indicator", current_step: 1 %>
 </div>

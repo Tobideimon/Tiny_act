@@ -13,7 +13,11 @@ class ActivitiesController < ApplicationController
       return
     end
 
-    @activity_session.update!(activity: @activity)
+    @activity_session.update!(
+      activity: @activity,
+      status: "in_progress",
+      timer_started_at: Time.current
+    )
 
     assign_activity_context
   end

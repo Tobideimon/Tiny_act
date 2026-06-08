@@ -10,60 +10,31 @@
   margin-bottom: 20px;
 }
 
+/* ========================= */
+/* LOGO                      */
+/* ========================= */
+
 .mood-topbar .mood-brand {
-  position: relative;
-
-  width: 158px;
-  height: 82px;
-
-  flex: 0 0 158px;
-
-  display: block;
-}
-
-.mood-topbar .mood-brand-name {
-  position: absolute;
-  left: 0;
-  top: 6px;
-  z-index: 2;
-
-  display: block;
-
   width: 118px;
+  height: 61px;
 
-  color: #ffffff;
-  -webkit-text-fill-color: #ffffff;
+  flex: 0 0 118px;
 
-  font-family: "Bagel Fat One", "Poppins", "Helvetica", sans-serif;
-  font-size: 31px;
-  font-weight: 400;
-  line-height: 0.78;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-
-  -webkit-text-stroke: 1.6px #111827;
-
-  text-shadow:
-    0 2px 0 #111827,
-    2px 3px 0 rgba(17, 24, 39, 0.18),
-    4px 5px 0 rgba(216, 154, 50, 0.28);
-
-  transform: rotate(-1.5deg);
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
-.mood-topbar .mood-brand-image {
-  position: absolute;
-  left: 55px;
-  top: 4px;
-  z-index: 3;
-
-  width: 54px;
-  height: 54px;
+.mood-brand-logo {
+  width: 100%;
+  height: auto;
 
   display: block;
   object-fit: contain;
 
-  filter: drop-shadow(0 8px 14px rgba(43, 45, 66, 0.08));
+  filter:
+    drop-shadow(0 4px 0 rgba(7, 16, 45, 0.18))
+    drop-shadow(0 7px 8px rgba(7, 16, 45, 0.16));
 }
 
 .mood-brand-link {
@@ -81,10 +52,14 @@
 }
 
 .mood-brand-link:focus-visible {
-  outline: 3px solid rgba(124, 99, 242, 0.22);
+  outline: 3px solid rgba(124, 99, 242, 0.26);
   outline-offset: 4px;
   border-radius: 18px;
 }
+
+/* ========================= */
+/* XP + AVATAR               */
+/* ========================= */
 
 .mood-user-actions {
   flex: 0 0 auto;
@@ -93,61 +68,246 @@
   align-items: center;
   gap: 10px;
 
-  padding-top: 0px;
+  padding-top: 2px;
 }
 
-.mood-profile-link,
-.app-profile-link {
-  width: 64px;
-  height: 64px;
+/* Badge XP : même trait et même ombre que les notifications */
+.mood-topbar .mood-xp-pill,
+.mood-topbar .progress-pill,
+.mood-xp-pill,
+.progress-pill {
+  position: relative;
 
-  display: block;
+  height: 48px;
+  min-width: 94px;
+  padding: 0 17px;
 
-  border-radius: 50%;
-  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
 
-  background: rgba(255, 253, 249, 0.9);
-  border: 1px solid rgba(90, 74, 54, 0.08);
+  border-radius: 20px;
+
+  border: 0.1px solid rgba(7, 16, 39, 0.395) !important;
+  background: #fffdf8 !important;
 
   box-shadow:
-    0 10px 22px rgba(43, 45, 66, 0.08),
-    0 3px 8px rgba(43, 45, 66, 0.04);
+    0 5px 0 rgba(7, 16, 39, 0.16),
+    0 8px 12px rgba(7, 16, 39, 0.12) !important;
+
+  overflow: visible;
+}
+
+/* Suppression totale des reflets/fonds internes */
+.mood-xp-pill::before,
+.progress-pill::before,
+.mood-xp-pill::after,
+.progress-pill::after {
+  display: none !important;
+  content: none !important;
+}
+
+.mood-xp-pill strong,
+.progress-pill strong {
+  color: $ta-ink;
+
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: -0.035em;
+}
+
+.mood-xp-pill span,
+.progress-pill span {
+  color: rgba(21, 27, 47, 0.48);
+
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Avatar : même trait et même ombre que les notifications */
+.mood-profile-link,
+.app-profile-link {
+  position: relative;
+
+  width: 68px;
+  height: 68px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+  overflow: visible;
+
+  border: 0.1px solid rgba(7, 16, 39, 0.395);
+  background: #fffdf8;
+
+  box-shadow:
+    0 5px 0 rgba(7, 16, 39, 0.16),
+    0 8px 12px rgba(7, 16, 39, 0.12);
+
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Suppression totale des reflets/fonds internes avatar */
+.mood-profile-link::before,
+.app-profile-link::before,
+.mood-profile-link::after,
+.app-profile-link::after {
+  display: none !important;
+  content: none !important;
 }
 
 .mood-profile-avatar,
 .app-profile-avatar {
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
 
   display: block;
   object-fit: cover;
+
+  border-radius: 50%;
 }
 
-@media (max-height: 760px) {
+.mood-profile-link:focus-visible,
+.app-profile-link:focus-visible {
+  outline: 3px solid rgba(124, 99, 242, 0.28);
+  outline-offset: 4px;
+}
+
+/* ========================= */
+/* RESPONSIVE                */
+/* ========================= */
+
+@media (max-width: 380px), (max-height: 760px) {
+  .mood-topbar {
+    margin-bottom: 14px;
+  }
+
   .mood-topbar .mood-brand {
-    width: 148px;
-    height: 74px;
+    width: 108px;
+    height: 56px;
 
-    flex-basis: 148px;
-  }
-
-  .mood-topbar .mood-brand-name {
-    width: 110px;
-
-    font-size: 28px;
-
-    -webkit-text-stroke-width: 1.45px;
-  }
-
-  .mood-topbar .mood-brand-image {
-    left: 96px;
-    top: 3px;
-
-    width: 50px;
-    height: 50px;
+    flex-basis: 108px;
   }
 
   .mood-user-actions {
-    padding-top: 8px;
+    gap: 8px;
+    padding-top: 2px;
+  }
+
+  .mood-topbar .mood-xp-pill,
+  .mood-topbar .progress-pill,
+  .mood-xp-pill,
+  .progress-pill {
+    height: 44px;
+    min-width: 84px;
+    padding: 0 14px;
+
+    border-radius: 18px;
+
+    border: 0.1px solid rgba(7, 16, 39, 0.395) !important;
+    background: #fffdf8 !important;
+
+    box-shadow:
+      0 5px 0 rgba(7, 16, 39, 0.16),
+      0 8px 12px rgba(7, 16, 39, 0.12) !important;
+  }
+
+  .mood-xp-pill strong,
+  .progress-pill strong {
+    font-size: 16px;
+  }
+
+  .mood-xp-pill span,
+  .progress-pill span {
+    font-size: 11px;
+  }
+
+  .mood-profile-link,
+  .app-profile-link {
+    width: 60px;
+    height: 60px;
+
+    border: 0.1px solid rgba(7, 16, 39, 0.395);
+    background: #fffdf8;
+
+    box-shadow:
+      0 5px 0 rgba(7, 16, 39, 0.16),
+      0 8px 12px rgba(7, 16, 39, 0.12);
+  }
+
+  .mood-profile-avatar,
+  .app-profile-avatar {
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+  }
+}
+
+@media (max-width: 340px), (max-height: 670px) {
+  .mood-topbar {
+    margin-bottom: 10px;
+  }
+
+  .mood-topbar .mood-brand {
+    width: 100px;
+    height: 52px;
+
+    flex-basis: 100px;
+  }
+
+  .mood-user-actions {
+    gap: 7px;
+  }
+
+  .mood-topbar .mood-xp-pill,
+  .mood-topbar .progress-pill,
+  .mood-xp-pill,
+  .progress-pill {
+    height: 40px;
+    min-width: 76px;
+    padding: 0 12px;
+
+    border-radius: 16px;
+
+    border: 0.1px solid rgba(7, 16, 39, 0.395) !important;
+    background: #fffdf8 !important;
+
+    box-shadow:
+      0 5px 0 rgba(7, 16, 39, 0.16),
+      0 8px 12px rgba(7, 16, 39, 0.12) !important;
+  }
+
+  .mood-xp-pill strong,
+  .progress-pill strong {
+    font-size: 15px;
+  }
+
+  .mood-xp-pill span,
+  .progress-pill span {
+    font-size: 10px;
+  }
+
+  .mood-profile-link,
+  .app-profile-link {
+    width: 54px;
+    height: 54px;
+
+    border: 0.1px solid rgba(7, 16, 39, 0.395);
+    background: #fffdf8;
+
+    box-shadow:
+      0 5px 0 rgba(7, 16, 39, 0.16),
+      0 8px 12px rgba(7, 16, 39, 0.12);
+  }
+
+  .mood-profile-avatar,
+  .app-profile-avatar {
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
   }
 }

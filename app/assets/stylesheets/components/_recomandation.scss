@@ -828,3 +828,439 @@
     display: none;
   }
 }
+/* ========================================================= */
+/* HIGH CONTRAST REDESIGN - RECOMMENDATIONS PAGE             */
+/* ========================================================= */
+
+.phone-page.recommendations-phone-page {
+  padding-top: 30px;
+  padding-bottom: calc(102px + env(safe-area-inset-bottom));
+
+  background:
+    radial-gradient(circle at top left, rgba(231, 166, 58, 0.14) 0, transparent 34%),
+    radial-gradient(circle at top right, rgba(124, 99, 242, 0.12) 0, transparent 38%),
+    linear-gradient(180deg, $ta-bg-start 0%, $ta-bg-end 100%);
+
+  overflow: hidden;
+}
+
+.recommendations-page {
+  padding-top: 10px;
+}
+
+.recommendations-header {
+  margin-bottom: 16px;
+}
+
+.recommendations-kicker {
+  margin: 0 0 8px;
+
+  color: rgba(21, 27, 47, 0.54);
+
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.recommendations-header h1 {
+  max-width: 360px;
+  margin: 0;
+
+  color: $ta-ink;
+
+  font-size: 30px;
+  line-height: 1.04;
+  font-weight: 900;
+  letter-spacing: -0.055em;
+}
+
+.activities-list {
+  gap: 14px;
+}
+
+.activity-card-link {
+  flex: 1;
+  min-height: 0;
+}
+
+.activity-card {
+  overflow: hidden;
+
+  padding: 16px;
+
+  border-radius: 28px;
+  border: 2px solid rgba(21, 27, 47, 0.12);
+
+  box-shadow:
+    0 20px 32px rgba(21, 27, 47, 0.10),
+    0 7px 14px rgba(21, 27, 47, 0.055),
+    0 1px 0 rgba(255, 255, 255, 0.68) inset;
+}
+
+.activity-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 1px;
+
+  border-radius: 26px;
+
+  background:
+    linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.52) 0%,
+      rgba(255, 255, 255, 0.14) 30%,
+      rgba(255, 255, 255, 0) 58%
+    );
+
+  pointer-events: none;
+}
+
+.activity-card-main {
+  position: relative;
+  z-index: 2;
+
+  gap: 14px;
+}
+
+.activity-visual {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 72px;
+
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(21, 27, 47, 0.10);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.78),
+    0 10px 18px rgba(21, 27, 47, 0.06);
+}
+
+.activity-interest-icon {
+  width: 56px;
+  height: 56px;
+
+  filter:
+    drop-shadow(0 8px 12px rgba(21, 27, 47, 0.09));
+}
+
+.activity-body {
+  padding-right: 34px;
+}
+
+.activity-interest-header {
+  margin-bottom: 9px;
+  gap: 7px;
+}
+
+.badge-interest,
+.activity-duration-pill {
+  min-height: 25px;
+  padding: 5px 10px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.65) inset;
+}
+
+.badge-interest {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.activity-duration-pill {
+  color: $ta-purple;
+  background: rgba(124, 99, 242, 0.15);
+}
+
+.activity-top {
+  margin-bottom: 7px;
+}
+
+.activity-top h2 {
+  color: $ta-ink;
+
+  font-size: 20px;
+  line-height: 1.08;
+  font-weight: 900;
+  letter-spacing: -0.045em;
+}
+
+.activity-content {
+  color: rgba(21, 27, 47, 0.68);
+
+  font-size: 13px;
+  line-height: 1.32;
+  font-weight: 700;
+}
+
+.activity-card-arrow {
+  right: 18px;
+
+  color: $ta-purple;
+
+  font-size: 34px;
+  font-weight: 950;
+}
+
+/* Couleurs plus lisibles et plus proches du système choisi */
+
+.activity-sport {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(88, 140, 58, 0.13) 0, transparent 30%),
+    linear-gradient(135deg, #ffffff 0%, #e7f7df 100%);
+
+  border-color: rgba(73, 155, 67, 0.48);
+}
+
+.activity-langues {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(124, 99, 242, 0.14) 0, transparent 30%),
+    linear-gradient(135deg, #ffffff 0%, #eee8ff 100%);
+
+  border-color: rgba(124, 99, 242, 0.45);
+}
+
+.activity-creativity {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(216, 154, 50, 0.15) 0, transparent 30%),
+    linear-gradient(135deg, #ffffff 0%, #fff0d8 100%);
+
+  border-color: rgba(216, 154, 50, 0.48);
+}
+
+.activity-wellbeing {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(76, 150, 126, 0.13) 0, transparent 30%),
+    linear-gradient(135deg, #ffffff 0%, #e5f6ef 100%);
+
+  border-color: rgba(76, 150, 126, 0.45);
+}
+
+.activity-photo {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(190, 88, 140, 0.13) 0, transparent 30%),
+    linear-gradient(135deg, #ffffff 0%, #ffe8f3 100%);
+
+  border-color: rgba(190, 88, 140, 0.45);
+}
+
+.activity-drawing {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(89, 119, 170, 0.13) 0, transparent 30%),
+    linear-gradient(135deg, #ffffff 0%, #e6f0ff 100%);
+
+  border-color: rgba(89, 119, 170, 0.45);
+}
+
+.activity-writing {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(190, 139, 43, 0.15) 0, transparent 30%),
+    linear-gradient(135deg, #ffffff 0%, #fff6d9 100%);
+
+  border-color: rgba(190, 139, 43, 0.48);
+}
+
+.activity-culture,
+.activity-default {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(128, 95, 63, 0.13) 0, transparent 30%),
+    linear-gradient(135deg, #ffffff 0%, #f4eadf 100%);
+
+  border-color: rgba(128, 95, 63, 0.42);
+}
+
+/* Ajustements selon nombre de recommandations */
+
+.activities-count-1 .activity-card {
+  min-height: 260px;
+}
+
+.activities-count-1 .activity-visual {
+  width: 86px;
+  height: 86px;
+  flex-basis: 86px;
+}
+
+.activities-count-1 .activity-interest-icon {
+  width: 66px;
+  height: 66px;
+}
+
+.activities-count-1 .activity-top h2 {
+  font-size: 24px;
+}
+
+.activities-count-1 .activity-content {
+  font-size: 15px;
+  line-height: 1.38;
+}
+
+.activities-count-2 .activity-card {
+  min-height: 172px;
+}
+
+.activities-count-3 .activity-card {
+  min-height: 124px;
+}
+
+/* Écran résumé terminé : on garde mais on renforce légèrement */
+
+.summary-hero h1 {
+  color: $ta-ink;
+
+  font-weight: 950;
+  letter-spacing: -0.055em;
+}
+
+.summary-hero p:not(.recommendations-kicker) {
+  color: rgba(21, 27, 47, 0.70);
+
+  font-weight: 700;
+}
+
+.summary-main-card,
+.summary-stat-card,
+.summary-reward-card {
+  border-color: rgba(21, 27, 47, 0.12);
+
+  box-shadow:
+    0 18px 30px rgba(21, 27, 47, 0.10),
+    0 6px 13px rgba(21, 27, 47, 0.055),
+    0 1px 0 rgba(255, 255, 255, 0.68) inset;
+}
+
+.summary-action-secondary {
+  border-color: rgba(21, 27, 47, 0.12);
+}
+
+/* Responsive */
+
+@media (max-height: 760px) {
+  .phone-page.recommendations-phone-page {
+    padding-top: 24px;
+    padding-bottom: calc(88px + env(safe-area-inset-bottom));
+  }
+
+  .recommendations-page {
+    padding-top: 6px;
+  }
+
+  .recommendations-header {
+    margin-bottom: 12px;
+  }
+
+  .recommendations-header h1 {
+    font-size: 26px;
+  }
+
+  .activities-list {
+    gap: 11px;
+  }
+
+  .activity-card {
+    padding: 13px;
+    border-radius: 25px;
+  }
+
+  .activity-card::before {
+    border-radius: 23px;
+  }
+
+  .activity-visual {
+    width: 62px;
+    height: 62px;
+    flex-basis: 62px;
+
+    border-radius: 21px;
+  }
+
+  .activity-interest-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .activity-interest-header {
+    margin-bottom: 7px;
+  }
+
+  .badge-interest,
+  .activity-duration-pill {
+    min-height: 22px;
+    padding: 4px 9px;
+
+    font-size: 10px;
+  }
+
+  .activity-top h2 {
+    font-size: 18px;
+  }
+
+  .activity-content {
+    font-size: 12px;
+  }
+
+  .activities-count-3 .activity-card {
+    min-height: 104px;
+  }
+
+  .activities-count-2 .activity-card {
+    min-height: 145px;
+  }
+
+  .activities-count-1 .activity-card {
+    min-height: 220px;
+  }
+}
+
+@media (max-height: 670px) {
+  .recommendations-kicker {
+    display: none;
+  }
+
+  .recommendations-header h1 {
+    font-size: 24px;
+  }
+
+  .activities-list {
+    gap: 9px;
+  }
+
+  .activity-card {
+    padding: 11px;
+  }
+
+  .activity-visual {
+    width: 56px;
+    height: 56px;
+    flex-basis: 56px;
+  }
+
+  .activity-interest-icon {
+    width: 43px;
+    height: 43px;
+  }
+
+  .activity-top h2 {
+    font-size: 16px;
+  }
+
+  .activity-content {
+    font-size: 11px;
+    line-height: 1.25;
+  }
+
+  .activity-card-arrow {
+    font-size: 28px;
+    right: 14px;
+  }
+}
