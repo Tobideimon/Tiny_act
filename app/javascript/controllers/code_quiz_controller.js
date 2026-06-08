@@ -11,8 +11,8 @@ export default class extends Controller {
     "feedback",
     "nextButton",
     "score",
-    "launchButton",
-    "timer"
+    "timer",
+    "launchButton"
   ]
 
   static values = {
@@ -25,6 +25,7 @@ export default class extends Controller {
     this.currentIndex = 0
     this.correctCount = 0
     this.completedCount = 0
+    this.score = 0
     this.answered = false
     this.selectedQuestions = []
     this.remainingSeconds = this.durationSecondsValue || 300
@@ -35,27 +36,37 @@ export default class extends Controller {
     this.quizHeaderTarget.hidden = true
     this.cardTarget.hidden = true
     this.nextButtonTarget.hidden = true
+    this.nextButtonTarget.disabled = true
+
+    this.dispatchControlsChanged()
+  }
+
+  disconnect() {
+    this.clearTimer()
   }
 
   launch() {
     if (this.questionsValue.length === 0) return
 
-    this.selectedQuestions = this.shuffle(this.questionsValue)
     this.currentIndex = 0
     this.correctCount = 0
     this.completedCount = 0
+    this.score = 0
     this.answered = false
     this.quizFinished = false
     this.remainingSeconds = this.durationSecondsValue || 300
+    this.selectedQuestions = this.shuffle(this.questionsValue)
 
     this.startScreenTarget.hidden = true
     this.quizHeaderTarget.hidden = false
     this.cardTarget.hidden = false
     this.nextButtonTarget.hidden = true
+    this.nextButtonTarget.disabled = true
 
     this.updateTimer()
     this.startTimer()
     this.showQuestion()
+    this.dispatchControlsChanged()
   }
 
   startTimer() {
@@ -133,7 +144,11 @@ export default class extends Controller {
       this.answersTarget.appendChild(button)
     })
 
+    this.nextButtonTarget.textContent = "Question suivante"
     this.nextButtonTarget.hidden = true
+    this.nextButtonTarget.disabled = true
+
+    this.dispatchControlsChanged()
   }
 
   selectAnswer(event) {
@@ -164,10 +179,11 @@ export default class extends Controller {
 
     if (selectedAnswer === correctAnswer) {
       this.correctCount += 1
+      this.score += this.pointsFor(currentQuestion.difficulty)
 
       this.cardTarget.classList.add("quiz-card-correct")
       selectedButton.classList.add("quiz-answer-correct")
-      this.feedbackTarget.textContent = "Bonne réponse."
+      this.feedbackTarget.textContent = `Bonne réponse. +${this.pointsFor(currentQuestion.difficulty)} pts`
       this.feedbackTarget.classList.add("is-correct")
     } else {
       this.cardTarget.classList.add("quiz-card-wrong")
@@ -181,6 +197,9 @@ export default class extends Controller {
     this.nextButtonTarget.textContent = "Question suivante"
     this.nextButtonTarget.dataset.action = "click->code-quiz#nextQuestion"
     this.nextButtonTarget.hidden = false
+    this.nextButtonTarget.disabled = false
+
+    this.dispatchControlsChanged()
   }
 
   nextQuestion() {
@@ -209,17 +228,22 @@ export default class extends Controller {
     this.answersTarget.innerHTML = ""
     this.feedbackTarget.textContent = ""
 
-    this.progressTarget.textContent = "Résultat"
+    this.progressTarget.textContent = `${this.score} pts`
 
     if (this.completedCount === 0) {
       this.scoreTarget.textContent = "Tu n’as pas encore répondu à une question."
     } else {
-      this.scoreTarget.textContent = `${this.correctCount} bonne(s) réponse(s) sur ${this.completedCount} question(s).`
+      this.scoreTarget.textContent = `${this.score} points · ${this.correctCount} bonne(s) sur ${this.completedCount}.`
     }
 
-    this.nextButtonTarget.textContent = "Terminer"
-    this.nextButtonTarget.dataset.action = "click->code-quiz#finishActivity"
-    this.nextButtonTarget.hidden = false
+    this.nextButtonTarget.hidden = true
+    this.nextButtonTarget.disabled = true
+
+    this.element.dispatchEvent(
+      new CustomEvent("activity:finished", {
+        bubbles: true
+      })
+    )
   }
 
   finishActivity() {
@@ -250,10 +274,26 @@ export default class extends Controller {
     form.submit()
   }
 
+  pointsFor(difficulty) {
+    return {
+      easy: 1,
+      medium: 2,
+      hard: 3
+    }[difficulty] || 1
+  }
+
   updateProgress() {
     if (!this.hasProgressTarget) return
 
-    this.progressTarget.textContent = `${this.correctCount} / ${this.completedCount}`
+    this.progressTarget.textContent = `${this.score} pts · ${this.correctCount}/${this.completedCount}`
+  }
+
+  dispatchControlsChanged() {
+    this.element.dispatchEvent(
+      new CustomEvent("activity:controls-changed", {
+        bubbles: true
+      })
+    )
   }
 
   shuffle(array) {
