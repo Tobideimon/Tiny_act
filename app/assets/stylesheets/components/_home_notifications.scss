@@ -537,3 +537,22 @@
     drop-shadow(0 5px 0 rgba(7, 16, 39, 0.16))
     drop-shadow(0 8px 12px rgba(7, 16, 39, 0.12));
 }
+
+/* Add breathing room between topbar and home notifications */
+
+.mood-home-page .mood-screen-notifications {
+  padding-top: clamp(14px, 2.2vh, 26px);
+}
+
+/* Keep compact layouts controlled */
+@media (max-height: 760px) {
+  .mood-home-page .mood-screen-notifications {
+    padding-top: 18px;
+  }
+}
+
+@media (max-height: 670px) {
+  .mood-home-page .mood-screen-notifications {
+    padding-top: 14px;
+  }
+}

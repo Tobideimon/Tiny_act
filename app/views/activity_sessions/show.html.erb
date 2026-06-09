@@ -1,4 +1,4 @@
-<div class="phone-page mood-page recommendations-phone-page mood-activities-page <%= "has-bottom-action" unless @activity_session&.finished? %>">
+<div class="phone-page mood-page recommendations-phone-page mood-activities-page <%= @activity_session&.finished? ? "session-finished-page has-session-complete-action" : "has-bottom-action" %>">
 
   <header class="mood-screen-header">
     <%= render "activity_sessions/selection_topbar" %>
@@ -98,17 +98,11 @@
           <% end %>
         </article>
 
-        <div class="summary-actions">
-
-
+        <div class="summary-actions summary-actions-secondary-only">
           <%= link_to room_path(current_user.room),
                       class: "summary-action-secondary" do %>
-            Voir ma room
-          <% end %>
-
-          <%= link_to new_activity_session_path,
-                      class: "primary-button summary-action-primary" do %>
-            Faire une nouvelle activité
+            <i class="fa-solid fa-house"></i>
+            <span>Voir ma room</span>
           <% end %>
         </div>
       </section>
@@ -278,7 +272,15 @@
 
     </main>
 
-  <% unless @activity_session.finished? %>
+  <% if @activity_session.finished? %>
+    <footer class="mood-screen-footer session-complete-footer">
+      <%= link_to new_activity_session_path,
+                  class: "session-new-activity-button" do %>
+        <i class="fa-solid fa-bolt"></i>
+        <span>Faire une nouvelle activité</span>
+      <% end %>
+    </footer>
+  <% else %>
     <footer class="mood-screen-footer">
       <%= link_to duration_activity_sessions_path(
                     mood_id: @activity_session.activity.mood_id,
