@@ -73,10 +73,11 @@ export default class extends Controller {
     this.runnerTarget.hidden = true
     this.finishedTarget.hidden = false
 
-    if (this.hasFinishButtonTarget) {
-      this.finishButtonTarget.disabled = false
-      this.finishButtonTarget.textContent = "Terminer"
-    }
+    this.element.dispatchEvent(
+      new CustomEvent("activity:finished", {
+        bubbles: true
+      })
+    )
   }
 
   finishActivity() {

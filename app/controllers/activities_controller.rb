@@ -13,11 +13,12 @@ class ActivitiesController < ApplicationController
       return
     end
 
-    @activity_session.update!(
-      activity: @activity,
-      status: "in_progress",
-      timer_started_at: Time.current
-    )
+    unless @activity_session.in_progress? || @activity_session.paused?
+      @activity_session.update!(
+        activity: @activity,
+        status: "preview"
+      )
+    end
 
     assign_activity_context
   end

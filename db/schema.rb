@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_08_145705) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_08_150649) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -37,6 +37,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_08_145705) do
 
   create_table "activity_sessions", force: :cascade do |t|
     t.bigint "activity_id", null: false
+    t.jsonb "candidate_activity_ids", default: [], null: false
     t.datetime "created_at", null: false
     t.date "date"
     t.integer "elapsed_seconds", default: 0, null: false

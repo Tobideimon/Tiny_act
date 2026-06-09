@@ -66,20 +66,10 @@ class ActivitySessionsController < ApplicationController
 
     reference_activity = @activity_session.activity
 
-    matching_activities = Activity.where(
-      active: true,
-      mood: reference_activity.mood,
-      duration: reference_activity.duration,
-      interest_id: current_user.interests.ids,
-      location_id: allowed_location_ids(reference_activity.location_id)
+    @activities = activity_recommendations_for(
+      @activity_session,
+      reference_activity
     )
-
-    @activities = matching_activities
-                  .includes(:interest)
-                  .group_by(&:interest_id)
-                  .values
-                  .map(&:sample)
-                  .sample(3)
 
     assign_language_if_needed
     @language_label = readable_language(@activity_session.language)
@@ -107,6 +97,19 @@ class ActivitySessionsController < ApplicationController
 
       redirect_to activity_session_path(@activity_session)
     end
+  end
+
+  def start
+    @activity_session = current_user.activity_sessions.find(params[:id])
+
+    return redirect_to activity_session_path(@activity_session) if @activity_session.finished?
+
+    @activity_session.update!(
+      status: "in_progress",
+      timer_started_at: Time.current
+    )
+
+    head :ok
   end
 
   def progress
@@ -172,6 +175,49 @@ class ActivitySessionsController < ApplicationController
     elapsed_seconds = params[:elapsed_seconds].to_i
     elapsed_seconds = 0 if elapsed_seconds.negative?
     elapsed_seconds
+  end
+
+  def activity_recommendations_for(activity_session, reference_activity)
+    if activity_session.candidate_activity_ids.present?
+      return activities_in_saved_order(activity_session.candidate_activity_ids)
+    end
+
+    activities = generate_activity_recommendations(reference_activity)
+
+    activity_session.update!(
+      candidate_activity_ids: activities.map(&:id)
+    )
+
+    activities
+  end
+
+  def activities_in_saved_order(activity_ids)
+    ids = activity_ids.map(&:to_i)
+
+    activities_by_id = Activity
+                       .includes(:interest)
+                       .where(id: ids)
+                       .index_by(&:id)
+
+    ids.filter_map { |id| activities_by_id[id] }
+  end
+
+  def generate_activity_recommendations(reference_activity)
+    matching_activities = Activity.where(
+      active: true,
+      mood: reference_activity.mood,
+      duration: reference_activity.duration,
+      interest_id: current_user.interests.ids,
+      location_id: allowed_location_ids(reference_activity.location_id)
+    )
+
+    matching_activities
+      .includes(:interest)
+      .group_by(&:interest_id)
+      .values
+      .map(&:sample)
+      .compact
+      .sample(3)
   end
 
   def matching_activities

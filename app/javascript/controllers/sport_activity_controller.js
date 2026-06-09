@@ -32,6 +32,10 @@ export default class extends Controller {
     }
   }
 
+  disconnect() {
+    this.clearTimer()
+  }
+
   launch() {
     if (this.mainStepCount === 0) return
 
@@ -52,6 +56,8 @@ export default class extends Controller {
     this.currentStepTextTarget.textContent = "Prépare-toi"
     this.nextButtonTarget.textContent = "Passer la préparation"
     this.nextButtonTarget.classList.remove("is-hidden")
+
+    this.dispatchControlsChanged()
 
     this.startTimer(this.preparationSeconds, () => {
       this.startMainActivity()
@@ -81,6 +87,8 @@ export default class extends Controller {
     this.currentStepTextTarget.textContent = currentStep.text
     this.nextButtonTarget.textContent = this.isLastStep() ? "Terminer le parcours" : "Passer cette étape"
     this.nextButtonTarget.classList.remove("is-hidden")
+
+    this.dispatchControlsChanged()
 
     const duration = Number(currentStep.duration_seconds || 0)
 
@@ -128,6 +136,12 @@ export default class extends Controller {
       this.finishButtonTarget.disabled = false
       this.finishButtonTarget.textContent = "Terminer"
     }
+
+    this.element.dispatchEvent(
+      new CustomEvent("activity:finished", {
+        bubbles: true
+      })
+    )
   }
 
   finishActivity() {
@@ -198,6 +212,14 @@ export default class extends Controller {
     const remainingSeconds = safeSeconds % 60
 
     this.timerTarget.textContent = `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`
+  }
+
+  dispatchControlsChanged() {
+    this.element.dispatchEvent(
+      new CustomEvent("activity:controls-changed", {
+        bubbles: true
+      })
+    )
   }
 
   isLastStep() {
