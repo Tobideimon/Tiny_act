@@ -918,6 +918,84 @@
   font-weight: 850;
 }
 
+.summary-reward-card-unlocked {
+  align-items: stretch;
+  background: linear-gradient(135deg, #ffffff 0%, #fff5dd 100%);
+}
+
+.summary-unlocks-list {
+  width: 100%;
+
+  display: grid;
+  gap: 10px;
+}
+
+.summary-unlock-item {
+  min-width: 0;
+
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.summary-unlock-image-frame {
+  width: 72px;
+  aspect-ratio: 1;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.95), rgba(255, 214, 128, 0.32) 68%),
+    #fff1cf;
+  border: 2px solid rgba(216, 154, 50, 0.22);
+}
+
+.summary-unlock-image {
+  max-width: 82%;
+  max-height: 82%;
+
+  object-fit: contain;
+}
+
+.summary-unlock-content {
+  min-width: 0;
+}
+
+.summary-unlock-content p {
+  margin: 0 0 5px;
+
+  color: $ta-ink-muted;
+
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.summary-unlock-content strong {
+  margin-bottom: 5px;
+
+  font-size: 15px;
+}
+
+.summary-unlock-content span {
+  display: block;
+  overflow: hidden;
+
+  color: $ta-ink;
+
+  font-size: 18px;
+  line-height: 1.05;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .summary-actions {
   margin-top: auto;
   padding-top: 2px;

@@ -93,7 +93,7 @@ class ActivitySessionsController < ApplicationController
         status: "finished"
       )
 
-      add_interest_xp_for(@activity_session) unless was_already_finished
+      record_new_furniture_unlocks_for(@activity_session) unless was_already_finished
 
       redirect_to activity_session_path(@activity_session)
     end
@@ -301,8 +301,30 @@ class ActivitySessionsController < ApplicationController
     params.require(:activity_session).permit(:culture_category)
   end
 
-  def add_interest_xp_for(activity_session)
+  def record_new_furniture_unlocks_for(activity_session)
+    interest = activity_session.activity.interest
+    locked_furnitures_before_reward = locked_furnitures_for(activity_session.user, interest)
+
     XpCalculator.award!(activity_session)
+
+    current_xp = XpCalculator.total_for_interest(activity_session.user, interest)
+    newly_unlocked_furniture_ids = locked_furnitures_before_reward
+      .select { |furniture| furniture.required_xp.to_i <= current_xp }
+      .map(&:id)
+
+    activity_session.update!(
+      newly_unlocked_furniture_ids: newly_unlocked_furniture_ids,
+      furniture_unlocks_seen_at: nil
+    )
+  end
+
+  def locked_furnitures_for(user, interest)
+    current_xp = XpCalculator.total_for_interest(user, interest)
+
+    Furniture
+      .where(interest: interest)
+      .where("required_xp > ?", current_xp)
+      .order(:required_xp, :id)
   end
 
   def prepare_finished_summary
@@ -318,6 +340,23 @@ class ActivitySessionsController < ApplicationController
 
     @summary_saved_scroll_minutes = @summary_duration_minutes.positive? ? @summary_duration_minutes : 15
     @summary_xp_gained = @activity_session.awarded_xp
+    @newly_unlocked_furnitures = newly_unlocked_furnitures_for_summary
+  end
+
+  def newly_unlocked_furnitures_for_summary
+    return Furniture.none if @activity_session.furniture_unlocks_seen_at.present?
+
+    furniture_ids = @activity_session.newly_unlocked_furniture_ids.map(&:to_i)
+    return Furniture.none if furniture_ids.empty?
+
+    furnitures = Furniture
+      .includes(:interest)
+      .where(id: furniture_ids)
+      .sort_by { |furniture| furniture_ids.index(furniture.id) || furniture_ids.size }
+
+    @activity_session.update!(furniture_unlocks_seen_at: Time.current)
+
+    furnitures
   end
 
   # =========================
