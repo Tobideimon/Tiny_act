@@ -302,24 +302,7 @@ class ActivitySessionsController < ApplicationController
   end
 
   def add_interest_xp_for(activity_session)
-    return if activity_session.xp_awarded_at.present?
-
-    interest = activity_session.activity.interest
-    xp_earned = XpCalculator.new(activity_session).call
-
-    progress = UserInterestProgress.find_or_create_by!(
-      user: current_user,
-      interest: interest
-    ) do |p|
-      p.xp = 0
-    end
-
-    progress.increment!(:xp, xp_earned)
-
-    activity_session.update!(
-      xp_earned: xp_earned,
-      xp_awarded_at: Time.current
-    )
+    XpCalculator.award!(activity_session)
   end
 
   def prepare_finished_summary
@@ -334,7 +317,7 @@ class ActivitySessionsController < ApplicationController
                               end
 
     @summary_saved_scroll_minutes = @summary_duration_minutes.positive? ? @summary_duration_minutes : 15
-    @summary_xp_gained = @activity_session.xp_earned
+    @summary_xp_gained = @activity_session.awarded_xp
   end
 
   # =========================
@@ -475,10 +458,7 @@ class ActivitySessionsController < ApplicationController
   end
 
   def current_user_total_xp
-    current_user
-      .activity_sessions
-      .where.not(xp_awarded_at: nil)
-      .sum(:xp_earned)
+    XpCalculator.total_for(current_user)
   end
 
   def finished_sessions_count

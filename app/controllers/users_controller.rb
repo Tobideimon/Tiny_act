@@ -5,12 +5,7 @@ class UsersController < ApplicationController
     @room = @user.room || @user.create_room!(width: Room::GRID_WIDTH, height: Room::GRID_HEIGHT)
     @room.ensure_default_size!
     @furniture_unlock_progress = Interest.all.map do |interest|
-      progress = UserInterestProgress.find_by(
-        user: @user,
-        interest: interest
-      )
-
-      current_xp = progress&.xp || 0
+      current_xp = XpCalculator.total_for_interest(@user, interest)
 
       next_furniture = Furniture
         .where(interest: interest)

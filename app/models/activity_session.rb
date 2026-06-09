@@ -35,4 +35,8 @@ class ActivitySession < ApplicationRecord
   def remaining_seconds
     [duration_seconds - elapsed_seconds.to_i, 0].max
   end
+
+  def awarded_xp
+    XpCalculator.awarded_xp_for(self)
+  end
 end
