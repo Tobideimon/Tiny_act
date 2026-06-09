@@ -1,6 +1,6 @@
 /* ========================================================= */
-/* USER INTERESTS PAGE                                       */
-/* Selection des centres d'intérêt                           */
+/* USER INTERESTS PAGE                                        */
+/* Selection des centres d'intérêt                            */
 /* ========================================================= */
 
 .user-interests-page {
@@ -23,16 +23,17 @@
     linear-gradient(180deg, $ta-bg-start 0%, $ta-bg-end 100%);
 }
 
+
 /* ========================================================= */
-/* HEADER / INTRO                                            */
+/* HEADER / INTRO                                             */
 /* ========================================================= */
 
 .user-interests-screen-header {
   flex: 0 0 auto;
 
-  position: sticky;
-  top: 0;
-  z-index: 60;
+  position: relative;
+  top: auto;
+  z-index: 10;
 
   margin-left: -28px;
   margin-right: -28px;
@@ -40,16 +41,26 @@
   padding-top: 8px;
   padding-left: 28px;
   padding-right: 28px;
-  padding-bottom: 14px;
+  padding-bottom: 8px;
 
-  background:
-    radial-gradient(circle at top left, rgba(231, 166, 58, 0.13) 0, transparent 34%),
-    radial-gradient(circle at top right, rgba(124, 99, 242, 0.12) 0, transparent 38%),
-    linear-gradient(180deg, $ta-bg-start 0%, $ta-bg-end 100%);
+  background: transparent;
+  background-image: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.user-interests-screen-header::before,
+.user-interests-screen-header::after {
+  display: none;
+  content: none;
 }
 
 .user-interests-screen-header .mood-topbar {
   margin-bottom: 0;
+  background: transparent;
+  background-image: none;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 .user-interests-screen-main {
@@ -105,8 +116,9 @@
   font-weight: 700;
 }
 
+
 /* ========================================================= */
-/* FORM / SCROLL                                             */
+/* FORM / SCROLL                                              */
 /* ========================================================= */
 
 .interests-form {
@@ -140,18 +152,23 @@
 .interests-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  align-items: stretch;
   gap: 14px;
 
   margin: 0;
   padding: 0;
 }
 
+
 /* ========================================================= */
-/* INTEREST CARD                                             */
+/* INTEREST CARD                                              */
 /* ========================================================= */
 
 .interest-option {
   display: block;
+  height: 100%;
+
   cursor: pointer;
 
   -webkit-tap-highlight-color: transparent;
@@ -165,6 +182,7 @@
   position: relative;
 
   width: 100%;
+  height: 100%;
   min-height: 160px;
   padding: 12px;
 
@@ -241,8 +259,9 @@
     0 1px 0 rgba(255, 255, 255, 0.82) inset;
 }
 
+
 /* ========================================================= */
-/* MASCOT                                                    */
+/* MASCOT                                                     */
 /* ========================================================= */
 
 .interest-mascot-frame {
@@ -251,6 +270,7 @@
 
   width: 100%;
   height: 92px;
+  min-height: 92px;
 
   display: grid;
   place-items: center;
@@ -312,8 +332,9 @@
   font-weight: 950;
 }
 
+
 /* ========================================================= */
-/* COPY                                                      */
+/* COPY                                                       */
 /* ========================================================= */
 
 .interest-copy {
@@ -321,14 +342,18 @@
   z-index: 2;
 
   min-width: 0;
+  min-height: 45px;
 
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   gap: 4px;
 }
 
 .interest-name {
   display: -webkit-box;
+
+  min-height: 18px;
 
   overflow: hidden;
 
@@ -347,6 +372,8 @@
 .interest-description {
   display: -webkit-box;
 
+  min-height: 27px;
+
   overflow: hidden;
 
   color: rgba(21, 27, 47, 0.64);
@@ -360,8 +387,9 @@
   -webkit-box-orient: vertical;
 }
 
+
 /* ========================================================= */
-/* CHECK STATE                                               */
+/* CHECK STATE                                                */
 /* ========================================================= */
 
 .interest-checkmark {
@@ -403,9 +431,9 @@
   transform: scale(1) rotate(0deg);
 }
 
+
 /* ========================================================= */
-/* CATEGORY COLORS                                           */
-/* primary + complementary accent                            */
+/* CATEGORY COLORS                                            */
 /* ========================================================= */
 
 .interest-sport {
@@ -538,6 +566,19 @@
   --interest-mascot-bg: rgba(95, 134, 232, 0.16);
 }
 
+.interest-music {
+  --interest-accent: #8a69f2;
+  --interest-complement: #ff9a72;
+  --interest-soft: #f3edff;
+  --interest-selected-soft: #e7ddff;
+  --interest-glow: rgba(138, 105, 242, 0.18);
+  --interest-selected-glow: rgba(138, 105, 242, 0.30);
+  --interest-complement-glow: rgba(255, 154, 114, 0.22);
+  --interest-border: rgba(138, 105, 242, 0.38);
+  --interest-shadow-base: rgba(138, 105, 242, 0.22);
+  --interest-mascot-bg: rgba(138, 105, 242, 0.16);
+}
+
 .interest-default {
   --interest-accent: #7c63f2;
   --interest-complement: #ffd45c;
@@ -551,8 +592,9 @@
   --interest-mascot-bg: rgba(124, 99, 242, 0.16);
 }
 
+
 /* ========================================================= */
-/* BOTTOM ACTION                                             */
+/* BOTTOM ACTION                                              */
 /* ========================================================= */
 
 .interests-bottom-action {
@@ -622,8 +664,9 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
+
 /* ========================================================= */
-/* RESPONSIVE                                                */
+/* RESPONSIVE                                                 */
 /* ========================================================= */
 
 @media (max-height: 760px) {
@@ -639,6 +682,7 @@
 
     padding-left: 26px;
     padding-right: 26px;
+    padding-bottom: 8px;
   }
 
   .user-interests-screen-header .mood-topbar {
@@ -673,14 +717,21 @@
 
   .interest-mascot-frame {
     height: 78px;
+    min-height: 78px;
     border-radius: 22px;
   }
 
+  .interest-copy {
+    min-height: 36px;
+  }
+
   .interest-name {
+    min-height: 18px;
     font-size: 16px;
   }
 
   .interest-description {
+    min-height: 13px;
     font-size: 10px;
     -webkit-line-clamp: 1;
   }
@@ -688,7 +739,6 @@
   .interest-checkmark {
     width: 27px;
     height: 27px;
-
     font-size: 12px;
   }
 
@@ -717,8 +767,8 @@
 
     padding-left: 24px;
     padding-right: 24px;
+    padding-bottom: 6px;
   }
-
 
   .user-interests-kicker {
     display: none;
@@ -748,10 +798,16 @@
 
   .interest-mascot-frame {
     height: 58px;
+    min-height: 58px;
     border-radius: 19px;
   }
 
+  .interest-copy {
+    min-height: 18px;
+  }
+
   .interest-name {
+    min-height: 14px;
     font-size: 14px;
   }
 
@@ -768,132 +824,5 @@
     margin-right: -24px;
     padding-left: 24px;
     padding-right: 24px;
-  }
-}
-
-/* User interests polish: remove topbar layer + equal cards */
-
-.user-interests-screen-header {
-  position: relative;
-  top: auto;
-  z-index: 10;
-
-  margin-left: -28px;
-  margin-right: -28px;
-
-  padding-top: 8px;
-  padding-left: 28px;
-  padding-right: 28px;
-  padding-bottom: 8px;
-
-  background: transparent;
-  background-image: none;
-  box-shadow: none;
-  backdrop-filter: none;
-}
-
-.user-interests-screen-header::before,
-.user-interests-screen-header::after {
-  display: none;
-  content: none;
-}
-
-.user-interests-screen-header .mood-topbar {
-  margin-bottom: 0;
-  background: transparent;
-  background-image: none;
-  box-shadow: none;
-  backdrop-filter: none;
-}
-
-/* Cards same visual size */
-
-.interests-grid {
-  grid-auto-rows: 1fr;
-  align-items: stretch;
-}
-
-.interest-option {
-  height: 100%;
-}
-
-.interest-card {
-  height: 100%;
-  min-height: 160px;
-}
-
-/* Keep mascot/image zone stable in every card */
-
-.interest-mascot-frame {
-  height: 92px;
-  min-height: 92px;
-}
-
-.interest-copy {
-  min-height: 45px;
-  justify-content: flex-start;
-}
-
-.interest-name {
-  min-height: 18px;
-}
-
-.interest-description {
-  min-height: 27px;
-}
-
-/* Responsive consistency */
-
-@media (max-height: 760px) {
-  .user-interests-screen-header {
-    margin-left: -26px;
-    margin-right: -26px;
-    padding-left: 26px;
-    padding-right: 26px;
-    padding-bottom: 8px;
-  }
-
-  .interest-card {
-    min-height: 140px;
-  }
-
-  .interest-mascot-frame {
-    height: 78px;
-    min-height: 78px;
-  }
-
-  .interest-copy {
-    min-height: 36px;
-  }
-
-  .interest-description {
-    min-height: 13px;
-  }
-}
-
-@media (max-height: 670px) {
-  .user-interests-screen-header {
-    margin-left: -24px;
-    margin-right: -24px;
-    padding-left: 24px;
-    padding-right: 24px;
-    padding-bottom: 6px;
-  }
-
-  .interest-card {
-    min-height: 112px;
-  }
-
-  .interest-mascot-frame {
-    height: 58px;
-    min-height: 58px;
-  }
-
-  .interest-copy {
-    min-height: 18px;
-  }
-
-  .interest-name {
-    min-height: 14px;
   }
 }
