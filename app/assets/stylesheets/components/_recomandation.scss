@@ -1,6 +1,6 @@
 /* ========================================================= */
 /* RECOMMENDATIONS / ACTIVITY SESSION SHOW                    */
-/* Refactored file - activity cards aligned with interests     */
+/* Activity cards + finished session summary                  */
 /* ========================================================= */
 
 
@@ -31,7 +31,7 @@
 }
 
 .recommendations-page {
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
 
   padding-top: 10px;
@@ -42,7 +42,6 @@
 
 .recommendations-header {
   flex: 0 0 auto;
-
   margin-bottom: 16px;
 }
 
@@ -73,7 +72,6 @@
 
 /* ========================================================= */
 /* 2. ACTIVITY CHOICE PAGE LAYOUT                             */
-/* Page with 1, 2 or 3 recommendation cards                   */
 /* ========================================================= */
 
 .mood-activities-page.has-bottom-action {
@@ -97,7 +95,7 @@
 }
 
 .mood-activities-page.has-bottom-action .recommendations-page {
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
 
   padding-top: 0;
@@ -108,7 +106,6 @@
 
 .mood-activities-page.has-bottom-action .recommendations-header {
   flex: 0 0 auto;
-
   margin-bottom: 24px;
 }
 
@@ -177,10 +174,7 @@
 
 
 /* ========================================================= */
-/* 3. ACTIVITY CARDS - BUTTON / TILE VERSION                 */
-/* Minimal decision cards: mascot + category + title + CTA.  */
-/* No description, no duplicated duration, no complementary   */
-/* colors.                                                   */
+/* 3. ACTIVITY CARDS                                          */
 /* ========================================================= */
 
 .mood-activities-page.has-bottom-action .activity-card,
@@ -347,6 +341,16 @@
   filter: drop-shadow(0 8px 12px rgba(21, 27, 47, 0.10));
 }
 
+.mood-activities-page.has-bottom-action .activity-fallback-icon {
+  position: relative;
+  z-index: 2;
+
+  color: var(--activity-accent);
+  font-size: 34px;
+  line-height: 1;
+  font-weight: 950;
+}
+
 .mood-activities-page.has-bottom-action .activity-body {
   min-width: 0;
   height: auto;
@@ -369,8 +373,6 @@
   min-width: 0;
 }
 
-/* On garde seulement la catégorie.
-   La durée est déjà choisie à l'écran précédent, donc elle est cachée ici. */
 .mood-activities-page.has-bottom-action .activity-duration-pill {
   display: none;
 }
@@ -444,8 +446,6 @@
   -webkit-box-orient: vertical;
 }
 
-/* Le texte descriptif donnait un effet plaquette d'information.
-   On le masque même si l'ancien HTML est encore présent. */
 .mood-activities-page.has-bottom-action .activity-content {
   display: none;
 }
@@ -454,42 +454,34 @@
   position: static;
   z-index: 3;
 
-  width: 44px;
-  height: 44px;
+  width: auto;
+  height: auto;
 
-  display: grid;
-  place-items: center;
+  display: block;
   justify-self: end;
 
   transform: none;
 
-  border-radius: 999px;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 
-  color: #ffffff;
-  background: var(--activity-accent);
-  border: 2px solid rgba(255, 255, 255, 0.84);
+  color: #8b6df1;
 
-  font-size: 31px;
+  font-size: 54px;
   line-height: 1;
   font-weight: 950;
-
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.54) inset;
 }
 
 .mood-activities-page.has-bottom-action .activity-card-link:active .activity-card-arrow {
-  transform: translateY(3px);
-
-  box-shadow:
-    0 2px 0 var(--activity-shadow-base),
-    0 8px 12px rgba(21, 27, 47, 0.08),
-    0 1px 0 rgba(255, 255, 255, 0.54) inset;
+  transform: translateY(2px);
+  box-shadow: none;
 }
 
 
 /* ========================================================= */
-/* 4. CATEGORY COLORS - PASTEL SINGLE COLOR SYSTEM           */
-/* One color family per category. No complementary colors.    */
+/* 4. CATEGORY COLORS                                         */
 /* ========================================================= */
 
 .mood-activities-page .activity-sport {
@@ -622,6 +614,19 @@
   --activity-shadow-soft: rgba(76, 115, 216, 0.14);
 }
 
+.mood-activities-page .activity-music {
+  --activity-accent: #a58cf4;
+  --activity-accent-deep: #7655d8;
+  --activity-soft: #f4efff;
+  --activity-glow: rgba(165, 140, 244, 0.32);
+  --activity-pop: rgba(165, 140, 244, 0.25);
+  --activity-pop-strong: rgba(165, 140, 244, 0.32);
+  --activity-border: rgba(165, 140, 244, 0.50);
+  --activity-border-strong: rgba(118, 85, 216, 0.62);
+  --activity-shadow-base: rgba(118, 85, 216, 0.24);
+  --activity-shadow-soft: rgba(118, 85, 216, 0.14);
+}
+
 .mood-activities-page .activity-default {
   --activity-accent: #a58cf4;
   --activity-accent-deep: #7655d8;
@@ -637,8 +642,7 @@
 
 
 /* ========================================================= */
-/* 5. LEGACY ACTIVITY CARD SUPPORT                            */
-/* Keeps old markup from breaking if some views still use it. */
+/* 5. LEGACY SUPPORT                                          */
 /* ========================================================= */
 
 .activity-visual {
@@ -653,7 +657,6 @@
 
 .activity-fallback-icon {
   color: $ta-purple;
-
   font-size: 30px;
   line-height: 1;
   font-weight: 900;
@@ -700,7 +703,9 @@
 
 .summary-hero h1 {
   margin: 0 0 8px;
+
   color: $ta-ink;
+
   font-size: clamp(29px, 4.3vh, 34px);
   line-height: 1;
   font-weight: 950;
@@ -710,13 +715,13 @@
 .summary-hero p:not(.recommendations-kicker) {
   max-width: 340px;
   margin: 0;
+
   color: rgba(21, 27, 47, 0.70);
+
   font-size: 14px;
   line-height: 1.35;
   font-weight: 700;
 }
-
-/* Main cards */
 
 .summary-main-card,
 .summary-stat-card,
@@ -734,6 +739,7 @@
 .summary-main-card {
   position: relative;
   overflow: hidden;
+
   min-height: 190px;
   padding: 20px;
 
@@ -753,6 +759,7 @@
   gap: 7px;
 
   border-radius: 999px;
+
   color: #2f7d4f;
   background: rgba(30, 221, 136, 0.16);
 
@@ -763,7 +770,9 @@
 
 .summary-main-card h2 {
   margin: 16px 0;
+
   color: $ta-ink;
+
   font-size: 22px;
   line-height: 1.08;
   font-weight: 900;
@@ -778,6 +787,7 @@
 .summary-meta-grid div {
   min-width: 0;
   padding: 10px;
+
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.68);
 }
@@ -789,7 +799,9 @@
 
 .summary-meta-grid span {
   margin-bottom: 5px;
+
   color: $ta-ink-light;
+
   font-size: 9px;
   line-height: 1;
   font-weight: 850;
@@ -799,15 +811,15 @@
 
 .summary-meta-grid strong {
   overflow: hidden;
+
   color: $ta-ink;
+
   font-size: 12px;
   line-height: 1.14;
   font-weight: 850;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
-/* Stat cards */
 
 .summary-stats-grid {
   display: grid;
@@ -848,10 +860,12 @@
   width: 52px;
   height: 52px;
 
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   border-radius: 999px;
+
   color: rgba(21, 27, 47, 0.44);
   background: rgba(124, 99, 242, 0.12);
 
@@ -859,11 +873,24 @@
   line-height: 1;
 }
 
-.summary-stat-icon i {
-  position: static;
+.summary-stat-icon i,
+.summary-stat-icon svg {
+  position: static !important;
+  inset: auto !important;
+
+  width: 20px;
+  height: 20px;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
   display: block;
-  transform: none;
+
+  transform: translateY(2px) !important;
+
+  font-size: 20px;
   line-height: 1;
+  text-align: center;
 }
 
 .summary-stat-card > div:not(.summary-stat-icon) {
@@ -880,7 +907,9 @@
 .summary-stat-card p,
 .summary-reward-card p {
   margin: 0 0 5px;
+
   color: $ta-ink-muted;
+
   font-size: 11px;
   line-height: 1.15;
   font-weight: 850;
@@ -889,7 +918,9 @@
 .summary-stat-card strong {
   display: block;
   margin-bottom: 7px;
+
   color: $ta-ink;
+
   font-size: 28px;
   line-height: 0.95;
   font-weight: 950;
@@ -898,13 +929,13 @@
 
 .summary-stat-card span {
   display: block;
+
   color: $ta-ink-muted;
+
   font-size: 12px;
   line-height: 1.25;
   font-weight: 700;
 }
-
-/* Reward card */
 
 .summary-reward-card {
   padding: 14px;
@@ -925,6 +956,7 @@
   place-items: center;
 
   border-radius: 18px;
+
   color: $ta-gold;
   background: rgba(216, 154, 50, 0.14);
 
@@ -933,7 +965,9 @@
 
 .summary-reward-card strong {
   display: block;
+
   color: $ta-ink;
+
   font-size: 14px;
   line-height: 1.25;
   font-weight: 850;
@@ -946,6 +980,7 @@
 
 .summary-unlocks-list {
   width: 100%;
+
   display: grid;
   gap: 10px;
 }
@@ -965,6 +1000,7 @@
 
   display: grid;
   place-items: center;
+
   overflow: hidden;
 
   border-radius: 20px;
@@ -986,7 +1022,9 @@
 
 .summary-unlock-content p {
   margin: 0 0 5px;
+
   color: $ta-ink-muted;
+
   font-size: 11px;
   line-height: 1;
   font-weight: 850;
@@ -1001,15 +1039,15 @@
 .summary-unlock-content span {
   display: block;
   overflow: hidden;
+
   color: $ta-ink;
+
   font-size: 18px;
   line-height: 1.05;
   font-weight: 900;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
-/* Actions */
 
 .summary-actions {
   margin-top: auto;
@@ -1078,8 +1116,9 @@
     0 4px 10px rgba(21, 27, 47, 0.025);
 }
 
+
 /* ========================================================= */
-/* 7. EMPTY STATE / BUTTONS / EXERCISE FEEDBACK               */
+/* 7. EMPTY STATE / BUTTONS / FEEDBACK                        */
 /* ========================================================= */
 
 .empty-state {
@@ -1089,7 +1128,9 @@
 
 .empty-state p {
   margin-bottom: 18px;
+
   color: $ta-ink-muted;
+
   font-size: 15px;
   font-weight: 650;
 }
@@ -1115,41 +1156,9 @@
   font-weight: 800;
 }
 
-/* ========================================================= */
-/* 8. ACTIVITY CARD ARROW - SIMPLE PURPLE ARROW               */
-/* ========================================================= */
-
-.mood-activities-page.has-bottom-action .activity-card-arrow {
-  position: static;
-  z-index: 3;
-
-  width: auto;
-  height: auto;
-
-  display: block;
-  justify-self: end;
-
-  transform: none;
-
-  border: none;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-
-  color: #8b6df1;
-
-  font-size: 54px;
-  line-height: 1;
-  font-weight: 950;
-}
-
-.mood-activities-page.has-bottom-action .activity-card-link:active .activity-card-arrow {
-  transform: translateY(2px);
-  box-shadow: none;
-}
 
 /* ========================================================= */
-/* 9. FINISHED SESSION PAGE / STICKY CTA FOOTER               */
+/* 8. FINISHED SESSION PAGE / STICKY CTA FOOTER               */
 /* ========================================================= */
 
 .phone-page.session-finished-page {
@@ -1250,6 +1259,7 @@
 
 .session-new-activity-button:active {
   transform: translateY(1px);
+
   box-shadow:
     0 10px 20px rgba(124, 99, 242, 0.20),
     0 4px 8px rgba(21, 27, 47, 0.06);
@@ -1259,8 +1269,9 @@
   font-size: 15px;
 }
 
+
 /* ========================================================= */
-/* 10. RESPONSIVE                                             */
+/* 9. RESPONSIVE                                              */
 /* ========================================================= */
 
 @media (max-height: 760px) {
@@ -1465,48 +1476,4 @@
     padding-left: 20px;
     padding-right: 20px;
   }
-}
-
-/* Final fix: center icons inside finished summary bubbles */
-
-.session-finished-page .summary-stat-icon {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-
-  width: 64px;
-  height: 64px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 999px;
-  background: rgba(124, 99, 242, 0.12);
-
-  color: rgba(21, 27, 47, 0.48);
-}
-
-.session-finished-page .summary-stat-icon i,
-.session-finished-page .summary-stat-icon svg {
-  position: static !important;
-  inset: auto !important;
-
-  width: 20px;
-  height: 20px;
-
-  margin: 0 !important;
-  padding: 0 !important;
-
-  display: block;
-
-  transform: none !important;
-
-  font-size: 20px;
-  line-height: 1;
-  text-align: center;
-}
-
-.session-finished-page .summary-stat-card > div:not(.summary-stat-icon) {
-  padding-right: 58px;
 }

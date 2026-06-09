@@ -115,7 +115,6 @@
         <h1>
           On a trouvé ça pour toi
         </h1>
-
       </div>
 
       <% if @activities.any? %>
@@ -126,86 +125,92 @@
 
             <% interest_name = activity.interest.name %>
 
-              <% interest_class =
-                case interest_name
-                when "Sport"
-                  "activity-sport"
-                when "Langues"
-                  "activity-langues"
-                when "Créativité"
-                  "activity-creativity"
-                when "Bien-être"
-                  "activity-wellbeing"
-                when "Photo"
-                  "activity-photo"
-                when "Dessin"
-                  "activity-drawing"
-                when "Écriture"
-                  "activity-writing"
-                when "Culture"
-                  "activity-culture"
-                when "Productivité"
-                  "activity-productivity"
-                when "Code"
-                  "activity-code"
-                else
-                  "activity-default"
-                end
-              %>
+            <% interest_class =
+              case interest_name
+              when "Sport"
+                "activity-sport"
+              when "Langues"
+                "activity-langues"
+              when "Créativité"
+                "activity-creativity"
+              when "Bien-être"
+                "activity-wellbeing"
+              when "Photo"
+                "activity-photo"
+              when "Dessin"
+                "activity-drawing"
+              when "Écriture"
+                "activity-writing"
+              when "Culture"
+                "activity-culture"
+              when "Productivité", "Productivite"
+                "activity-productivity"
+              when "Code"
+                "activity-code"
+              when "Musique", "Music"
+                "activity-music"
+              else
+                "activity-default"
+              end
+            %>
 
-              <% activity_mascot =
-                case interest_name
-                when "Sport"
-                  "mascot/activities/sport.png"
-                when "Langues"
-                  "mascot/activities/langues.png"
-                when "Créativité"
-                  "mascot/activities/creativite.png"
-                when "Bien-être"
-                  "mascot/activities/bien_etre.png"
-                when "Photo"
-                  "mascot/activities/photo.png"
-                when "Dessin"
-                  "mascot/activities/dessin.png"
-                when "Écriture"
-                  "mascot/activities/ecriture.png"
-                when "Culture"
-                  "mascot/activities/culture.png"
-                when "Productivité"
-                  "mascot/activities/productivite.png"
-                when "Code"
-                  "mascot/activities/code.png"
-                else
-                  nil
-                end
-              %>
+            <% activity_mascot =
+              case interest_name
+              when "Sport"
+                "mascot/activities/sport.png"
+              when "Langues"
+                "mascot/activities/langues.png"
+              when "Créativité"
+                "mascot/activities/creativite.png"
+              when "Bien-être"
+                "mascot/activities/bien_etre.png"
+              when "Photo"
+                "mascot/activities/photo.png"
+              when "Dessin"
+                "mascot/activities/dessin.png"
+              when "Écriture"
+                "mascot/activities/ecriture.png"
+              when "Culture"
+                "mascot/activities/culture.png"
+              when "Productivité", "Productivite"
+                "mascot/activities/productivite.png"
+              when "Code"
+                "mascot/activities/code.png"
+              when "Musique", "Music"
+                "mascot/activities/musique.png"
+              else
+                nil
+              end
+            %>
 
-              <% activity_category_icon =
-                case interest_name
-                when "Sport"
-                  "fa-solid fa-person-running"
-                when "Langues"
-                  "fa-solid fa-language"
-                when "Créativité"
-                  "fa-solid fa-palette"
-                when "Bien-être"
-                  "fa-solid fa-spa"
-                when "Photo"
-                  "fa-solid fa-camera"
-                when "Dessin"
-                  "fa-solid fa-pen-nib"
-                when "Écriture"
-                  "fa-solid fa-pen"
-                when "Culture"
-                  "fa-solid fa-book-open"
-                when "Productivité"
-                  "fa-solid fa-list-check"
-                when "Code"
-                  "fa-solid fa-code"
-                else
-                  "fa-solid fa-star"
-                end
-              %>
+            <% activity_category_icon =
+              case interest_name
+              when "Sport"
+                "fa-solid fa-person-running"
+              when "Langues"
+                "fa-solid fa-language"
+              when "Créativité"
+                "fa-solid fa-palette"
+              when "Bien-être"
+                "fa-solid fa-spa"
+              when "Photo"
+                "fa-solid fa-camera"
+              when "Dessin"
+                "fa-solid fa-pen-nib"
+              when "Écriture"
+                "fa-solid fa-pen"
+              when "Culture"
+                "fa-solid fa-book-open"
+              when "Productivité", "Productivite"
+                "fa-solid fa-list-check"
+              when "Code"
+                "fa-solid fa-code"
+              when "Musique", "Music"
+                "fa-solid fa-music"
+              else
+                "fa-solid fa-star"
+              end
+            %>
 
             <%= link_to activity_path(
                   activity,
@@ -250,7 +255,6 @@
                 </div>
               </article>
 
-
             <% end %>
 
           <% end %>
@@ -270,7 +274,7 @@
 
     <% end %>
 
-    </main>
+  </main>
 
   <% if @activity_session.finished? %>
     <footer class="mood-screen-footer session-complete-footer">

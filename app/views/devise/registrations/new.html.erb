@@ -1,46 +1,89 @@
-<div class="auth-page">
-  <%# Bouton retour vers l'accueil %>
-  <%= link_to root_path, class: "auth-back" do %>
-    <i class="fa-solid fa-arrow-left"></i>
-  <% end %>
+<div class="phone-page auth-page auth-registration-page">
+  <header class="auth-topbar">
+    <%= link_to root_path, class: "auth-back-button", aria: { label: "Retour" } do %>
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>Retour</span>
+    <% end %>
 
-  <h1 class="auth-title">Créer ton profil</h1>
-
-  <%# Avatar décoratif (statique pour l'instant). Le crayon ouvrira la galerie en v2. %>
-  <div class="auth-avatar">
-    <div class="auth-avatar-circle">
-      <i class="fa-solid fa-sun"></i>
+    <div class="auth-brand-mini">
+      <%= image_tag "brand/tiny-act-logo.png",
+          class: "auth-brand-logo",
+          alt: "Tiny Act" %>
     </div>
-    <button type="button" class="auth-avatar-edit" title="Bientôt : choisir ton avatar">
-      <i class="fa-solid fa-pencil"></i>
-    </button>
-  </div>
+  </header>
 
-  <%# Le formulaire Devise. simple_form génère automatiquement les bons noms de champs (user[...]) %>
-  <%= simple_form_for(resource, as: resource_name,
-        url: registration_path(resource_name),
-        html: { class: "auth-form" }) do |f| %>
+  <main class="auth-content">
+    <section class="auth-hero-card">
+      <div class="auth-hero-icon">
+        <i class="fa-solid fa-sparkles"></i>
+      </div>
 
-    <%= f.error_notification %>
+      <div class="auth-hero-text">
+        <p class="auth-kicker">Bienvenue</p>
+        <h1>Créer un compte</h1>
+        <p>Commence Tiny Act avec ton profil, tes centres d’intérêt et ta room.</p>
+      </div>
+    </section>
 
-    <%= f.input :first_name, label: "Ton prénom", placeholder: "Ton prénom",
-          input_html: { class: "auth-input" }, wrapper_html: { class: "auth-field" } %>
+    <section class="auth-form-card">
+      <div class="auth-form-heading">
+        <p class="auth-kicker">Profil</p>
+        <h2>Tes infos</h2>
+      </div>
 
-    <%= f.input :last_name, label: "Ton nom", placeholder: "Ton nom",
-          input_html: { class: "auth-input" }, wrapper_html: { class: "auth-field" } %>
+      <%= simple_form_for(resource,
+            as: resource_name,
+            url: registration_path(resource_name),
+            html: { class: "auth-form" }) do |f| %>
 
-    <%= f.input :email, label: "Ton mail", placeholder: "Ton mail",
-          input_html: { class: "auth-input" }, wrapper_html: { class: "auth-field" } %>
+        <%= f.error_notification %>
 
-    <%= f.input :password, label: "Ton mot de passe", placeholder: "Ton mot de passe",
-          hint: "6 caractères minimum",
-          input_html: { class: "auth-input", autocomplete: "new-password" },
-          wrapper_html: { class: "auth-field" } %>
+        <div class="auth-name-grid">
+          <%= f.input :first_name,
+                label: "Prénom",
+                placeholder: "Prénom",
+                input_html: { class: "auth-input" },
+                wrapper_html: { class: "auth-field" } %>
 
-    <%= f.button :submit, "Créer mon profil", class: "auth-submit" %>
-  <% end %>
+          <%= f.input :last_name,
+                label: "Nom",
+                placeholder: "Nom",
+                input_html: { class: "auth-input" },
+                wrapper_html: { class: "auth-field" } %>
+        </div>
 
-  <div class="auth-login-link">
-    <%= link_to "Déjà un compte ? Se connecter", new_user_session_path %>
-  </div>
+        <%= f.input :email,
+              label: "Email",
+              placeholder: "ton@email.com",
+              input_html: {
+                autocomplete: "email",
+                class: "auth-input"
+              },
+              wrapper_html: { class: "auth-field" } %>
+
+        <%= f.input :password,
+              label: "Mot de passe",
+              placeholder: "6 caractères minimum",
+              hint: "Tu pourras modifier ton avatar après la création du compte.",
+              input_html: {
+                autocomplete: "new-password",
+                class: "auth-input"
+              },
+              wrapper_html: { class: "auth-field" } %>
+
+        <%= f.button :submit,
+            "Créer mon profil",
+            class: "auth-submit-button" %>
+      <% end %>
+    </section>
+
+    <section class="auth-secondary-card">
+      <p>Déjà un compte ?</p>
+
+      <%= link_to new_user_session_path, class: "auth-secondary-link" do %>
+        <span>Se connecter</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      <% end %>
+    </section>
+  </main>
 </div>
