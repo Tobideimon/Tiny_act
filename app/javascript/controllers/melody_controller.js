@@ -2,11 +2,13 @@ import { Controller } from "@hotwired/stimulus"
 import * as Tone from "tone"
 
 export default class extends Controller {
-  static targets = ["key", "status", "progress", "footer"]
+  static targets = ["key", "status", "progress", "footer", "volume"]
   static values = { notes: Array, finishUrl: String }
 
   connect() {
     this.synth = new Tone.PolySynth(Tone.Synth).toDestination()
+    this.synth.set({ oscillator: { type: "triangle" } })
+    Tone.getDestination().volume.value = Tone.gainToDb(0.8)
     this.index = 0
     this.finished = false
     this.updateProgress()
@@ -22,7 +24,7 @@ export default class extends Controller {
     const button = event.currentTarget
     const note = button.dataset.note
 
-    await Tone.start() // débloque l'audio au 1er geste (idempotent)
+    await Tone.start()
     this.synth.triggerAttackRelease(note, "8n")
 
     if (note === this.notesValue[this.index]) {
@@ -39,6 +41,19 @@ export default class extends Controller {
     }
   }
 
+  selectInstrument(event) {
+    const type = event.currentTarget.dataset.instrument
+    if (this.synth) this.synth.set({ oscillator: { type } })
+    this.element.querySelectorAll(".melody-chip").forEach((chip) =>
+      chip.classList.toggle("is-active", chip === event.currentTarget)
+    )
+  }
+
+  setVolume(event) {
+    const pct = Number(event.currentTarget.value) / 100
+    Tone.getDestination().volume.value = pct === 0 ? -Infinity : Tone.gainToDb(pct)
+  }
+
   highlightNext() {
     const expected = this.notesValue[this.index]
     this.keyTargets.forEach((key) =>
@@ -51,7 +66,6 @@ export default class extends Controller {
     this.keyTargets.forEach((key) => key.classList.remove("melody-key-next"))
     if (this.hasStatusTarget) this.statusTarget.textContent = "Mélodie réussie !"
     if (this.hasFooterTarget) this.footerTarget.hidden = false
-    // Valide l'activité automatiquement après un court instant de succès → crédite l'XP
     setTimeout(() => this.finish(), 1500)
   }
 

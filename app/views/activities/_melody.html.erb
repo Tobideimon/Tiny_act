@@ -1,16 +1,3 @@
-<style>
-  .melody-keyboard { display: flex; gap: 4px; justify-content: center; margin: 1.5rem 0; }
-  .melody-key { width: 44px; height: 160px; background: #fff; border: 1px solid #cbd5e1;
-    border-radius: 0 0 6px 6px; cursor: pointer; display: flex; align-items: flex-end;
-    justify-content: center; padding-bottom: 8px; font-size: 12px; color: #64748b; transition: background .1s; }
-  .melody-key:hover { background: #f1f5f9; }
-  .melody-key-next { background: #bfdbfe; border-color: #3b82f6; box-shadow: inset 0 0 0 2px #3b82f6; }
-  .melody-key-correct { background: #bbf7d0 !important; }
-  .melody-key-wrong { background: #fecaca !important; }
-  .melody-progress { font-weight: 600; }
-  .melody-footer { text-align: center; margin-top: 1rem; }
-</style>
-
 <% if melody.blank? %>
   <div class="activity-show-panel"><p>Aucune mélodie disponible pour le moment.</p></div>
 <% else %>
@@ -22,18 +9,42 @@
   >
     <div class="melody-header">
       <h2><%= melody[:name] %></h2>
-      <p data-melody-target="status">Joue la note qui s'allume en bleu.</p>
+      <p class="melody-status" data-melody-target="status">Joue la note qui s'éclaire.</p>
       <p class="melody-progress" data-melody-target="progress"></p>
     </div>
 
-    <div class="melody-keyboard">
-      <% %w[C4 D4 E4 F4 G4 A4 B4 C5].each do |note| %>
-        <button type="button" class="melody-key"
-                data-note="<%= note %>"
-                data-melody-target="key"
-                data-action="click->melody#playKey">
-          <span><%= note %></span>
-        </button>
+    <div class="melody-controls">
+      <div class="melody-instruments">
+        <% [["triangle", "Doux"], ["sawtooth", "Synthé"], ["square", "Rétro"], ["sine", "Pur"]].each_with_index do |(value, label), i| %>
+          <button type="button" class="melody-chip <%= "is-active" if i.zero? %>"
+                  data-instrument="<%= value %>"
+                  data-action="click->melody#selectInstrument">
+            <%= label %>
+          </button>
+        <% end %>
+      </div>
+      <label class="melody-volume">
+        🔊
+        <input type="range" min="0" max="100" value="80"
+               data-melody-target="volume"
+               data-action="input->melody#setVolume">
+      </label>
+    </div>
+
+    <div class="melody-piano">
+      <div class="melody-whites">
+        <% %w[C4 D4 E4 F4 G4 A4 B4 C5].each do |note| %>
+          <button type="button" class="melody-key melody-key--white"
+                  data-note="<%= note %>" data-melody-target="key"
+                  data-action="click->melody#playKey">
+            <span class="melody-key__label"><%= note %></span>
+          </button>
+        <% end %>
+      </div>
+      <% %w[C#4 D#4 F#4 G#4 A#4].each do |note| %>
+        <button type="button" class="melody-key melody-key--black"
+                data-note="<%= note %>" data-melody-target="key"
+                data-action="click->melody#playKey"></button>
       <% end %>
     </div>
 

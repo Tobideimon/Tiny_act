@@ -1,0 +1,116 @@
+.melody {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  margin-bottom: 24px;
+  border-radius: 30px;
+  border: 2px solid $ta-border-medium;
+  background:
+    radial-gradient(circle at 13% 16%, rgba(124, 99, 242, 0.10) 0, transparent 34%),
+    linear-gradient(135deg, $ta-bg-start 0%, $ta-surface 50%, $ta-bg-end 100%);
+  box-shadow: $ta-shadow-card;
+}
+
+.melody-header {
+  text-align: center;
+  h2 { margin: 0 0 4px; color: $ta-ink; font-weight: 800; font-size: 1.4rem; }
+}
+.melody-status { margin: 0; color: $ta-ink-soft; font-weight: 500; }
+.melody-progress { margin: 6px 0 0; color: $ta-purple; font-weight: 700; }
+
+.melody-controls { display: flex; flex-direction: column; gap: 10px; }
+.melody-instruments { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+
+.melody-chip {
+  appearance: none;
+  border: 2px solid $ta-border-medium;
+  background: $ta-surface;
+  color: $ta-ink-soft;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  &:hover { transform: translateY(-1px); }
+  &.is-active {
+    background: $ta-purple; border-color: $ta-purple; color: #fff;
+    box-shadow: 0 6px 14px $ta-purple-soft;
+  }
+}
+
+.melody-volume {
+  display: flex; align-items: center; gap: 10px;
+  color: $ta-ink-muted; font-size: 1.1rem;
+  input[type="range"] { flex: 1; accent-color: $ta-purple; }
+}
+
+// ---- Piano ----
+.melody-piano { position: relative; width: 100%; user-select: none; }
+.melody-whites { display: flex; gap: 0; }
+
+.melody-key {
+  appearance: none; cursor: pointer;
+  transition: transform 0.05s ease, filter 0.1s ease, box-shadow 0.15s ease;
+}
+
+.melody-key--white {
+  flex: 1;
+  height: 132px;
+  border-radius: 0 0 14px 14px;
+  background: linear-gradient(180deg, #fff4e6 0%, #ffe0bd 45%, #ffcc94 100%);
+  border: 1px solid rgba(214, 140, 56, 0.5);                 // liseret
+  box-shadow:
+    inset 0 3px 3px rgba(255, 255, 255, 0.7),                // reflet du haut (lumière)
+    0 5px 9px rgba(214, 140, 56, 0.18);                      // ombre portée
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 9px;
+  .melody-key__label { color: rgba(120, 70, 20, 0.7); font-size: 0.7rem; font-weight: 700; }
+  &:active { transform: translateY(2px); filter: brightness(0.97); }
+}
+
+.melody-key--black {
+  position: absolute; top: 0;
+  width: 8.5%; height: 84px;
+  border-radius: 0 0 10px 10px;
+  background: linear-gradient(180deg, #aecaf0 0%, #6f93cb 48%, #4d6ca6 100%);
+  border: 1px solid rgba(58, 84, 130, 0.7);                  // liseret
+  box-shadow:
+    inset 0 3px 3px rgba(255, 255, 255, 0.4),                // reflet du haut
+    0 7px 11px rgba(40, 55, 90, 0.32);                       // ombre portée
+  z-index: 2;
+  &:active { transform: translateY(2px); filter: brightness(0.95); }
+}
+
+// Position des touches noires (largeur 8.5% → décalage ~4.25%)
+.melody-key--black[data-note="C#4"] { left: 8.2%; }
+.melody-key--black[data-note="D#4"] { left: 20.7%; }
+.melody-key--black[data-note="F#4"] { left: 45.7%; }
+.melody-key--black[data-note="G#4"] { left: 58.2%; }
+.melody-key--black[data-note="A#4"] { left: 70.7%; }
+
+// ---- États ----
+.melody-key.melody-key-next {
+  box-shadow: 0 0 0 3px $ta-purple, 0 0 16px $ta-purple-soft;
+  filter: brightness(1.06);
+}
+.melody-key-correct { filter: brightness(1.12); box-shadow: 0 0 0 3px $ta-green; }
+.melody-key-wrong   { box-shadow: 0 0 0 3px $ta-red; }
+
+// ---- Footer ----
+.melody-footer {
+  text-align: center;
+  p { color: $ta-ink; font-weight: 700; margin: 0 0 12px; }
+}
+
+// ---- Responsive (petits écrans) ----
+@media (max-height: 760px) {
+  .melody-key--white { height: 116px; }
+  .melody-key--black { height: 74px; }
+}
+@media (max-height: 670px) {
+  .melody { gap: 10px; padding: 12px; }
+  .melody-key--white { height: 100px; }
+  .melody-key--black { height: 64px; }
+}
