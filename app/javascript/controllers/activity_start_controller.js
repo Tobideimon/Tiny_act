@@ -18,6 +18,7 @@ export default class extends Controller {
     this.started = false
     this.starting = false
     this.finished = false
+    this.forceFinishAction = false
 
     this.syncControls()
 
@@ -29,12 +30,16 @@ export default class extends Controller {
 
     this.boundHandleInternalStartClick = this.handleInternalStartClick.bind(this)
     this.element.addEventListener("click", this.boundHandleInternalStartClick)
+
+    this.boundHandleActivityStarted = this.handleActivityStarted.bind(this)
+    this.element.addEventListener("activity:started", this.boundHandleActivityStarted)
   }
 
   disconnect() {
     this.element.removeEventListener("activity:finished", this.boundHandleActivityFinished)
     this.element.removeEventListener("activity:controls-changed", this.boundSyncPrimaryActionLabel)
     this.element.removeEventListener("click", this.boundHandleInternalStartClick)
+    this.element.removeEventListener("activity:started", this.boundHandleActivityStarted)
   }
 
   async start() {
@@ -73,9 +78,11 @@ export default class extends Controller {
   }
 
   async handleInternalStartClick(event) {
-    const cultureThemeButton = event.target.closest("[data-action*='#selectCategory']")
+    const internalStartButton = event.target.closest(
+      "[data-action*='#selectCategory'], [data-action*='#chooseFamily']"
+    )
 
-    if (!cultureThemeButton) return
+    if (!internalStartButton) return
     if (this.started || this.starting) return
 
     this.starting = true
@@ -94,6 +101,32 @@ export default class extends Controller {
     window.setTimeout(() => {
       this.syncPrimaryActionLabel()
     }, 0)
+  }
+
+  async handleActivityStarted(event) {
+    if (event.detail && event.detail.showFinishAction) {
+      this.forceFinishAction = true
+    }
+
+    if (this.started) {
+      this.syncControls()
+      return
+    }
+
+    if (this.starting) return
+
+    this.starting = true
+
+    const startSaved = await this.persistStart()
+
+    this.starting = false
+
+    if (!startSaved) {
+      alert("Impossible de démarrer l’activité. Réessaie.")
+      return
+    }
+
+    this.markStarted()
   }
 
   async persistStart() {
@@ -116,7 +149,7 @@ export default class extends Controller {
   }
 
   primaryAction() {
-    if (!this.started || this.finished) return
+    if (!this.started || this.finished || this.forceFinishAction) return
 
     const internalPrimaryButton = this.findInternalPrimaryButton()
 
@@ -171,18 +204,20 @@ export default class extends Controller {
     }
 
     if (this.hasPrimaryActionTarget) {
-      this.primaryActionTarget.hidden = !this.started || this.finished
+      this.primaryActionTarget.hidden =
+        !this.started || this.finished || this.forceFinishAction
     }
 
     if (this.hasFinishActionTarget) {
-      this.finishActionTarget.hidden = !this.finished
+      this.finishActionTarget.hidden =
+        !(this.finished || (this.started && this.forceFinishAction))
     }
 
     this.syncPrimaryActionLabel()
   }
 
   syncPrimaryActionLabel() {
-    if (!this.hasPrimaryActionTarget || this.finished) return
+    if (!this.hasPrimaryActionTarget || this.finished || this.forceFinishAction) return
 
     const internalPrimaryButton = this.findInternalPrimaryButton()
 

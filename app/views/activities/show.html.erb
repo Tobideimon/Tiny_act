@@ -156,7 +156,7 @@
     <% end %>
   </main>
 
-  <% unless @activity.culture_activity? %>
+  <% unless @activity.culture_activity? || @activity.code_quiz? || @activity.interest.name == "Dessin" %>
     <div
       class="activity-start-action"
       data-activity-start-target="startWrapper"
