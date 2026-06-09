@@ -117,17 +117,50 @@
   font-weight: 750;
 }
 
-/* Placeholder import */
+/* Camera import */
 
-.photo-upload-placeholder {
+.photo-camera-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 12px;
+
+  border-radius: 22px;
+  border: 1px solid rgba(190, 88, 140, 0.18);
+
+  background: rgba(255, 255, 255, 0.72);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 8px 16px rgba(43, 45, 66, 0.03);
+}
+
+.photo-camera-button {
+  width: 100%;
+  min-height: 58px;
+
   display: flex;
   align-items: center;
   gap: 14px;
 
-  background: rgba(255, 255, 255, 0.72);
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+
+  color: $ta-ink;
+
+  font-size: 16px;
+  line-height: 1.15;
+  font-weight: 850;
+  letter-spacing: -0.025em;
+  text-align: left;
+
+  cursor: pointer;
 }
 
-.photo-upload-icon {
+.photo-camera-button-icon {
   width: 58px;
   height: 58px;
 
@@ -145,25 +178,45 @@
   font-size: 24px;
 }
 
-.photo-upload-placeholder strong {
-  display: block;
-
-  margin-bottom: 4px;
-
-  color: $ta-ink;
-
-  font-size: 16px;
-  line-height: 1.15;
-  font-weight: 850;
-  letter-spacing: -0.025em;
+.photo-preview-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.photo-upload-placeholder p {
+.photo-preview {
+  width: 100%;
+  max-height: 280px;
+
+  object-fit: cover;
+
+  border-radius: 20px;
+  border: 1px solid rgba(190, 88, 140, 0.18);
+
+  box-shadow: 0 12px 24px rgba(21, 27, 47, 0.1);
+}
+
+.photo-retake-button {
+  align-self: center;
+
+  border: 0;
+  background: transparent;
+
+  color: #be588c;
+
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 850;
+
+  cursor: pointer;
+}
+
+.photo-camera-help {
   margin: 0;
 
   color: $ta-ink-muted;
 
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.35;
   font-weight: 650;
 }
@@ -193,13 +246,17 @@
     font-size: 13px;
   }
 
-  .photo-upload-icon {
+  .photo-camera-button-icon {
     width: 52px;
     height: 52px;
 
     flex-basis: 52px;
 
     font-size: 22px;
+  }
+
+  .photo-preview {
+    max-height: 220px;
   }
 }
 
@@ -255,27 +312,38 @@
   letter-spacing: -0.045em;
 }
 
-.activity-show-page.is-activity-started .photo-upload-placeholder {
-  padding: 12px;
-  gap: 12px;
+.activity-show-page.is-activity-started .photo-camera-zone {
+  padding: 10px;
+  gap: 10px;
   border-radius: 20px;
 }
 
-.activity-show-page.is-activity-started .photo-upload-icon {
-  width: 48px;
-  height: 48px;
-  flex-basis: 48px;
-  border-radius: 18px;
-  font-size: 20px;
-}
+.activity-show-page.is-activity-started .photo-camera-button {
+  min-height: 48px;
 
-.activity-show-page.is-activity-started .photo-upload-placeholder strong {
+  gap: 12px;
+
   font-size: 14px;
 }
 
-.activity-show-page.is-activity-started .photo-upload-placeholder p {
+.activity-show-page.is-activity-started .photo-camera-button-icon {
+  width: 48px;
+  height: 48px;
+
+  flex-basis: 48px;
+
+  border-radius: 18px;
+
+  font-size: 20px;
+}
+
+.activity-show-page.is-activity-started .photo-camera-help {
   font-size: 12px;
   line-height: 1.25;
+}
+
+.activity-show-page.is-activity-started .photo-preview {
+  max-height: 250px;
 }
 
 @media (max-height: 760px) {
@@ -283,12 +351,11 @@
     padding: 14px;
   }
 
-  .activity-show-page.is-activity-started .photo-runner-card h2,
-  .activity-show-page.is-activity-started .photo-finished-card h2 {
-    font-size: 22px;
+  .activity-show-page.is-activity-started .photo-camera-zone {
+    padding: 9px;
   }
 
-  .activity-show-page.is-activity-started .photo-upload-placeholder {
-    padding: 10px;
+  .activity-show-page.is-activity-started .photo-preview {
+    max-height: 190px;
   }
 }
