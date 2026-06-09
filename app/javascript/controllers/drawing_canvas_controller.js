@@ -6,7 +6,8 @@ export default class extends Controller {
     "placeholder",
     "sizeIndicator",
     "eraserButton",
-    "expandButton"
+    "expandButton",
+    "completeButton"
   ]
 
   connect() {
@@ -14,6 +15,7 @@ export default class extends Controller {
     this.ctx = this.canvas.getContext("2d")
 
     this.drawing = false
+    this.activityStarted = false
     this.currentColor = "#111827"
     this.brushSize = 4
     this.isEraser = false
@@ -65,6 +67,7 @@ export default class extends Controller {
   start(event) {
     event.preventDefault()
 
+    this.dispatchActivityStartedOnce()
     this.hidePlaceholder()
     this.drawing = true
 
@@ -100,6 +103,21 @@ export default class extends Controller {
     this.ctx.closePath()
 
     this.saveState()
+  }
+
+  dispatchActivityStartedOnce() {
+    if (this.activityStarted) return
+
+    this.activityStarted = true
+
+    this.element.dispatchEvent(
+      new CustomEvent("activity:started", {
+        bubbles: true,
+        detail: {
+          showFinishAction: true
+        }
+      })
+    )
   }
 
   hidePlaceholder() {
@@ -251,5 +269,12 @@ export default class extends Controller {
 
       image.src = previous
     }, 250)
+  }
+    complete() {
+    this.element.dispatchEvent(
+      new CustomEvent("activity:finished", {
+        bubbles: true
+      })
+    )
   }
 }

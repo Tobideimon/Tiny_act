@@ -58,7 +58,7 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  padding: 12px 16px 8px;
+  padding: 12px 16px 4px;
   background: transparent;
   backdrop-filter: none;
 }
@@ -159,7 +159,7 @@
   z-index: 1;
   margin: 0 0 10px;
   max-width: 92%;
-  font-size: clamp(1.65rem, 7vw, 2.45rem);
+  font-size: 1.8rem;
   font-weight: 950;
   line-height: 0.95;
   letter-spacing: -0.06em;
@@ -174,53 +174,7 @@
   line-height: 1.45;
 }
 
-.activity-bottom-action {
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  z-index: 60;
-  display: flex;
-  gap: 10px;
-  width: 100%;
-  max-width: 480px;
-  padding: 12px 16px calc(14px + env(safe-area-inset-bottom));
-  transform: translateX(-50%);
-  background: rgba(255, 248, 239, 0.9);
-  border-top: 1px solid var(--activity-border);
-  backdrop-filter: blur(18px);
-}
-
-.activity-bottom-action form {
-  flex: 1;
-  width: 100%;
-}
-
-.activity-pause-button,
-.activity-back-button,
-.activity-bottom-action .activity-stop-button {
-  width: 100%;
-  min-height: 52px;
-  border-radius: 18px;
-  font-size: 0.92rem;
-  font-weight: 900;
-  border: 0;
-}
-
-.activity-pause-button {
-  color: var(--activity-text);
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid var(--activity-border);
-}
-
-.activity-bottom-action .activity-stop-button {
-  color: #ffffff;
-  background: var(--activity-accent);
-  box-shadow: 0 12px 26px rgba(23, 54, 47, 0.16);
-}
-
-.activity-bottom-action:not(.activity-bottom-action-with-finish) .activity-pause-button {
-  flex: 1;
-}
+/* Start button */
 
 .activity-start-action {
   position: fixed;
@@ -245,6 +199,34 @@
   box-shadow: 0 18px 34px rgba(23, 54, 47, 0.18);
 }
 
+.activity-start-button:disabled {
+  opacity: 0.56;
+  box-shadow: none;
+}
+
+/* Bottom action bar */
+
+.activity-bottom-action {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 60;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 480px;
+  padding: 12px 16px calc(14px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  background: rgba(255, 248, 239, 0.9);
+  border-top: 1px solid var(--activity-border);
+  backdrop-filter: blur(18px);
+}
+
+.activity-bottom-action form {
+  flex: 1;
+  width: 100%;
+}
+
 .activity-back-button,
 .activity-pause-button {
   flex: 1;
@@ -259,25 +241,6 @@
   color: var(--activity-text);
   background: rgba(255, 255, 255, 0.82);
   border: 1px solid var(--activity-border);
-}
-
-.activity-finish-action {
-  flex: 1;
-}
-
-.activity-finish-action form {
-  width: 100%;
-}
-
-.activity-show-page:not(.is-activity-started) {
-  [data-language-activity-target="launchButton"],
-  [data-sport-activity-target="launchButton"],
-  [data-code-quiz-target="launchButton"],
-  [data-photo-activity-target="launchButton"],
-  [data-productivite-activity-target="launchButton"],
-  .drawing-finish-button {
-    display: none !important;
-  }
 }
 
 .activity-primary-action-button {
@@ -307,6 +270,30 @@
   width: 100%;
 }
 
+.activity-bottom-action .activity-stop-button {
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  border-radius: 18px;
+  color: #ffffff;
+  background: var(--activity-accent);
+  font-size: 0.92rem;
+  font-weight: 950;
+  box-shadow: 0 12px 26px rgba(23, 54, 47, 0.16);
+}
+
+/* Hide internal buttons used only by Stimulus */
+
+.activity-show-page:not(.is-activity-started) {
+  [data-language-activity-target="launchButton"],
+  [data-sport-activity-target="launchButton"],
+  [data-code-quiz-target="launchButton"],
+  [data-photo-activity-target="launchButton"],
+  [data-productivite-activity-target="launchButton"] {
+    display: none !important;
+  }
+}
+
 .activity-show-page .productivity-launch-button,
 .activity-show-page .productivity-next-button,
 .activity-show-page .productivity-finish-button,
@@ -318,16 +305,24 @@
 .activity-show-page .sport-finish-button,
 .activity-show-page .language-activity .language-primary-button,
 .activity-show-page .culture-next-button,
-.activity-show-page .code-next-button {
+.activity-show-page [data-code-quiz-target="nextButton"] {
   display: none !important;
 }
+
+/* Drawing special case */
+
+.activity-show-page .drawing-activity-panel {
+  padding-bottom: 20px;
+}
+
+/* Desktop */
 
 @media (min-width: 768px) {
   .activity-show-page {
     padding-bottom: 128px;
   }
 
- .activity-show-content {
+  .activity-show-content {
     max-width: 520px;
     padding-top: 24px;
   }
@@ -337,10 +332,18 @@
     border-radius: 34px;
   }
 
+  .activity-show-header h1 {
+    font-size: 2.35rem;
+  }
+
   .activity-bottom-action {
     bottom: 18px;
     border: 1px solid var(--activity-border);
     border-radius: 26px;
     box-shadow: 0 18px 48px rgba(37, 24, 14, 0.16);
+  }
+
+  .activity-start-action {
+    bottom: 102px;
   }
 }
