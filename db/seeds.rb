@@ -46,6 +46,7 @@
   culture        = Interest.create!(name: "Culture")
   productivite   = Interest.create!(name: "Productivité")
   code           = Interest.create!(name: "Code")
+  musique        = Interest.create!(name: "Musique")
 
   puts "🌍 Creating language activities..."
 
@@ -219,6 +220,24 @@
       duration: data[:duration],
       interest: code,
       activity_type: "code_quiz",
+      active: true
+    )
+  end
+
+  puts "🎹 Creating melody activities..."
+  [
+    { mood: en_forme, duration: five_minutes },
+    { mood: mitige,   duration: five_minutes },
+    { mood: a_plat,   duration: five_minutes }
+  ].each do |data|
+    Activity.create!(
+      name: "Mélodie",
+      content: "Apprends et joue une courte mélodie au synthé.",
+      mood: data[:mood],
+      location: anywhere,
+      duration: data[:duration],
+      interest: musique,
+      activity_type: "melody",
       active: true
     )
   end
