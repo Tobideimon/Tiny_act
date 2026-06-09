@@ -1,59 +1,165 @@
 <% if melody.blank? %>
-  <div class="activity-show-panel"><p>Aucune mélodie disponible pour le moment.</p></div>
+  <div class="activity-show-panel">
+    <p>Aucune mélodie disponible pour le moment.</p>
+  </div>
 <% else %>
   <div
-    class="melody"
+    class="melody activity-show-panel"
     data-controller="melody"
     data-melody-notes-value="<%= melody[:notes].to_json %>"
     data-melody-finish-url-value="<%= activity_session_path(@activity_session) %>"
   >
-    <div class="melody-header">
+    <section
+      class="melody-preview-card"
+      data-melody-target="preview"
+    >
+      <p class="melody-kicker">Résumé de l’activité</p>
+
       <h2><%= melody[:name] %></h2>
-      <p class="melody-status" data-melody-target="status">Joue la note qui s'éclaire.</p>
-      <p class="melody-progress" data-melody-target="progress"></p>
-    </div>
 
-    <div class="melody-controls">
-      <div class="melody-instruments">
-        <% [["triangle", "Doux"], ["sawtooth", "Synthé"], ["square", "Rétro"], ["sine", "Pur"]].each_with_index do |(value, label), i| %>
-          <button type="button" class="melody-chip <%= "is-active" if i.zero? %>"
-                  data-instrument="<%= value %>"
-                  data-action="click->melody#selectInstrument">
-            <%= label %>
-          </button>
-        <% end %>
+      <p class="melody-intro">
+        Tu vas jouer une courte suite de notes. Une note sera indiquée en bas :
+        joue-la sur le clavier, puis passe à la suivante.
+      </p>
+
+      <div class="melody-summary-grid">
+        <div>
+          <span>Notes</span>
+          <strong><%= melody[:notes].size %></strong>
+        </div>
+
+        <div>
+          <span>Difficulté</span>
+          <strong><%= melody[:difficulty].to_s.capitalize %></strong>
+        </div>
+
+        <div>
+          <span>Son</span>
+          <strong>Clavier</strong>
+        </div>
       </div>
-      <label class="melody-volume">
-        🔊
-        <input type="range" min="0" max="100" value="80"
-               data-melody-target="volume"
-               data-action="input->melody#setVolume">
-      </label>
-    </div>
 
-    <div class="melody-piano">
-      <div class="melody-whites">
-        <% %w[C4 D4 E4 F4 G4 A4 B4 C5].each do |note| %>
-          <button type="button" class="melody-key melody-key--white"
-                  data-note="<%= note %>" data-melody-target="key"
-                  data-action="click->melody#playKey">
-            <span class="melody-key__label"><%= note %></span>
-          </button>
-        <% end %>
-      </div>
-      <% %w[C#4 D#4 F#4 G#4 A#4].each do |note| %>
-        <button type="button" class="melody-key melody-key--black"
-                data-note="<%= note %>" data-melody-target="key"
-                data-action="click->melody#playKey"></button>
-      <% end %>
-    </div>
-
-    <div class="melody-footer" data-melody-target="footer" hidden>
-      <p>🎉 Bravo, mélodie terminée !</p>
-      <button type="button" class="activity-stop-button"
-              data-action="click->melody#finish">
-        Terminer l'activité
+      <button
+        type="button"
+        class="primary-button melody-launch-button"
+        data-melody-target="launchButton"
+        data-action="click->melody#launch"
+      >
+        Lancer l’activité
       </button>
-    </div>
+    </section>
+
+    <section
+      class="melody-runner"
+      data-melody-target="runner"
+      hidden
+    >
+      <div class="melody-header">
+        <p class="melody-kicker">Note à jouer</p>
+
+        <div
+          class="melody-current-note"
+          data-melody-target="currentNote"
+        ></div>
+
+        <p
+          class="melody-status"
+          data-melody-target="status"
+        >
+          Joue la note indiquée.
+        </p>
+
+        <p
+          class="melody-progress"
+          data-melody-target="progress"
+        ></p>
+      </div>
+
+      <div class="melody-controls">
+        <div class="melody-instruments">
+          <% [["triangle", "Doux"], ["sawtooth", "Synthé"], ["square", "Rétro"], ["sine", "Pur"]].each_with_index do |(value, label), i| %>
+            <button
+              type="button"
+              class="melody-chip <%= "is-active" if i.zero? %>"
+              data-instrument="<%= value %>"
+              data-action="click->melody#selectInstrument"
+            >
+              <%= label %>
+            </button>
+          <% end %>
+        </div>
+
+        <label class="melody-volume">
+          <span>Volume</span>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="80"
+            data-melody-target="volume"
+            data-action="input->melody#setVolume"
+          >
+        </label>
+      </div>
+
+      <div class="melody-piano">
+        <div class="melody-whites">
+          <% %w[C4 D4 E4 F4 G4 A4 B4 C5].each do |note| %>
+            <button
+              type="button"
+              class="melody-key melody-key--white"
+              data-note="<%= note %>"
+              data-melody-target="key"
+              data-action="click->melody#playKey"
+            >
+              <span class="melody-key__label"><%= note %></span>
+            </button>
+          <% end %>
+        </div>
+
+        <% %w[C#4 D#4 F#4 G#4 A#4].each do |note| %>
+          <button
+            type="button"
+            class="melody-key melody-key--black"
+            data-note="<%= note %>"
+            data-melody-target="key"
+            data-action="click->melody#playKey"
+          ></button>
+        <% end %>
+      </div>
+
+      <div class="melody-note-strip">
+        <% melody[:notes].each_with_index do |note, index| %>
+          <span
+            class="melody-note-pill"
+            data-melody-target="notePill"
+            data-index="<%= index %>"
+          >
+            <%= note %>
+          </span>
+        <% end %>
+      </div>
+    </section>
+
+    <section
+      class="melody-finished-card"
+      data-melody-target="finished"
+      hidden
+    >
+      <p class="melody-kicker">Mélodie terminée</p>
+      <h2>Bravo</h2>
+      <p>Tu as joué toute la suite. Tu peux maintenant terminer l’activité.</p>
+    </section>
+
+    <button
+      type="button"
+      class="primary-button melody-finish-button"
+      data-melody-target="finishButton"
+      data-action="click->melody#finish"
+      disabled
+      hidden
+    >
+      Terminer
+    </button>
   </div>
 <% end %>
