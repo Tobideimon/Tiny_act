@@ -405,14 +405,16 @@ class ActivitySessionsController < ApplicationController
   end
 
   def room_progress_notification
-    prepare_room_progress unless defined?(@room_xp_before_reward)
+    next_unlock = closest_next_furniture_unlock
+
+    return if next_unlock.blank?
 
     {
       kind: :room,
       priority: 2,
       label: "PROGRESSION",
       title: "Ta room progresse",
-      subtitle: room_progress_subtitle,
+      subtitle: room_progress_subtitle(next_unlock),
       icon_type: :room,
       url: room_path(current_user.room),
       tab_class: "tab-gold",
@@ -420,12 +422,41 @@ class ActivitySessionsController < ApplicationController
     }
   end
 
-  def room_progress_subtitle
-    if @room_xp_before_reward.to_i.zero?
-      "Un meuble est prêt à être débloqué"
-    else
-      "Encore #{@room_xp_before_reward} XP avant un meuble"
-    end
+  def room_progress_subtitle(next_unlock)
+    "Plus que #{next_unlock[:remaining_xp]} XP en #{next_unlock[:interest].name} " \
+      "pour débloquer #{next_unlock[:furniture].name}."
+  end
+
+  def closest_next_furniture_unlock
+    interests = current_user.interests.to_a
+    return if interests.empty?
+
+    xp_by_interest_id = interests.index_with do |interest|
+      XpCalculator.total_for_interest(current_user, interest)
+    end.transform_keys(&:id)
+
+    Furniture
+      .includes(:interest)
+      .where(interest: interests)
+      .filter_map do |furniture|
+        current_xp = xp_by_interest_id[furniture.interest_id].to_i
+        remaining_xp = furniture.required_xp.to_i - current_xp
+
+        next if remaining_xp <= 0
+
+        {
+          furniture: furniture,
+          interest: furniture.interest,
+          remaining_xp: remaining_xp
+        }
+      end
+      .min_by do |unlock|
+        [
+          unlock[:remaining_xp],
+          unlock[:furniture].required_xp.to_i,
+          unlock[:furniture].id
+        ]
+      end
   end
 
   def daily_streak_notification
