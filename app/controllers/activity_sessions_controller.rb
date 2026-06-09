@@ -93,7 +93,7 @@ class ActivitySessionsController < ApplicationController
         status: "finished"
       )
 
-      add_interest_xp_for(@activity_session) unless was_already_finished
+      record_new_furniture_unlocks_for(@activity_session) unless was_already_finished
 
       redirect_to activity_session_path(@activity_session)
     end
@@ -301,25 +301,30 @@ class ActivitySessionsController < ApplicationController
     params.require(:activity_session).permit(:culture_category)
   end
 
-  def add_interest_xp_for(activity_session)
-    return if activity_session.xp_awarded_at.present?
-
+  def record_new_furniture_unlocks_for(activity_session)
     interest = activity_session.activity.interest
-    xp_earned = XpCalculator.new(activity_session).call
+    locked_furnitures_before_reward = locked_furnitures_for(activity_session.user, interest)
 
-    progress = UserInterestProgress.find_or_create_by!(
-      user: current_user,
-      interest: interest
-    ) do |p|
-      p.xp = 0
-    end
+    XpCalculator.award!(activity_session)
 
-    progress.increment!(:xp, xp_earned)
+    current_xp = XpCalculator.total_for_interest(activity_session.user, interest)
+    newly_unlocked_furniture_ids = locked_furnitures_before_reward
+      .select { |furniture| furniture.required_xp.to_i <= current_xp }
+      .map(&:id)
 
     activity_session.update!(
-      xp_earned: xp_earned,
-      xp_awarded_at: Time.current
+      newly_unlocked_furniture_ids: newly_unlocked_furniture_ids,
+      furniture_unlocks_seen_at: nil
     )
+  end
+
+  def locked_furnitures_for(user, interest)
+    current_xp = XpCalculator.total_for_interest(user, interest)
+
+    Furniture
+      .where(interest: interest)
+      .where("required_xp > ?", current_xp)
+      .order(:required_xp, :id)
   end
 
   def prepare_finished_summary
@@ -334,7 +339,24 @@ class ActivitySessionsController < ApplicationController
                               end
 
     @summary_saved_scroll_minutes = @summary_duration_minutes.positive? ? @summary_duration_minutes : 15
-    @summary_xp_gained = @activity_session.xp_earned
+    @summary_xp_gained = @activity_session.awarded_xp
+    @newly_unlocked_furnitures = newly_unlocked_furnitures_for_summary
+  end
+
+  def newly_unlocked_furnitures_for_summary
+    return Furniture.none if @activity_session.furniture_unlocks_seen_at.present?
+
+    furniture_ids = @activity_session.newly_unlocked_furniture_ids.map(&:to_i)
+    return Furniture.none if furniture_ids.empty?
+
+    furnitures = Furniture
+      .includes(:interest)
+      .where(id: furniture_ids)
+      .sort_by { |furniture| furniture_ids.index(furniture.id) || furniture_ids.size }
+
+    @activity_session.update!(furniture_unlocks_seen_at: Time.current)
+
+    furnitures
   end
 
   # =========================
@@ -383,14 +405,16 @@ class ActivitySessionsController < ApplicationController
   end
 
   def room_progress_notification
-    prepare_room_progress unless defined?(@room_xp_before_reward)
+    next_unlock = closest_next_furniture_unlock
+
+    return if next_unlock.blank?
 
     {
       kind: :room,
       priority: 2,
       label: "PROGRESSION",
       title: "Ta room progresse",
-      subtitle: room_progress_subtitle,
+      subtitle: room_progress_subtitle(next_unlock),
       icon_type: :room,
       url: room_path(current_user.room),
       tab_class: "tab-gold",
@@ -398,12 +422,41 @@ class ActivitySessionsController < ApplicationController
     }
   end
 
-  def room_progress_subtitle
-    if @room_xp_before_reward.to_i.zero?
-      "Un meuble est prêt à être débloqué"
-    else
-      "Encore #{@room_xp_before_reward} XP avant un meuble"
-    end
+  def room_progress_subtitle(next_unlock)
+    "Plus que #{next_unlock[:remaining_xp]} XP en #{next_unlock[:interest].name} " \
+      "pour débloquer #{next_unlock[:furniture].name}."
+  end
+
+  def closest_next_furniture_unlock
+    interests = current_user.interests.to_a
+    return if interests.empty?
+
+    xp_by_interest_id = interests.index_with do |interest|
+      XpCalculator.total_for_interest(current_user, interest)
+    end.transform_keys(&:id)
+
+    Furniture
+      .includes(:interest)
+      .where(interest: interests)
+      .filter_map do |furniture|
+        current_xp = xp_by_interest_id[furniture.interest_id].to_i
+        remaining_xp = furniture.required_xp.to_i - current_xp
+
+        next if remaining_xp <= 0
+
+        {
+          furniture: furniture,
+          interest: furniture.interest,
+          remaining_xp: remaining_xp
+        }
+      end
+      .min_by do |unlock|
+        [
+          unlock[:remaining_xp],
+          unlock[:furniture].required_xp.to_i,
+          unlock[:furniture].id
+        ]
+      end
   end
 
   def daily_streak_notification
@@ -475,10 +528,7 @@ class ActivitySessionsController < ApplicationController
   end
 
   def current_user_total_xp
-    current_user
-      .activity_sessions
-      .where.not(xp_awarded_at: nil)
-      .sum(:xp_earned)
+    XpCalculator.total_for(current_user)
   end
 
   def finished_sessions_count

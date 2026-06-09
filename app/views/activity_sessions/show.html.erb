@@ -1,4 +1,4 @@
-<div class="phone-page mood-page recommendations-phone-page mood-activities-page <%= "has-bottom-action" unless @activity_session&.finished? %>">
+<div class="phone-page mood-page recommendations-phone-page mood-activities-page <%= @activity_session&.finished? ? "session-finished-page has-session-complete-action" : "has-bottom-action" %>">
 
   <header class="mood-screen-header">
     <%= render "activity_sessions/selection_topbar" %>
@@ -67,28 +67,42 @@
           </article>
         </div>
 
-        <article class="summary-reward-card">
-          <div class="summary-reward-icon">
-            <i class="fa-solid fa-couch"></i>
-          </div>
+        <article class="summary-reward-card <%= "summary-reward-card-unlocked" if @newly_unlocked_furnitures.any? %>">
+          <% if @newly_unlocked_furnitures.any? %>
+            <div class="summary-unlocks-list">
+              <% @newly_unlocked_furnitures.each do |furniture| %>
+                <div class="summary-unlock-item">
+                  <div class="summary-unlock-image-frame">
+                    <%= image_tag furniture.image_url,
+                                  class: "summary-unlock-image",
+                                  alt: furniture.name %>
+                  </div>
 
-          <div>
-            <p>Récompense room</p>
-            <strong>Tu as gagné un nouveau meuble !</strong>
-          </div>
+                  <div class="summary-unlock-content">
+                    <p><%= furniture.interest.name %></p>
+                    <strong>Nouveau meuble débloqué !</strong>
+                    <span><%= furniture.name %></span>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="summary-reward-icon">
+              <i class="fa-solid fa-couch"></i>
+            </div>
+
+            <div>
+              <p>Récompense room</p>
+              <strong>Continue à progresser pour débloquer de nouveaux meubles.</strong>
+            </div>
+          <% end %>
         </article>
 
-        <div class="summary-actions">
-
-
+        <div class="summary-actions summary-actions-secondary-only">
           <%= link_to room_path(current_user.room),
                       class: "summary-action-secondary" do %>
-            Voir ma room
-          <% end %>
-
-          <%= link_to new_activity_session_path,
-                      class: "primary-button summary-action-primary" do %>
-            Faire une nouvelle activité
+            <i class="fa-solid fa-house"></i>
+            <span>Voir ma room</span>
           <% end %>
         </div>
       </section>
@@ -258,7 +272,15 @@
 
     </main>
 
-  <% unless @activity_session.finished? %>
+  <% if @activity_session.finished? %>
+    <footer class="mood-screen-footer session-complete-footer">
+      <%= link_to new_activity_session_path,
+                  class: "session-new-activity-button" do %>
+        <i class="fa-solid fa-bolt"></i>
+        <span>Faire une nouvelle activité</span>
+      <% end %>
+    </footer>
+  <% else %>
     <footer class="mood-screen-footer">
       <%= link_to duration_activity_sessions_path(
                     mood_id: @activity_session.activity.mood_id,

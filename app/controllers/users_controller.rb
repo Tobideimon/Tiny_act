@@ -1,22 +1,31 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+
   def show
     @user = current_user
     @room = @user.room || @user.create_room!(width: Room::GRID_WIDTH, height: Room::GRID_HEIGHT)
     @room.ensure_default_size!
-    @furniture_unlock_progress = Interest.all.map do |interest|
-      progress = UserInterestProgress.find_by(
-        user: @user,
-        interest: interest
-      )
 
-      current_xp = progress&.xp || 0
+    finished_sessions_scope = @user.activity_sessions.where(finished: true)
+
+    @total_xp = XpCalculator.total_for(@user)
+    @finished_sessions_count = finished_sessions_scope.count
+    @interests_count = @user.interests.count
+    @room_likes_count = @room.room_likes.count
+
+    @recent_finished_sessions = finished_sessions_scope
+                                .includes(activity: %i[interest duration])
+                                .order(updated_at: :desc)
+                                .limit(3)
+
+    @furniture_unlock_progress = Interest.all.map do |interest|
+      current_xp = XpCalculator.total_for_interest(@user, interest)
 
       next_furniture = Furniture
-        .where(interest: interest)
-        .where("required_xp > ?", current_xp)
-        .order(:required_xp)
-        .first
+                       .where(interest: interest)
+                       .where("required_xp > ?", current_xp)
+                       .order(:required_xp)
+                       .first
 
       next unless next_furniture
 
@@ -32,13 +41,6 @@ class UsersController < ApplicationController
       }
     end.compact
 
-    @next_unlocks = @furniture_unlock_progress.sort_by do |progress|
-      progress[:required_xp] - progress[:current_xp]
-    end
-
-    @main_next_unlock = @next_unlocks.first
-    @secondary_next_unlocks = @next_unlocks.drop(1).first(2)
-    
     @room_data = {
       id: @room.id,
       width: @room.width,
@@ -69,10 +71,21 @@ class UsersController < ApplicationController
     @user = current_user
 
     if @user.update(user_params)
-      redirect_to user_path, notice: "Avatar mis à jour !"
+      respond_to do |format|
+        format.html { redirect_to user_path, notice: "Avatar mis à jour !" }
+        format.json { render json: { avatar: @user.avatar }, status: :ok }
+      end
     else
-      @avatars = User::AVATARS
-      render :edit, status: :unprocessable_entity
+      respond_to do |format|
+        format.html do
+          @avatars = User::AVATARS
+          render :edit, status: :unprocessable_entity
+        end
+
+        format.json do
+          render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+        end
+      end
     end
   end
 

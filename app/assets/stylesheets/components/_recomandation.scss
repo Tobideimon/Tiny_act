@@ -677,7 +677,7 @@
 /* ========================================================= */
 
 .session-summary {
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
 
   display: flex;
@@ -685,6 +685,8 @@
   gap: 14px;
 
   overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
   scrollbar-width: none;
 }
 
@@ -698,9 +700,7 @@
 
 .summary-hero h1 {
   margin: 0 0 8px;
-
   color: $ta-ink;
-
   font-size: clamp(29px, 4.3vh, 34px);
   line-height: 1;
   font-weight: 950;
@@ -710,13 +710,13 @@
 .summary-hero p:not(.recommendations-kicker) {
   max-width: 340px;
   margin: 0;
-
   color: rgba(21, 27, 47, 0.70);
-
   font-size: 14px;
   line-height: 1.35;
   font-weight: 700;
 }
+
+/* Main cards */
 
 .summary-main-card,
 .summary-stat-card,
@@ -734,7 +734,6 @@
 .summary-main-card {
   position: relative;
   overflow: hidden;
-
   min-height: 190px;
   padding: 20px;
 
@@ -754,7 +753,6 @@
   gap: 7px;
 
   border-radius: 999px;
-
   color: #2f7d4f;
   background: rgba(30, 221, 136, 0.16);
 
@@ -765,9 +763,7 @@
 
 .summary-main-card h2 {
   margin: 16px 0;
-
   color: $ta-ink;
-
   font-size: 22px;
   line-height: 1.08;
   font-weight: 900;
@@ -782,7 +778,6 @@
 .summary-meta-grid div {
   min-width: 0;
   padding: 10px;
-
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.68);
 }
@@ -794,9 +789,7 @@
 
 .summary-meta-grid span {
   margin-bottom: 5px;
-
   color: $ta-ink-light;
-
   font-size: 9px;
   line-height: 1;
   font-weight: 850;
@@ -806,9 +799,7 @@
 
 .summary-meta-grid strong {
   overflow: hidden;
-
   color: $ta-ink;
-
   font-size: 12px;
   line-height: 1.14;
   font-weight: 850;
@@ -816,76 +807,104 @@
   white-space: nowrap;
 }
 
+/* Stat cards */
+
 .summary-stats-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
 .summary-stat-card {
-  min-height: 142px;
-  padding: 14px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  min-height: 150px;
+  padding: 16px;
 
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 12px;
+  align-items: stretch;
 }
 
 .summary-stat-time {
-  background: linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
+  background:
+    radial-gradient(circle at 82% 28%, rgba(124, 99, 242, 0.12) 0, transparent 32%),
+    linear-gradient(135deg, #ffffff 0%, #eef6ff 100%);
 }
 
 .summary-stat-xp {
-  background: linear-gradient(135deg, #ffffff 0%, #fff0dc 100%);
-}
-
-.summary-stat-icon,
-.summary-reward-icon {
-  display: grid;
-  place-items: center;
-
-  border-radius: 18px;
+  background:
+    radial-gradient(circle at 82% 28%, rgba(124, 99, 242, 0.12) 0, transparent 32%),
+    linear-gradient(135deg, #ffffff 0%, #fff0dc 100%);
 }
 
 .summary-stat-icon {
-  width: 38px;
-  height: 38px;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  z-index: 1;
 
-  color: $ta-purple;
+  width: 52px;
+  height: 52px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 999px;
+  color: rgba(21, 27, 47, 0.44);
   background: rgba(124, 99, 242, 0.12);
+
+  font-size: 18px;
+  line-height: 1;
+}
+
+.summary-stat-icon i {
+  position: static;
+  display: block;
+  transform: none;
+  line-height: 1;
+}
+
+.summary-stat-card > div:not(.summary-stat-icon) {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  padding-right: 48px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .summary-stat-card p,
 .summary-reward-card p {
-  margin: 0 0 4px;
-
+  margin: 0 0 5px;
   color: $ta-ink-muted;
-
   font-size: 11px;
-  font-weight: 800;
+  line-height: 1.15;
+  font-weight: 850;
 }
 
 .summary-stat-card strong {
   display: block;
-  margin-bottom: 5px;
-
+  margin-bottom: 7px;
   color: $ta-ink;
-
-  font-size: 22px;
-  line-height: 1;
-  font-weight: 900;
+  font-size: 28px;
+  line-height: 0.95;
+  font-weight: 950;
+  letter-spacing: -0.05em;
 }
 
 .summary-stat-card span {
   display: block;
-
   color: $ta-ink-muted;
-
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.25;
-  font-weight: 650;
+  font-weight: 700;
 }
+
+/* Reward card */
 
 .summary-reward-card {
   padding: 14px;
@@ -902,6 +921,10 @@
   height: 46px;
   flex: 0 0 46px;
 
+  display: grid;
+  place-items: center;
+
+  border-radius: 18px;
   color: $ta-gold;
   background: rgba(216, 154, 50, 0.14);
 
@@ -910,13 +933,83 @@
 
 .summary-reward-card strong {
   display: block;
-
   color: $ta-ink;
-
   font-size: 14px;
   line-height: 1.25;
   font-weight: 850;
 }
+
+.summary-reward-card-unlocked {
+  align-items: stretch;
+  background: linear-gradient(135deg, #ffffff 0%, #fff5dd 100%);
+}
+
+.summary-unlocks-list {
+  width: 100%;
+  display: grid;
+  gap: 10px;
+}
+
+.summary-unlock-item {
+  min-width: 0;
+
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.summary-unlock-image-frame {
+  width: 72px;
+  aspect-ratio: 1;
+
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.95), rgba(255, 214, 128, 0.32) 68%),
+    #fff1cf;
+  border: 2px solid rgba(216, 154, 50, 0.22);
+}
+
+.summary-unlock-image {
+  max-width: 82%;
+  max-height: 82%;
+  object-fit: contain;
+}
+
+.summary-unlock-content {
+  min-width: 0;
+}
+
+.summary-unlock-content p {
+  margin: 0 0 5px;
+  color: $ta-ink-muted;
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.summary-unlock-content strong {
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+.summary-unlock-content span {
+  display: block;
+  overflow: hidden;
+  color: $ta-ink;
+  font-size: 18px;
+  line-height: 1.05;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Actions */
 
 .summary-actions {
   margin-top: auto;
@@ -957,6 +1050,33 @@
   text-decoration: none;
 }
 
+.summary-actions-secondary-only {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.summary-actions-secondary-only .summary-action-secondary {
+  min-height: 54px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border-radius: 22px;
+
+  color: $ta-ink;
+  background: rgba(255, 255, 255, 0.74);
+  border: 2px solid rgba(21, 27, 47, 0.10);
+
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 900;
+
+  box-shadow:
+    0 10px 20px rgba(21, 27, 47, 0.055),
+    0 4px 10px rgba(21, 27, 47, 0.025);
+}
 
 /* ========================================================= */
 /* 7. EMPTY STATE / BUTTONS / EXERCISE FEEDBACK               */
@@ -969,9 +1089,7 @@
 
 .empty-state p {
   margin-bottom: 18px;
-
   color: $ta-ink-muted;
-
   font-size: 15px;
   font-weight: 650;
 }
@@ -997,9 +1115,152 @@
   font-weight: 800;
 }
 
+/* ========================================================= */
+/* 8. ACTIVITY CARD ARROW - SIMPLE PURPLE ARROW               */
+/* ========================================================= */
+
+.mood-activities-page.has-bottom-action .activity-card-arrow {
+  position: static;
+  z-index: 3;
+
+  width: auto;
+  height: auto;
+
+  display: block;
+  justify-self: end;
+
+  transform: none;
+
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+
+  color: #8b6df1;
+
+  font-size: 54px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.mood-activities-page.has-bottom-action .activity-card-link:active .activity-card-arrow {
+  transform: translateY(2px);
+  box-shadow: none;
+}
 
 /* ========================================================= */
-/* 8. RESPONSIVE                                              */
+/* 9. FINISHED SESSION PAGE / STICKY CTA FOOTER               */
+/* ========================================================= */
+
+.phone-page.session-finished-page {
+  padding-bottom: 0;
+}
+
+.session-finished-page .recommendations-page {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+.session-finished-page .session-summary {
+  flex: 1 1 auto;
+  min-height: 0;
+
+  padding-bottom: calc(118px + env(safe-area-inset-bottom));
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.session-finished-page .session-summary::-webkit-scrollbar {
+  display: none;
+}
+
+.session-complete-footer {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 40;
+
+  width: 100%;
+  max-width: 430px;
+
+  padding: 20px 28px calc(18px + env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 248, 239, 0) 0%,
+      #fff8ef 30%,
+      #fff8ef 100%
+    );
+
+  pointer-events: none;
+}
+
+.session-complete-footer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 32%;
+  bottom: 0;
+  z-index: -1;
+  background: #fff8ef;
+}
+
+.session-new-activity-button {
+  width: 100%;
+  min-height: 62px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  border-radius: 24px;
+  border: 0;
+
+  color: #ffffff;
+  background: linear-gradient(135deg, #8b74ff 0%, #6f55e8 100%);
+  text-decoration: none;
+
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 950;
+  letter-spacing: -0.01em;
+
+  box-shadow:
+    0 16px 28px rgba(124, 99, 242, 0.24),
+    0 6px 12px rgba(21, 27, 47, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+
+  pointer-events: auto;
+}
+
+.session-new-activity-button:hover,
+.session-new-activity-button:visited {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.session-new-activity-button:active {
+  transform: translateY(1px);
+  box-shadow:
+    0 10px 20px rgba(124, 99, 242, 0.20),
+    0 4px 8px rgba(21, 27, 47, 0.06);
+}
+
+.session-new-activity-button i {
+  font-size: 15px;
+}
+
+/* ========================================================= */
+/* 10. RESPONSIVE                                             */
 /* ========================================================= */
 
 @media (max-height: 760px) {
@@ -1012,199 +1273,6 @@
     padding-bottom: calc(108px + env(safe-area-inset-bottom));
   }
 
-  .mood-activities-page.has-bottom-action {
-    padding-top: calc(46px + env(safe-area-inset-top));
-    padding-left: 26px;
-    padding-right: 26px;
-    padding-bottom: calc(108px + env(safe-area-inset-bottom));
-  }
-
-  .mood-activities-page.has-bottom-action .mood-topbar {
-    margin-bottom: 0;
-  }
-
-  .mood-activities-page.has-bottom-action .recommendations-page {
-    padding-top: 0;
-  }
-
-  .mood-activities-page.has-bottom-action .recommendations-header {
-    margin-bottom: 16px;
-  }
-
-  .mood-activities-page.has-bottom-action .recommendations-header h1 {
-    font-size: clamp(30px, 8vw, 42px);
-  }
-
-  .mood-activities-page.has-bottom-action .activities-list {
-    gap: 11px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-card,
-  .mood-activities-page.has-bottom-action .activities-count-1 .activity-card,
-  .mood-activities-page.has-bottom-action .activities-count-2 .activity-card,
-  .mood-activities-page.has-bottom-action .activities-count-3 .activity-card {
-    height: 118px;
-    padding: 10px;
-
-    border-radius: 28px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-card::before {
-    inset: 7px;
-    border-radius: 22px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-card::after {
-    width: 74px;
-    height: 74px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-card-main {
-    grid-template-columns: 82px minmax(0, 1fr) 38px;
-    gap: 11px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-mascot-frame {
-    height: 82px;
-    border-radius: 23px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-meta-row {
-    margin-bottom: 6px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-category-ribbon,
-  .mood-activities-page.has-bottom-action .activity-duration-pill {
-    min-height: 22px;
-    padding: 4px 8px;
-
-    font-size: 9px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-top h2 {
-    font-size: 17px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-content {
-    font-size: 11px;
-    line-height: 1.2;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-card-arrow {
-    width: 38px;
-    height: 38px;
-
-    font-size: 28px;
-  }
-
-  .session-summary {
-    gap: 10px;
-  }
-
-  .summary-main-card {
-    min-height: 174px;
-    padding: 16px;
-  }
-
-  .summary-main-card h2 {
-    margin: 12px 0;
-    font-size: 19px;
-  }
-
-  .summary-stat-card {
-    min-height: 124px;
-  }
-
-  .summary-stat-card strong {
-    font-size: 20px;
-  }
-
-  .summary-action-primary,
-  .summary-action-secondary {
-    min-height: 52px;
-  }
-}
-
-@media (max-height: 670px) {
-  .mood-activities-page.has-bottom-action {
-    padding-top: calc(40px + env(safe-area-inset-top));
-    padding-left: 24px;
-    padding-right: 24px;
-    padding-bottom: calc(96px + env(safe-area-inset-bottom));
-  }
-
-  .mood-activities-page.has-bottom-action .recommendations-kicker {
-    display: none;
-  }
-
-  .mood-activities-page.has-bottom-action .recommendations-header {
-    margin-bottom: 12px;
-  }
-
-  .mood-activities-page.has-bottom-action .recommendations-header h1 {
-    font-size: 28px;
-  }
-
-  .mood-activities-page.has-bottom-action .activities-list {
-    gap: 9px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-card,
-  .mood-activities-page.has-bottom-action .activities-count-1 .activity-card,
-  .mood-activities-page.has-bottom-action .activities-count-2 .activity-card,
-  .mood-activities-page.has-bottom-action .activities-count-3 .activity-card {
-    height: 100px;
-    padding: 9px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-card::before {
-    inset: 6px;
-    border-radius: 20px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-card::after {
-    width: 58px;
-    height: 58px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-card-main {
-    grid-template-columns: 68px minmax(0, 1fr) 34px;
-    gap: 10px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-mascot-frame {
-    height: 68px;
-    border-radius: 20px;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-duration-pill {
-    display: none;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-top h2 {
-    font-size: 15px;
-
-    -webkit-line-clamp: 1;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-content {
-    display: none;
-  }
-
-  .mood-activities-page.has-bottom-action .activity-card-arrow {
-    width: 34px;
-    height: 34px;
-
-    font-size: 24px;
-  }
-}
-
-
-/* ========================================================= */
-/* 7. RESPONSIVE                                              */
-/* ========================================================= */
-
-@media (max-height: 760px) {
   .mood-activities-page.has-bottom-action {
     padding-top: calc(46px + env(safe-area-inset-top));
     padding-left: 26px;
@@ -1234,7 +1302,6 @@
   .mood-activities-page.has-bottom-action .activities-count-3 .activity-card {
     height: 106px;
     padding: 10px;
-
     border-radius: 29px;
   }
 
@@ -1249,21 +1316,18 @@
 
   .mood-activities-page.has-bottom-action .activity-mascot-frame {
     height: 78px;
-
     border-radius: 22px;
   }
 
   .mood-activities-page.has-bottom-action .activity-category-ribbon {
     min-height: 22px;
     padding: 4px 8px;
-
     font-size: 9px;
   }
 
   .mood-activities-page.has-bottom-action .activity-category-ribbon i {
     width: 16px;
     height: 16px;
-
     font-size: 9px;
   }
 
@@ -1273,10 +1337,61 @@
   }
 
   .mood-activities-page.has-bottom-action .activity-card-arrow {
-    width: 38px;
-    height: 38px;
+    font-size: 46px;
+  }
 
-    font-size: 27px;
+  .session-summary {
+    gap: 10px;
+  }
+
+  .summary-main-card {
+    min-height: 174px;
+    padding: 16px;
+  }
+
+  .summary-main-card h2 {
+    margin: 12px 0;
+    font-size: 19px;
+  }
+
+  .summary-stat-card {
+    min-height: 132px;
+    padding: 14px;
+  }
+
+  .summary-stat-icon {
+    width: 46px;
+    height: 46px;
+    right: 14px;
+    top: 14px;
+    font-size: 16px;
+  }
+
+  .summary-stat-card > div:not(.summary-stat-icon) {
+    padding-right: 42px;
+  }
+
+  .summary-stat-card strong {
+    font-size: 24px;
+  }
+
+  .summary-action-primary,
+  .summary-action-secondary {
+    min-height: 52px;
+  }
+
+  .session-finished-page .session-summary {
+    padding-bottom: calc(108px + env(safe-area-inset-bottom));
+  }
+
+  .session-complete-footer {
+    padding: 16px 24px calc(14px + env(safe-area-inset-bottom));
+  }
+
+  .session-new-activity-button {
+    min-height: 56px;
+    border-radius: 22px;
+    font-size: 15px;
   }
 }
 
@@ -1318,14 +1433,12 @@
 
   .mood-activities-page.has-bottom-action .activity-mascot-frame {
     height: 64px;
-
     border-radius: 20px;
   }
 
   .mood-activities-page.has-bottom-action .activity-category-ribbon {
     min-height: 20px;
     padding: 3px 7px;
-
     font-size: 8px;
   }
 
@@ -1335,65 +1448,65 @@
 
   .mood-activities-page.has-bottom-action .activity-top h2 {
     font-size: 16px;
-
     -webkit-line-clamp: 2;
   }
 
   .mood-activities-page.has-bottom-action .activity-card-arrow {
-    width: 34px;
-    height: 34px;
-
-    font-size: 25px;
-  }
-}
-
-/* ========================================================= */
-/* ACTIVITY CARD ARROW - SIMPLE PURPLE ARROW                 */
-/* ========================================================= */
-
-.mood-activities-page.has-bottom-action .activity-card-arrow {
-  position: static;
-  z-index: 3;
-
-  width: auto;
-  height: auto;
-
-  display: block;
-  justify-self: end;
-
-  transform: none;
-
-  border: none;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-
-  color: #8b6df1;
-
-  font-size: 54px;
-  line-height: 1;
-  font-weight: 950;
-}
-
-.mood-activities-page.has-bottom-action .activity-card-link:active .activity-card-arrow {
-  transform: translateY(2px);
-  box-shadow: none;
-}
-
-@media (max-height: 760px) {
-  .mood-activities-page.has-bottom-action .activity-card-arrow {
-    width: auto;
-    height: auto;
-
-    font-size: 46px;
-  }
-}
-
-@media (max-height: 670px) {
-  .mood-activities-page.has-bottom-action .activity-card-arrow {
-    width: auto;
-    height: auto;
-
     font-size: 38px;
   }
+}
+
+@media (max-width: 360px) {
+  .summary-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .session-complete-footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+/* Final fix: center icons inside finished summary bubbles */
+
+.session-finished-page .summary-stat-icon {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+
+  width: 64px;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+  background: rgba(124, 99, 242, 0.12);
+
+  color: rgba(21, 27, 47, 0.48);
+}
+
+.session-finished-page .summary-stat-icon i,
+.session-finished-page .summary-stat-icon svg {
+  position: static !important;
+  inset: auto !important;
+
+  width: 20px;
+  height: 20px;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: block;
+
+  transform: none !important;
+
+  font-size: 20px;
+  line-height: 1;
+  text-align: center;
+}
+
+.session-finished-page .summary-stat-card > div:not(.summary-stat-icon) {
+  padding-right: 58px;
 }

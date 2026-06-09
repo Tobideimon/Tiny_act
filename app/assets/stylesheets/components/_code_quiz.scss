@@ -377,3 +377,91 @@
     font-size: 18px;
   }
 }
+
+/* Mobile layout polish */
+
+.activity-show-page.is-activity-started .code-quiz {
+  gap: 10px;
+}
+
+.activity-show-page.is-activity-started .code-status-panel {
+  grid-template-columns: 0.8fr 1.4fr 0.8fr;
+  gap: 8px;
+}
+
+.activity-show-page.is-activity-started .code-status-wide {
+  grid-column: auto;
+}
+
+.activity-show-page.is-activity-started .code-status-card {
+  min-height: 54px;
+  padding: 10px 12px;
+  border-radius: 18px;
+}
+
+.activity-show-page.is-activity-started .code-status-card span {
+  font-size: 9px;
+  letter-spacing: 0.07em;
+}
+
+.activity-show-page.is-activity-started .code-status-card strong {
+  font-size: 14px;
+  line-height: 1.05;
+}
+
+.activity-show-page.is-activity-started .code-status-card:nth-child(2) strong {
+  font-size: 12px;
+  line-height: 1.05;
+}
+
+.activity-show-page.is-activity-started .code-question-card {
+  gap: 12px;
+  padding: 16px;
+  border-radius: 24px;
+  max-height: none;
+  min-height: 0;
+  overflow: visible;
+}
+
+.activity-show-page.is-activity-started .code-question-card h2 {
+  font-size: 21px;
+  line-height: 1.08;
+}
+
+.activity-show-page.is-activity-started .code-answers {
+  gap: 9px;
+}
+
+.activity-show-page.is-activity-started .code-quiz .quiz-answer {
+  min-height: 48px;
+  padding: 11px 14px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.15;
+}
+
+.activity-show-page.is-activity-started .code-feedback,
+.activity-show-page.is-activity-started .code-score {
+  min-height: 18px;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.activity-show-page:not(.is-activity-started) .code-start-card {
+  margin-bottom: calc(84px + env(safe-area-inset-bottom));
+}
+
+.activity-show-page:not(.is-activity-started) .code-theme-button {
+  min-height: 58px;
+  padding: 12px 16px;
+  border-radius: 22px;
+}
+
+.activity-show-page.is-activity-started .code-quiz {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.activity-show-page.is-activity-started .code-question-card {
+  margin-bottom: 0;
+}

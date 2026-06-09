@@ -1,18 +1,23 @@
 <div class="phone-page profile-page">
-  <header class="profile-header-bar">
+  <header class="profile-header-bar profile-title-topbar">
     <%= link_to root_path, class: "profile-back-link", aria: { label: "Retour" } do %>
       <i class="fa-solid fa-arrow-left"></i>
       <span>Retour</span>
     <% end %>
 
-    <p>Profil</p>
+    <div class="profile-page-heading">
+      <h1>Profil</h1>
+      <p>Ton espace personnel</p>
+    </div>
+
+    <div class="profile-header-balancer" aria-hidden="true"></div>
   </header>
 
   <main class="profile-content">
     <section class="profile-hero-card">
       <div class="editable-avatar">
         <div class="profile-avatar">
-          <%= image_tag "avatars/#{@user.avatar || 'blueberry'}.png" %>
+          <%= image_tag "avatars/#{@user.avatar.presence || 'avatar_01'}.png" %>
         </div>
 
         <% if @user == current_user %>

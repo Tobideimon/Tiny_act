@@ -16,8 +16,10 @@
       <span>XP</span>
     <% end %>
 
-    <%= link_to user_path, class: "mood-profile-link" do %>
-      <%= image_tag "avatars/#{current_user.avatar || 'blueberry'}.png",
+    <%= link_to user_path,
+                class: "mood-profile-link",
+                aria: { label: "Voir mon profil" } do %>
+      <%= image_tag "avatars/#{current_user.avatar.presence || 'avatar_01'}.png",
                     class: "mood-profile-avatar",
                     alt: "Profil" %>
     <% end %>

@@ -5,127 +5,148 @@ export default class extends Controller {
     "startScreen",
     "runner",
     "finished",
-    "launchButton",
-    "nextButton",
-    "finishButton",
+    "stepsData",
     "currentStepNumber",
     "totalSteps",
     "currentStepText",
-    "stepsData"
+    "cameraInput",
+    "previewWrapper",
+    "preview",
+    "downloadLink",
+    "finishedPreviewWrapper",
+    "finishedPreview",
+    "finishedDownloadLink",
+    "nextButton"
   ]
 
-  static values = {
-    finishUrl: String
+  connect() {
+    this.steps = JSON.parse(this.stepsDataTarget.textContent)
+    this.currentStepIndex = 0
+    this.currentPhotoUrl = null
+    this.currentPhotoName = "tiny-act-photo.jpg"
+
+    this.totalStepsTarget.textContent = this.steps.length
+    this.updateStep()
   }
 
-  connect() {
-    this.currentIndex = 0
-    this.steps = this.loadSteps()
-
-    this.startScreenTarget.hidden = false
-    this.runnerTarget.hidden = true
-    this.finishedTarget.hidden = true
-
-    if (this.hasTotalStepsTarget) {
-      this.totalStepsTarget.textContent = this.steps.length
-    }
+  disconnect() {
+    this.revokeCurrentPhotoUrl()
   }
 
   launch() {
-    if (this.steps.length === 0) return
-
-    this.currentIndex = 0
-
     this.startScreenTarget.hidden = true
     this.runnerTarget.hidden = false
     this.finishedTarget.hidden = true
 
-    this.showCurrentStep()
-  }
-
-  showCurrentStep() {
-    const currentStep = this.steps[this.currentIndex]
-
-    if (!currentStep) {
-      this.showFinishedScreen()
-      return
-    }
-
-    this.currentStepNumberTarget.textContent = this.currentIndex + 1
-    this.totalStepsTarget.textContent = this.steps.length
-    this.currentStepTextTarget.textContent = currentStep
-
-    this.nextButtonTarget.textContent = this.isLastStep() ? "Terminer le parcours" : "Étape suivante"
+    this.currentStepIndex = 0
+    this.updateStep()
   }
 
   nextStep() {
-    if (this.isLastStep()) {
-      this.showFinishedScreen()
+    if (this.currentStepIndex >= this.steps.length - 1) {
+      this.showFinished()
       return
     }
 
-    this.currentIndex += 1
-    this.showCurrentStep()
+    this.currentStepIndex += 1
+    this.clearPhotoPreview()
+
+    this.updateStep()
   }
 
-  showFinishedScreen() {
+  showFinished() {
     this.startScreenTarget.hidden = true
     this.runnerTarget.hidden = true
     this.finishedTarget.hidden = false
+    this.renderFinishedPhoto()
 
     this.element.dispatchEvent(
-      new CustomEvent("activity:finished", {
-        bubbles: true
-      })
+      new CustomEvent("activity:finished", { bubbles: true })
     )
   }
 
-  finishActivity() {
-    if (!this.hasFinishUrlValue) return
+  updateStep() {
+    this.currentStepNumberTarget.textContent = this.currentStepIndex + 1
+    this.currentStepTextTarget.textContent = this.steps[this.currentStepIndex]
 
-    if (this.hasFinishButtonTarget) {
-      this.finishButtonTarget.disabled = true
-      this.finishButtonTarget.textContent = "Validation..."
-    }
-
-    const form = document.createElement("form")
-    form.method = "post"
-    form.action = this.finishUrlValue
-    form.style.display = "none"
-
-    const methodInput = document.createElement("input")
-    methodInput.type = "hidden"
-    methodInput.name = "_method"
-    methodInput.value = "patch"
-
-    const csrfInput = document.createElement("input")
-    csrfInput.type = "hidden"
-    csrfInput.name = "authenticity_token"
-    csrfInput.value = this.csrfToken()
-
-    form.appendChild(methodInput)
-    form.appendChild(csrfInput)
-
-    document.body.appendChild(form)
-    form.submit()
-  }
-
-  isLastStep() {
-    return this.currentIndex >= this.steps.length - 1
-  }
-
-  loadSteps() {
-    if (!this.hasStepsDataTarget) return []
-
-    try {
-      return JSON.parse(this.stepsDataTarget.textContent)
-    } catch (_error) {
-      return []
+    if (this.currentStepIndex === this.steps.length - 1) {
+      this.nextButtonTarget.textContent = "Voir le résultat"
+    } else {
+      this.nextButtonTarget.textContent = "Étape suivante"
     }
   }
 
-  csrfToken() {
-    const token = document.querySelector("meta[name='csrf-token']")
-    return token ? token.content : ""
+  openCamera() {
+    this.cameraInputTarget.click()
+  }
+
+  previewPhoto(event) {
+    const file = event.target.files[0]
+    if (!file) return
+
+    this.revokeCurrentPhotoUrl()
+
+    this.currentPhotoUrl = URL.createObjectURL(file)
+    this.currentPhotoName = file.name || "tiny-act-photo.jpg"
+
+    this.previewTarget.src = this.currentPhotoUrl
+    this.previewWrapperTarget.hidden = false
+    this.syncDownloadLink(this.downloadLinkTarget)
+  }
+
+  clearPhotoPreview() {
+    this.revokeCurrentPhotoUrl()
+
+    if (this.hasPreviewTarget) {
+      this.previewTarget.removeAttribute("src")
+    }
+
+    if (this.hasPreviewWrapperTarget) {
+      this.previewWrapperTarget.hidden = true
+    }
+
+    if (this.hasDownloadLinkTarget) {
+      this.downloadLinkTarget.hidden = true
+      this.downloadLinkTarget.removeAttribute("href")
+    }
+
+    if (this.hasCameraInputTarget) {
+      this.cameraInputTarget.value = ""
+    }
+  }
+
+  renderFinishedPhoto() {
+    if (!this.hasFinishedPreviewWrapperTarget) return
+
+    if (!this.currentPhotoUrl) {
+      this.finishedPreviewWrapperTarget.hidden = true
+      return
+    }
+
+    this.finishedPreviewTarget.src = this.currentPhotoUrl
+    this.finishedPreviewWrapperTarget.hidden = false
+    this.syncDownloadLink(this.finishedDownloadLinkTarget)
+  }
+
+  syncDownloadLink(link) {
+    if (!link || !this.currentPhotoUrl) return
+
+    link.href = this.currentPhotoUrl
+    link.download = this.downloadFilename()
+    link.hidden = false
+  }
+
+  downloadFilename() {
+    const extension = this.currentPhotoName.split(".").pop()
+    const safeExtension = extension && extension.length <= 5 ? extension : "jpg"
+
+    return `tiny-act-photo-${new Date().toISOString().slice(0, 10)}.${safeExtension}`
+  }
+
+  revokeCurrentPhotoUrl() {
+    if (!this.currentPhotoUrl) return
+
+    URL.revokeObjectURL(this.currentPhotoUrl)
+    this.currentPhotoUrl = null
   }
 }

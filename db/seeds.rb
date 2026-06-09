@@ -462,7 +462,7 @@
     width: 1,
     height: 1,
     interest: wellbeing,
-    required_xp: 500
+    required_xp: 0
   )
 ##################LANGUE###################
   Furniture.create!(

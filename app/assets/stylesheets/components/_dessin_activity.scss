@@ -216,3 +216,158 @@
   border-radius: 18px;
   white-space: nowrap;
 }
+
+/* Drawing activity layout polish */
+
+.activity-show-page:not(.is-activity-started) .drawing-activity {
+  margin-bottom: calc(84px + env(safe-area-inset-bottom));
+}
+
+.activity-show-page:not(.is-activity-started) .drawing-main-card {
+  padding: 18px;
+  border-radius: 26px;
+}
+
+.activity-show-page:not(.is-activity-started) .drawing-card-header {
+  margin-bottom: 14px;
+}
+
+.activity-show-page:not(.is-activity-started) .drawing-card-header h2 {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.activity-show-page:not(.is-activity-started) .drawing-card-header p {
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.activity-show-page:not(.is-activity-started) .drawing-canvas-wrapper {
+  height: 360px;
+}
+
+/* Running state: maximize canvas */
+
+.activity-show-page.is-activity-started .drawing-activity {
+  gap: 9px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.activity-show-page.is-activity-started .drawing-main-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 12px;
+  border-radius: 24px;
+  margin-bottom: 0;
+}
+
+.activity-show-page.is-activity-started .drawing-card-header {
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.activity-show-page.is-activity-started .drawing-card-header h2 {
+  margin-bottom: 3px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.activity-show-page.is-activity-started .drawing-card-header p {
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.activity-show-page.is-activity-started .drawing-expand-button {
+  min-height: 38px;
+  padding: 8px 11px;
+  border-radius: 15px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.activity-show-page.is-activity-started .drawing-canvas-wrapper {
+  height: calc(100svh - 390px);
+  min-height: 340px;
+  max-height: 520px;
+  border-radius: 22px;
+}
+
+.activity-show-page.is-activity-started .drawing-toolbar {
+  gap: 8px;
+  padding-top: 10px;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+
+.activity-show-page.is-activity-started .drawing-toolbar::-webkit-scrollbar {
+  display: none;
+}
+
+.activity-show-page.is-activity-started .drawing-tool-button,
+.activity-show-page.is-activity-started .drawing-color {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.activity-show-page.is-activity-started .drawing-eraser-button,
+.activity-show-page.is-activity-started .drawing-clear-button {
+  width: auto;
+  min-width: 74px;
+  padding: 0 11px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
+.activity-show-page.is-activity-started .drawing-toolbar-separator {
+  height: 28px;
+}
+
+.activity-show-page.is-activity-started .drawing-size-indicator {
+  min-width: 18px;
+  font-size: 13px;
+}
+
+.activity-show-page.is-activity-started .drawing-tip-card {
+  display: none;
+}
+
+/* Smaller screens */
+
+@media (max-height: 760px) {
+  .activity-show-page.is-activity-started .drawing-main-card {
+    padding: 10px;
+  }
+
+  .activity-show-page.is-activity-started .drawing-card-header {
+    margin-bottom: 8px;
+  }
+
+  .activity-show-page.is-activity-started .drawing-card-header h2 {
+    font-size: 17px;
+  }
+
+  .activity-show-page.is-activity-started .drawing-card-header p {
+    display: none;
+  }
+
+  .activity-show-page.is-activity-started .drawing-canvas-wrapper {
+    height: calc(100svh - 350px);
+    min-height: 320px;
+  }
+
+  .activity-show-page.is-activity-started .drawing-toolbar {
+    gap: 7px;
+    padding-top: 8px;
+  }
+
+  .activity-show-page.is-activity-started .drawing-tool-button,
+  .activity-show-page.is-activity-started .drawing-color {
+    width: 34px;
+    height: 34px;
+  }
+}

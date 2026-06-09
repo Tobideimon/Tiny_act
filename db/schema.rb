@@ -42,7 +42,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_09_085625) do
     t.date "date"
     t.integer "elapsed_seconds", default: 0, null: false
     t.boolean "finished", default: false, null: false
+    t.datetime "furniture_unlocks_seen_at"
     t.string "language"
+    t.jsonb "newly_unlocked_furniture_ids", default: [], null: false
     t.integer "rating"
     t.string "status", default: "selecting", null: false
     t.datetime "timer_started_at"
