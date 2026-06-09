@@ -37,106 +37,16 @@
   puts "🎯 Creating interests..."
 
   sport          = Interest.create!(name: "Sport")
-  creative       = Interest.create!(name: "Créativité")
   wellbeing      = Interest.create!(name: "Bien-être")
   photo_interest = Interest.create!(name: "Photo")
   drawing        = Interest.create!(name: "Dessin")
-  writing        = Interest.create!(name: "Écriture")
   languages      = Interest.create!(name: "Langues")
   culture        = Interest.create!(name: "Culture")
   productivite   = Interest.create!(name: "Productivité")
   code           = Interest.create!(name: "Code")
   musique        = Interest.create!(name: "Musique")
 
-  puts "🌍 Creating language activities..."
 
-  Activity.create!(
-    name: "Apprendre quelques mots",
-    content: "Découvre des mots simples dans une langue choisie au hasard. Lis-les, répète-les, puis essaie de retenir leur traduction.",
-    mood: a_plat,
-    location: anywhere,
-    duration: five_minutes,
-    interest: languages,
-    activity_type: "word_learning",
-    active: true
-  )
-
-  Activity.create!(
-    name: "Apprendre quelques mots",
-    content: "Prends un moment calme pour apprendre plusieurs mots dans une langue choisie au hasard.",
-    mood: a_plat,
-    location: anywhere,
-    duration: fifteen_minutes,
-    interest: languages,
-    activity_type: "word_learning",
-    active: true
-  )
-
-  Activity.create!(
-    name: "Apprendre quelques mots",
-    content: "Découvre quelques mots simples dans une langue choisie au hasard.",
-    mood: mitige,
-    location: anywhere,
-    duration: five_minutes,
-    interest: languages,
-    activity_type: "word_learning",
-    active: true
-  )
-
-  Activity.create!(
-    name: "Compléter des phrases",
-    content: "Complète des phrases simples avec le bon mot dans une langue choisie au hasard.",
-    mood: mitige,
-    location: anywhere,
-    duration: fifteen_minutes,
-    interest: languages,
-    activity_type: "sentence_completion",
-    active: true
-  )
-
-  Activity.create!(
-    name: "Compléter des phrases",
-    content: "Prends le temps de compléter plusieurs phrases simples avec les bons mots.",
-    mood: mitige,
-    location: anywhere,
-    duration: thirty_minutes,
-    interest: languages,
-    activity_type: "sentence_completion",
-    active: true
-  )
-
-  Activity.create!(
-    name: "Dialogue guidé",
-    content: "Pratique une courte conversation dans une langue choisie au hasard.",
-    mood: en_forme,
-    location: anywhere,
-    duration: five_minutes,
-    interest: languages,
-    activity_type: "llm_chat",
-    active: false
-  )
-
-  Activity.create!(
-    name: "Dialogue guidé",
-    content: "Pratique une conversation simple avec un assistant dans une langue choisie au hasard.",
-    mood: en_forme,
-    location: anywhere,
-    duration: fifteen_minutes,
-    interest: languages,
-    activity_type: "llm_chat",
-    active: false
-  )
-
-  Activity.create!(
-    name: "Dialogue guidé",
-    content: "Lance une conversation plus longue pour pratiquer une langue avec un assistant.",
-    mood: en_forme,
-    location: anywhere,
-    duration: thirty_minutes,
-    interest: languages,
-    activity_type: "llm_chat",
-    active: false
-  )
 
   puts "🧠 Creating culture quiz activities..."
 
@@ -254,79 +164,75 @@
     activity_type: "standard",
     active: true
   )
-
-  # Activity.create!(
-  #   name: "Respiration guidée",
-  #   content: "Prends 5 minutes pour respirer profondément et te recentrer.",
-  #   mood: a_plat,
-  #   location: office,
-  #   duration: five_minutes,
-  #   interest: wellbeing,
-  #   activity_type: "standard",
-  #   active: true
-  # )
+#======= Demo users =========#
 
   puts "👤 Creating demo users..."
+featured_users = [
+  ["Jc", "DevTeam", "jc.demo@example.com"],
+  ["Tibo", "Devteam", "tibo.demo@example.com"],
+  ["David", "DevTeam", "david.demo@example.com"],
+  ["Dina", "DevTeam", "dina.demo@example.com"],
+  ["Emma", "Durand", "emma.demo@example.com"],
+  ["Noah", "Leroy", "noah.demo@example.com"],
+  ["Lou", "Roux", "lou.demo@example.com"],
+  ["Hugo", "Faure", "hugo.demo@example.com"],
+  ["Zoé", "Simon", "zoe.demo@example.com"],
+  ["Tom", "Laurent", "tom.demo@example.com"]
+]
 
-  alex = User.create!(
-    first_name: "Alex",
-    last_name: "Martin",
-    email: "alex@tinyact.com",
-    password: "123456"
+users = featured_users.map do |first_name, last_name, email|
+  user = User.find_or_initialize_by(email: email)
+
+  user.update!(
+    first_name: first_name,
+    last_name: last_name,
+    password: "123456",
+    avatar: "avatar_01"
   )
 
-  lea = User.create!(
-    first_name: "Léa",
-    last_name: "Dubois",
-    email: "lea@tinyact.com",
-    password: "123456"
+  Interest.find_each do |interest|
+    UserInterest.find_or_create_by!(user: user, interest: interest)
+  end
+
+  room = user.room || user.create_room!(width: 5, height: 5)
+  room.update!(width: 5, height: 5)
+
+  user
+end
+
+users.each do |liked_user|
+  users.each do |liker|
+    next if liker == liked_user
+
+    RoomLike.find_or_create_by!(
+      user: liker,
+      room: liked_user.room
+    )
+  end
+end
+
+puts "✅ Featured users created with max likes"
+
+
+50.times do |index|
+  number = index + 1
+
+  user = User.find_or_initialize_by(
+    email: "lambda#{number}.demo@example.com"
   )
 
-  sam = User.create!(
-    first_name: "Sam",
-    last_name: "Bernard",
-    email: "sam@tinyact.com",
-    password: "123456"
+  user.update!(
+    first_name: "User",
+    last_name: "Lambda #{number}",
+    password: "123456",
+    avatar: "avatar_01"
   )
 
-  emma = User.create!(
-    first_name: "Emma",
-    last_name: "Lopez",
-    email: "emma@tinyact.com",
-    password: "123456"
-  )
+  room = user.room || user.create_room!(width: 5, height: 5)
+  room.update!(width: 5, height: 5)
+end
 
-  nora = User.create!(
-    first_name: "Nora",
-    last_name: "Morel",
-    email: "nora@tinyact.com",
-    password: "123456"
-  )
-
-  max = User.create!(
-    first_name: "Max",
-    last_name: "Petit",
-    email: "max@tinyact.com",
-    password: "123456"
-  )
-
-  puts "❤️ Creating demo user interests..."
-
-  UserInterest.create!(user: alex, interest: sport)
-
-  UserInterest.create!(user: lea, interest: photo_interest)
-  UserInterest.create!(user: lea, interest: creative)
-
-  UserInterest.create!(user: sam, interest: wellbeing)
-
-  UserInterest.create!(user: emma, interest: languages)
-  UserInterest.create!(user: emma, interest: culture)
-
-  UserInterest.create!(user: nora, interest: culture)
-
-  UserInterest.create!(user: max, interest: sport)
-  UserInterest.create!(user: max, interest: languages)
-  UserInterest.create!(user: max, interest: culture)
+puts "✅ 50 lambda users created without room likes"
 
   puts "🌍 Importing language items from CSV..."
   Rake::Task["language_activities:import"].invoke
@@ -447,7 +353,23 @@
     width: 1,
     height: 2
   )
+  Furniture.create!(
+    name: "Lit",
+    image_url: "furnitures/Bed.png",
+    interest: productivite,
+    required_xp: 500,
+    width: 2,
+    height: 2
+  )
 ##################BIENETRE###################
+  Furniture.create!(
+    name: "Coussin",
+    image_url: "furnitures/Coussin.png",
+    width: 1,
+    height: 1,
+    interest: wellbeing,
+    required_xp: 20
+  )
   Furniture.create!(
     name: "Pool",
     image_url: "furnitures/pool.png",
@@ -462,7 +384,7 @@
     width: 1,
     height: 1,
     interest: wellbeing,
-    required_xp: 0
+    required_xp: 500
   )
 ##################LANGUE###################
   Furniture.create!(
@@ -491,6 +413,14 @@
   )
 ##################CODE###################
   Furniture.create!(
+    name: "Chaise de bureau",
+    image_url: "furnitures/Chaisebureau.png",
+    width: 1,
+    height: 1,
+    interest: code,
+    required_xp: 20
+  )
+  Furniture.create!(
     name: "Bureau",
     image_url: "furnitures/Bureau.png",
     width: 1,
@@ -498,7 +428,31 @@
     interest: code,
     required_xp: 150
   )
+    Furniture.create!(
+    name: "Merci Wagon",
+    image_url: "furnitures/Wagonrails.gif",
+    width: 2,
+    height: 2,
+    interest: code,
+    required_xp: 500
+  )
 ##################DESSIN###################
+  Furniture.create!(
+    name: "Pot de peinture",
+    image_url: "furnitures/Pots.png",
+    width: 1,
+    height: 1,
+    interest: drawing,
+    required_xp: 20
+  )
+  Furniture.create!(
+    name: "Toile",
+    image_url: "furnitures/Tablo.png",
+    width: 1,
+    height: 1,
+    interest: drawing,
+    required_xp: 150
+  )
   Furniture.create!(
     name: "Chef d'oeuvre",
     image_url: "furnitures/Joconde.png",
@@ -509,12 +463,103 @@
   )
 ##################PHOTO###################
   Furniture.create!(
+    name: "Polaroids",
+    image_url: "furnitures/Polaroids.png",
+    width: 1,
+    height: 1,
+    interest: photo_interest,
+    required_xp: 20
+  )
+  Furniture.create!(
+    name: "Appareil",
+    image_url: "furnitures/Photo.png",
+    width: 1,
+    height: 1,
+    interest: photo_interest,
+    required_xp: 150
+  )
+  Furniture.create!(
     name: "Fond photo",
     image_url: "furnitures/Fondphoto.png",
     width: 2,
     height: 1,
     interest: photo_interest,
+    required_xp: 500
+  )
+##################MUSIQUE###################
+  Furniture.create!(
+    name: "guitare",
+    image_url: "furnitures/Guitare.png",
+    width: 1,
+    height: 1,
+    interest: musique,
+    required_xp: 20
+  )
+  Furniture.create!(
+    name: "Meuble vynil",
+    image_url: "furnitures/Meuble vanille.png",
+    width: 1,
+    height: 2,
+    interest: musique,
     required_xp: 150
+  )
+  Furniture.create!(
+    name: "Piano",
+    image_url: "furnitures/Piano.png",
+    width: 2,
+    height: 1,
+    interest: musique,
+    required_xp: 500
   )
 
   puts "#{Furniture.count} furnitures created!"
+
+  max_required_xp_by_interest_id = Furniture
+    .group(:interest_id)
+    .maximum(:required_xp)
+
+  users.each do |user|
+    Interest.find_each do |interest|
+      UserInterest.find_or_create_by!(user: user, interest: interest)
+
+      max_required_xp = max_required_xp_by_interest_id[interest.id].to_i
+      unlock_xp = max_required_xp.positive? ? max_required_xp + 100 : 0
+
+      UserInterestProgress
+        .find_or_create_by!(user: user, interest: interest)
+        .update!(xp: unlock_xp)
+
+      next unless unlock_xp.positive?
+
+      current_session_xp = XpCalculator.total_for_interest(user, interest)
+      xp_to_seed = unlock_xp - current_session_xp
+      next unless xp_to_seed.positive?
+
+      activity = Activity.where(interest: interest, active: true).first ||
+                 Activity.where(interest: interest).first
+      activity ||= Activity.create!(
+        name: "Progression démo",
+        content: "Progression de démonstration pour débloquer les meubles.",
+        mood: mitige,
+        location: anywhere,
+        duration: five_minutes,
+        interest: interest,
+        activity_type: "standard",
+        active: false
+      )
+
+      ActivitySession.create!(
+        user: user,
+        activity: activity,
+        date: Date.current,
+        finished: true,
+        status: "finished",
+        elapsed_seconds: activity.duration.value.to_i * 60,
+        xp_earned: xp_to_seed,
+        xp_awarded_at: Time.current,
+        furniture_unlocks_seen_at: Time.current
+      )
+    end
+  end
+
+  puts "✅ Featured users updated with furniture unlock XP"
