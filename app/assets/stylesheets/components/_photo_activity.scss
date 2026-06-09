@@ -202,3 +202,93 @@
     font-size: 22px;
   }
 }
+
+/* Photo activity layout polish */
+
+.activity-show-page:not(.is-activity-started) .photo-main-card {
+  margin-bottom: calc(84px + env(safe-area-inset-bottom));
+}
+
+.activity-show-page:not(.is-activity-started) .photo-step-card {
+  padding: 12px;
+  border-radius: 20px;
+}
+
+.activity-show-page:not(.is-activity-started) .photo-step-card p {
+  font-size: 13px;
+  line-height: 1.32;
+}
+
+/* Running state */
+
+.activity-show-page.is-activity-started .photo-activity {
+  gap: 9px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.activity-show-page.is-activity-started .photo-main-card {
+  display: none;
+}
+
+.activity-show-page.is-activity-started .photo-panel {
+  padding: 16px;
+  border-radius: 24px;
+  min-height: 0;
+  margin-bottom: 0;
+}
+
+.activity-show-page.is-activity-started .photo-kicker {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+}
+
+.activity-show-page.is-activity-started .photo-runner-card,
+.activity-show-page.is-activity-started .photo-finished-card {
+  gap: 12px;
+}
+
+.activity-show-page.is-activity-started .photo-runner-card h2,
+.activity-show-page.is-activity-started .photo-finished-card h2 {
+  font-size: 24px;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+
+.activity-show-page.is-activity-started .photo-upload-placeholder {
+  padding: 12px;
+  gap: 12px;
+  border-radius: 20px;
+}
+
+.activity-show-page.is-activity-started .photo-upload-icon {
+  width: 48px;
+  height: 48px;
+  flex-basis: 48px;
+  border-radius: 18px;
+  font-size: 20px;
+}
+
+.activity-show-page.is-activity-started .photo-upload-placeholder strong {
+  font-size: 14px;
+}
+
+.activity-show-page.is-activity-started .photo-upload-placeholder p {
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+@media (max-height: 760px) {
+  .activity-show-page.is-activity-started .photo-panel {
+    padding: 14px;
+  }
+
+  .activity-show-page.is-activity-started .photo-runner-card h2,
+  .activity-show-page.is-activity-started .photo-finished-card h2 {
+    font-size: 22px;
+  }
+
+  .activity-show-page.is-activity-started .photo-upload-placeholder {
+    padding: 10px;
+  }
+}
