@@ -327,3 +327,136 @@
     min-height: 54px;
   }
 }
+
+/* Language activity layout polish */
+
+.activity-show-page.is-activity-started .language-activity {
+  gap: 9px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.activity-show-page.is-activity-started .language-status-panel {
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.activity-show-page.is-activity-started .language-status-item {
+  min-height: 52px;
+  padding: 9px 11px;
+  border-radius: 18px;
+}
+
+.activity-show-page.is-activity-started .language-status-item span {
+  font-size: 9px;
+  letter-spacing: 0.07em;
+}
+
+.activity-show-page.is-activity-started .language-status-item strong {
+  font-size: 15px;
+  line-height: 1.05;
+}
+
+.activity-show-page.is-activity-started .language-panel {
+  padding: 16px;
+  border-radius: 24px;
+  min-height: 0;
+  max-height: none;
+  overflow: visible;
+  margin-bottom: 0;
+}
+
+.activity-show-page.is-activity-started .language-main-card {
+  gap: 11px;
+}
+
+.activity-show-page.is-activity-started .language-kicker {
+  font-size: 10px;
+  letter-spacing: 0.07em;
+}
+
+/* Word learning */
+
+.activity-show-page.is-activity-started .language-word {
+  font-size: 30px;
+  line-height: 1;
+}
+
+.activity-show-page.is-activity-started .language-answer-box {
+  padding: 12px 14px;
+  border-radius: 18px;
+  font-size: 18px;
+  line-height: 1.15;
+}
+
+.activity-show-page.is-activity-started .language-translation {
+  font-size: 18px;
+  line-height: 1.18;
+}
+
+/* Internal language buttons remain hidden visually,
+   but their dimensions must not influence layout */
+
+.activity-show-page.is-activity-started .language-primary-button {
+  min-height: 46px;
+  border-radius: 18px;
+  font-size: 15px;
+}
+
+.activity-show-page.is-activity-started .language-secondary-button {
+  min-height: 46px;
+  border-radius: 18px;
+  font-size: 14px;
+}
+
+/* Sentence completion */
+
+.activity-show-page.is-activity-started .language-sentence-form {
+  gap: 10px;
+}
+
+.activity-show-page.is-activity-started .sentence-line {
+  padding: 12px 14px;
+  border-radius: 20px;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.activity-show-page.is-activity-started .sentence-gap-input {
+  padding: 1px 3px;
+  border-radius: 7px;
+}
+
+.activity-show-page.is-activity-started .sentence-feedback {
+  min-height: 0;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.activity-show-page.is-activity-started .sentence-revealed-answer {
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+/* Small screens */
+
+@media (max-height: 760px) {
+  .activity-show-page.is-activity-started .language-status-item {
+    min-height: 48px;
+    padding: 8px 10px;
+  }
+
+  .activity-show-page.is-activity-started .language-panel {
+    padding: 14px;
+  }
+
+  .activity-show-page.is-activity-started .language-word {
+    font-size: 28px;
+  }
+
+  .activity-show-page.is-activity-started .sentence-line {
+    padding: 11px 12px;
+    font-size: 17px;
+    line-height: 1.3;
+  }
+}

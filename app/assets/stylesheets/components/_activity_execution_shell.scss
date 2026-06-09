@@ -4,9 +4,18 @@
   --activity-text: #17362f;
   --activity-muted: rgba(23, 54, 47, 0.68);
   --activity-border: rgba(23, 54, 47, 0.12);
-  --activity-accent: #ff3b30;
-  --activity-accent-soft: rgba(255, 59, 48, 0.14);
+  --activity-accent: #7C63F2;
+  --activity-accent-soft: rgba(124, 99, 242, 0.18);
+  --activity-action: #7C63F2;
+  --activity-action-soft: rgba(124, 99, 242, 0.18);
   --activity-shadow: 0 22px 60px rgba(37, 24, 14, 0.14);
+
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+  box-sizing: border-box;
 
   min-height: 100svh;
   padding-bottom: calc(104px + env(safe-area-inset-bottom));
@@ -15,6 +24,11 @@
     radial-gradient(circle at 12% 4%, rgba(255, 59, 48, 0.18), transparent 34%),
     radial-gradient(circle at 88% 12%, rgba(71, 208, 176, 0.16), transparent 30%),
     linear-gradient(180deg, #fff8ef 0%, var(--activity-bg) 100%);
+}
+
+.activity-show-page.phone-page {
+  max-width: none;
+  margin: 0;
 }
 
 .activity-show-page .activity-sport {
@@ -55,19 +69,33 @@
 }
 
 .activity-show-sticky-topbar {
-  position: sticky;
-  top: 0;
+  position: relative;
+  top: auto;
   z-index: 50;
-  padding: 12px 16px 4px;
+  padding: 12px 16px 0;
   background: transparent;
+  background-image: none;
   backdrop-filter: none;
+  box-shadow: none;
+}
+
+.activity-show-page .activity-show-sticky-topbar .mood-topbar {
+  margin-bottom: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.activity-show-page .activity-show-sticky-topbar::before,
+.activity-show-page .activity-show-sticky-topbar::after {
+  display: none;
+  content: none;
 }
 
 .activity-show-content {
   width: 100%;
   max-width: 460px;
   margin: 0 auto;
-  padding: 10px 18px 28px;
+  padding: 8px 18px 28px;
 }
 
 .activity-show-header {
@@ -193,7 +221,7 @@
   border: 0;
   border-radius: 20px;
   color: #ffffff;
-  background: var(--activity-accent);
+  background: var(--activity-action);
   font-size: 0.98rem;
   font-weight: 950;
   box-shadow: 0 18px 34px rgba(23, 54, 47, 0.18);
@@ -215,7 +243,7 @@
   gap: 10px;
   width: 100%;
   max-width: 480px;
-  padding: 12px 16px calc(14px + env(safe-area-inset-bottom));
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
   transform: translateX(-50%);
   background: rgba(255, 248, 239, 0.9);
   border-top: 1px solid var(--activity-border);
@@ -250,7 +278,7 @@
   border: 0;
   border-radius: 18px;
   color: #ffffff;
-  background: var(--activity-accent);
+  background: var(--activity-action);
   font-size: 0.92rem;
   font-weight: 950;
   box-shadow: 0 12px 26px rgba(23, 54, 47, 0.16);
@@ -276,7 +304,7 @@
   border: 0;
   border-radius: 18px;
   color: #ffffff;
-  background: var(--activity-accent);
+  background: var(--activity-action);
   font-size: 0.92rem;
   font-weight: 950;
   box-shadow: 0 12px 26px rgba(23, 54, 47, 0.16);
@@ -316,6 +344,105 @@
 }
 
 /* Desktop */
+
+/* Compact running state */
+
+.activity-show-page.is-activity-started {
+  padding-bottom: 0;
+}
+
+.activity-show-page.is-activity-started .activity-show-content {
+  padding-bottom: calc(92px + env(safe-area-inset-bottom));
+}
+
+.activity-show-page.is-activity-started .activity-show-content {
+  background: transparent;
+  box-shadow: none;
+}
+
+.activity-show-page.is-activity-started .activity-show-content::before,
+.activity-show-page.is-activity-started .activity-show-content::after {
+  display: none;
+}
+
+.activity-show-page.is-activity-started .activity-show-header {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border-radius: 22px;
+}
+
+.activity-show-page.is-activity-started .activity-show-header-top {
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.activity-show-page.is-activity-started .activity-show-icon {
+  flex-basis: 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 16px;
+}
+
+.activity-show-page.is-activity-started .activity-show-icon-image {
+  width: 28px;
+  height: 28px;
+}
+
+.activity-show-page.is-activity-started .activity-show-fallback-icon {
+  font-size: 1.15rem;
+}
+
+.activity-show-page.is-activity-started .activity-show-interest,
+.activity-show-page.is-activity-started .activity-show-duration {
+  min-height: 26px;
+  padding: 6px 10px;
+  font-size: 0.7rem;
+}
+
+.activity-show-page.is-activity-started .activity-show-header h1 {
+  margin-bottom: 6px;
+  font-size: 1.35rem;
+  line-height: 0.98;
+}
+
+.activity-show-page.is-activity-started .activity-show-header p {
+  font-size: 0.82rem;
+  line-height: 1.28;
+}
+
+/* Bottom bar must stay compact */
+
+.activity-bottom-action {
+  flex-direction: row;
+  align-items: center;
+}
+
+.activity-bottom-action [hidden] {
+  display: none !important;
+}
+
+.activity-pause-button {
+  flex: 0 0 34%;
+}
+
+.activity-primary-action-button {
+  flex: 1 1 auto;
+}
+
+.activity-finish-action {
+  flex: 1 1 auto;
+}
+
+.activity-bottom-action .activity-stop-button,
+.activity-primary-action-button,
+.activity-pause-button,
+.activity-back-button {
+  min-height: 48px;
+}
+
+.activity-primary-action-button:disabled {
+  opacity: 0.38;
+}
 
 @media (min-width: 768px) {
   .activity-show-page {
