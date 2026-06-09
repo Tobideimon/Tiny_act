@@ -5,13 +5,14 @@ export default class extends Controller {
     "startScreen",
     "runner",
     "finished",
-    "launchButton",
-    "nextButton",
-    "finishButton",
+    "stepsData",
     "currentStepNumber",
     "totalSteps",
     "currentStepText",
-    "stepsData"
+    "cameraInput",
+    "previewWrapper",
+    "preview",
+    "nextButton"
   ]
 
   static values = {
@@ -19,113 +20,88 @@ export default class extends Controller {
   }
 
   connect() {
-    this.currentIndex = 0
-    this.steps = this.loadSteps()
+    this.steps = JSON.parse(this.stepsDataTarget.textContent)
+    this.currentStepIndex = 0
 
-    this.startScreenTarget.hidden = false
-    this.runnerTarget.hidden = true
-    this.finishedTarget.hidden = true
-
-    if (this.hasTotalStepsTarget) {
-      this.totalStepsTarget.textContent = this.steps.length
-    }
+    this.totalStepsTarget.textContent = this.steps.length
+    this.updateStep()
   }
 
   launch() {
-    if (this.steps.length === 0) return
-
-    this.currentIndex = 0
-
     this.startScreenTarget.hidden = true
     this.runnerTarget.hidden = false
     this.finishedTarget.hidden = true
 
-    this.showCurrentStep()
-  }
-
-  showCurrentStep() {
-    const currentStep = this.steps[this.currentIndex]
-
-    if (!currentStep) {
-      this.showFinishedScreen()
-      return
-    }
-
-    this.currentStepNumberTarget.textContent = this.currentIndex + 1
-    this.totalStepsTarget.textContent = this.steps.length
-    this.currentStepTextTarget.textContent = currentStep
-
-    this.nextButtonTarget.textContent = this.isLastStep() ? "Terminer le parcours" : "Étape suivante"
+    this.currentStepIndex = 0
+    this.updateStep()
   }
 
   nextStep() {
-    if (this.isLastStep()) {
-      this.showFinishedScreen()
+    this.currentStepIndex += 1
+    this.clearPhotoPreview()
+
+    if (this.currentStepIndex >= this.steps.length) {
+      this.showFinished()
       return
     }
 
-    this.currentIndex += 1
-    this.showCurrentStep()
+    this.updateStep()
   }
 
-  showFinishedScreen() {
+  showFinished() {
     this.startScreenTarget.hidden = true
     this.runnerTarget.hidden = true
     this.finishedTarget.hidden = false
+  }
 
-    this.element.dispatchEvent(
-      new CustomEvent("activity:finished", {
-        bubbles: true
-      })
-    )
+  updateStep() {
+    this.currentStepNumberTarget.textContent = this.currentStepIndex + 1
+    this.currentStepTextTarget.textContent = this.steps[this.currentStepIndex]
+
+    if (this.currentStepIndex === this.steps.length - 1) {
+      this.nextButtonTarget.textContent = "Voir le résultat"
+    } else {
+      this.nextButtonTarget.textContent = "Étape suivante"
+    }
+  }
+
+  openCamera() {
+    this.cameraInputTarget.click()
+  }
+
+  previewPhoto(event) {
+    const file = event.target.files[0]
+    if (!file) return
+
+    const imageUrl = URL.createObjectURL(file)
+
+    this.previewTarget.src = imageUrl
+    this.previewWrapperTarget.hidden = false
+  }
+
+  clearPhotoPreview() {
+    if (this.hasPreviewTarget) {
+      this.previewTarget.removeAttribute("src")
+    }
+
+    if (this.hasPreviewWrapperTarget) {
+      this.previewWrapperTarget.hidden = true
+    }
+
+    if (this.hasCameraInputTarget) {
+      this.cameraInputTarget.value = ""
+    }
   }
 
   finishActivity() {
-    if (!this.hasFinishUrlValue) return
-
-    if (this.hasFinishButtonTarget) {
-      this.finishButtonTarget.disabled = true
-      this.finishButtonTarget.textContent = "Validation..."
-    }
-
-    const form = document.createElement("form")
-    form.method = "post"
-    form.action = this.finishUrlValue
-    form.style.display = "none"
-
-    const methodInput = document.createElement("input")
-    methodInput.type = "hidden"
-    methodInput.name = "_method"
-    methodInput.value = "patch"
-
-    const csrfInput = document.createElement("input")
-    csrfInput.type = "hidden"
-    csrfInput.name = "authenticity_token"
-    csrfInput.value = this.csrfToken()
-
-    form.appendChild(methodInput)
-    form.appendChild(csrfInput)
-
-    document.body.appendChild(form)
-    form.submit()
-  }
-
-  isLastStep() {
-    return this.currentIndex >= this.steps.length - 1
-  }
-
-  loadSteps() {
-    if (!this.hasStepsDataTarget) return []
-
-    try {
-      return JSON.parse(this.stepsDataTarget.textContent)
-    } catch (_error) {
-      return []
-    }
-  }
-
-  csrfToken() {
-    const token = document.querySelector("meta[name='csrf-token']")
-    return token ? token.content : ""
+    fetch(this.finishUrlValue, {
+      method: "PATCH",
+      headers: {
+        "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content,
+        "Accept": "text/vnd.turbo-stream.html"
+      }
+    }).then(() => {
+      window.location.reload()
+    })
   }
 }

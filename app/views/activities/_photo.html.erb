@@ -70,21 +70,54 @@
 
     <h2 data-photo-activity-target="currentStepText"></h2>
 
-    <div class="photo-upload-placeholder">
-      <div class="photo-upload-icon">
+  <div class="photo-camera-zone">
+    <input
+      type="file"
+      accept="image/*"
+      capture="environment"
+      data-photo-activity-target="cameraInput"
+      data-action="change->photo-activity#previewPhoto"
+      hidden
+    >
+
+    <button
+      type="button"
+      class="photo-camera-button"
+      data-action="click->photo-activity#openCamera"
+    >
+      <span class="photo-camera-button-icon">
         <i class="fa-solid fa-camera"></i>
-      </div>
+      </span>
 
-      <div>
-        <strong>
-          Import photo bientôt disponible
-        </strong>
+      <span>
+        Prendre une photo
+      </span>
+    </button>
 
-        <p>
-          Pour l’instant, prends la photo avec ton téléphone puis continue l’activité.
-        </p>
-      </div>
+    <div
+      class="photo-preview-wrapper"
+      data-photo-activity-target="previewWrapper"
+      hidden
+    >
+      <img
+        class="photo-preview"
+        data-photo-activity-target="preview"
+        alt="Photo prise pendant l’activité"
+      >
+
+      <button
+        type="button"
+        class="photo-retake-button"
+        data-action="click->photo-activity#openCamera"
+      >
+        Reprendre la photo
+      </button>
     </div>
+
+    <p class="photo-camera-help">
+      Sur mobile, l’appareil photo s’ouvrira directement si ton navigateur le permet.
+    </p>
+  </div>
 
     <button
       type="button"
