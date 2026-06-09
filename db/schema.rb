@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_09_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_09_085625) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -126,6 +126,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_09_120000) do
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
+  end
+
+  create_table "melodies", force: :cascade do |t|
+    t.string "category", null: false
+    t.datetime "created_at", null: false
+    t.string "difficulty", null: false
+    t.string "family"
+    t.string "name", null: false
+    t.jsonb "notes", default: [], null: false
+    t.string "source"
+    t.string "topic"
+    t.datetime "updated_at", null: false
+    t.index ["difficulty"], name: "index_melodies_on_difficulty"
+    t.index ["family"], name: "index_melodies_on_family"
+    t.index ["name"], name: "index_melodies_on_name", unique: true
   end
 
   create_table "moods", force: :cascade do |t|

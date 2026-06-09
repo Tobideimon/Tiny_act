@@ -1,0 +1,59 @@
+<% if melody.blank? %>
+  <div class="activity-show-panel"><p>Aucune mélodie disponible pour le moment.</p></div>
+<% else %>
+  <div
+    class="melody"
+    data-controller="melody"
+    data-melody-notes-value="<%= melody[:notes].to_json %>"
+    data-melody-finish-url-value="<%= activity_session_path(@activity_session) %>"
+  >
+    <div class="melody-header">
+      <h2><%= melody[:name] %></h2>
+      <p class="melody-status" data-melody-target="status">Joue la note qui s'éclaire.</p>
+      <p class="melody-progress" data-melody-target="progress"></p>
+    </div>
+
+    <div class="melody-controls">
+      <div class="melody-instruments">
+        <% [["triangle", "Doux"], ["sawtooth", "Synthé"], ["square", "Rétro"], ["sine", "Pur"]].each_with_index do |(value, label), i| %>
+          <button type="button" class="melody-chip <%= "is-active" if i.zero? %>"
+                  data-instrument="<%= value %>"
+                  data-action="click->melody#selectInstrument">
+            <%= label %>
+          </button>
+        <% end %>
+      </div>
+      <label class="melody-volume">
+        🔊
+        <input type="range" min="0" max="100" value="80"
+               data-melody-target="volume"
+               data-action="input->melody#setVolume">
+      </label>
+    </div>
+
+    <div class="melody-piano">
+      <div class="melody-whites">
+        <% %w[C4 D4 E4 F4 G4 A4 B4 C5].each do |note| %>
+          <button type="button" class="melody-key melody-key--white"
+                  data-note="<%= note %>" data-melody-target="key"
+                  data-action="click->melody#playKey">
+            <span class="melody-key__label"><%= note %></span>
+          </button>
+        <% end %>
+      </div>
+      <% %w[C#4 D#4 F#4 G#4 A#4].each do |note| %>
+        <button type="button" class="melody-key melody-key--black"
+                data-note="<%= note %>" data-melody-target="key"
+                data-action="click->melody#playKey"></button>
+      <% end %>
+    </div>
+
+    <div class="melody-footer" data-melody-target="footer" hidden>
+      <p>🎉 Bravo, mélodie terminée !</p>
+      <button type="button" class="activity-stop-button"
+              data-action="click->melody#finish">
+        Terminer l'activité
+      </button>
+    </div>
+  </div>
+<% end %>

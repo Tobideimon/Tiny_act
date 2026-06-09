@@ -7,6 +7,8 @@ module ActivityLoaders
         CodeQuizLoader.new(activity: activity, activity_session: activity_session)
       elsif activity.language_activity?
         LanguageLoader.new(activity: activity, activity_session: activity_session)
+      elsif activity.activity_type == "melody"
+        MelodyLoader.new(activity: activity, activity_session: activity_session)
       else
         BaseLoader.new(activity: activity, activity_session: activity_session)
       end

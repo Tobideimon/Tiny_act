@@ -135,6 +135,9 @@
                  code_questions: @code_questions,
                  duration_seconds: @duration_seconds %>
 
+    <% elsif @activity.activity_type == "melody" %>
+      <%= render "melody", melody: @melody %>
+
     <% elsif @activity.interest.name == "Photo" %>
 
       <%= render "photo",
@@ -156,7 +159,7 @@
     <% end %>
   </main>
 
-  <% unless @activity.culture_activity? || @activity.code_quiz? || @activity.interest.name == "Dessin" %>
+  <% unless @activity.culture_activity? || @activity.code_quiz? || @activity.activity_type == "melody" || @activity.interest.name == "Dessin" %>
     <div
       class="activity-start-action"
       data-activity-start-target="startWrapper"
