@@ -211,6 +211,41 @@
   cursor: pointer;
 }
 
+.photo-download-button {
+  width: 100%;
+  min-height: 48px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  border-radius: 16px;
+  border: 1px solid rgba(190, 88, 140, 0.22);
+
+  color: #ffffff;
+  background: #be588c;
+
+  font-size: 14px;
+  line-height: 1.15;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.photo-download-button[hidden] {
+  display: none;
+}
+
+.photo-finished-preview-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.photo-finished-preview-wrapper[hidden] {
+  display: none;
+}
+
 .photo-camera-help {
   margin: 0;
 
