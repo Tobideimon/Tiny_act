@@ -43,7 +43,7 @@
   <% if show_global_profile_button %>
     <div class="top-profile-button">
       <%= link_to user_path, class: "profile-avatar" do %>
-        <%= image_tag "avatars/#{current_user.avatar || 'blueberry'}.png" %>
+        <%= image_tag "avatars/#{current_user.avatar.presence || 'avatar_01'}.png" %>
       <% end %>
     </div>
   <% end %>

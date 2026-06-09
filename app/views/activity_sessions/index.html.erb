@@ -1,39 +1,59 @@
 <div class="phone-page activity-history-page">
-  <header class="history-header">
-    <%= link_to user_path(current_user), class: "history-back-link" do %>
+  <header class="profile-header-bar profile-title-topbar history-title-topbar">
+    <%= link_to user_path, class: "profile-back-link", aria: { label: "Retour au profil" } do %>
       <i class="fa-solid fa-arrow-left"></i>
       <span>Profil</span>
     <% end %>
 
-    <h1>Historique</h1>
+    <div class="profile-page-heading">
+      <h1>Historique</h1>
+      <p>Tes activités</p>
+    </div>
+
+    <div class="profile-header-balancer" aria-hidden="true"></div>
   </header>
 
-  <% if @activity_sessions.any? %>
-    <div class="history-list">
-      <% @activity_sessions.each do |session| %>
-        <div class="history-card">
-          <div>
-            <p class="history-category">
-              <%= session.activity.interest.name %>
-            </p>
-            <p class="history-category">
-              <%= session.activity.name %>
-            </p>
-            <p class="history-date">
-              <%= l(session.updated_at, format: :short) %>
-            </p>
-          </div>
+  <main class="history-content">
+    <% if @activity_sessions.any? %>
+      <section class="history-summary-card">
+        <p class="history-kicker">Progression</p>
+        <h2><%= @activity_sessions.count %> activités terminées</h2>
+        <p>Retrouve ici les activités que tu as terminées et l’XP gagnée.</p>
+      </section>
 
-          <div class="history-xp">
-            +<%= session.awarded_xp %> XP
-          </div>
+      <section class="history-list">
+        <% @activity_sessions.each do |session| %>
+          <article class="history-card">
+            <div class="history-card-main">
+              <p class="history-category">
+                <%= session.activity.interest.name %>
+              </p>
+
+              <h2 class="history-title">
+                <%= session.activity.name %>
+              </h2>
+
+              <p class="history-date">
+                <i class="fa-regular fa-clock"></i>
+                <%= l(session.updated_at, format: :short) %>
+              </p>
+            </div>
+
+            <div class="history-xp">
+              +<%= session.awarded_xp %> XP
+            </div>
+          </article>
+        <% end %>
+      </section>
+    <% else %>
+      <section class="history-empty">
+        <div class="history-empty-icon">
+          <i class="fa-solid fa-clock-rotate-left"></i>
         </div>
-      <% end %>
-    </div>
-  <% else %>
-    <div class="history-empty">
-      <h2>Aucune activité terminée</h2>
-      <p>Termine une activité pour la voir apparaître ici.</p>
-    </div>
-  <% end %>
+
+        <h2>Aucune activité terminée</h2>
+        <p>Termine une activité pour la voir apparaître ici.</p>
+      </section>
+    <% end %>
+  </main>
 </div>
