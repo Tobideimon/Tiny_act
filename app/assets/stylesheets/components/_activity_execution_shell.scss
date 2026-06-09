@@ -68,6 +68,11 @@
   --activity-accent-soft: rgba(247, 184, 1, 0.18);
 }
 
+.activity-show-page .activity-music {
+  --activity-accent: #ff5fa2;
+  --activity-accent-soft: rgba(255, 95, 162, 0.17);
+}
+
 .activity-show-sticky-topbar {
   position: relative;
   top: auto;
@@ -317,7 +322,8 @@
   [data-sport-activity-target="launchButton"],
   [data-code-quiz-target="launchButton"],
   [data-photo-activity-target="launchButton"],
-  [data-productivite-activity-target="launchButton"] {
+  [data-productivite-activity-target="launchButton"],
+  [data-melody-target="launchButton"] {
     display: none !important;
   }
 }
@@ -331,6 +337,8 @@
 .activity-show-page .sport-launch-button,
 .activity-show-page .sport-next-button,
 .activity-show-page .sport-finish-button,
+.activity-show-page .melody-launch-button,
+.activity-show-page .melody-finish-button,
 .activity-show-page .language-activity .language-primary-button,
 .activity-show-page .culture-next-button,
 .activity-show-page [data-code-quiz-target="nextButton"] {
@@ -342,8 +350,6 @@
 .activity-show-page .drawing-activity-panel {
   padding-bottom: 20px;
 }
-
-/* Desktop */
 
 /* Compact running state */
 
@@ -443,6 +449,8 @@
 .activity-primary-action-button:disabled {
   opacity: 0.38;
 }
+
+/* Desktop */
 
 @media (min-width: 768px) {
   .activity-show-page {

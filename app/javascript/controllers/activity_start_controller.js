@@ -248,7 +248,8 @@ export default class extends Controller {
         "[data-sport-activity-target='launchButton']",
         "[data-code-quiz-target='launchButton']",
         "[data-photo-activity-target='launchButton']",
-        "[data-productivite-activity-target='launchButton']"
+        "[data-productivite-activity-target='launchButton']",
+        "[data-melody-target='launchButton']"
       ].join(",")
     )
   }
@@ -269,7 +270,7 @@ export default class extends Controller {
 
   scrollToPlayableArea() {
     const playableArea = this.element.querySelector(
-      ".culture-theme-list, .activity-show-panel, .drawing-activity-panel"
+      ".culture-theme-list, .activity-show-panel, .drawing-activity-panel, .melody"
     )
 
     if (!playableArea) return

@@ -22,6 +22,8 @@
     "activity-productivity"
   when "Code"
     "activity-code"
+  when "Musique", "Music"
+    "activity-music"
   else
     "activity-default"
   end
@@ -45,6 +47,9 @@
     "ecriture.png"
   when "Culture"
     "culture.png"
+  when "Musique", "Music"
+    "mascot/activities/musique.png"
+
   else
     nil
   end
@@ -159,7 +164,7 @@
     <% end %>
   </main>
 
-  <% unless @activity.culture_activity? || @activity.code_quiz? || @activity.activity_type == "melody" || @activity.interest.name == "Dessin" %>
+  <% unless @activity.culture_activity? || @activity.code_quiz? || @activity.interest.name == "Dessin" %>
     <div
       class="activity-start-action"
       data-activity-start-target="startWrapper"
