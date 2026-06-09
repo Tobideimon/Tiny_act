@@ -339,6 +339,8 @@
     Rake::Task["code_questions:import_csv"].invoke
   end
 
+  require_relative "seeds_melodies"
+
   puts "✅ Seed completed!"
 
   puts "#{User.count} users created"
