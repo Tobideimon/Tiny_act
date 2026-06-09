@@ -12,19 +12,25 @@ export default class extends Controller {
     "cameraInput",
     "previewWrapper",
     "preview",
+    "downloadLink",
+    "finishedPreviewWrapper",
+    "finishedPreview",
+    "finishedDownloadLink",
     "nextButton"
   ]
-
-  static values = {
-    finishUrl: String
-  }
 
   connect() {
     this.steps = JSON.parse(this.stepsDataTarget.textContent)
     this.currentStepIndex = 0
+    this.currentPhotoUrl = null
+    this.currentPhotoName = "tiny-act-photo.jpg"
 
     this.totalStepsTarget.textContent = this.steps.length
     this.updateStep()
+  }
+
+  disconnect() {
+    this.revokeCurrentPhotoUrl()
   }
 
   launch() {
@@ -37,13 +43,13 @@ export default class extends Controller {
   }
 
   nextStep() {
-    this.currentStepIndex += 1
-    this.clearPhotoPreview()
-
-    if (this.currentStepIndex >= this.steps.length) {
+    if (this.currentStepIndex >= this.steps.length - 1) {
       this.showFinished()
       return
     }
+
+    this.currentStepIndex += 1
+    this.clearPhotoPreview()
 
     this.updateStep()
   }
@@ -52,6 +58,11 @@ export default class extends Controller {
     this.startScreenTarget.hidden = true
     this.runnerTarget.hidden = true
     this.finishedTarget.hidden = false
+    this.renderFinishedPhoto()
+
+    this.element.dispatchEvent(
+      new CustomEvent("activity:finished", { bubbles: true })
+    )
   }
 
   updateStep() {
@@ -73,13 +84,19 @@ export default class extends Controller {
     const file = event.target.files[0]
     if (!file) return
 
-    const imageUrl = URL.createObjectURL(file)
+    this.revokeCurrentPhotoUrl()
 
-    this.previewTarget.src = imageUrl
+    this.currentPhotoUrl = URL.createObjectURL(file)
+    this.currentPhotoName = file.name || "tiny-act-photo.jpg"
+
+    this.previewTarget.src = this.currentPhotoUrl
     this.previewWrapperTarget.hidden = false
+    this.syncDownloadLink(this.downloadLinkTarget)
   }
 
   clearPhotoPreview() {
+    this.revokeCurrentPhotoUrl()
+
     if (this.hasPreviewTarget) {
       this.previewTarget.removeAttribute("src")
     }
@@ -88,20 +105,48 @@ export default class extends Controller {
       this.previewWrapperTarget.hidden = true
     }
 
+    if (this.hasDownloadLinkTarget) {
+      this.downloadLinkTarget.hidden = true
+      this.downloadLinkTarget.removeAttribute("href")
+    }
+
     if (this.hasCameraInputTarget) {
       this.cameraInputTarget.value = ""
     }
   }
 
-  finishActivity() {
-    fetch(this.finishUrlValue, {
-      method: "PATCH",
-      headers: {
-        "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content,
-        "Accept": "text/vnd.turbo-stream.html"
-      }
-    }).then(() => {
-      window.location.reload()
-    })
+  renderFinishedPhoto() {
+    if (!this.hasFinishedPreviewWrapperTarget) return
+
+    if (!this.currentPhotoUrl) {
+      this.finishedPreviewWrapperTarget.hidden = true
+      return
+    }
+
+    this.finishedPreviewTarget.src = this.currentPhotoUrl
+    this.finishedPreviewWrapperTarget.hidden = false
+    this.syncDownloadLink(this.finishedDownloadLinkTarget)
+  }
+
+  syncDownloadLink(link) {
+    if (!link || !this.currentPhotoUrl) return
+
+    link.href = this.currentPhotoUrl
+    link.download = this.downloadFilename()
+    link.hidden = false
+  }
+
+  downloadFilename() {
+    const extension = this.currentPhotoName.split(".").pop()
+    const safeExtension = extension && extension.length <= 5 ? extension : "jpg"
+
+    return `tiny-act-photo-${new Date().toISOString().slice(0, 10)}.${safeExtension}`
+  }
+
+  revokeCurrentPhotoUrl() {
+    if (!this.currentPhotoUrl) return
+
+    URL.revokeObjectURL(this.currentPhotoUrl)
+    this.currentPhotoUrl = null
   }
 }

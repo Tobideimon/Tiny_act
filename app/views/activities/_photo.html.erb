@@ -12,7 +12,6 @@
 <div
   class="photo-activity"
   data-controller="photo-activity"
-  data-photo-activity-finish-url-value="<%= activity_session_path(@activity_session) %>"
 >
   <div
     class="photo-panel photo-main-card"
@@ -112,6 +111,16 @@
       >
         Reprendre la photo
       </button>
+
+      <a
+        class="photo-download-button"
+        data-photo-activity-target="downloadLink"
+        download="tiny-act-photo.jpg"
+        hidden
+      >
+        <i class="fa-solid fa-download"></i>
+        Enregistrer la photo
+      </a>
     </div>
 
     <p class="photo-camera-help">
@@ -142,14 +151,27 @@
       Tu as pris le temps d’observer, de cadrer et de produire une image.
     </p>
 
-    <button
-      type="button"
-      class="primary-button photo-finish-button"
-      data-photo-activity-target="finishButton"
-      data-action="click->photo-activity#finishActivity"
+    <div
+      class="photo-finished-preview-wrapper"
+      data-photo-activity-target="finishedPreviewWrapper"
+      hidden
     >
-      Terminer
-    </button>
+      <img
+        class="photo-preview"
+        data-photo-activity-target="finishedPreview"
+        alt="Photo prise pendant l’activité"
+      >
+
+      <a
+        class="photo-download-button"
+        data-photo-activity-target="finishedDownloadLink"
+        download="tiny-act-photo.jpg"
+        hidden
+      >
+        <i class="fa-solid fa-download"></i>
+        Enregistrer la photo
+      </a>
+    </div>
   </div>
 
   <script type="application/json" data-photo-activity-target="stepsData">
