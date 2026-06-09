@@ -1,16 +1,119 @@
-<div class="activity-show-panel drawing-activity-panel">
-  <div class="drawing-instruction-card">
-    <h2>À toi de dessiner</h2>
+<div
+  class="drawing-activity"
+  data-controller="drawing-canvas"
+>
+  <div class="drawing-card drawing-main-card">
+    <div class="drawing-card-header">
+      <div>
+        <h2>À toi de dessiner</h2>
+        <p>Utilise ton doigt pour dessiner directement ici.</p>
+      </div>
 
-    <p class="activity-show-description">
-      <%= activity.content %>
-    </p>
+      <button
+        type="button"
+        class="drawing-expand-button"
+        data-drawing-canvas-target="expandButton"
+        data-action="click->drawing-canvas#toggleFullscreen"
+      >
+        ⛶ Agrandir
+      </button>
+    </div>
+
+    <div class="drawing-canvas-wrapper">
+      <canvas
+        class="drawing-canvas"
+        data-drawing-canvas-target="canvas"
+        data-action="
+          pointerdown->drawing-canvas#start
+          pointermove->drawing-canvas#move
+          pointerup->drawing-canvas#end
+          pointerleave->drawing-canvas#end
+          pointercancel->drawing-canvas#end
+        "
+      ></canvas>
+      <div
+        class="drawing-canvas-placeholder"
+        data-drawing-canvas-target="placeholder"
+      >
+        <span>☝️</span>
+        <p>Commence ton dessin ici</p>
+      </div>
+    </div>
+
+    <div class="drawing-toolbar">
+      <button
+        type="button"
+        class="drawing-tool-button"
+        data-action="click->drawing-canvas#undo"
+      >
+        ↶
+      </button>
+
+      <button
+        type="button"
+        class="drawing-tool-button"
+        data-action="click->drawing-canvas#redo"
+      >
+        ↷
+      </button>
+
+      <div class="drawing-toolbar-separator"></div>
+
+      <button type="button" class="drawing-color is-active" style="--drawing-color: #111827;" data-color="#111827" data-action="click->drawing-canvas#selectColor"></button>
+      <button type="button" class="drawing-color" style="--drawing-color: #ef4444;" data-color="#ef4444" data-action="click->drawing-canvas#selectColor"></button>
+      <button type="button" class="drawing-color" style="--drawing-color: #f59e0b;" data-color="#f59e0b" data-action="click->drawing-canvas#selectColor"></button>
+      <button type="button" class="drawing-color" style="--drawing-color: #22c55e;" data-color="#22c55e" data-action="click->drawing-canvas#selectColor"></button>
+      <button type="button" class="drawing-color" style="--drawing-color: #3b82f6;" data-color="#3b82f6" data-action="click->drawing-canvas#selectColor"></button>
+      <button type="button" class="drawing-color" style="--drawing-color: #7c3aed;" data-color="#7c3aed" data-action="click->drawing-canvas#selectColor"></button>
+
+      <div class="drawing-toolbar-separator"></div>
+
+      <button
+        type="button"
+        class="drawing-tool-button"
+        data-action="click->drawing-canvas#decreaseSize"
+      >
+        −
+      </button>
+
+      <span
+        class="drawing-size-indicator"
+        data-drawing-canvas-target="sizeIndicator"
+      >
+        4
+      </span>
+
+      <button
+        type="button"
+        class="drawing-tool-button"
+        data-action="click->drawing-canvas#increaseSize"
+      >
+        +
+      </button>
+
+      <button
+        type="button"
+        class="drawing-tool-button drawing-eraser-button"
+        data-action="click->drawing-canvas#toggleEraser"
+        data-drawing-canvas-target="eraserButton"
+      >
+        gomme
+      </button>
+      <button
+        type="button"
+        class="drawing-tool-button drawing-clear-button"
+        data-action="click->drawing-canvas#clearCanvas"
+      >
+        Effacer tout
+      </button>
+    </div>
   </div>
 
-  <div class="drawing-placeholder-card">
-    <p>
-      Pour l’instant, réalise ce dessin avec ton doigt sur l’écran ou sur le support de ton choix.
-    </p>
+  <div class="drawing-card drawing-tip-card">
+    <div>
+      <strong>💡 Conseil</strong>
+      <p>Prends ton temps : il n’y a pas de mauvais dessin, seulement ta créativité.</p>
+    </div>
   </div>
 
   <%= button_to "Finir l'activité",

@@ -359,69 +359,141 @@
   puts "#{Activity.where(activity_type: "culture_quiz", active: true).count} culture quiz activities created"
 
   puts "Creating furnitures..."
-
-
-
+##################CULTURE###################
   Furniture.create!(
-    name: "escalade",
-    image_url: "furnitures/Escalade.png",
-    interest: sport,
-    required_xp: 50,
+    name: "Livres",
+    image_url: "furnitures/books.png",
+    required_xp: 25,
+    width: 1,
+    height: 1,
+    interest: culture
+  )
+  Furniture.create!(
+    name: "Bibliothéque",
+    image_url: "furnitures/Biblio.png",
+    interest: culture ,
+    required_xp: 150,
     width: 2,
     height: 1
   )
-
-  Furniture.create!(
-    name: "orangechair",
-    image_url: "furnitures/chair.png",
-    interest: productivite,
-    required_xp: 5,
-    width: 1,
-    height: 1
+    Furniture.create!(
+    name: "Fossile",
+    image_url: "furnitures/Dino.png",
+    required_xp: 500,
+    width: 2,
+    height: 1,
+    interest: culture
   )
-
+##################SPORT###################
+  Furniture.create!(
+    name: "Tapis de sport",
+    image_url: "furnitures/sport_mat.png",
+    width: 2,
+    height: 1,
+    interest: sport,
+    required_xp: 25
+  )
   Furniture.create!(
     name: "Punching Ball",
     image_url: "furnitures/punching_ball.png",
     width: 1,
     height: 1,
     interest: sport,
-    required_xp: 30
+    required_xp: 150
   )
+  Furniture.create!(
+    name: "mur d'escalade",
+    image_url: "furnitures/Escalade.png",
+    interest: sport,
+    required_xp: 500,
+    width: 2,
+    height: 1
+  )
+##################PRODUCTIVITE###################
+  Furniture.create!(
+    name: "Chaise de salon",
+    image_url: "furnitures/chair.png",
+    interest: productivite,
+    required_xp: 25,
+    width: 1,
+    height: 1
+  )
+  Furniture.create!(
+    name: "Canapé",
+    image_url: "furnitures/Canap.png",
+    interest: productivite,
+    required_xp: 150,
+    width: 1,
+    height: 2
+  )
+##################BIENETRE###################
   Furniture.create!(
     name: "Pool",
     image_url: "furnitures/pool.png",
     width: 1,
     height: 1,
-    interest: productivite,
-    required_xp: 30
+    interest: wellbeing,
+    required_xp: 150
   )
-
-  Furniture.create!(
-    name: "Books",
-    image_url: "furnitures/books.png",
-    required_xp: 5,
-    width: 1,
-    height: 1,
-    interest: culture
-  )
-
-  Furniture.create!(
-    name: "Sport Mat",
-    image_url: "furnitures/sport_mat.png",
-    width: 2,
-    height: 1,
-    interest: sport,
-    required_xp: 5
-  )
-
   Furniture.create!(
     name: "Jasky",
     image_url: "furnitures/jasky.gif",
     width: 1,
     height: 1,
-    interest: culture,
-    required_xp: 30
+    interest: wellbeing,
+    required_xp: 500
+  )
+##################LANGUE###################
+  Furniture.create!(
+    name: "Sac de voyage",
+    image_url: "furnitures/Sacados.png",
+    width: 1,
+    height: 1,
+    interest: languages,
+    required_xp: 25
+  )
+  Furniture.create!(
+    name: "etagere à souvenir",
+    image_url: "furnitures/Travelshelf.png",
+    width: 1,
+    height: 1,
+    interest: languages,
+    required_xp: 150
+  )
+  Furniture.create!(
+    name: "Van",
+    image_url: "furnitures/Camping van.png",
+    width: 2,
+    height: 2,
+    interest: languages,
+    required_xp: 500
+  )
+##################CODE###################
+  Furniture.create!(
+    name: "Bureau",
+    image_url: "furnitures/Bureau.png",
+    width: 1,
+    height: 2,
+    interest: code,
+    required_xp: 150
+  )
+##################DESSIN###################
+  Furniture.create!(
+    name: "Chef d'oeuvre",
+    image_url: "furnitures/Joconde.png",
+    width: 2,
+    height: 1,
+    interest: drawing,
+    required_xp: 500
+  )
+##################PHOTO###################
+  Furniture.create!(
+    name: "Fond photo",
+    image_url: "furnitures/Fondphoto.png",
+    width: 2,
+    height: 1,
+    interest: photo_interest,
+    required_xp: 150
   )
 
   puts "#{Furniture.count} furnitures created!"
