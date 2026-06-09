@@ -51,6 +51,8 @@ export default class extends Controller {
     this.keyTargets.forEach((key) => key.classList.remove("melody-key-next"))
     if (this.hasStatusTarget) this.statusTarget.textContent = "Mélodie réussie !"
     if (this.hasFooterTarget) this.footerTarget.hidden = false
+    // Valide l'activité automatiquement après un court instant de succès → crédite l'XP
+    setTimeout(() => this.finish(), 1500)
   }
 
   finish() {
