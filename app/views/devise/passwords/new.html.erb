@@ -1,18 +1,79 @@
-<h2>Forgot your password?</h2>
+<div class="phone-page auth-page auth-password-page">
+  <header class="auth-topbar">
+    <%= link_to new_user_session_path, class: "auth-back-button", aria: { label: "Retour à la connexion" } do %>
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>Retour</span>
+    <% end %>
 
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
+    <div class="auth-brand-mini">
+      <%= image_tag "brand/tiny-act-logo.png",
+          class: "auth-brand-logo",
+          alt: "Tiny Act" %>
+    </div>
+  </header>
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-  </div>
+  <main class="auth-content">
+    <section class="auth-hero-card">
+      <div class="auth-hero-icon">
+        <i class="fa-solid fa-key"></i>
+      </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Send me password reset instructions" %>
-  </div>
-<% end %>
+      <div class="auth-hero-text">
+        <p class="auth-kicker">Accès au compte</p>
+        <h1>Mot de passe oublié</h1>
+        <p>Entre ton email et on t’enverra un lien pour réinitialiser ton mot de passe.</p>
+      </div>
+    </section>
 
-<%= render "devise/shared/links" %>
+    <section class="auth-form-card">
+      <div class="auth-form-heading">
+        <p class="auth-kicker">Réinitialisation</p>
+        <h2>Retrouver mon accès</h2>
+      </div>
+
+      <%= simple_form_for(resource,
+            as: resource_name,
+            url: password_path(resource_name),
+            html: {
+              method: :post,
+              class: "auth-form"
+            }) do |f| %>
+
+        <%= f.error_notification %>
+
+        <%= f.input :email,
+              label: "Email",
+              placeholder: "ton@email.com",
+              required: true,
+              autofocus: true,
+              input_html: {
+                autocomplete: "email",
+                class: "auth-input"
+              },
+              wrapper_html: { class: "auth-field" } %>
+
+        <%= f.button :submit,
+            "Recevoir le lien",
+            class: "auth-submit-button" %>
+      <% end %>
+    </section>
+
+    <section class="auth-secondary-card">
+      <p>Tu t’en souviens ?</p>
+
+      <%= link_to new_user_session_path, class: "auth-secondary-link" do %>
+        <span>Se connecter</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      <% end %>
+    </section>
+
+    <section class="auth-secondary-card">
+      <p>Pas encore de compte ?</p>
+
+      <%= link_to new_user_registration_path, class: "auth-secondary-link" do %>
+        <span>Créer mon profil</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      <% end %>
+    </section>
+  </main>
+</div>
