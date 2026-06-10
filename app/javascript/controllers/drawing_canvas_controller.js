@@ -7,7 +7,8 @@ export default class extends Controller {
     "sizeIndicator",
     "eraserButton",
     "expandButton",
-    "completeButton"
+    "completeButton",
+    "downloadLink"
   ]
 
   connect() {
@@ -19,6 +20,7 @@ export default class extends Controller {
     this.currentColor = "#111827"
     this.brushSize = 4
     this.isEraser = false
+    this.hasDrawn = false
 
     this.history = []
     this.redoStack = []
@@ -69,6 +71,7 @@ export default class extends Controller {
 
     this.dispatchActivityStartedOnce()
     this.hidePlaceholder()
+    this.hasDrawn = true
     this.drawing = true
 
     const point = this.point(event)
@@ -230,15 +233,17 @@ export default class extends Controller {
   }
 
   clearCanvas() {
-  const rect = this.canvas.getBoundingClientRect()
+    const rect = this.canvas.getBoundingClientRect()
 
-  this.ctx.clearRect(0, 0, rect.width, rect.height)
-  this.saveState()
+    this.ctx.clearRect(0, 0, rect.width, rect.height)
+    this.hasDrawn = false
+    this.saveState()
 
     if (this.hasPlaceholderTarget) {
       this.placeholderTarget.classList.remove("is-hidden")
-      }
+    }
   }
+
   toggleFullscreen() {
     const previous = this.canvas.toDataURL()
 
@@ -276,5 +281,36 @@ export default class extends Controller {
         bubbles: true
       })
     )
+  }
+
+    downloadDrawing(event) {
+    if (!this.hasDrawn) {
+      event.preventDefault()
+      return
+    }
+
+    const dataUrl = this.exportDrawingAsPng()
+
+    this.downloadLinkTarget.href = dataUrl
+    this.downloadLinkTarget.download = this.downloadFilename()
+  }
+
+  exportDrawingAsPng() {
+    const exportCanvas = document.createElement("canvas")
+    const exportCtx = exportCanvas.getContext("2d")
+
+    exportCanvas.width = this.canvas.width
+    exportCanvas.height = this.canvas.height
+
+    exportCtx.fillStyle = "#ffffff"
+    exportCtx.fillRect(0, 0, exportCanvas.width, exportCanvas.height)
+
+    exportCtx.drawImage(this.canvas, 0, 0)
+
+    return exportCanvas.toDataURL("image/png")
+  }
+
+  downloadFilename() {
+    return `tiny-act-dessin-${new Date().toISOString().slice(0, 10)}.png`
   }
 }
