@@ -1,17 +1,19 @@
 <div class="phone-page social-rooms-page">
-  <header class="social-rooms-header">
-    <%= link_to root_path, class: "social-back-link" do %>
+  <header class="profile-header-bar profile-title-topbar social-rooms-title-topbar">
+    <%= link_to root_path, class: "profile-back-link", aria: { label: "Retour" } do %>
       <i class="fa-solid fa-arrow-left"></i>
       <span>Retour</span>
     <% end %>
 
-    <div class="social-rooms-heading">
+    <div class="profile-page-heading">
+      <h1>Rooms</h1>
       <p>Galerie sociale</p>
-      <h1>Rooms populaires</h1>
     </div>
+
+    <div class="profile-header-balancer" aria-hidden="true"></div>
   </header>
 
-  <div class="social-rooms-list">
+  <main class="social-rooms-list">
     <% @rooms.each_with_index do |room, index| %>
       <% liked = current_user.room_likes.exists?(room: room) %>
 
@@ -78,5 +80,5 @@
         <% end %>
       </section>
     <% end %>
-  </div>
+  </main>
 </div>

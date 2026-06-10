@@ -1,18 +1,16 @@
 <div class="phone-page room-editor-page">
-  <header class="room-editor-header">
-    <%= render "activity_sessions/selection_topbar" %>
+  <header class="profile-header-bar profile-title-topbar room-editor-title-topbar">
+    <%= link_to user_path, class: "profile-back-link", aria: { label: "Retour au profil" } do %>
+      <i class="fa-solid fa-arrow-left"></i>
+      <span>Retour</span>
+    <% end %>
 
-    <div class="room-editor-page-title">
-      <%= link_to user_path, class: "room-editor-back", aria: { label: "Retour au profil" } do %>
-        <i class="fa-solid fa-arrow-left"></i>
-        <span>Profil</span>
-      <% end %>
-
-      <div class="room-editor-heading">
-        <p>Édition</p>
-        <h1>Ma room</h1>
-      </div>
+    <div class="profile-page-heading">
+      <h1>Room</h1>
+      <p>Ton espace personnel</p>
     </div>
+
+    <div class="profile-header-balancer" aria-hidden="true"></div>
   </header>
 
   <main class="room-editor-content">

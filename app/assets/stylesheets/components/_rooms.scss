@@ -76,13 +76,12 @@
 ========================= */
 
 .phone-page.room-editor-page {
+  width: 100%;
+  max-width: none;
   height: 100dvh;
   min-height: 100dvh;
 
-  padding-top: 30px;
-  padding-right: 18px;
-  padding-bottom: 0;
-  padding-left: 18px;
+  padding: 0 12px;
 
   display: flex;
   flex-direction: column;
@@ -90,99 +89,25 @@
   overflow: hidden;
 }
 
-/* Header */
-
-.room-editor-header {
+.room-editor-title-topbar {
   flex: 0 0 auto;
-
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-
-  margin-bottom: 16px;
 }
 
-.room-editor-header .mood-topbar {
-  margin-bottom: 0;
-}
-
-.room-editor-page-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-}
-
-.room-editor-back {
-  min-height: 44px;
-  padding: 0 14px;
-
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-
-  border-radius: 999px;
-
-  color: $ta-ink;
-  background: rgba(255, 255, 255, 0.72);
-  border: 2px solid rgba(21, 27, 47, 0.08);
-
-  text-decoration: none;
-
-  box-shadow:
-    0 10px 20px rgba(21, 27, 47, 0.06),
-    0 4px 10px rgba(21, 27, 47, 0.03);
-
-  font-size: 14px;
-  line-height: 1;
-  font-weight: 850;
-}
-
-.room-editor-back i {
-  font-size: 14px;
-}
-
-.room-editor-heading {
-  min-width: 0;
-
-  text-align: right;
-}
-
-.room-editor-heading p {
-  margin: 0 0 4px;
-
-  color: $ta-ink-light;
-
-  font-size: 10px;
-  line-height: 1;
-  font-weight: 850;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.room-editor-heading h1 {
-  margin: 0;
-
-  color: $ta-ink;
-
-  font-size: 24px;
-  line-height: 1;
-  font-weight: 900;
-  letter-spacing: -0.055em;
-}
 
 /* Content */
 
 .room-editor-content {
-  flex: 1;
+  width: 100%;
+  flex: 1 1 auto;
   min-height: 0;
 
   overflow-y: auto;
   overflow-x: hidden;
 
-  padding-bottom: 110px;
+  padding: 14px 0 110px;
 
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   scrollbar-width: none;
 }
 
@@ -559,112 +484,7 @@
    RESPONSIVE
 ========================= */
 
-@media (max-height: 760px) {
-  .phone-page.room-editor-page {
-    padding-top: 24px;
-  }
-
-  .room-editor-header {
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-
-  .room-editor-intro-card {
-    padding: 14px 16px;
-    margin-bottom: 12px;
-  }
-
-  .room-editor-intro-card h2 {
-    font-size: 23px;
-  }
-
-  .room-editor-room-shell {
-    height: 276px;
-  }
-
-  .room-editor-room-shell .room-wrapper {
-    height: 276px;
-  }
-
-  .room-editor-room-shell .profile-room {
-    margin-top: 16px;
-    transform: scale(0.46);
-  }
-
-  .room-editor-hint {
-    font-size: 12px;
-  }
-
-  .room-editor-inventory {
-    bottom: calc(14px + env(safe-area-inset-bottom));
-  }
-
-  .room-editor-inventory-toggle {
-    min-height: 60px;
-    padding: 8px 10px;
-  }
-
-  .room-editor-inventory-toggle-icon {
-    width: 40px;
-    height: 40px;
-
-    font-size: 17px;
-  }
-
-  .room-editor-inventory-toggle-label {
-    font-size: 17px;
-  }
-
-  .room-editor-inventory-panel {
-    bottom: 78px;
-    max-height: 56dvh;
-  }
-}
-
-@media (max-width: 360px) {
-  .room-editor-heading h1 {
-    font-size: 22px;
-  }
-
-  .room-editor-room-shell {
-    height: 252px;
-  }
-
-  .room-editor-room-shell .room-wrapper {
-    height: 252px;
-  }
-
-  .room-editor-room-shell .profile-room {
-    margin-top: 14px;
-    transform: scale(0.4);
-  }
-
-  .room-editor-inventory-grid {
-    gap: 10px;
-  }
-
-  .room-editor-inventory-item {
-    padding: 10px;
-  }
-
-  .room-editor-inventory-image-frame {
-    height: 72px;
-  }
-
-  .room-editor-inventory-image {
-    width: 60px;
-    height: 60px;
-  }
-
-  .room-editor-inventory-name {
-    font-size: 12px;
-  }
-}
-
 @media (min-width: 768px) {
-  .phone-page.room-editor-page {
-    max-width: 760px;
-  }
 
   .room-editor-content {
     padding-bottom: 126px;
