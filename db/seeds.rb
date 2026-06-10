@@ -46,7 +46,95 @@
   code           = Interest.create!(name: "Code")
   musique        = Interest.create!(name: "Musique")
 
+ puts "🌍 Creating language activities..."
 
+  Activity.create!(
+    name: "Apprendre quelques mots",
+    content: "Découvre des mots simples dans une langue choisie au hasard. Lis-les, répète-les, puis essaie de retenir leur traduction.",
+    mood: a_plat,
+    location: anywhere,
+    duration: five_minutes,
+    interest: languages,
+    activity_type: "word_learning",
+    active: true
+  )
+
+  Activity.create!(
+    name: "Apprendre quelques mots",
+    content: "Prends un moment calme pour apprendre plusieurs mots dans une langue choisie au hasard.",
+    mood: a_plat,
+    location: anywhere,
+    duration: fifteen_minutes,
+    interest: languages,
+    activity_type: "word_learning",
+    active: true
+  )
+
+  Activity.create!(
+    name: "Apprendre quelques mots",
+    content: "Découvre quelques mots simples dans une langue choisie au hasard.",
+    mood: mitige,
+    location: anywhere,
+    duration: five_minutes,
+    interest: languages,
+    activity_type: "word_learning",
+    active: true
+  )
+
+  Activity.create!(
+    name: "Compléter des phrases",
+    content: "Complète des phrases simples avec le bon mot dans une langue choisie au hasard.",
+    mood: mitige,
+    location: anywhere,
+    duration: fifteen_minutes,
+    interest: languages,
+    activity_type: "sentence_completion",
+    active: true
+  )
+
+  Activity.create!(
+    name: "Compléter des phrases",
+    content: "Prends le temps de compléter plusieurs phrases simples avec les bons mots.",
+    mood: mitige,
+    location: anywhere,
+    duration: thirty_minutes,
+    interest: languages,
+    activity_type: "sentence_completion",
+    active: true
+  )
+
+  Activity.create!(
+    name: "Dialogue guidé",
+    content: "Pratique une courte conversation dans une langue choisie au hasard.",
+    mood: en_forme,
+    location: anywhere,
+    duration: five_minutes,
+    interest: languages,
+    activity_type: "llm_chat",
+    active: false
+  )
+
+  Activity.create!(
+    name: "Dialogue guidé",
+    content: "Pratique une conversation simple avec un assistant dans une langue choisie au hasard.",
+    mood: en_forme,
+    location: anywhere,
+    duration: fifteen_minutes,
+    interest: languages,
+    activity_type: "llm_chat",
+    active: false
+  )
+
+  Activity.create!(
+    name: "Dialogue guidé",
+    content: "Lance une conversation plus longue pour pratiquer une langue avec un assistant.",
+    mood: en_forme,
+    location: anywhere,
+    duration: thirty_minutes,
+    interest: languages,
+    activity_type: "llm_chat",
+    active: false
+  )
 
   puts "🧠 Creating culture quiz activities..."
 
