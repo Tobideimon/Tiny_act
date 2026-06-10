@@ -257,9 +257,9 @@
 /* Room pleine largeur */
 
 .room-editor-room-shell {
-  height: 304px;
+  height: 500px;
 
-  margin-right: -18px;
+  margin-right: -8px;
   margin-left: -18px;
 
   overflow: hidden;
@@ -268,8 +268,8 @@
   border-bottom: 2px solid rgba(21, 27, 47, 0.08);
 
   background:
-    radial-gradient(circle at top left, rgba(124, 99, 242, 0.08) 0, transparent 36%),
-    rgba(255, 255, 255, 0.78);
+    radial-gradient(circle at top left, rgba(255, 255, 255, 1) 0, transparent 100%),
+    rgba(255, 255, 255, 1);
 
   display: flex;
   align-items: flex-start;
@@ -281,14 +281,14 @@
 }
 
 .room-editor-room-shell .room-wrapper {
-  height: 304px;
+  height: 500px;
   align-items: flex-start;
 }
 
 .room-editor-room-shell .profile-room {
-  margin-top: 20px;
+  margin-top: 60px;
 
-  transform: scale(0.5);
+  transform: scale(0.8);
   transform-origin: top center;
 }
 
