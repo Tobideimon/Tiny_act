@@ -51,7 +51,6 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    <%= render "shared/ios_pwa_links" %>
   </head>
 
   <body>
@@ -68,7 +67,6 @@
       </div>
     <% end %>
 
-    <%= render "shared/flashes" %>
 
     <%= yield %>
   </body>
