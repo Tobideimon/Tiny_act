@@ -336,6 +336,30 @@
   display: none;
 }
 
+
+.drawing-save-button {
+  width: auto;
+  padding: 0 14px;
+  border-radius: 18px;
+  white-space: nowrap;
+  text-decoration: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #7c3aed;
+  color: #ffffff;
+}
+
+.activity-show-page.is-activity-started .drawing-save-button {
+  width: auto;
+  min-width: 92px;
+  padding: 0 11px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+
 /* Smaller screens */
 
 @media (max-height: 760px) {
